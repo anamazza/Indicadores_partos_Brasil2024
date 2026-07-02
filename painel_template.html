@@ -1,0 +1,1575 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Indicadores Obstétricos 2024 · Estabelecimentos com mais de 1.000 partos</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --verde-lima:#7CB342;
+  --verde-claro:#8FBC4E;
+  --verde-fiocruz:#00A651;
+  --verde-esmeralda:#0E7A56;
+  --verde-profundo:#0A5C42;
+  --indigo:#2B2A6E;
+  --indigo-escuro:#221F55;
+  --mint:#EDF6EF;
+  --mint-card:#F6FBF7;
+  --branco:#FFFFFF;
+  --texto:#1D3229;
+  --texto-suave:#4E6A5C;
+  --alerta:#C0392B;
+  --ambar:#D68910;
+  --borda:#D8E8DC;
+  --sombra:0 2px 12px rgba(14,122,86,.10);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:var(--mint);color:var(--texto);font-size:14px;line-height:1.5}
+h1,h2,h3,.display{font-family:'Archivo',sans-serif}
+
+/* ===== Cabeçalho gradiente (capa RIPSA) ===== */
+header{
+  background:linear-gradient(135deg,var(--verde-lima) 0%,var(--verde-fiocruz) 45%,var(--verde-esmeralda) 100%);
+  color:var(--branco);position:relative;overflow:hidden;
+  padding:34px 24px 56px;
+}
+header::after{
+  content:'';position:absolute;left:0;right:0;bottom:-2px;height:42px;
+  background:var(--indigo);
+  clip-path:ellipse(75% 100% at 30% 100%);
+}
+.hex-bg{position:absolute;right:-40px;top:-40px;width:340px;height:340px;opacity:.14;pointer-events:none}
+.header-inner{max-width:1240px;margin:0 auto;position:relative;z-index:2}
+.eyebrow{display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);
+  padding:4px 14px;border-radius:20px;font-size:11px;letter-spacing:1.6px;text-transform:uppercase;font-weight:600;margin-bottom:14px}
+header h1{font-size:clamp(22px,4vw,34px);font-weight:800;line-height:1.15;max-width:820px}
+header h1 span{font-weight:500;opacity:.92}
+.header-sub{margin-top:10px;font-size:13px;opacity:.92;max-width:760px}
+.fonte-tag{position:absolute;right:0;top:0;background:var(--branco);color:var(--verde-fiocruz);
+  font-family:'Archivo';font-weight:800;font-size:13px;padding:8px 16px;border-radius:0 0 0 14px}
+
+/* ===== Layout ===== */
+.wrap{max-width:1240px;margin:0 auto;padding:0 20px 60px}
+
+/* Filtros */
+.filtros{
+  background:var(--branco);border-radius:14px;box-shadow:var(--sombra);
+  padding:18px 20px;margin-top:-26px;position:relative;z-index:5;
+  display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;border-top:4px solid var(--verde-fiocruz)
+}
+.campo{display:flex;flex-direction:column;gap:5px;flex:1;min-width:150px}
+.campo label{font-size:10.5px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--verde-profundo)}
+.campo select,.campo input{
+  border:1.5px solid var(--borda);border-radius:9px;padding:9px 11px;font-family:'Inter';font-size:13px;
+  background:var(--mint-card);color:var(--texto);outline:none;width:100%
+}
+.campo select:focus,.campo input:focus{border-color:var(--verde-fiocruz)}
+.btns{display:flex;gap:8px}
+button.acao{
+  border:none;border-radius:9px;padding:10px 16px;font-family:'Archivo';font-weight:700;font-size:12.5px;
+  cursor:pointer;display:flex;align-items:center;gap:6px;transition:filter .15s
+}
+button.acao:hover{filter:brightness(1.08)}
+.btn-xlsx{background:var(--verde-fiocruz);color:#fff}
+.btn-pdf{background:var(--indigo);color:#fff}
+.btn-limpar{background:var(--mint);color:var(--verde-profundo);border:1.5px solid var(--borda)}
+
+/* KPIs */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(158px,1fr));gap:14px;margin-top:22px}
+.kpi{background:var(--branco);border-radius:14px;padding:16px 16px 14px;box-shadow:var(--sombra);position:relative;overflow:hidden}
+.kpi::before{content:'';position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--verde-fiocruz)}
+.kpi.k-indigo::before{background:var(--indigo)}
+.kpi.k-lima::before{background:var(--verde-lima)}
+.kpi.k-alerta::before{background:var(--alerta)}
+.kpi .valor{font-family:'Archivo';font-size:clamp(20px,2.6vw,27px);font-weight:800;color:var(--verde-profundo)}
+.kpi.k-indigo .valor{color:var(--indigo)}
+.kpi.k-alerta .valor{color:var(--alerta)}
+.kpi .rotulo{font-size:11px;color:var(--texto-suave);font-weight:600;margin-top:3px;line-height:1.3}
+
+/* Seções e cards de gráfico */
+.secao-titulo{margin:30px 0 14px;display:flex;align-items:center;gap:12px}
+.secao-titulo h2{font-size:17px;font-weight:800;color:var(--verde-profundo)}
+.secao-titulo::after{content:'';flex:1;height:2px;background:linear-gradient(90deg,var(--verde-fiocruz),transparent)}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:820px){.grid-2{grid-template-columns:1fr}}
+.card{background:var(--branco);border-radius:14px;box-shadow:var(--sombra);padding:18px}
+.card h3{font-size:13.5px;font-weight:700;color:var(--texto);margin-bottom:2px}
+.card .sub{font-size:11.5px;color:var(--texto-suave);margin-bottom:12px}
+.card-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.png-mini{border:1.5px solid var(--verde-fiocruz);background:var(--branco);color:var(--verde-fiocruz);
+  border-radius:8px;padding:5px 10px;font-family:'Archivo';font-weight:700;font-size:11px;cursor:pointer;flex-shrink:0;white-space:nowrap}
+.png-mini:hover{background:var(--verde-fiocruz);color:#fff}
+.ctx-linha{font-size:11px;color:var(--indigo);font-weight:700;margin:2px 0 10px}
+.chart-box{position:relative;height:300px}
+.chart-box.alto{height:380px}
+
+/* Tabela */
+.tabela-card{background:var(--branco);border-radius:14px;box-shadow:var(--sombra);padding:18px;overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:12.5px;min-width:860px}
+thead th{
+  background:var(--verde-esmeralda);color:#fff;font-family:'Archivo';font-weight:700;font-size:11px;
+  text-transform:uppercase;letter-spacing:.5px;padding:10px 9px;text-align:left;cursor:pointer;user-select:none;white-space:nowrap
+}
+thead th:hover{background:var(--verde-profundo)}
+tbody td{padding:8px 9px;border-bottom:1px solid var(--mint)}
+tbody tr:hover{background:var(--mint-card)}
+td.num{text-align:right;font-variant-numeric:tabular-nums}
+.badge{display:inline-block;padding:2px 9px;border-radius:12px;font-size:10.5px;font-weight:700}
+.b-ok{background:#E3F4E8;color:var(--verde-profundo)}
+.b-ruim{background:#FBE9E7;color:var(--alerta)}
+.b-selo{background:var(--indigo);color:#fff}
+.contagem{font-size:12px;color:var(--texto-suave);margin:8px 2px}
+
+/* Mapa do Brasil */
+.mapa-wrap{display:flex;gap:18px;flex-wrap:wrap;align-items:stretch}
+.mapa-svg-card{min-width:0}
+.mapa-lateral{flex:0 1 280px;min-width:240px;display:flex;flex-direction:column;gap:14px}
+.metricas{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.chip{background:var(--mint);border:1.5px solid var(--borda);color:var(--verde-profundo);
+  padding:7px 13px;border-radius:20px;cursor:pointer;font-size:12px;font-weight:600;font-family:'Inter'}
+.chip:hover{border-color:var(--verde-fiocruz)}
+.chip.ativo{background:var(--verde-fiocruz);color:#fff;border-color:var(--verde-fiocruz)}
+.chip-eixo{border-color:#C9C8E0;color:var(--indigo)}
+.chip-eixo.ativo{background:var(--indigo);border-color:var(--indigo);color:#fff}
+.mapa-controles{background:var(--mint-card);border:1.5px solid var(--borda);border-radius:12px;
+  padding:4px 14px 12px;margin-bottom:14px}
+.ctrl-grupo{padding-top:10px;margin-top:8px;border-top:1px dashed var(--borda)}
+.ctrl-grupo:first-child{border-top:none;margin-top:0}
+.ctrl-label{display:block;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
+  color:var(--verde-profundo);margin-bottom:7px}
+.ctrl-grupo .metricas{margin-bottom:0}
+#mapaSvg{width:100%;height:auto;display:block;touch-action:manipulation;-webkit-tap-highlight-color:transparent;user-select:none}
+#mapaSvg .uf-path{cursor:pointer}
+@media(hover:hover){#mapaSvg .uf-path:hover{opacity:.82}}
+#mapaSvg .uf-hit{cursor:pointer}
+#mapaSvg .uf-path:focus{outline:none;stroke:var(--indigo);stroke-width:2.4}
+.legenda-card{background:var(--mint-card);border:1.5px solid var(--borda);border-radius:12px;padding:14px}
+.legenda-card .titulo{font-family:'Archivo';font-weight:700;font-size:12.5px;color:var(--verde-profundo);margin-bottom:8px}
+.legrow{display:flex;align-items:center;gap:8px;font-size:12px;margin:4px 0;color:var(--texto-suave)}
+.legsw{width:20px;height:14px;border-radius:3px;border:1px solid rgba(0,0,0,.12);flex-shrink:0}
+.info-uf{background:var(--branco);border:1.5px solid var(--borda);border-radius:12px;padding:14px;font-size:13px;min-height:120px}
+.info-uf .nome-uf{font-family:'Archivo';font-weight:800;font-size:15px;color:var(--verde-profundo);margin-bottom:6px}
+.info-uf .linha{display:flex;justify-content:space-between;margin:3px 0;color:var(--texto-suave)}
+.info-uf .linha b{color:var(--texto);font-variant-numeric:tabular-nums}
+.info-uf .vazio{color:var(--texto-suave);font-size:12px}
+.mapa-nota{font-size:11px;color:var(--texto-suave);line-height:1.5}
+.btn-png{background:var(--branco);color:var(--verde-fiocruz);border:1.5px solid var(--verde-fiocruz);
+  border-radius:9px;padding:8px 14px;font-family:'Archivo';font-weight:700;font-size:12px;cursor:pointer}
+.btn-png:hover{background:var(--verde-fiocruz);color:#fff}
+.uf-selecionada{stroke:#221F55 !important;stroke-width:2.6 !important}
+
+
+/* Barra de resumo dos filtros ativos (sticky) */
+.resumo-bar{position:sticky;top:0;z-index:60;background:var(--branco);border-bottom:1.5px solid var(--borda);
+  padding:8px 14px;display:none;align-items:center;gap:8px;overflow-x:auto;white-space:nowrap;
+  box-shadow:0 2px 8px rgba(14,122,86,.08)}
+.resumo-bar.ativa{display:flex}
+.resumo-bar .rchip{display:inline-flex;align-items:center;gap:6px;background:var(--mint);border:1.5px solid var(--borda);
+  color:var(--verde-profundo);font-size:12px;font-weight:600;padding:4px 10px;border-radius:16px;flex-shrink:0}
+.resumo-bar .rchip button{border:none;background:var(--verde-fiocruz);color:#fff;width:16px;height:16px;border-radius:50%;
+  font-size:11px;line-height:1;cursor:pointer;padding:0}
+.resumo-bar .rlimpar{border:none;background:none;color:var(--indigo);font-weight:700;font-size:12px;cursor:pointer;flex-shrink:0}
+
+/* Botão flutuante de filtros (mobile) */
+.fab-filtros{position:fixed;right:16px;bottom:18px;z-index:80;display:none;align-items:center;gap:8px;
+  background:var(--verde-fiocruz);color:#fff;border:none;border-radius:28px;padding:13px 20px;
+  font-family:'Archivo';font-weight:800;font-size:14px;box-shadow:0 4px 16px rgba(10,92,66,.35);cursor:pointer}
+.fab-filtros .badge-n{background:#fff;color:var(--verde-fiocruz);border-radius:50%;min-width:20px;height:20px;
+  display:inline-flex;align-items:center;justify-content:center;font-size:12px;padding:0 4px}
+
+/* Bottom sheet */
+.sheet-scrim{position:fixed;inset:0;background:rgba(29,50,41,.45);z-index:90;opacity:0;pointer-events:none;transition:opacity .25s}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:95;background:var(--branco);border-radius:18px 18px 0 0;
+  transform:translateY(105%);transition:transform .3s ease;max-height:82vh;display:flex;flex-direction:column;
+  box-shadow:0 -6px 30px rgba(10,92,66,.25)}
+body.sheet-aberta .sheet{transform:translateY(0)}
+body.sheet-aberta .sheet-scrim{opacity:1;pointer-events:auto}
+.sheet-cabo{width:44px;height:5px;border-radius:3px;background:var(--borda);margin:10px auto 4px}
+.sheet-titulo{display:flex;justify-content:space-between;align-items:center;padding:6px 18px 10px;
+  border-bottom:1.5px solid var(--borda)}
+.sheet-titulo h3{font-size:15px;font-weight:800;color:var(--verde-profundo)}
+.sheet-fechar{border:none;background:var(--mint);color:var(--verde-profundo);width:30px;height:30px;border-radius:50%;
+  font-size:16px;cursor:pointer}
+.sheet-corpo{overflow-y:auto;padding:14px 18px 20px}
+.sheet-corpo .filtros{margin-top:0;box-shadow:none;border:none;padding:0;border-top:none}
+.sheet-rodape{padding:12px 18px calc(12px + env(safe-area-inset-bottom));border-top:1.5px solid var(--borda);
+  display:flex;gap:10px}
+.sheet-rodape .acao{flex:1;justify-content:center}
+
+/* Trilho lateral de eixo/indicador */
+.mapa-esquerda{flex:1 1 620px;min-width:280px;display:grid;grid-template-columns:158px 1fr;gap:14px;align-items:start}
+.mapa-rail{display:flex;flex-direction:column;gap:14px}
+.rail-grupo{background:var(--mint-card);border:1.5px solid var(--borda);border-radius:12px;padding:10px}
+.rail-chips .chip{display:block;width:100%;text-align:left;margin-bottom:6px;white-space:normal;line-height:1.25}
+.rail-chips .chip:last-child{margin-bottom:0}
+#mapaSvg{max-width:540px;margin:0 auto}
+@media(max-width:520px){
+  .mapa-esquerda{grid-template-columns:118px 1fr;gap:8px}
+  .rail-grupo{padding:7px}
+  .rail-chips .chip{font-size:10.5px;padding:6px 8px}
+}
+
+.mapa-selects{display:flex;flex-wrap:wrap;gap:12px;padding:12px 14px}
+.mapa-selects .campo{flex:1;min-width:140px}
+.mapa-selects select:disabled{opacity:.55}
+
+@media(max-width:900px){
+  .fab-filtros{display:flex}
+  .filtros-topo-oculta{display:none !important}
+  .ctrl-grupo .metricas{flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch}
+  .ctrl-grupo .metricas .chip{flex-shrink:0}
+}
+
+/* Selo: rosca + estágios */
+.selo-grid{display:grid;grid-template-columns:230px 1fr;gap:24px;align-items:center}
+@media(max-width:640px){.selo-grid{grid-template-columns:1fr}}
+.selo-donut{position:relative;height:210px}
+.donut-centro{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none}
+.donut-centro .pct{font-family:'Archivo';font-weight:800;font-size:30px;color:var(--indigo);line-height:1}
+.donut-centro .leg{font-size:11px;color:var(--texto-suave);margin-top:3px;text-align:center}
+.estagio-row{display:grid;grid-template-columns:170px 1fr 84px;gap:10px;align-items:center;
+  padding:8px 10px;border-radius:10px;cursor:pointer;border:2px solid transparent;margin-bottom:6px}
+.estagio-row:hover{background:var(--mint-card)}
+.estagio-row.ativo{border-color:var(--indigo);background:var(--mint-card)}
+.estagio-nome{font-size:12.5px;font-weight:700;color:var(--texto)}
+.estagio-nome small{display:block;font-weight:500;color:var(--texto-suave);font-size:10.5px}
+.estagio-trilho{background:var(--mint);border-radius:8px;height:20px;overflow:hidden}
+.estagio-barra{height:100%;border-radius:8px;min-width:2px}
+.estagio-num{font-size:12px;font-weight:700;text-align:right;font-variant-numeric:tabular-nums;color:var(--texto)}
+.estagio-num small{color:var(--texto-suave);font-weight:600}
+@media(max-width:520px){.estagio-row{grid-template-columns:120px 1fr 72px}.estagio-nome{font-size:11.5px}}
+
+/* Matriz semáforo */
+.matriz-scroll{overflow-x:auto}
+table.matriz{width:100%;border-collapse:collapse;font-size:12px;min-width:980px}
+.matriz thead th{background:var(--verde-esmeralda);color:#fff;font-family:'Archivo';font-weight:700;
+  font-size:10px;text-transform:uppercase;letter-spacing:.4px;padding:9px 7px;cursor:pointer;user-select:none;
+  text-align:center;white-space:nowrap;position:sticky;top:0}
+.matriz thead th:first-child{text-align:left}
+.matriz thead th:hover{background:var(--verde-profundo)}
+.matriz tbody td{padding:6px 7px;border-bottom:1px solid var(--mint);text-align:center;font-variant-numeric:tabular-nums}
+.matriz tbody td.terr{text-align:left;font-weight:600;cursor:pointer;max-width:230px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.matriz tbody tr:hover td.terr{color:var(--verde-fiocruz);text-decoration:underline}
+.matriz td.n{color:var(--texto-suave)}
+.cel{display:inline-block;min-width:44px;padding:3px 6px;border-radius:6px;font-weight:700;font-size:11.5px}
+.c4{background:#0A5C42;color:#fff}
+.c3{background:#6FBE87;color:#0A2E20}
+.c2{background:#FBE7C0;color:#7A5410}
+.c1{background:#FBE9E7;color:#A93226}
+.c0{background:#F0F2F0;color:#9AA8A0}
+.matriz-legenda{display:flex;flex-wrap:wrap;gap:12px;margin-top:10px;font-size:11px;color:var(--texto-suave);align-items:center}
+
+/* Tooltip do mapa (desktop) */
+.tt-mapa{position:fixed;z-index:70;background:var(--branco);border:1.5px solid var(--verde-fiocruz);
+  border-radius:10px;box-shadow:0 4px 16px rgba(10,92,66,.22);padding:10px 12px;max-width:240px;
+  font-size:12px;line-height:1.45;opacity:0;pointer-events:none;transition:opacity .12s}
+.tt-mapa .tt-nome{font-family:'Archivo';font-weight:800;font-size:12.5px;color:var(--verde-profundo);margin-bottom:4px}
+.tt-mapa .tt-metrica{color:var(--indigo);font-weight:700}
+.tt-mapa .tt-linha{display:flex;justify-content:space-between;gap:12px;color:var(--texto-suave)}
+.tt-mapa .tt-linha b{color:var(--texto);font-variant-numeric:tabular-nums}
+.tt-mapa .tt-dica{margin-top:5px;font-size:10.5px;color:var(--texto-suave);border-top:1px dashed var(--borda);padding-top:4px}
+
+/* Rodapé */
+footer{background:var(--indigo);color:#fff;margin-top:50px}
+.footer-inner{max-width:1240px;margin:0 auto;padding:26px 20px;display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:center;font-size:12px}
+.footer-inner .marca{font-family:'Archivo';font-weight:800;font-size:14px}
+.footer-inner .marca span{color:var(--verde-lima)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media(max-width:640px){
+  header{padding:26px 16px 50px}
+  .filtros{padding:14px}
+  .btns{width:100%}
+  button.acao{flex:1;justify-content:center}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <svg class="hex-bg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <g fill="none" stroke="#fff" stroke-width="1.5">
+      <polygon points="50,10 80,27 80,62 50,79 20,62 20,27"/>
+      <polygon points="115,10 145,27 145,62 115,79 85,62 85,27"/>
+      <polygon points="82,66 112,83 112,118 82,135 52,118 52,83"/>
+      <polygon points="147,66 177,83 177,118 147,135 117,118 117,83"/>
+      <polygon points="50,122 80,139 80,174 50,191 20,174 20,139"/>
+      <polygon points="115,122 145,139 145,174 115,191 85,174 85,139"/>
+    </g>
+  </svg>
+  <div class="header-inner">
+    <div class="fonte-tag">2024</div>
+    <span class="eyebrow">Painel de Indicadores · Atenção Obstétrica e Neonatal</span>
+    <h1>Estabelecimentos com mais de 1.000 partos no Brasil<br><span>conceitos e aplicações dos indicadores de qualidade</span></h1>
+    <div class="header-sub">543 estabelecimentos · 1,25 milhão de partos · indicadores de asfixia neonatal, enfermagem obstétrica, AMIU, grupos de Robson, contracepção pós-parto e atendimento à violência sexual</div>
+  </div>
+</header>
+
+<div class="resumo-bar" id="resumoBar"></div>
+
+<div class="wrap">
+
+  <div id="filtrosAncora"></div>
+  <div class="filtros" id="filtrosCard">
+    <div class="campo">
+      <label for="fReg">Região</label>
+      <select id="fReg"><option value="">Todas</option></select>
+    </div>
+    <div class="campo">
+      <label for="fUF">UF</label>
+      <select id="fUF"><option value="">Todas</option></select>
+    </div>
+    <div class="campo">
+      <label for="fMun">Município</label>
+      <select id="fMun"><option value="">Todos</option></select>
+    </div>
+    <div class="campo">
+      <label for="fNat">Natureza jurídica</label>
+      <select id="fNat"><option value="">Todas</option></select>
+    </div>
+    <div class="campo" style="min-width:200px">
+      <label for="fBusca">Buscar estabelecimento</label>
+      <input id="fBusca" type="text" placeholder="Nome ou CNES...">
+    </div>
+    <div class="btns">
+      <button class="acao btn-limpar" onclick="limpar()">Limpar</button>
+      <button class="acao btn-xlsx" onclick="exportarExcel()">&#8681; Excel</button>
+      <button class="acao btn-pdf" onclick="exportarPDF()">&#8681; PDF</button>
+    </div>
+  </div>
+
+  <div class="kpis" id="kpis"></div>
+
+  <div class="secao-titulo"><h2>Panorama nacional</h2></div>
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:10px">
+      <div>
+        <h3>Mapa do Brasil por UF</h3>
+        <div class="sub" id="mapaSub">Alterne o nível territorial e toque em um território para filtrar todo o painel · toque novamente para desfazer</div>
+      </div>
+      <button class="btn-png" onclick="exportarMapaPNG()">&#8681; PNG do mapa</button>
+    </div>
+    <div class="mapa-controles mapa-selects">
+      <div class="campo">
+        <label for="selReg">Território</label>
+        <select id="selReg"><option value="">Brasil</option></select>
+      </div>
+      <div class="campo">
+        <label for="selUF">Estado</label>
+        <select id="selUF" disabled><option value="">Todo o Brasil</option></select>
+      </div>
+      <div class="campo">
+        <label for="selNivel">Detalhe do mapa</label>
+        <select id="selNivel">
+          <option value="uf">Estados (UF)</option>
+          <option value="macro">Macrorregiões de saúde</option>
+          <option value="rs">Regiões de saúde</option>
+        </select>
+      </div>
+    </div>
+    <div class="mapa-wrap">
+      <div class="mapa-esquerda">
+        <div class="mapa-rail">
+          <div class="rail-grupo"><span class="ctrl-label">Eixo temático</span><div class="rail-chips" id="eixoChips"></div></div>
+          <div class="rail-grupo"><span class="ctrl-label">Indicador</span><div class="rail-chips" id="metricas"></div></div>
+        </div>
+        <div class="mapa-svg-card" id="mapaContainer"></div>
+      </div>
+      <div class="mapa-lateral">
+        <div class="legenda-card">
+          <div class="titulo" id="legTitulo"></div>
+          <div id="legendaLinhas"></div>
+        </div>
+        <div class="info-uf" id="infoUF"><div class="vazio">Toque em um estado para ver o resumo e filtrar o painel.</div></div>
+        <div class="mapa-nota">Classes por quintis dos territórios do nível selecionado. Escala sequencial de verdes, segura para daltonismo. Territórios em cinza não possuem estabelecimento com mais de 1.000 partos; os agregados refletem apenas essas unidades, não a totalidade dos partos do território.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="secao-titulo"><h2>Via de parto</h2></div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-head"><div><h3>Taxa de cesariana por região</h3>
+      <div class="sub">Percentual ponderado pelo volume de partos da seleção</div></div>
+      <button class="png-mini" data-c="chCesReg" data-n="cesariana_por_regiao">&#8681; PNG</button></div>
+      <div class="ctx-linha"></div>
+      <div class="chart-box"><canvas id="chCesReg"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-head"><div><h3>Cesariana nos grupos de Robson</h3>
+      <div class="sub">Mediana dos estabelecimentos selecionados · G1 a G4</div></div>
+      <button class="png-mini" data-c="chRobson" data-n="robson_g1_g4">&#8681; PNG</button></div>
+      <div class="ctx-linha"></div>
+      <div class="chart-box"><canvas id="chRobson"></canvas></div>
+    </div>
+  </div>
+
+  <div class="secao-titulo"><h2>Qualidade assistencial</h2></div>
+  <div class="card">
+    <div class="card-head"><div><h3>Adequação dos indicadores</h3>
+    <div class="sub">Estabelecimentos classificados como adequados na seleção</div></div>
+    <button class="png-mini" data-c="chAdeq" data-n="adequacao_indicadores">&#8681; PNG</button></div>
+    <div class="ctx-linha"></div>
+    <div class="chart-box"><canvas id="chAdeq"></canvas></div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <div class="card-head"><div><h3>Maiores volumes de parto</h3>
+    <div class="sub">Dez estabelecimentos com mais partos na seleção · nome completo da unidade</div></div>
+    <button class="png-mini" data-c="chTop" data-n="maiores_volumes">&#8681; PNG</button></div>
+    <div class="ctx-linha"></div>
+    <div class="chart-box alto" style="height:440px"><canvas id="chTop"></canvas></div>
+  </div>
+
+  <div class="secao-titulo"><h2>Selo de qualidade</h2></div>
+  <div class="card">
+    <div class="card-head"><div><h3>Selo de qualidade (&ge;5 indicadores adequados)</h3>
+    <div class="sub">Onde a rede está na jornada até o selo · toque em um estágio para filtrar o painel</div></div>
+    <button class="png-mini" data-c="chSeloDonut" data-n="selo_qualidade">&#8681; PNG</button></div>
+    <div class="ctx-linha"></div>
+    <div class="selo-grid">
+      <div class="selo-donut">
+        <canvas id="chSeloDonut"></canvas>
+        <div class="donut-centro"><span class="pct" id="seloPct"></span><span class="leg" id="seloLeg"></span></div>
+      </div>
+      <div id="seloEstagios"></div>
+    </div>
+    <div id="seloInsight" style="margin-top:14px;padding:12px 14px;background:var(--mint-card);border:1.5px solid var(--borda);border-radius:10px;font-size:12.5px;line-height:1.55"></div>
+    <div style="margin-top:8px;font-size:11px;color:var(--texto-suave)">Estágios contados sobre 9 indicadores classificatórios: asfixia, enfermagem obstétrica, AMIU, Robson &ge;2 grupos, contracepção, violência sexual, SMCON neonatal e obstétrico, e unidade neonatal completa. O selo é o oficial da planilha.</div>
+  </div>
+
+  <div class="secao-titulo"><h2>Matriz semáforo</h2></div>
+  <div class="card">
+    <div class="card-head"><div><h3>Adequação por território e indicador</h3>
+    <div class="sub">% de estabelecimentos adequados em cada indicador · linhas seguem o nível escolhido no mapa · toque no nome para filtrar · toque no cabeçalho para ordenar</div></div>
+    <button class="png-mini" id="btnMatrizXlsx">&#8681; Excel</button></div>
+    <div class="ctx-linha"></div>
+    <div class="matriz-scroll" id="matrizWrap"></div>
+    <div class="matriz-legenda">
+      <span><span class="cel c4">&ge;75%</span></span>
+      <span><span class="cel c3">50–74%</span></span>
+      <span><span class="cel c2">25–49%</span></span>
+      <span><span class="cel c1">&lt;25%</span></span>
+      <span><span class="cel c0">—</span> sem unidades</span>
+      <span style="flex:1;text-align:right">Territórios com poucas unidades têm percentuais instáveis; observe o n.</span>
+    </div>
+  </div>
+
+  <div class="secao-titulo"><h2>Estabelecimentos</h2></div>
+  <div class="tabela-card">
+    <div class="card-head" style="margin-bottom:10px"><div><h3>Lista de estabelecimentos</h3>
+    <div class="sub">Filtros rápidos abaixo agem só nesta lista, combinados com a seleção geral do painel</div></div>
+    <button class="png-mini" id="btnTabelaXlsx">&#8681; Excel</button></div>
+    <div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:12px">
+      <div class="campo" style="min-width:200px;flex:2">
+        <label for="tblBusca">Buscar nesta lista</label>
+        <input id="tblBusca" type="text" placeholder="Nome, CNES ou município...">
+      </div>
+      <div class="campo" style="min-width:130px">
+        <label for="tblSelo">Selo &ge;5</label>
+        <select id="tblSelo"><option value="">Todos</option><option value="1">Com selo</option><option value="0">Sem selo</option></select>
+      </div>
+      <div class="campo" style="min-width:150px">
+        <label for="tblAdeq">Situação rápida</label>
+        <select id="tblAdeq">
+          <option value="">Todas</option>
+          <option value="asfRuim">Asfixia inadequada</option>
+          <option value="enfOk">Enfermagem adequada</option>
+          <option value="semNeo">Sem neonatal completa</option>
+          <option value="larc0">Sem oferta de LARC</option>
+        </select>
+      </div>
+    </div>
+    <div class="contagem" id="contagem"></div>
+    <table id="tabela">
+      <thead>
+        <tr>
+          <th data-k="est">Estabelecimento</th>
+          <th data-k="uf">UF</th>
+          <th data-k="mun">Município</th>
+          <th data-k="tot" class="num">Partos</th>
+          <th data-k="txces" class="num">% Cesárea</th>
+          <th data-k="asf" class="num">Asfixia %</th>
+          <th data-k="enf" class="num">Enf. Obst. %</th>
+          <th data-k="g1" class="num">G1 %</th>
+          <th data-k="larc" class="num">LARC</th>
+          <th data-k="selo">Selo &ge;5</th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+    <div style="text-align:center;margin-top:12px">
+      <button class="png-mini" id="btnMaisLinhas" style="display:none">Mostrar mais 50</button>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="marca">Indicadores Básicos para a Saúde no Brasil <span>·</span> Painel 2024</div>
+    <div>Fonte: SINASC / CNES / SIH-SUS · Estabelecimentos com &gt;1.000 partos em 2024 · Extração 01/07/2026</div>
+  </div>
+</footer>
+
+<div class="tt-mapa" id="ttMapa"></div>
+<button class="fab-filtros" id="fabFiltros" aria-label="Abrir filtros">
+  &#9776; Filtros <span class="badge-n" id="fabBadge" style="display:none">0</span>
+</button>
+<div class="sheet-scrim" id="sheetScrim"></div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="Filtros">
+  <div class="sheet-cabo"></div>
+  <div class="sheet-titulo"><h3>Filtros</h3><button class="sheet-fechar" id="sheetFechar" aria-label="Fechar">&times;</button></div>
+  <div class="sheet-corpo" id="sheetCorpo"></div>
+  <div class="sheet-rodape">
+    <button class="acao btn-limpar" onclick="limpar()">Limpar tudo</button>
+    <button class="acao btn-xlsx" id="sheetVer">Ver resultados</button>
+  </div>
+</div>
+
+<script>
+const DADOS = /*__DADOS__*/[];
+Chart.register(ChartDataLabels);
+Chart.defaults.font.family = "'Inter',sans-serif";
+Chart.defaults.color = '#4E6A5C';
+
+const C = {
+  lima:'#7CB342', fiocruz:'#00A651', esmeralda:'#0E7A56', profundo:'#0A5C42',
+  indigo:'#2B2A6E', mint:'#EDF6EF', alerta:'#C0392B', ambar:'#D68910'
+};
+
+DADOS.forEach(d=>{ d.txces = d.tot>0 ? +(d.ces/d.tot*100).toFixed(1) : 0; });
+
+const $ = id=>document.getElementById(id);
+let filtrado = DADOS.slice();
+let ordem = {k:'tot', asc:false};
+let charts = {};
+
+function popularSelect(id, valores, atual){
+  const sel = $(id); const prev = atual!==undefined?atual:sel.value;
+  sel.innerHTML = '<option value="">'+(sel.options[0]?sel.options[0].text:'Todos')+'</option>';
+  valores.sort((a,b)=>a.localeCompare(b,'pt')).forEach(v=>{
+    const o=document.createElement('option'); o.value=v; o.textContent=v; sel.appendChild(o);
+  });
+  if(valores.includes(prev)) sel.value=prev; else sel.value='';
+}
+
+function initFiltros(){
+  popularSelect('fReg',[...new Set(DADOS.map(d=>d.reg))]);
+  popularSelect('fUF',[...new Set(DADOS.map(d=>d.uf))]);
+  popularSelect('fMun',[...new Set(DADOS.map(d=>d.mun))]);
+  popularSelect('fNat',[...new Set(DADOS.map(d=>d.nat))]);
+  ['fReg','fUF','fMun','fNat'].forEach(id=>$(id).addEventListener('change',()=>{encadear(id);aplicar();}));
+  $('fBusca').addEventListener('input',aplicar);
+}
+
+function encadear(origem){
+  const reg=$('fReg').value, uf=$('fUF').value;
+  if(origem==='fReg'){
+    const ufs=[...new Set(DADOS.filter(d=>!reg||d.reg===reg).map(d=>d.uf))];
+    popularSelect('fUF',ufs);
+    const muns=[...new Set(DADOS.filter(d=>(!reg||d.reg===reg)&&(!$('fUF').value||d.uf===$('fUF').value)).map(d=>d.mun))];
+    popularSelect('fMun',muns);
+  }
+  if(origem==='fUF'){
+    const muns=[...new Set(DADOS.filter(d=>(!reg||d.reg===reg)&&(!uf||d.uf===uf)).map(d=>d.mun))];
+    popularSelect('fMun',muns);
+  }
+}
+
+function aplicar(){
+  tblLimite = 25;
+  const reg=$('fReg').value, uf=$('fUF').value, mun=$('fMun').value, nat=$('fNat').value,
+        q=$('fBusca').value.trim().toLowerCase();
+  filtrado = DADOS.filter(d=>
+    (!reg||d.reg===reg)&&(!uf||d.uf===uf)&&(!mun||d.mun===mun)&&(!nat||d.nat===nat)&&
+    (!q||d.est.toLowerCase().includes(q))&&
+    (!terrSel||terrSel.nivel==='uf'||
+      (terrSel.nivel==='macro'&&d.mrs===terrSel.id)||
+      (terrSel.nivel==='rs'&&d.rs===terrSel.id))&&
+    (estagioSel==null||ESTAGIOS.find(e=>e.id===estagioSel).pred(d))
+  );
+  render();
+}
+
+function limpar(){
+  terrSel=null; estagioSel=null;
+  ['fReg','fUF','fMun','fNat'].forEach(id=>$(id).value='');
+  $('fBusca').value='';
+  popularSelect('fUF',[...new Set(DADOS.map(d=>d.uf))]);
+  popularSelect('fMun',[...new Set(DADOS.map(d=>d.mun))]);
+  aplicar();
+}
+
+const fmt = n=>n.toLocaleString('pt-BR');
+
+function renderKPIs(){
+  const tot=filtrado.reduce((s,d)=>s+d.tot,0);
+  const ces=filtrado.reduce((s,d)=>s+d.ces,0);
+  const larc=filtrado.reduce((s,d)=>s+d.larc,0);
+  const selo=filtrado.filter(d=>d.selo).length;
+  const asfIn=filtrado.filter(d=>d.asfC==='INADEQUADO').length;
+  const enfOk=filtrado.filter(d=>d.enfC==='ADEQUADO').length;
+  const kpis=[
+    {v:fmt(filtrado.length), r:'Estabelecimentos', c:''},
+    {v:fmt(tot), r:'Partos em 2024', c:''},
+    {v:(tot?(ces/tot*100).toFixed(1):'0')+'%', r:'Taxa de cesariana', c:'k-indigo'},
+    {v:fmt(selo), r:'Com selo &ge;5 indicadores', c:'k-lima'},
+    {v:fmt(enfOk), r:'Enfermagem obst. adequada', c:'k-lima'},
+    {v:fmt(asfIn), r:'Asfixia inadequada', c:'k-alerta'},
+    {v:fmt(larc), r:'LARC inseridos (DIU + implante)', c:''}
+  ];
+  $('kpis').innerHTML = kpis.map(k=>
+    `<div class="kpi ${k.c}"><div class="valor">${k.v}</div><div class="rotulo">${k.r}</div></div>`).join('');
+}
+
+function destruir(id){ if(charts[id]){charts[id].destroy(); delete charts[id];} }
+
+function renderCesReg(){
+  destruir('chCesReg');
+  const regs=[...new Set(filtrado.map(d=>d.reg))].sort();
+  const vals=regs.map(r=>{
+    const s=filtrado.filter(d=>d.reg===r);
+    const t=s.reduce((a,d)=>a+d.tot,0), c=s.reduce((a,d)=>a+d.ces,0);
+    return t?+(c/t*100).toFixed(1):0;
+  });
+  charts.chCesReg=new Chart($('chCesReg'),{
+    type:'bar',
+    data:{labels:regs,datasets:[{data:vals,backgroundColor:C.fiocruz,borderRadius:6,maxBarThickness:56}]},
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},
+        datalabels:{anchor:'end',align:'top',color:C.profundo,font:{weight:'700',size:12},formatter:v=>v+'%'}},
+      scales:{y:{beginAtZero:true,suggestedMax:70,grid:{color:C.mint},ticks:{callback:v=>v+'%'}},x:{grid:{display:false}}}
+    }
+  });
+}
+
+function mediana(arr){
+  const a=arr.filter(v=>v!=null&&!isNaN(v)).sort((x,y)=>x-y);
+  if(!a.length)return 0;
+  const m=Math.floor(a.length/2);
+  return a.length%2?a[m]:+((a[m-1]+a[m])/2).toFixed(1);
+}
+
+function renderRobson(){
+  destruir('chRobson');
+  const grupos=['g1','g2','g3','g4'];
+  const vals=grupos.map(g=>mediana(filtrado.map(d=>d[g])));
+  const refs=[null,null,null,null];
+  charts.chRobson=new Chart($('chRobson'),{
+    type:'bar',
+    data:{labels:['G1','G2','G3','G4'],
+      datasets:[{label:'Mediana % cesárea',data:vals,
+        backgroundColor:[C.lima,C.esmeralda,C.lima,C.esmeralda],borderRadius:6,maxBarThickness:56}]},
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},
+        datalabels:{anchor:'end',align:'top',color:C.profundo,font:{weight:'700',size:12},formatter:v=>v+'%'}},
+      scales:{y:{beginAtZero:true,suggestedMax:100,grid:{color:C.mint},ticks:{callback:v=>v+'%'}},x:{grid:{display:false}}}
+    }
+  });
+}
+
+function renderAdeq(){
+  destruir('chAdeq');
+  const n=filtrado.length||1;
+  const itens=[
+    {r:'Asfixia', v:filtrado.filter(d=>d.asfC==='ADEQUADO').length},
+    {r:'Enfermagem obst.', v:filtrado.filter(d=>d.enfC==='ADEQUADO').length},
+    {r:'Robson &ge;2 grupos', v:filtrado.filter(d=>d.rob2).length},
+    {r:'Contracepção', v:filtrado.filter(d=>d.larc>0).length},
+    {r:'Violência sexual', v:filtrado.filter(d=>d.viol).length},
+    {r:'Selo &ge;5', v:filtrado.filter(d=>d.selo).length}
+  ];
+  charts.chAdeq=new Chart($('chAdeq'),{
+    type:'bar',
+    data:{labels:itens.map(i=>i.r.replace(/&ge;/g,'\u2265')),
+      datasets:[{data:itens.map(i=>+(i.v/n*100).toFixed(0)),backgroundColor:C.indigo,borderRadius:6,maxBarThickness:26}]},
+    options:{
+      indexAxis:'y',responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},
+        datalabels:{anchor:'end',align:'right',color:C.indigo,font:{weight:'700',size:11},formatter:v=>v+'%'}},
+      scales:{x:{beginAtZero:true,max:110,grid:{color:C.mint},ticks:{callback:v=>v<=100?v+'%':''}},y:{grid:{display:false}}}
+    }
+  });
+}
+
+function renderTop(){
+  destruir('chTop');
+  const top=filtrado.slice().sort((a,b)=>b.tot-a.tot).slice(0,10);
+  charts.chTop=new Chart($('chTop'),{
+    type:'bar',
+    data:{labels:top.map(d=>{
+        const nome=d.est.replace(/^\d+\s-\s/,'');
+        return nome.length>70?nome.slice(0,68)+'…':nome;
+      }),
+      datasets:[{data:top.map(d=>d.tot),backgroundColor:C.esmeralda,borderRadius:6,maxBarThickness:24}]},
+    options:{
+      indexAxis:'y',responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},
+        tooltip:{callbacks:{title:i=>top[i[0].dataIndex].est}},
+        datalabels:{anchor:'end',align:'right',color:C.profundo,font:{weight:'700',size:10.5},formatter:v=>v.toLocaleString('pt-BR')}},
+      scales:{x:{beginAtZero:true,grid:{color:C.mint}},y:{grid:{display:false},ticks:{font:{size:10.5}}}}
+    }
+  });
+}
+
+let tblLimite = 25;
+function linhasTabela(){
+  const q = ($('tblBusca')?$('tblBusca').value:'').trim().toLowerCase();
+  const selo = $('tblSelo')?$('tblSelo').value:'';
+  const adeq = $('tblAdeq')?$('tblAdeq').value:'';
+  return filtrado.filter(d=>
+    (!q || d.est.toLowerCase().includes(q) || d.mun.toLowerCase().includes(q)) &&
+    (selo==='' || String(d.selo)===selo) &&
+    (adeq==='' ||
+      (adeq==='asfRuim' && d.asfC==='INADEQUADO') ||
+      (adeq==='enfOk'   && d.enfC==='ADEQUADO') ||
+      (adeq==='semNeo'  && d.neo!=='SIM') ||
+      (adeq==='larc0'   && d.larc===0))
+  );
+}
+function renderTabela(){
+  const k=ordem.k;
+  const dados = linhasTabela().sort((a,b)=>{
+    let va=a[k],vb=b[k];
+    if(typeof va==='string'){va=va.toLowerCase();vb=(vb||'').toLowerCase();return ordem.asc?va.localeCompare(vb,'pt'):vb.localeCompare(va,'pt');}
+    return ordem.asc?va-vb:vb-va;
+  });
+  let terrTxt='';
+  if(terrSel&&terrSel.nivel!=='uf'&&terrSel.nome) terrTxt=' \u00b7 '+(terrSel.nivel==='macro'?'Macro: ':'Regi\u00e3o de Sa\u00fade: ')+terrSel.nome;
+  const visiveis = dados.slice(0, tblLimite);
+  $('contagem').textContent = (dados.length>visiveis.length?
+      'Mostrando '+visiveis.length+' de '+dados.length+' estabelecimentos' :
+      dados.length+' estabelecimento'+(dados.length===1?'':'s'))+terrTxt;
+  $('tbody').innerHTML = visiveis.map(d=>`
+    <tr>
+      <td>${d.est}</td>
+      <td>${d.uf}</td>
+      <td>${d.mun}</td>
+      <td class="num">${fmt(d.tot)}</td>
+      <td class="num">${d.txces.toFixed(1)}%</td>
+      <td class="num"><span class="badge ${d.asfC==='ADEQUADO'?'b-ok':'b-ruim'}">${d.asf.toFixed(1)}%</span></td>
+      <td class="num"><span class="badge ${d.enfC==='ADEQUADO'?'b-ok':'b-ruim'}">${d.enf.toFixed(1)}%</span></td>
+      <td class="num">${d.g1.toFixed(1)}%</td>
+      <td class="num">${fmt(d.larc)}</td>
+      <td>${d.selo?'<span class="badge b-selo">SELO</span>':''}</td>
+    </tr>`).join('');
+  const btn = $('btnMaisLinhas');
+  if(btn){ btn.style.display = dados.length>tblLimite? 'inline-block':'none';
+    btn.textContent = 'Mostrar mais '+Math.min(50, dados.length-tblLimite)+' (de '+dados.length+')'; }
+}
+if($('btnMaisLinhas')) $('btnMaisLinhas').addEventListener('click',()=>{ tblLimite+=50; renderTabela(); });
+['tblBusca','tblSelo','tblAdeq'].forEach(id=>{
+  const el=$(id); if(!el) return;
+  el.addEventListener(id==='tblBusca'?'input':'change',()=>{ tblLimite=25; renderTabela(); });
+});
+if($('btnTabelaXlsx')) $('btnTabelaXlsx').addEventListener('click',()=>{
+  const linhas = linhasTabela().map(d=>({
+    'Estabelecimento':d.est,'UF':d.uf,'Munic\u00edpio':d.mun,'Regi\u00e3o de Sa\u00fade':d.rsN,'Macrorregi\u00e3o':d.mrsN,
+    'Gest\u00e3o':d.gestao,'Natureza jur\u00eddica':d.nat,'Partos':d.tot,'% Cesariana':d.txces,
+    '% Asfixia':d.asf,'Classif. asfixia':d.asfC,'% Enfermagem':d.enf,'Classif. enfermagem':d.enfC,
+    '% AMIU':d.amiu,'% Ces\u00e1rea G1':d.g1,'% G2':d.g2,'% G3':d.g3,'% G4':d.g4,
+    'DIU':d.diu,'Implante':d.imp,'LARC':d.larc,'Atend. viol\u00eancia':d.violN,
+    'Indicadores adequados':d.nAdeq,'Selo \u22655':d.selo?'SIM':''
+  }));
+  const ws=XLSX.utils.json_to_sheet(linhas);
+  const wb=XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb,ws,'Estabelecimentos');
+  XLSX.writeFile(wb,'estabelecimentos_'+contextoSelecao().split(' \u00b7 ')[0].normalize('NFD').replace(/[^\w]+/g,'_').toLowerCase()+'.xlsx');
+});
+
+document.querySelectorAll('thead th').forEach(th=>{
+  th.addEventListener('click',()=>{
+    const k=th.dataset.k;
+    if(ordem.k===k) ordem.asc=!ordem.asc; else {ordem.k=k;ordem.asc=(k==='est'||k==='uf'||k==='mun');}
+    renderTabela();
+  });
+});
+
+/* ===== Mapa do Brasil: UF / Macrorregião / Região de Saúde ===== */
+const GEO = /*__GEO__*/{};
+const SIGLA = {
+  'Acre':'AC','Alagoas':'AL','Amapa':'AP','Amazonas':'AM','Bahia':'BA','Ceara':'CE',
+  'Distrito Federal':'DF','Espirito Santo':'ES','Goias':'GO','Maranhao':'MA','Mato Grosso':'MT',
+  'Mato Grosso do Sul':'MS','Minas Gerais':'MG','Para':'PA','Paraiba':'PB','Parana':'PR',
+  'Pernambuco':'PE','Piaui':'PI','Rio Grande do Norte':'RN','Rio Grande do Sul':'RS',
+  'Rio de Janeiro':'RJ','Rondonia':'RO','Roraima':'RR','Santa Catarina':'SC','Sao Paulo':'SP',
+  'Sergipe':'SE','Tocantins':'TO'
+};
+const NOME_UF = {}; Object.entries(SIGLA).forEach(([n,s])=>NOME_UF[s]=n);
+
+const VERDES = ['#DCEFE0','#A9D8B4','#6FBE87','#2E9A63','#0A5C42'];
+const EIXOS = [
+  {id:'via',  rot:'Via de parto'},
+  {id:'seg',  rot:'Seguran\u00e7a e estrutura'},
+  {id:'boas', rot:'Boas pr\u00e1ticas'},
+  {id:'dir',  rot:'Direitos reprodutivos'},
+  {id:'geral',rot:'Vis\u00e3o geral'}
+];
+const pctF = v=>v.toFixed(1)+'%';
+const pct0 = v=>v.toFixed(0)+'%';
+const intF = v=>Math.round(v).toLocaleString('pt-BR');
+const METRICAS = [
+  {id:'txces', eixo:'via', rot:'% Cesariana',        leg:'Taxa de cesariana (%)',                      fmtV:pctF},
+  {id:'g1p',   eixo:'via', rot:'% Ces\u00e1rea G1',  leg:'Cesariana no grupo 1 de Robson (%)',         fmtV:pctF},
+  {id:'g3p',   eixo:'via', rot:'% Ces\u00e1rea G3',  leg:'Cesariana no grupo 3 de Robson (%)',         fmtV:pctF},
+  {id:'cpnP',  eixo:'via', rot:'% Partos em CPN',    leg:'Partos normais em CPN (% do total)',         fmtV:pctF},
+  {id:'asfP',  eixo:'seg', rot:'% Asfixia adequada', leg:'Estab. com asfixia adequada (%)',            fmtV:pct0},
+  {id:'neoP',  eixo:'seg', rot:'% Neonatal completa',leg:'Estab. com unidade neonatal completa (%)',   fmtV:pct0},
+  {id:'hgparP',eixo:'seg', rot:'% HGPAR',            leg:'Estab. habilitados HGPAR (%)',               fmtV:pct0},
+  {id:'smnP',  eixo:'seg', rot:'% SMCON Neo',        leg:'Estab. com SMCON neonatal (%)',              fmtV:pct0},
+  {id:'smoP',  eixo:'seg', rot:'% SMCON Obst.',      leg:'Estab. com SMCON obst\u00e9trico (%)',       fmtV:pct0},
+  {id:'enf',   eixo:'boas',rot:'% Enf. adequada',    leg:'Estab. com enfermagem obst. adequada (%)',   fmtV:pct0},
+  {id:'amiuM', eixo:'boas',rot:'Mediana % AMIU',     leg:'Mediana do % de AMIU entre os estab.',       fmtV:pctF},
+  {id:'cpnE',  eixo:'boas',rot:'% Estab. com CPN',   leg:'Estab. com partos em CPN (%)',               fmtV:pct0},
+  {id:'larcM', eixo:'dir', rot:'LARC/1.000 partos',  leg:'DIU + implante por 1.000 partos',            fmtV:v=>v.toFixed(1)},
+  {id:'diu',   eixo:'dir', rot:'DIU',                leg:'DIU inseridos (total)',                      fmtV:intF},
+  {id:'imp',   eixo:'dir', rot:'Implantes',          leg:'Implantes inseridos (total)',                fmtV:intF},
+  {id:'violP', eixo:'dir', rot:'% Atende viol\u00eancia', leg:'Estab. que atendem viol\u00eancia sexual (%)', fmtV:pct0},
+  {id:'violN', eixo:'dir', rot:'Atendimentos viol.', leg:'Atendimentos a v\u00edtimas de viol\u00eancia sexual', fmtV:intF},
+  {id:'selo',  eixo:'geral',rot:'% com Selo',        leg:'% de estabelecimentos com selo \u22655',     fmtV:pct0},
+  {id:'estab', eixo:'geral',rot:'Estabelecimentos',  leg:'Estabelecimentos >1.000 partos',             fmtV:intF},
+  {id:'partos',eixo:'geral',rot:'Partos',            leg:'Partos em 2024',                             fmtV:intF}
+];
+let eixoAtivo = 'via';
+let metricaAtiva = 'txces';
+const NIVEIS = [
+  {id:'uf',    rot:'UF',                 chave:d=>SIGLA[d.uf],  nomeDe:t=>NOME_UF[t.id]||t.nome, raioFallback:30},
+  {id:'macro', rot:'Macrorregi\u00e3o',  chave:d=>d.mrs,        nomeDe:t=>t.nome,                raioFallback:16},
+  {id:'rs',    rot:'Regi\u00e3o de Sa\u00fade', chave:d=>d.rs,  nomeDe:t=>t.nome,                raioFallback:10}
+];
+let nivelAtivo = 'uf';
+let terrSel = null;
+
+function nivelDef(){ return NIVEIS.find(n=>n.id===nivelAtivo); }
+function medianaArr(arr){
+  const a=arr.filter(v=>v!=null&&!isNaN(v)).sort((x,y)=>x-y);
+  if(!a.length) return null;
+  const m=Math.floor(a.length/2);
+  return a.length%2?a[m]:(a[m-1]+a[m])/2;
+}
+
+// UFs por região do país (para o zoom)
+const REG_UFS = {};
+DADOS.forEach(d=>{ const s=SIGLA[d.uf]; if(s){(REG_UFS[d.reg]=REG_UFS[d.reg]||new Set()).add(s);} });
+
+function novoAcum(){return {tot:0,ces:0,estab:0,selo:0,enfOk:0,larc:0,diu:0,imp:0,cpn:0,
+  nv1:0,cs1:0,nv3:0,cs3:0,asfOk:0,neoSim:0,hgpar:0,smN:0,smO:0,cpnEst:0,violSim:0,violN:0,amiuV:[]};}
+function acumular(a,d){
+  a.tot+=d.tot; a.ces+=d.ces; a.estab++;
+  if(d.selo) a.selo++;
+  if(d.enfC==='ADEQUADO') a.enfOk++;
+  if(d.asfC==='ADEQUADO') a.asfOk++;
+  if(d.neo==='SIM') a.neoSim++;
+  if(d.hgpar) a.hgpar++;
+  if(d.smN) a.smN++;
+  if(d.smO) a.smO++;
+  if(d.cpn>0) a.cpnEst++;
+  if(d.viol) a.violSim++;
+  a.violN+=d.violN; a.larc+=d.larc; a.diu+=d.diu; a.imp+=d.imp; a.cpn+=d.cpn;
+  a.nv1+=d.nv1; a.cs1+=d.cs1; a.nv3+=d.nv3; a.cs3+=d.cs3;
+  a.amiuV.push(d.amiu);
+}
+function derivar(a){
+  const p=(n,dv)=>dv? n/dv*100 : null;
+  a.txces=p(a.ces,a.tot); a.partos=a.tot;
+  a.g1p=p(a.cs1,a.nv1); a.g3p=p(a.cs3,a.nv3);
+  a.cpnP=p(a.cpn,a.tot);
+  a.asfP=p(a.asfOk,a.estab); a.neoP=p(a.neoSim,a.estab); a.hgparP=p(a.hgpar,a.estab);
+  a.smnP=p(a.smN,a.estab); a.smoP=p(a.smO,a.estab);
+  a.enf=p(a.enfOk,a.estab); a.cpnE=p(a.cpnEst,a.estab);
+  a.amiuM=medianaArr(a.amiuV);
+  a.larcM=a.tot? a.larc/a.tot*1000 : null;
+  a.violP=p(a.violSim,a.estab);
+  a.seloP=p(a.selo,a.estab);
+  return a;
+}
+function baseFiltrada(){
+  const nat=$('fNat').value, q=$('fBusca').value.trim().toLowerCase();
+  return DADOS.filter(d=>(!nat||d.nat===nat)&&(!q||d.est.toLowerCase().includes(q)));
+}
+function agregarTerr(nivel){
+  const nv = NIVEIS.find(n=>n.id===nivel);
+  const agg = {};
+  baseFiltrada().forEach(d=>{
+    const k = nv.chave(d); if(k==null) return;
+    if(!agg[k]) agg[k]=novoAcum();
+    acumular(agg[k],d);
+  });
+  Object.values(agg).forEach(derivar);
+  return agg;
+}
+function resumoDe(pred){
+  const a = novoAcum();
+  let n=0;
+  baseFiltrada().forEach(d=>{ if(pred(d)){acumular(a,d);n++;} });
+  return n? derivar(a) : null;
+}
+
+function valorMetrica(a, id){
+  if(!a) return null;
+  if(id==='selo') return a.seloP;
+  return a[id];
+}
+
+function quintis(vals){
+  const v = vals.filter(x=>x!=null).sort((a,b)=>a-b);
+  if(v.length<5) return null;
+  const q = p=>{ const i=(v.length-1)*p; const lo=Math.floor(i), hi=Math.ceil(i);
+    return v[lo]+(v[hi]-v[lo])*(i-lo); };
+  return [q(.2),q(.4),q(.6),q(.8)];
+}
+function classe(v, brks){
+  if(v==null||!brks) return -1;
+  for(let i=0;i<4;i++) if(v<=brks[i]) return i;
+  return 4;
+}
+
+// listas suspensas do mapa: cascata e sincronização com os filtros globais
+let selectsMapaProntos=false;
+function sincronizarSelectsMapa(){
+  const sReg=$('selReg'), sUF=$('selUF'), sNv=$('selNivel');
+  if(!selectsMapaProntos){
+    ['Norte','Nordeste','Centro-Oeste','Sudeste','Sul'].forEach(r=>{
+      const o=document.createElement('option'); o.value=r; o.textContent=r; sReg.appendChild(o);
+    });
+    sReg.addEventListener('change',()=>{
+      $('fReg').value=sReg.value; $('fUF').value=''; encadear('fReg'); aplicar();
+    });
+    sUF.addEventListener('change',()=>{
+      $('fUF').value=sUF.value; encadear('fUF'); aplicar();
+    });
+    sNv.addEventListener('change',()=>{
+      nivelAtivo=sNv.value; terrSel=null;
+      if(nivelAtivo!=='uf'){ /* mantém fUF: o zoom por estado vale em todos os níveis */ }
+      aplicar();
+    });
+    selectsMapaProntos=true;
+  }
+  // região: se uma UF foi escolhida sem região, deduzir a região dela
+  const nomeUF=$('fUF').value;
+  if(nomeUF && !$('fReg').value){
+    const d=DADOS.find(x=>x.uf===nomeUF);
+    if(d){ $('fReg').value=d.reg; }
+  }
+  sReg.value=$('fReg').value||'';
+  // estado: cascata dentro da região
+  const reg=$('fReg').value;
+  const rotulo0 = reg? 'Toda a regi\u00e3o' : 'Todo o Brasil';
+  const ufsRegiao = reg? [...new Set(DADOS.filter(d=>d.reg===reg).map(d=>d.uf))].sort((a,b)=>a.localeCompare(b,'pt')) : [];
+  sUF.innerHTML = `<option value="">${rotulo0}</option>` +
+    ufsRegiao.map(u=>`<option value="${u}">${u}</option>`).join('');
+  sUF.disabled = !reg;
+  sUF.value = (reg && ufsRegiao.includes(nomeUF)) ? nomeUF : '';
+  sNv.value = nivelAtivo;
+}
+
+// viewBox: zoom por UF tem prioridade sobre a região
+function viewBoxAtual(){
+  const nomeUF=$('fUF').value, reg=$('fReg').value;
+  const caixa = (lista)=>{
+    let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;
+    GEO.niveis.uf.forEach(t=>{
+      if(!lista.has(t.id)||!t.bb) return;
+      x0=Math.min(x0,t.bb[0]); y0=Math.min(y0,t.bb[1]);
+      x1=Math.max(x1,t.bb[2]); y1=Math.max(y1,t.bb[3]);
+    });
+    const pad=Math.max(x1-x0,y1-y0)*0.05;
+    let x=x0-pad, y=y0-pad, w=(x1-x0)+2*pad, h=(y1-y0)+2*pad;
+    // piso de enquadramento: estados pequenos (ES, SE, AL...) não ampliam além de ~6x,
+    // mantendo a proporção visual coerente entre os estados
+    const MINW=150, MINH=131;
+    if(w<MINW){ const cx=x+w/2; w=MINW; x=cx-w/2; }
+    if(h<MINH){ const cy=y+h/2; h=MINH; y=cy-h/2; }
+    return {x,y,w,h,zoom:true};
+  };
+  if(nomeUF && SIGLA[nomeUF]){
+    const ufs=new Set([SIGLA[nomeUF]]);
+    return Object.assign(caixa(ufs), {ufs});
+  }
+  if(reg && REG_UFS[reg]){
+    const ufs=REG_UFS[reg];
+    return Object.assign(caixa(ufs), {ufs});
+  }
+  return {x:0,y:0,w:GEO.W,h:GEO.H,zoom:false,ufs:null};
+}
+
+function renderMapa(){
+  if(nivelAtivo==='uf') terrSel = $('fUF').value ? {nivel:'uf', id:SIGLA[$('fUF').value]} : null;
+  const nv = nivelDef();
+  const vb = viewBoxAtual();
+  const dentro = t=>{ // território visível no recorte regional?
+    if(!vb.zoom) return true;
+    if(nivelAtivo==='uf') return vb.ufs.has(t.id);
+    return vb.ufs.has(UF_DE_COD(t.id));
+  };
+  const territorios = GEO.niveis[nivelAtivo];
+  const visiveis = territorios.filter(dentro);
+  const agg = agregarTerr(nivelAtivo);
+  const met = METRICAS.find(m=>m.id===metricaAtiva);
+  const brks = quintis(visiveis.map(t=>valorMetrica(agg[t.id],metricaAtiva)));
+
+  // sincronizar listas suspensas em cascata (Brasil -> Região -> Estado) e nível
+  sincronizarSelectsMapa();
+  $('eixoChips').innerHTML = EIXOS.map(e=>
+    `<button class="chip chip-eixo ${e.id===eixoAtivo?'ativo':''}" data-e="${e.id}">${e.rot}</button>`).join('');
+  $('eixoChips').querySelectorAll('.chip').forEach(c=>c.onclick=()=>{
+    eixoAtivo=c.dataset.e;
+    metricaAtiva=METRICAS.find(m=>m.eixo===eixoAtivo).id;
+    renderMapa();
+  });
+  $('metricas').innerHTML = METRICAS.filter(m=>m.eixo===eixoAtivo).map(m=>
+    `<button class="chip ${m.id===metricaAtiva?'ativo':''}" data-m="${m.id}">${m.rot}</button>`).join('');
+  $('metricas').querySelectorAll('.chip').forEach(c=>c.onclick=()=>{metricaAtiva=c.dataset.m; renderMapa();});
+
+  // fator de escala do zoom para rótulos e alvos
+  const esc = vb.w/GEO.W;
+  const strokeTerr = nivelAtivo==='uf' ? '#3E5C4B' : '#ffffff';
+  const swTerr = nivelAtivo==='uf' ? 1.4 : (nivelAtivo==='macro' ? 0.9 : 0.6);
+  let paths='', labels='', hits='';
+  visiveis.forEach(t=>{  // recorte: só o que pertence à região selecionada é desenhado
+    const v = valorMetrica(agg[t.id],metricaAtiva);
+    let k = classe(v,brks);
+    if(visiveis.length===1 && v!=null) k=2;
+    const fill = k>=0 ? VERDES[k] : '#E9EDEA';
+    const sel = (terrSel && String(terrSel.id)===String(t.id)) ? ' uf-selecionada' : '';
+    paths += `<path class="uf-path${sel}" data-id="${t.id}" tabindex="0" role="button" aria-label="${nv.nomeDe(t)}" d="${t.d}" fill="${fill}" fill-rule="evenodd" stroke="${strokeTerr}" stroke-width="${swTerr}" vector-effect="non-scaling-stroke"><title>${nv.nomeDe(t)}</title></path>`;
+  });
+  // borda escura: só das UFs visíveis no recorte
+  let borda='';
+  GEO.niveis.uf.forEach(u=>{
+    if(vb.zoom && !vb.ufs.has(u.id)) return;
+    borda += `<path d="${u.d}" fill="none" stroke="#1D3229" stroke-width="1.5" vector-effect="non-scaling-stroke" stroke-linejoin="round" pointer-events="none"/>`;
+  });
+  if(nivelAtivo==='uf'){
+    const fs = Math.max(7, 15*esc);
+    GEO.niveis.uf.forEach(t=>{
+      if(!dentro(t)) return;
+      labels += `<text x="${t.cx}" y="${t.cy}" text-anchor="middle" font-size="${fs.toFixed(1)}" font-weight="700" fill="#1D3229" style="paint-order:stroke;stroke:#ffffff;stroke-width:${(2.6*esc).toFixed(2)}px;pointer-events:none">${t.id}</text>`;
+      hits += `<circle class="uf-hit" data-id="${t.id}" cx="${t.cx}" cy="${t.cy-5*esc}" r="${((t.r||14)*esc).toFixed(1)}" fill="transparent" pointer-events="all"><title>${nv.nomeDe(t)}</title></circle>`;
+    });
+  } else if($('fUF').value && visiveis.length<=30){
+    // zoom em um estado: nomes das macros / regiões de saúde visíveis no mapa
+    const fs = Math.max(1.6, 12.5*esc);
+    const ufSig = SIGLA[$('fUF').value];
+    visiveis.forEach(t=>{
+      let nome = String(t.nome||'');
+      const suf = ' - '+ufSig;
+      if(ufSig && nome.endsWith(suf)) nome = nome.slice(0, -suf.length); // tira a UF, redundante no zoom
+      if(nome.length>26) nome = nome.slice(0,24)+'\\u2026';
+      labels += `<text x="${t.cx}" y="${t.cy}" text-anchor="middle" font-size="${fs.toFixed(2)}" font-weight="700" fill="#1D3229" style="paint-order:stroke;stroke:#ffffff;stroke-width:${(2.2*esc).toFixed(2)}px;pointer-events:none">${nome}</text>`;
+    });
+  }
+  $('mapaContainer').innerHTML =
+    `<svg id="mapaSvg" viewBox="${vb.x.toFixed(1)} ${vb.y.toFixed(1)} ${vb.w.toFixed(1)} ${vb.h.toFixed(1)}" xmlns="http://www.w3.org/2000/svg">${paths}${borda}${labels}${hits}</svg>`;
+  animarZoom(vb);
+
+  // legenda
+  const escopo = vb.zoom ? ' \u00b7 quintis da regi\u00e3o' : '';
+  $('legTitulo').textContent = met.leg + ' \u00b7 por ' + nv.rot.toLowerCase() + escopo;
+  if(brks){
+    const faixas=[`\u2264 ${met.fmtV(brks[0])}`,
+      `${met.fmtV(brks[0])} \u2013 ${met.fmtV(brks[1])}`,
+      `${met.fmtV(brks[1])} \u2013 ${met.fmtV(brks[2])}`,
+      `${met.fmtV(brks[2])} \u2013 ${met.fmtV(brks[3])}`,
+      `> ${met.fmtV(brks[3])}`];
+    $('legendaLinhas').innerHTML = faixas.map((f,i)=>
+      `<div class="legrow"><span class="legsw" style="background:${VERDES[i]}"></span>${f}</div>`).join('')
+      + `<div class="legrow"><span class="legsw" style="background:#E9EDEA"></span>Sem estabelecimento &gt;1.000 partos</div>`;
+  } else if(visiveis.length===1){
+    const v = valorMetrica(agg[visiveis[0].id],metricaAtiva);
+    $('legendaLinhas').innerHTML = `<div class="legrow"><span class="legsw" style="background:${VERDES[2]}"></span>` +
+      (v!=null? 'Valor do estado: <b>&nbsp;'+met.fmtV(v)+'</b>' : 'Sem estabelecimento &gt;1.000 partos') +
+      `</div><div class="legrow" style="font-size:11px">Troque o detalhe do mapa para macrorregi\u00f5es ou regi\u00f5es de sa\u00fade para ver o contraste interno do estado.</div>`;
+  } else {
+    $('legendaLinhas').innerHTML = '<div class="legrow">Territ\u00f3rios insuficientes para formar quintis.</div>';
+  }
+
+  const selecionar = (id)=>{
+    if(nivelAtivo==='uf'){
+      const igual = terrSel && terrSel.id===id;
+      terrSel = igual? null : {nivel:'uf', id};
+      popularSelect('fUF',[...new Set(DADOS.map(d=>d.uf))]);
+      $('fUF').value = igual? '' : NOME_UF[id];
+      encadear('fUF'); aplicar(); return;
+    }
+    const t = territorios.find(x=>String(x.id)===String(id));
+    terrSel = (terrSel && String(terrSel.id)===String(id)) ? null : {nivel:nivelAtivo, id:t.id, nome:t.nome};
+    aplicar();
+  };
+  $('mapaSvg').addEventListener('click', e=>{
+    const alvo = e.target.closest('[data-id]');
+    if(alvo){ selecionar(alvo.dataset.id); return; }
+    const svg=$('mapaSvg'); const pt=svg.createSVGPoint(); pt.x=e.clientX; pt.y=e.clientY;
+    const m=svg.getScreenCTM(); if(!m) return;
+    const p=pt.matrixTransform(m.inverse());
+    let melhor=null, dm=Infinity;
+    visiveis.forEach(t=>{ const d=Math.hypot(t.cx-p.x,t.cy-p.y); if(d<dm){dm=d;melhor=t.id;} });
+    if(melhor!=null && dm<=nv.raioFallback*Math.max(esc,0.4)) selecionar(melhor);
+  });
+  // tooltip no hover (apenas dispositivos com mouse)
+  if(window.matchMedia && window.matchMedia('(hover: hover)').matches){
+    const tt = $('ttMapa');
+    $('mapaSvg').addEventListener('mousemove', e=>{
+      const alvo = e.target.closest('[data-id]');
+      if(!alvo){ tt.style.opacity=0; return; }
+      const t = territorios.find(x=>String(x.id)===String(alvo.dataset.id))
+             || GEO.niveis.uf.find(x=>String(x.id)===String(alvo.dataset.id));
+      if(!t){ tt.style.opacity=0; return; }
+      const a = agg[t.id];
+      const v = valorMetrica(a, metricaAtiva);
+      tt.innerHTML = `<div class="tt-nome">${nv.nomeDe(t)}</div>`+
+        `<div class="tt-linha"><span>${met.rot}</span><b class="tt-metrica">${v!=null?met.fmtV(v):'\u2014'}</b></div>`+
+        (a? `<div class="tt-linha"><span>Estabelecimentos</span><b>${fmt(a.estab)}</b></div>`+
+            `<div class="tt-linha"><span>Partos 2024</span><b>${fmt(a.tot)}</b></div>`
+          : `<div class="tt-linha"><span>Sem estabelecimento &gt;1.000 partos</span></div>`)+
+        `<div class="tt-dica">Clique para filtrar o painel</div>`;
+      const margem=14, larg=250;
+      let x=e.clientX+margem, y=e.clientY+margem;
+      if(x+larg > window.innerWidth) x = e.clientX - larg - margem;
+      if(y+140 > window.innerHeight) y = e.clientY - 140;
+      tt.style.left=x+'px'; tt.style.top=y+'px'; tt.style.opacity=1;
+    });
+    $('mapaSvg').addEventListener('mouseleave', ()=>{ tt.style.opacity=0; });
+  }
+  $('mapaSvg').addEventListener('keydown', e=>{
+    if(e.key!=='Enter'&&e.key!==' ') return;
+    const alvo=e.target.closest('[data-id]');
+    if(alvo){ e.preventDefault(); selecionar(alvo.dataset.id); }
+  });
+  infoTerr(agg);
+}
+
+// UF (sigla) a partir do código IBGE embutido nos códigos de macro (4 díg.) e RS (5 díg.)
+const COD_UF = {11:'RO',12:'AC',13:'AM',14:'RR',15:'PA',16:'AP',17:'TO',21:'MA',22:'PI',23:'CE',
+24:'RN',25:'PB',26:'PE',27:'AL',28:'SE',29:'BA',31:'MG',32:'ES',33:'RJ',35:'SP',
+41:'PR',42:'SC',43:'RS',50:'MS',51:'MT',52:'GO',53:'DF'};
+function UF_DE_COD(cod){
+  const c = +cod;
+  return COD_UF[ c>=10000 ? Math.floor(c/1000) : Math.floor(c/100) ];
+}
+
+// Transição animada do enquadramento (efeito de zoom entre Brasil e região)
+let vbAnterior = null, animId = null;
+function animarZoom(alvo){
+  const svg = $('mapaSvg'); if(!svg) return;
+  const reduzir = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const de = vbAnterior;
+  vbAnterior = {x:alvo.x, y:alvo.y, w:alvo.w, h:alvo.h};
+  if(!de || reduzir || (de.x===alvo.x&&de.y===alvo.y&&de.w===alvo.w&&de.h===alvo.h)) return;
+  if(animId) cancelAnimationFrame(animId);
+  const dur = 700, t0 = performance.now();
+  const ease = t=>t<.5 ? 4*t*t*t : 1-Math.pow(-2*t+2,3)/2; // easeInOutCubic
+  const passo = agora=>{
+    const t = Math.min(1,(agora-t0)/dur), e = ease(t);
+    const x=de.x+(alvo.x-de.x)*e, y=de.y+(alvo.y-de.y)*e,
+          w=de.w+(alvo.w-de.w)*e, h=de.h+(alvo.h-de.h)*e;
+    svg.setAttribute('viewBox',`${x.toFixed(1)} ${y.toFixed(1)} ${w.toFixed(1)} ${h.toFixed(1)}`);
+    if(t<1) animId=requestAnimationFrame(passo);
+  };
+  svg.setAttribute('viewBox',`${de.x.toFixed(1)} ${de.y.toFixed(1)} ${de.w.toFixed(1)} ${de.h.toFixed(1)}`);
+  animId = requestAnimationFrame(passo);
+}
+
+function cartaoResumo(titulo, a, rodape){
+  return `
+    <div class="nome-uf">${titulo}</div>
+    <div class="linha"><span>Estabelecimentos</span><b>${fmt(a.estab)}</b></div>
+    <div class="linha"><span>Partos 2024</span><b>${fmt(a.tot)}</b></div>
+    <div class="linha"><span>Taxa de cesariana</span><b>${a.txces!=null?a.txces.toFixed(1)+'%':'\u2014'}</b></div>
+    <div class="linha"><span>% Ces\u00e1rea G1</span><b>${a.g1p!=null?a.g1p.toFixed(1)+'%':'\u2014'}</b></div>
+    <div class="linha"><span>Com selo &ge;5</span><b>${fmt(a.selo)} (${a.seloP!=null?a.seloP.toFixed(0):'\u2014'}%)</b></div>
+    <div class="linha"><span>Enfermagem adequada</span><b>${fmt(a.enfOk)} (${a.enf!=null?a.enf.toFixed(0):'\u2014'}%)</b></div>
+    <div class="linha"><span>LARC por 1.000 partos</span><b>${a.larcM!=null?a.larcM.toFixed(1):'\u2014'}</b></div>
+    <div class="linha"><span>Atendem viol\u00eancia sexual</span><b>${fmt(a.violSim)} (${a.violP!=null?a.violP.toFixed(0):'\u2014'}%)</b></div>
+    <div style="margin-top:8px;font-size:11px;color:var(--texto-suave)">${rodape}</div>`;
+}
+function infoTerr(agg){
+  if(terrSel && terrSel.nivel===nivelAtivo){
+    const a = agg[terrSel.id];
+    const nv = nivelDef();
+    const t = GEO.niveis[nivelAtivo].find(x=>String(x.id)===String(terrSel.id));
+    const titulo = nivelAtivo==='uf' ? `${NOME_UF[terrSel.id]} (${terrSel.id})` : nv.nomeDe(t);
+    if(!a){
+      $('infoUF').innerHTML = `<div class="nome-uf">${titulo}</div><div class="vazio">Sem estabelecimentos &gt;1.000 partos nesta sele\u00e7\u00e3o.</div>`;
+      return;
+    }
+    $('infoUF').innerHTML = cartaoResumo(titulo, a,
+      'Agregado apenas das unidades &gt;1.000 partos. Toque novamente para desfazer o filtro.');
+    return;
+  }
+  const nomeUF = $('fUF').value;
+  if(nomeUF){
+    const a = resumoDe(d=>d.uf===nomeUF);
+    if(a){ $('infoUF').innerHTML = cartaoResumo(nomeUF+' ('+(SIGLA[nomeUF]||'')+')', a,
+      'Agregado das unidades &gt;1.000 partos do estado. Toque em um territ\u00f3rio para detalhar.'); return; }
+  }
+  const reg = $('fReg').value;
+  if(reg){
+    const a = resumoDe(d=>d.reg===reg);
+    if(a){ $('infoUF').innerHTML = cartaoResumo('Regi\u00e3o '+reg, a,
+      'Agregado das unidades &gt;1.000 partos da regi\u00e3o. Toque em um territ\u00f3rio para detalhar.'); return; }
+  }
+  const a = resumoDe(()=>true);
+  if(a){ $('infoUF').innerHTML = cartaoResumo('Brasil', a,
+    'Agregado nacional das unidades &gt;1.000 partos. Toque em um territ\u00f3rio para detalhar.'); return; }
+  $('infoUF').innerHTML = '<div class="vazio">Sem estabelecimentos na sele\u00e7\u00e3o.</div>';
+}
+
+function exportarMapaPNG(){
+  const svg = document.getElementById('mapaSvg'); if(!svg) return;
+  const vb = svg.viewBox.baseVal;
+  const xml = new XMLSerializer().serializeToString(svg);
+  const img = new Image(); const sc = 2*(GEO.W/vb.width);
+  img.onload = ()=>{
+    const cv=document.createElement('canvas'); cv.width=vb.width*sc; cv.height=vb.height*sc;
+    const cx=cv.getContext('2d'); cx.fillStyle='#fff'; cx.fillRect(0,0,cv.width,cv.height);
+    cx.drawImage(img,0,0,cv.width,cv.height);
+    const a=document.createElement('a'); a.href=cv.toDataURL('image/png');
+    a.download='mapa_'+metricaAtiva+'_2024.png'; a.click();
+  };
+  img.src='data:image/svg+xml;base64,'+btoa(unescape(encodeURIComponent(xml)));
+}
+
+const FLAG_NOMES = /*__FLAGS__*/[];
+
+/* Contexto legível da seleção atual, do mais específico ao mais geral */
+function contextoSelecao(){
+  const partes=[];
+  if($('fMun').value) partes.push($('fMun').value+' ('+(SIGLA[$('fUF').value]||'')+')');
+  else if(terrSel && terrSel.nivel!=='uf' && terrSel.nome) partes.push(terrSel.nome);
+  else if($('fUF').value) partes.push($('fUF').value);
+  else if($('fReg').value) partes.push('Regi\u00e3o '+$('fReg').value);
+  else partes.push('Brasil');
+  if($('fNat').value) partes.push($('fNat').value.toLowerCase());
+  if(estagioSel!=null) partes.push('selo: '+ESTAGIOS.find(x=>x.id===estagioSel).nome.toLowerCase());
+  if($('fBusca').value.trim()) partes.push('busca: "'+$('fBusca').value.trim()+'"');
+  return partes.join(' \u00b7 ');
+}
+function atualizarContextos(){
+  const txt = 'Sele\u00e7\u00e3o: '+contextoSelecao()+' \u00b7 '+filtrado.length+' estabelecimento'+(filtrado.length===1?'':'s');
+  document.querySelectorAll('.ctx-linha').forEach(el=>el.textContent=txt);
+}
+
+/* Download de gráfico em PNG com título e contexto embutidos */
+function baixarGrafico(canvasId, nomeArq){
+  const ch = charts[canvasId]; if(!ch) return;
+  const src = ch.canvas;
+  const esc = 2, mTop = 64, mLat = 20, mBot = 16;
+  const cv = document.createElement('canvas');
+  cv.width = (src.width/ (window.devicePixelRatio||1)) * esc + mLat*2*esc;
+  cv.height = (src.height/(window.devicePixelRatio||1)) * esc + (mTop+mBot)*esc;
+  const cx = cv.getContext('2d');
+  cx.fillStyle = '#ffffff'; cx.fillRect(0,0,cv.width,cv.height);
+  // faixa institucional
+  cx.fillStyle = '#0E7A56'; cx.fillRect(0,0,cv.width,6*esc);
+  // título = h3 do card; contexto = seleção
+  const cardEl = src.closest('.card');
+  const titulo = cardEl ? cardEl.querySelector('h3').textContent : '';
+  cx.fillStyle = '#0A5C42'; cx.font = `700 ${15*esc}px Archivo, sans-serif`;
+  cx.fillText(titulo, mLat*esc, 30*esc);
+  cx.fillStyle = '#2B2A6E'; cx.font = `600 ${11*esc}px Inter, sans-serif`;
+  cx.fillText('Sele\u00e7\u00e3o: '+contextoSelecao()+' \u00b7 2024', mLat*esc, 48*esc);
+  cx.drawImage(src, mLat*esc, mTop*esc, cv.width-mLat*2*esc, cv.height-(mTop+mBot)*esc);
+  const a=document.createElement('a');
+  a.href=cv.toDataURL('image/png');
+  a.download=nomeArq+'_'+contextoSelecao().split(' \u00b7 ')[0].normalize('NFD').replace(/[^\w]+/g,'_').toLowerCase()+'.png';
+  a.click();
+}
+document.addEventListener('click', e=>{
+  const b = e.target.closest('.png-mini');
+  if(b) baixarGrafico(b.dataset.c, b.dataset.n);
+});
+let estagioSel = null;
+const ESTAGIOS = [
+  {id:'selo',    nome:'Com selo',        det:'5 ou mais indicadores', cor:'#2B2A6E',
+    pred:d=>d.selo===1},
+  {id:'quase',   nome:'Quase l\u00e1',   det:'4 indicadores adequados', cor:'#D68910',
+    pred:d=>!d.selo && d.nAdeq>=4},
+  {id:'caminho', nome:'No caminho',      det:'2 a 3 indicadores', cor:'#6FBE87',
+    pred:d=>!d.selo && (d.nAdeq===2||d.nAdeq===3)},
+  {id:'inicio',  nome:'In\u00edcio da jornada', det:'0 a 1 indicador', cor:'#C0392B',
+    pred:d=>!d.selo && d.nAdeq<=1}
+];
+function selecionarEstagio(id){
+  estagioSel = (estagioSel===id)? null : id;
+  aplicar();
+}
+function renderSelo(){
+  destruir('chSeloDonut');
+  // base: filtros vigentes exceto o próprio estágio
+  const salvo = estagioSel; estagioSel = null;
+  const reg=$('fReg').value, uf=$('fUF').value, mun=$('fMun').value, nat=$('fNat').value,
+        q=$('fBusca').value.trim().toLowerCase();
+  const base = DADOS.filter(d=>
+    (!reg||d.reg===reg)&&(!uf||d.uf===uf)&&(!mun||d.mun===mun)&&(!nat||d.nat===nat)&&
+    (!q||d.est.toLowerCase().includes(q))&&
+    (!terrSel||terrSel.nivel==='uf'||
+      (terrSel.nivel==='macro'&&d.mrs===terrSel.id)||
+      (terrSel.nivel==='rs'&&d.rs===terrSel.id)));
+  estagioSel = salvo;
+  const total = base.length || 1;
+  const contagens = ESTAGIOS.map(e=>base.filter(e.pred).length);
+  const comSelo = contagens[0];
+
+  // rosca central
+  charts.chSeloDonut = new Chart($('chSeloDonut'),{
+    type:'doughnut',
+    data:{labels:['Com selo','Sem selo'],
+      datasets:[{data:[comSelo, base.length-comSelo],
+        backgroundColor:['#2B2A6E','#DCEFE0'], borderWidth:0, cutout:'72%'}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},datalabels:{display:false},
+        tooltip:{callbacks:{label:c=>c.label+': '+c.parsed+' unidades'}}}}
+  });
+  $('seloPct').textContent = base.length? Math.round(comSelo/total*100)+'%' : '\u2014';
+  $('seloLeg').innerHTML = fmt(comSelo)+' de '+fmt(base.length)+'<br>com selo';
+
+  // estágios em barras horizontais nomeadas
+  const max = Math.max(...contagens,1);
+  $('seloEstagios').innerHTML = ESTAGIOS.map((e,i)=>{
+    const n=contagens[i], pct=n/total*100;
+    return `<div class="estagio-row ${estagioSel===e.id?'ativo':''}" data-e="${e.id}" role="button" tabindex="0">
+      <div class="estagio-nome">${e.nome}<small>${e.det}</small></div>
+      <div class="estagio-trilho"><div class="estagio-barra" style="width:${(n/max*100).toFixed(1)}%;background:${e.cor}"></div></div>
+      <div class="estagio-num">${fmt(n)}<br><small>${pct.toFixed(0)}%</small></div>
+    </div>`;
+  }).join('');
+  $('seloEstagios').querySelectorAll('.estagio-row').forEach(r=>{
+    r.onclick=()=>selecionarEstagio(r.dataset.e);
+    r.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();selecionarEstagio(r.dataset.e);}};
+  });
+
+  // insight: entre as "quase lá", o que mais falta
+  const quaseLa = base.filter(ESTAGIOS[1].pred);
+  if(quaseLa.length){
+    const faltas = FLAG_NOMES.map((n,i)=>({n, f:quaseLa.filter(d=>d.flags[i]==='0').length}))
+      .sort((a,b)=>b.f-a.f).slice(0,3);
+    $('seloInsight').innerHTML = `<b>${fmt(quaseLa.length)} unidade${quaseLa.length>1?'s':''} a um indicador do selo.</b> `+
+      `O que mais falta entre elas: `+faltas.map(x=>`${x.n} (${x.f})`).join(', ')+'.'+
+      (estagioSel!=null? ' <b>Filtro ativo.</b> Toque no est\u00e1gio novamente para desfazer.':'');
+  } else {
+    $('seloInsight').innerHTML = 'Nenhuma unidade no est\u00e1gio "quase l\u00e1" nesta sele\u00e7\u00e3o.'+
+      (estagioSel!=null? ' <b>Filtro ativo.</b>':'');
+  }
+}
+
+/* ===== Matriz semáforo território x indicador ===== */
+const MATRIZ_COLS = [
+  {k:'asfP',  rot:'Asfixia'},
+  {k:'enf',   rot:'Enferm.'},
+  {k:'amiuA', rot:'AMIU'},
+  {k:'rob2P', rot:'Robson \u22652'},
+  {k:'contrP',rot:'Contracep.'},
+  {k:'violP', rot:'Viol\u00eancia'},
+  {k:'smnP',  rot:'SMCON Neo'},
+  {k:'smoP',  rot:'SMCON Obst'},
+  {k:'neoP',  rot:'Neonatal'},
+  {k:'seloP', rot:'Selo \u22655'}
+];
+let matrizOrd = {k:'seloP', asc:false};
+
+function territoriosEscopo(){
+  const nomeUF=$('fUF').value, reg=$('fReg').value;
+  const ufsSet = nomeUF&&SIGLA[nomeUF] ? new Set([SIGLA[nomeUF]])
+               : (reg&&REG_UFS[reg] ? REG_UFS[reg] : null);
+  return GEO.niveis[nivelAtivo].filter(t=>{
+    if(!ufsSet) return true;
+    return nivelAtivo==='uf' ? ufsSet.has(t.id) : ufsSet.has(UF_DE_COD(t.id));
+  });
+}
+
+function dadosMatriz(){
+  const agg = agregarTerr(nivelAtivo);
+  const nv = nivelDef();
+  const extras = {};
+  baseFiltrada().forEach(d=>{
+    const k=nv.chave(d); if(k==null) return;
+    if(!extras[k]) extras[k]={amiuA:0,rob2:0,contr:0};
+    if(d.flags && d.flags[2]==='1') extras[k].amiuA++;
+    if(d.rob2) extras[k].rob2++;
+    if(d.larc>0) extras[k].contr++;
+  });
+  return territoriosEscopo().map(t=>{
+    const a=agg[t.id]; if(!a) return null;
+    const e=extras[t.id]||{amiuA:0,rob2:0,contr:0};
+    const p=(n)=>a.estab? n/a.estab*100 : null;
+    return {id:t.id, nome:nivelAtivo==='uf'?(NOME_UF[t.id]||t.nome):t.nome, n:a.estab,
+      asfP:a.asfP, enf:a.enf, amiuA:p(e.amiuA), rob2P:p(e.rob2), contrP:p(e.contr),
+      violP:a.violP, smnP:a.smnP, smoP:a.smoP, neoP:a.neoP, seloP:a.seloP};
+  }).filter(Boolean);
+}
+
+function celSem(v){
+  if(v==null) return '<span class="cel c0">\u2014</span>';
+  const c = v>=75?'c4' : v>=50?'c3' : v>=25?'c2' : 'c1';
+  return `<span class="cel ${c}">${v.toFixed(0)}%</span>`;
+}
+
+function renderMatriz(){
+  const linhas = dadosMatriz().sort((a,b)=>{
+    const k=matrizOrd.k;
+    if(k==='nome') return matrizOrd.asc? a.nome.localeCompare(b.nome,'pt'): b.nome.localeCompare(a.nome,'pt');
+    if(k==='n') return matrizOrd.asc? a.n-b.n : b.n-a.n;
+    const va=a[k]==null?-1:a[k], vb=b[k]==null?-1:b[k];
+    return matrizOrd.asc? va-vb : vb-va;
+  });
+  const nv = nivelDef();
+  const cab = `<tr><th data-k="nome">${nv.rot}</th><th data-k="n">n</th>`+
+    MATRIZ_COLS.map(c=>`<th data-k="${c.k}">${c.rot}</th>`).join('')+'</tr>';
+  const corpo = linhas.map(l=>
+    `<tr><td class="terr" data-id="${l.id}" title="${l.nome}">${l.nome}</td><td class="n">${l.n}</td>`+
+    MATRIZ_COLS.map(c=>`<td>${celSem(l[c.k])}</td>`).join('')+'</tr>').join('');
+  $('matrizWrap').innerHTML = `<table class="matriz"><thead>${cab}</thead><tbody>${corpo}</tbody></table>`;
+  $('matrizWrap').querySelectorAll('th').forEach(th=>th.onclick=()=>{
+    const k=th.dataset.k;
+    if(matrizOrd.k===k) matrizOrd.asc=!matrizOrd.asc; else matrizOrd={k, asc:(k==='nome')};
+    renderMatriz();
+  });
+  $('matrizWrap').querySelectorAll('td.terr').forEach(td=>td.onclick=()=>{
+    const id = td.dataset.id;
+    if(nivelAtivo==='uf'){
+      $('fUF').value = (SIGLA[$('fUF').value]===id)? '' : NOME_UF[id];
+      encadear('fUF'); aplicar(); return;
+    }
+    const t = GEO.niveis[nivelAtivo].find(x=>String(x.id)===String(id));
+    terrSel = (terrSel && String(terrSel.id)===String(id))? null : {nivel:nivelAtivo, id:t.id, nome:t.nome};
+    aplicar();
+  });
+}
+
+$('btnMatrizXlsx').addEventListener('click', ()=>{
+  const nv = nivelDef();
+  const linhas = dadosMatriz();
+  const aoa = [[nv.rot,'Estabelecimentos', ...MATRIZ_COLS.map(c=>c.rot.replace(/\u2265/g,'>='))]];
+  linhas.forEach(l=>aoa.push([l.nome, l.n, ...MATRIZ_COLS.map(c=>l[c.k]!=null?+l[c.k].toFixed(1):null)]));
+  aoa.push([]);
+  aoa.push(['Sele\u00e7\u00e3o: '+contextoSelecao()+' \u00b7 % de estabelecimentos adequados \u00b7 apenas unidades >1.000 partos \u00b7 2024']);
+  const ws = XLSX.utils.aoa_to_sheet(aoa);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'Matriz sem\u00e1foro');
+  XLSX.writeFile(wb, 'matriz_semaforo_'+nivelAtivo+'.xlsx');
+});
+
+function render(){
+  renderKPIs(); renderCesReg(); renderRobson(); renderAdeq(); renderTop(); renderTabela(); renderMapa();
+  renderSelo(); renderMatriz(); renderResumo(); atualizarContextos();
+}
+
+/* ===== Exportações ===== */
+function exportarExcel(){
+  const linhas=filtrado.map(d=>({
+    'Região':d.reg,'UF':d.uf,'Município':d.mun,'Estabelecimento':d.est,'Gestão':d.gestao,
+    'Natureza jurídica':d.nat,'HGPAR':d.hgpar?'SIM':'NÃO','Neonatal completa':d.neo,
+    'Partos totais':d.tot,'Cesarianas':d.ces,'Partos normais':d.norm,'Partos em CPN':d.cpn,
+    '% Cesariana':d.txces,'% Asfixia':d.asf,'Classif. asfixia':d.asfC,
+    '% Enfermagem obst.':d.enf,'Classif. enfermagem':d.enfC,'% AMIU':d.amiu,
+    '% Cesárea G1':d.g1,'% Cesárea G2':d.g2,'% Cesárea G3':d.g3,'% Cesárea G4':d.g4,
+    'Grupos Robson adequados':d.robAd,'DIU':d.diu,'Implante':d.imp,'LARC total':d.larc,
+    'Atende violência sexual':d.viol?'SIM':'','Selo ≥5':d.selo?'ADEQUADO':''
+  }));
+  const ws=XLSX.utils.json_to_sheet(linhas);
+  const wb=XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb,ws,'Indicadores 2024');
+  XLSX.writeFile(wb,'indicadores_partos_2024.xlsx');
+}
+
+function exportarPDF(){
+  const {jsPDF}=window.jspdf;
+  const doc=new jsPDF({orientation:'landscape',unit:'mm',format:'a4'});
+  doc.setFillColor(14,122,86); doc.rect(0,0,297,22,'F');
+  doc.setTextColor(255,255,255); doc.setFontSize(13); doc.setFont('helvetica','bold');
+  doc.text('Indicadores Básicos para a Saúde no Brasil · Estabelecimentos >1.000 partos · 2024',10,10);
+  doc.setFontSize(9); doc.setFont('helvetica','normal');
+  const reg=$('fReg').value||'Todas', uf=$('fUF').value||'Todas', mun=$('fMun').value||'Todos';
+  doc.text(`Seleção: Região ${reg} · UF ${uf} · Município ${mun} · ${filtrado.length} estabelecimentos`,10,17);
+  const corpo=filtrado.slice().sort((a,b)=>b.tot-a.tot).map(d=>[
+    d.est.length>52?d.est.slice(0,50)+'…':d.est, d.uf, d.mun, fmt(d.tot),
+    d.txces.toFixed(1)+'%', d.asf.toFixed(1)+'%', d.enf.toFixed(1)+'%', d.g1.toFixed(1)+'%',
+    fmt(d.larc), d.selo?'SELO':''
+  ]);
+  doc.autoTable({
+    startY:26,
+    head:[['Estabelecimento','UF','Município','Partos','% Cesárea','Asfixia','Enf. Obst.','G1','LARC','Selo']],
+    body:corpo,
+    styles:{fontSize:6.8,cellPadding:1.4},
+    headStyles:{fillColor:[14,122,86],fontSize:7,fontStyle:'bold'},
+    alternateRowStyles:{fillColor:[246,251,247]},
+    columnStyles:{0:{cellWidth:88},3:{halign:'right'},4:{halign:'right'},5:{halign:'right'},6:{halign:'right'},7:{halign:'right'},8:{halign:'right'}}
+  });
+  const pgs=doc.internal.getNumberOfPages();
+  for(let i=1;i<=pgs;i++){
+    doc.setPage(i); doc.setFontSize(7); doc.setTextColor(120);
+    doc.text(`Fonte: SINASC/CNES · Extração 01/07/2026 · Página ${i}/${pgs}`,10,203);
+  }
+  doc.save('indicadores_partos_2024.pdf');
+}
+
+
+/* ===== Layout responsivo dos filtros (bottom sheet + resumo sticky) ===== */
+const ehMobile = ()=> window.matchMedia ? window.matchMedia('(max-width:900px)').matches : false;
+
+function posicionarFiltros(){
+  const card = $('filtrosCard');
+  if(ehMobile()){
+    if(card.parentElement !== $('sheetCorpo')) $('sheetCorpo').appendChild(card);
+    card.classList.remove('filtros-topo-oculta');
+  } else {
+    if(card.parentElement === $('sheetCorpo')) $('filtrosAncora').after(card);
+    fecharSheet();
+  }
+}
+function abrirSheet(){ document.body.classList.add('sheet-aberta'); }
+function fecharSheet(){ document.body.classList.remove('sheet-aberta'); }
+$('fabFiltros').addEventListener('click', abrirSheet);
+$('sheetFechar').addEventListener('click', fecharSheet);
+$('sheetScrim').addEventListener('click', fecharSheet);
+$('sheetVer').addEventListener('click', fecharSheet);
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') fecharSheet(); });
+if(window.matchMedia) window.matchMedia('(max-width:900px)').addEventListener('change', posicionarFiltros);
+
+function filtrosAtivos(){
+  const lista=[];
+  if($('fReg').value) lista.push({rot:'Regi\u00e3o: '+$('fReg').value, limpa:()=>{$('fReg').value='';encadear('fReg');}});
+  if($('fUF').value) lista.push({rot:'UF: '+$('fUF').value, limpa:()=>{$('fUF').value='';encadear('fUF');}});
+  if($('fMun').value) lista.push({rot:$('fMun').value, limpa:()=>{$('fMun').value='';}});
+  if($('fNat').value) lista.push({rot:$('fNat').value, limpa:()=>{$('fNat').value='';}});
+  if($('fBusca').value.trim()) lista.push({rot:'Busca: '+$('fBusca').value.trim(), limpa:()=>{$('fBusca').value='';}});
+  if(terrSel && terrSel.nivel!=='uf' && terrSel.nome)
+    lista.push({rot:terrSel.nome, limpa:()=>{terrSel=null;}});
+  if(estagioSel!=null){
+    const e=ESTAGIOS.find(x=>x.id===estagioSel);
+    lista.push({rot:'Selo: '+e.nome, limpa:()=>{estagioSel=null;}});
+  }
+  return lista;
+}
+function renderResumo(){
+  const ativos = filtrosAtivos();
+  const bar = $('resumoBar');
+  const badge = $('fabBadge');
+  badge.style.display = ativos.length? 'inline-flex':'none';
+  badge.textContent = ativos.length;
+  if(!ativos.length){ bar.classList.remove('ativa'); bar.innerHTML=''; return; }
+  bar.classList.add('ativa');
+  bar.innerHTML = ativos.map((a,i)=>
+    `<span class="rchip">${a.rot}<button data-i="${i}" aria-label="Remover">\u00d7</button></span>`).join('')
+    + `<button class="rlimpar" id="rLimparTudo">Limpar tudo</button>`;
+  bar.querySelectorAll('.rchip button').forEach(b=>b.onclick=()=>{ ativos[+b.dataset.i].limpa(); aplicar(); });
+  $('rLimparTudo').onclick = limpar;
+}
+
+
+posicionarFiltros();
+initFiltros();
+render();
+</script>
+</body>
+</html>
