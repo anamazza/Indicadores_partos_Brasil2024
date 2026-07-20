@@ -26,7 +26,7 @@ flags_def = [
     ('Viol\u00eancia sexual',  df['CLASSIFICAÇÃO VIOLÊNCIA SEXUAL']=='SIM'),
     ('SMCON neonatal',      df['SMCON NEO'].astype(str).str.strip()=='ok'),
     ('SMCON obst\u00e9trico',  df['SMCON OBST'].astype(str).str.strip()=='ok'),
-    ('Neonatal completa',   df['UNIDADE NEONATAL COMPLETA']=='SIM'),
+    ('Neonatal completa',   df['UNIDADE NEONATAL COMPLETA'].astype(str).str.strip().isin(['SIM','NÃO SE APLICA'])),
 ]
 mat = pd.DataFrame({n: s.astype(int) for n, s in flags_def})
 
