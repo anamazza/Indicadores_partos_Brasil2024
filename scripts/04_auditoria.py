@@ -9,7 +9,7 @@ import pandas as pd, json, statistics as st, sys
 
 ARQ = sys.argv[1] if len(sys.argv)>1 else 'ESTABELECIMENTOS_ACIMA_DE_1000_PARTOS_2024__INDICADORES_01072026.xlsx'
 df = pd.read_excel(ARQ)
-D  = json.load(open('dados.json', encoding='utf-8'))
+D  = json.load(open('dados/dados.json', encoding='utf-8'))
 
 ok, falhas = 0, []
 def chk(nome, esperado, obtido, tol=0.05):
@@ -61,7 +61,7 @@ adeq = ((df['CLASSIFICAÇÃO ASFIXIA']=='ADEQUADO').astype(int)
     + (df['CLASSIFICAÇÃO VIOLÊNCIA SEXUAL']=='SIM').astype(int)
     + (df['SMCON NEO'].astype(str).str.strip()=='ok').astype(int)
     + (df['SMCON OBST'].astype(str).str.strip()=='ok').astype(int)
-    + (df['UNIDADE NEONATAL COMPLETA'].astype(str).str.strip().isin(['SIM','NÃO SE APLICA'])).astype(int))
+    + (df['UNIDADE NEONATAL COMPLETA'].isin(['SIM', 'NÃO SE APLICA'])).astype(int))
 selo = (df['CLASSIFICAÇÃO TOTAL \u22655 ROBSON 2 GRUPOS']=='ADEQUADO')
 chk("Soma nAdeq", int(adeq.sum()), sum(d['nAdeq'] for d in D))
 chk("Estágio Com selo", int(selo.sum()), sum(1 for d in D if d['selo']))

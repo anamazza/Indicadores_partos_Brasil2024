@@ -42,12 +42,12 @@ h1,h2,h3,.display{font-family:'Archivo',sans-serif}
 
 /* ===== Tela de início (hero) + trilho flutuante ===== */
 #inicioHero{position:fixed;inset:0;z-index:200;overflow:auto;-webkit-overflow-scrolling:touch;
-  display:flex;align-items:center;color:#fff;padding:56px 26px;
+  display:flex;color:#fff;padding:56px 26px;
   background:linear-gradient(112deg,rgba(10,33,61,.95) 0%,rgba(21,74,75,.88) 45%,rgba(21,74,75,.40) 100%),var(--foto-hero);
   background-size:cover;background-position:center 54%}
 body:not(.inicio) #inicioHero{display:none}
 body.inicio{overflow:hidden}
-.ih-inner{max-width:1080px;margin:0 auto;width:100%}
+.ih-inner{max-width:1080px;margin:auto;width:100%}
 .ih-inner .eyebrow{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.4)}
 .ih-inner h1{font-size:clamp(26px,4.6vw,42px);font-weight:800;line-height:1.12;max-width:760px}
 .ih-inner h1 span{display:block;font-weight:500;font-size:.55em;opacity:.92;margin-top:8px}
@@ -75,6 +75,13 @@ body.com-trilho .trilho{display:flex}
 .trilho button:hover{transform:scale(1.1)}
 .trilho button.home{background:var(--ambar)}
 .trilho button.atual{background:var(--verde-fiocruz);box-shadow:0 0 0 3px rgba(39,146,97,.35)}
+/* reserva espaço à esquerda para o trilho fixo não sobrepor o conteúdo */
+@media(min-width:941px){
+  body.com-trilho header{padding-left:84px}
+  body.com-trilho .wrap{padding-left:84px}
+  body.com-trilho .resumo-bar{padding-left:84px}
+  body.com-trilho footer .footer-inner{padding-left:84px}
+}
 @media(max-width:940px){
   .trilho{left:10px;right:10px;top:auto;bottom:10px;transform:none;flex-direction:row;justify-content:center;gap:7px;padding:7px;border-radius:24px;overflow-x:auto}
   body.com-trilho .fab-filtros{bottom:70px}
@@ -87,7 +94,7 @@ header{
     var(--foto-hero);
   background-size:cover;background-position:center 54%;
   color:var(--branco);position:relative;overflow:hidden;
-  padding:48px 24px 66px;
+  padding:30px 24px 54px;
 }
 header::after{
   content:'';position:absolute;left:0;right:0;bottom:-2px;height:42px;
@@ -97,10 +104,10 @@ header::after{
 .hex-bg{display:none}
 .header-inner{max-width:1240px;margin:0 auto;position:relative;z-index:2}
 .eyebrow{display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);
-  padding:4px 14px;border-radius:20px;font-size:11px;letter-spacing:1.6px;text-transform:uppercase;font-weight:600;margin-bottom:14px}
-header h1{font-size:clamp(22px,4vw,34px);font-weight:800;line-height:1.15;max-width:820px}
+  padding:4px 14px;border-radius:20px;font-size:10.5px;letter-spacing:1.4px;text-transform:uppercase;font-weight:600;margin-bottom:10px}
+header h1{font-size:clamp(19px,2.6vw,26px);font-weight:800;line-height:1.25;max-width:1000px}
 header h1 span{font-weight:500;opacity:.92}
-.header-sub{margin-top:10px;font-size:13px;opacity:.92;max-width:760px}
+.header-sub{margin-top:8px;font-size:12px;opacity:.92;max-width:900px}
 .fonte-tag{position:absolute;right:0;top:0;background:var(--branco);color:var(--verde-fiocruz);
   font-family:'Archivo';font-weight:800;font-size:13px;padding:8px 16px;border-radius:0 0 0 14px}
 
@@ -141,6 +148,9 @@ button.acao:hover{filter:brightness(1.08)}
 .kpi.k-indigo .valor{color:var(--indigo)}
 .kpi.k-alerta .valor{color:var(--alerta)}
 .kpi .rotulo{font-size:11px;color:var(--texto-suave);font-weight:600;margin-top:3px;line-height:1.3}
+button.kpi{cursor:pointer;border:none;text-align:left;font-family:inherit;transition:.15s}
+button.kpi::before{background:var(--indigo)}
+button.kpi:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(10,33,61,.18)}
 
 /* Seções e cards de gráfico */
 .secao-titulo{margin:30px 0 14px;display:flex;align-items:center;gap:12px}
@@ -355,6 +365,30 @@ footer{background:var(--indigo);color:#fff;margin-top:50px}
 .footer-inner{max-width:1240px;margin:0 auto;padding:26px 20px;display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:center;font-size:12px}
 .footer-inner .marca{font-family:'Archivo';font-weight:800;font-size:14px}
 .footer-inner .marca span{color:var(--verde-lima)}
+/* ===== visão de metodologia (tela separada com botão voltar) ===== */
+#metodologiaView{position:fixed;inset:0;z-index:300;display:none;overflow:auto;-webkit-overflow-scrolling:touch;
+  background:var(--mint-card,#EDF6EF);color:var(--texto,#1D3229)}
+body.metodologia #metodologiaView{display:block}
+body.metodologia{overflow:hidden}
+.met-topo{position:sticky;top:0;z-index:2;background:var(--indigo,#0A213D);color:#fff;
+  display:flex;align-items:center;gap:14px;padding:12px 22px;box-shadow:0 2px 10px rgba(10,33,61,.25)}
+.met-topo b{font-family:'Archivo',sans-serif;font-size:15px}
+.btn-voltar{display:inline-flex;align-items:center;gap:7px;background:#fff;color:var(--indigo,#0A213D);
+  border:none;border-radius:20px;padding:7px 16px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit}
+.btn-voltar:hover{background:#DCEFE0}
+.met-inner{max-width:880px;margin:0 auto;padding:26px 22px 70px}
+.met-inner section{background:#fff;border:1.5px solid var(--borda,#D7E4DB);border-radius:12px;padding:18px 20px;margin-bottom:14px}
+.met-inner h1{font-family:'Archivo',sans-serif;font-size:22px;margin:8px 0 4px}
+.met-inner .met-sub{font-size:12.5px;color:var(--texto-suave,#4E6A5C);margin-bottom:18px}
+.met-inner h2{font-family:'Archivo',sans-serif;font-size:15.5px;margin-bottom:8px;color:var(--verde-profundo,#0A5C42)}
+.met-inner p{font-size:13.5px;line-height:1.65;margin-bottom:8px}
+.met-inner p:last-child{margin-bottom:0}
+.met-inner .met-dir{display:inline-block;font-size:11px;font-weight:700;border-radius:12px;padding:2px 10px;margin-left:6px;vertical-align:1px}
+.met-inner .dir-menor{background:#FDDBC7;color:#7C2010}
+.met-inner .dir-maior{background:#DCEFE0;color:#0A5C42}
+.met-inner ul{font-size:13.5px;line-height:1.65;margin:0 0 8px 18px}
+.btn-metodologia{cursor:pointer;font-family:inherit;transition:.15s}
+.btn-metodologia:hover{background:rgba(255,255,255,.32)}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 @media(max-width:640px){
   header{padding:26px 16px 50px}
@@ -367,6 +401,10 @@ footer{background:var(--indigo);color:#fff;margin-top:50px}
 <body class="inicio">
 <section id="inicioHero" role="dialog" aria-label="Início">
   <div class="ih-inner">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:14px 26px;flex-wrap:wrap;margin-bottom:12px">
+      <div style="font-size:13.5px;font-weight:600;letter-spacing:.4px;color:rgba(255,255,255,.92);text-transform:uppercase;line-height:1.5">Ações Nacionais e de Cooperação em Saúde<br>da Mulher, da Criança e do Adolescente</div>
+      <img src="img/logos_institucionais_branco_semgov.png" alt="IFF · Fiocruz · Rede Alyne · SUS 35 anos · Ministério da Saúde" style="width:min(400px,100%);height:auto">
+    </div>
     <div class="eyebrow">Painel de Indicadores &middot; Aten&ccedil;&atilde;o Obst&eacute;trica e Neonatal &middot; 2024</div>
     <h1>Indicadores Obst&eacute;tricos e Neonatais<span>Estabelecimentos com mais de 1.000 partos no Brasil &middot; conceitos e aplica&ccedil;&otilde;es dos indicadores de qualidade</span></h1>
     <div class="ih-stats">
@@ -393,8 +431,12 @@ footer{background:var(--indigo);color:#fff;margin-top:50px}
   </svg>
   <div class="header-inner">
     <div class="fonte-tag">2024</div>
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:10px 24px;flex-wrap:wrap;margin-bottom:8px;padding-right:76px">
+      <div style="font-size:11.5px;font-weight:600;letter-spacing:.4px;color:rgba(255,255,255,.92);text-transform:uppercase;line-height:1.45">Ações Nacionais e de Cooperação em Saúde da Mulher, da Criança e do Adolescente</div>
+      <img src="img/logos_institucionais_branco_semgov.png" alt="IFF · Fiocruz · Rede Alyne · SUS 35 anos · Ministério da Saúde" style="width:min(320px,100%);height:auto">
+    </div>
     <span class="eyebrow">Painel de Indicadores · Atenção Obstétrica e Neonatal</span>
-    <h1>Estabelecimentos com mais de 1.000 partos no Brasil<br><span>conceitos e aplicações dos indicadores de qualidade</span></h1>
+    <h1>Estabelecimentos com mais de 1.000 partos no Brasil · <span>conceitos e aplicações dos indicadores de qualidade</span></h1>
     <div class="header-sub">543 estabelecimentos · 1,25 milhão de partos · indicadores de asfixia neonatal, enfermagem obstétrica, AMIU, grupos de Robson, contracepção pós-parto e atendimento à violência sexual</div>
   </div>
 </header>
@@ -475,7 +517,7 @@ footer{background:var(--indigo);color:#fff;margin-top:50px}
           <div id="legendaLinhas"></div>
         </div>
         <div class="info-uf" id="infoUF"><div class="vazio">Toque em um estado para ver o resumo e filtrar o painel.</div></div>
-        <div class="mapa-nota">Classes por quintis dos territórios do nível selecionado. Escala sequencial de verdes, segura para daltonismo. Territórios em cinza não possuem estabelecimento com mais de 1.000 partos; os agregados refletem apenas essas unidades, não a totalidade dos partos do território.</div>
+        <div class="mapa-nota">Indicadores em que "mais é melhor" usam quintis dos territórios do nível selecionado, em escala sequencial de verdes (mais escuro = maior = melhor). A taxa de cesariana ("menor é melhor") usa faixas fixas ancoradas na meta de 35%, em escala divergente azul–vermelho (azul = na meta ou abaixo; vermelho = acima da meta). Ambas seguras para daltonismo. Territórios em cinza não possuem estabelecimento com mais de 1.000 partos; os agregados refletem apenas essas unidades, não a totalidade dos partos do território.</div>
       </div>
     </div>
   </div>
@@ -484,14 +526,14 @@ footer{background:var(--indigo);color:#fff;margin-top:50px}
   <div class="grid-2">
     <div class="card">
       <div class="card-head"><div><h3>Taxa de cesariana por região</h3>
-      <div class="sub">Percentual ponderado pelo volume de partos da seleção</div></div>
+      <div class="sub">Percentual ponderado pelo volume de partos da seleção · quanto menor, melhor · linha tracejada = meta Rede Alyne ≤35%</div></div>
       <button class="png-mini" data-c="chCesReg" data-n="cesariana_por_regiao">&#8681; PNG</button></div>
       <div class="ctx-linha"></div>
       <div class="chart-box"><canvas id="chCesReg"></canvas></div>
     </div>
     <div class="card">
       <div class="card-head"><div><h3>Cesariana nos grupos de Robson</h3>
-      <div class="sub">Mediana dos estabelecimentos selecionados · G1 a G4</div></div>
+      <div class="sub">Mediana dos estabelecimentos selecionados · G1 a G4 · quanto menor, melhor · exclui estab. sem partos no grupo</div></div>
       <button class="png-mini" data-c="chRobson" data-n="robson_g1_g4">&#8681; PNG</button></div>
       <div class="ctx-linha"></div>
       <div class="chart-box"><canvas id="chRobson"></canvas></div>
@@ -515,9 +557,9 @@ footer{background:var(--indigo);color:#fff;margin-top:50px}
     <div class="chart-box alto" style="height:440px"><canvas id="chTop"></canvas></div>
   </div>
 
-  <div class="secao-titulo"><h2>Selo de qualidade</h2></div>
+  <div class="secao-titulo"><h2>Selo de conformidade</h2></div>
   <div class="card">
-    <div class="card-head"><div><h3>Selo de qualidade (&ge;5 indicadores adequados)</h3>
+    <div class="card-head"><div><h3>Selo de conformidade com itens de qualificação (&ge;5 de 9 adequados)</h3>
     <div class="sub">Onde a rede está na jornada até o selo · toque em um estágio para filtrar o painel</div></div>
     <button class="png-mini" data-c="chSeloDonut" data-n="selo_qualidade">&#8681; PNG</button></div>
     <div class="ctx-linha"></div>
@@ -529,20 +571,21 @@ footer{background:var(--indigo);color:#fff;margin-top:50px}
       <div id="seloEstagios"></div>
     </div>
     <div id="seloInsight" style="margin-top:14px;padding:12px 14px;background:var(--mint-card);border:1.5px solid var(--borda);border-radius:10px;font-size:12.5px;line-height:1.55"></div>
-    <div style="margin-top:8px;font-size:11px;color:var(--texto-suave)">Selo = 5 ou mais dos 9 indicadores classificatórios adequados: asfixia, enfermagem obstétrica, AMIU, Robson &ge;2 grupos, contracepção, violência sexual, SMCON neonatal e obstétrico, e unidade neonatal completa. Robson &ge;2 grupos é um dos 9 indicadores, não uma exigência à parte; "unidade neonatal completa" conta como adequada quando é "sim" ou "não se aplica". O selo é o campo oficial da planilha.</div>
+    <div id="seloAvisoCes"></div>
+    <div style="margin-top:8px;font-size:11px;color:var(--texto-suave)">Selo = 5 ou mais dos 9 indicadores classificatórios adequados: asfixia, enfermagem obstétrica, AMIU, Robson &ge;2 grupos, contracepção, violência sexual, SMCON neonatal e obstétrico, e unidade neonatal completa. Robson &ge;2 grupos é um dos 9 indicadores, não uma exigência à parte; "unidade neonatal completa" conta como adequada quando é "sim" ou "não se aplica". O selo é o campo oficial da planilha. Limiares institucionais de adequação: asfixia &le;0,6% (&ge;2.500g, sem anomalias); enfermagem obstétrica &ge;50% dos partos vaginais; AMIU &ge;50%; contracepção &ge;3 inserções de DIU/implante no ano; violência sexual &ge;2 atendimentos no ano; Robson por faixas de taxa por grupo, conforme planilha institucional.</div>
   </div>
 
   <div class="secao-titulo" style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><h2>Mapa de unidades</h2><button class="acao btn-xlsx" id="mapuToggle" onclick="toggleMapaUnidades()">&#9654; Mostrar mapa</button></div>
   <div class="card" id="mapuCard" style="display:none">
     <div class="card-head"><div><h3>Mapa de unidades &middot; com selo &times; sem selo</h3>
-    <div class="sub">Cada ponto &eacute; um estabelecimento &middot; verde = com selo, vermelho = sem selo &middot; respeita os filtros do painel</div></div>
+    <div class="sub">Cada ponto &eacute; um estabelecimento &middot; verde = com selo, roxo = sem selo &middot; respeita os filtros do painel</div></div>
     <button class="png-mini" onclick="exportarMapaUnidadesPNG()">&#8681; PNG</button></div>
     <div class="ctx-linha"></div>
     <div class="mapu-ctrl mapu-filtros"><label for="mapuUF">Estado:</label><select id="mapuUF" onchange="mapuSetUF(this.value)"><option value="">Todos</option></select><label for="mapuMacro">Macrorregi&atilde;o:</label><select id="mapuMacro" onchange="mapuSetMacro(this.value)"><option value="">Todas</option></select><button class="mapu-limpar" onclick="mapuLimparFiltros()">Limpar filtros</button></div>
-    <div class="mapu-ctrl"><label for="mapuMetrica">Colorir por:</label><select id="mapuMetrica" onchange="mudarMetricaMapa(this.value)"><option value="selo">Selo de qualidade</option><option value="asf">Asfixia neonatal</option><option value="enf">Enfermagem obst&eacute;trica</option><option value="rob">Robson &ge;2 grupos</option></select><span class="mapu-hint">Clique nos itens da legenda para mostrar/ocultar grupos</span></div>
+    <div class="mapu-ctrl"><label for="mapuMetrica">Colorir por:</label><select id="mapuMetrica" onchange="mudarMetricaMapa(this.value)"><option value="selo">Selo de conformidade</option><option value="asf">Asfixia neonatal</option><option value="enf">Enfermagem obst&eacute;trica</option><option value="rob">Robson &ge;2 grupos</option></select><span class="mapu-hint">Clique nos itens da legenda para mostrar/ocultar grupos</span></div>
     <div class="mapu-legenda" id="mapuLegenda"></div>
     <div id="mapaUnidades" style="height:540px;border-radius:12px;border:1.5px solid var(--borda);overflow:hidden;margin-top:4px"></div>
-    <div style="margin-top:8px;font-size:11px;color:var(--texto-suave)">Selo de qualidade oficial da planilha (&ge;5 dos 9 indicadores classificat&oacute;rios adequados; "n&atilde;o se aplica" em unidade neonatal conta como adequado). Coordenadas por CNES; duas unidades sem geo exata usam o centro do munic&iacute;pio.</div>
+    <div style="margin-top:8px;font-size:11px;color:var(--texto-suave)">Selo de conformidade oficial da planilha (&ge;5 dos 9 indicadores classificat&oacute;rios adequados; "n&atilde;o se aplica" em unidade neonatal conta como adequado). Coordenadas por CNES; duas unidades sem geo exata usam o centro do munic&iacute;pio.</div>
   </div>
 
   <div class="secao-titulo"><h2>Matriz semáforo</h2></div>
@@ -558,7 +601,7 @@ footer{background:var(--indigo);color:#fff;margin-top:50px}
       <span><span class="cel c2">25–49%</span></span>
       <span><span class="cel c1">&lt;25%</span></span>
       <span><span class="cel c0">—</span> sem unidades</span>
-      <span style="flex:1;text-align:right">Territórios com poucas unidades têm percentuais instáveis; observe o n.</span>
+      <span style="flex:1;text-align:right">% Cesárea é a única meta oficial (≤35%, Portaria GM/MS 5.350/2024): azul = na meta, vermelho = acima — não entra no selo. Territórios com menos de 5 unidades aparecem sem cor (percentual instável); observe o n. Neonatal: "não se aplica" conta como adequado (critério do selo).</span>
     </div>
   </div>
 
@@ -596,7 +639,7 @@ footer{background:var(--indigo);color:#fff;margin-top:50px}
           <th data-k="mun">Município</th>
           <th data-k="tot" class="num">Partos</th>
           <th data-k="txces" class="num">% Cesárea</th>
-          <th data-k="asf" class="num">Asfixia %</th>
+          <th data-k="asf" class="num" title="% de RN ≥2.500g sem anomalias congênitas com Apgar <7 no 5º minuto · quanto menor, melhor · adequado ≤0,6%">Asfixia %</th>
           <th data-k="enf" class="num">Enf. Obst. %</th>
           <th data-k="g1" class="num">G1 %</th>
           <th data-k="larc" class="num">LARC</th>
@@ -612,11 +655,106 @@ footer{background:var(--indigo);color:#fff;margin-top:50px}
 
 </div>
 
+<section id="metodologiaView" role="dialog" aria-label="Metodologia dos indicadores">
+  <div class="met-topo">
+    <button class="btn-voltar" onclick="fecharMetodologia()">&#8592; Voltar ao painel</button>
+    <b>Metodologia dos indicadores</b>
+  </div>
+  <div class="met-inner">
+    <h1>Nota metodológica · fichas de qualificação dos indicadores</h1>
+    <div class="met-sub">Fontes: SINASC, CNES e SIH-SUS. Universo: estabelecimentos com mais de 1.000 partos em 2024 (543 unidades; 1.253.881 partos). Extração de 01/07/2026. Base institucional alinhada às variáveis do SMCON/IFF-Fiocruz. Os parâmetros de adequação são institucionais e não constam em ato oficial publicado, exceto a meta de taxa de cesariana.</div>
+
+    <section>
+      <h2>Taxa de cesariana <span class="met-dir dir-menor">quanto menor, melhor</span></h2>
+      <p><b>Conceituação:</b> proporção de partos realizados por via cirúrgica no estabelecimento.</p>
+      <p><b>Método de cálculo:</b> número de cesarianas (partos cesáreos, cesarianas com laqueadura tubária e cesarianas em gestação de alto risco) ÷ total de partos × 100. Nos agregados territoriais, a taxa é ponderada pelo volume: Σ cesarianas ÷ Σ partos.</p>
+      <p><b>Parâmetro:</b> meta de até 35% por estabelecimento, definida no âmbito da Rede Alyne (Portaria GM/MS nº 5.350/2024). É a única meta com respaldo normativo utilizada no painel. No mapa, o indicador é apresentado em faixas fixas ancoradas na meta (≤30 · 30–35 · 35–45 · 45–55 · >55), em escala azul–vermelho: azul indica território na meta ou abaixo dela.</p>
+      <p><b>Observação:</b> a taxa de cesariana não compõe o selo de conformidade.</p>
+    </section>
+
+    <section>
+      <h2>Asfixia neonatal <span class="met-dir dir-menor">quanto menor, melhor</span></h2>
+      <p><b>Conceituação:</b> proporção de nascidos vivos com peso igual ou superior a 2.500g, sem anomalias congênitas, com índice de Apgar inferior a 7 no 5º minuto de vida. O Apgar baixo é utilizado como marcador de possível asfixia ao nascer, desfecho sensível à qualidade da vigilância do trabalho de parto e da reanimação neonatal.</p>
+      <p><b>Método de cálculo:</b> nascidos vivos ≥2.500g sem anomalias com Apgar 5' &lt;7 ÷ total de nascidos vivos ≥2.500g sem anomalias × 100 (SINASC).</p>
+      <p><b>Parâmetro:</b> adequado quando a taxa é igual ou inferior a 0,6%.</p>
+      <p><b>Limitações:</b> em unidades com pequeno número de casos, a taxa apresenta oscilação aleatória importante. Taxa de 0,0% em unidade de grande volume sugere falha de registro do Apgar na Declaração de Nascido Vivo e deve ser objeto de verificação, não de comparação.</p>
+    </section>
+
+    <section>
+      <h2>Parto vaginal assistido por enfermagem obstétrica <span class="met-dir dir-maior">quanto maior, melhor</span></h2>
+      <p><b>Conceituação:</b> proporção de partos vaginais assistidos por enfermeira obstétrica ou obstetriz, conforme o campo "profissional que assistiu o parto" da Declaração de Nascido Vivo. Expressa a adoção do modelo assistencial recomendado para a gestação de risco habitual (OMS, 2018; Diretrizes Nacionais de Assistência ao Parto Normal, Ministério da Saúde).</p>
+      <p><b>Método de cálculo:</b> partos vaginais assistidos por enfermagem obstétrica ÷ total de partos vaginais × 100 (SINASC).</p>
+      <p><b>Parâmetro:</b> adequado quando igual ou superior a 50%.</p>
+      <p><b>Limitações:</b> o campo apresenta subregistro conhecido. Valores nulos em unidades que dispõem de Centro de Parto Normal indicam falha de preenchimento da DNV, e não ausência da prática.</p>
+    </section>
+
+    <section>
+      <h2>AMIU — aspiração manual intrauterina <span class="met-dir dir-maior">quanto maior, melhor</span></h2>
+      <p><b>Conceituação:</b> proporção dos esvaziamentos uterinos realizados pela técnica de aspiração manual intrauterina, recomendada pela norma técnica de Atenção Humanizada ao Abortamento (Ministério da Saúde) em substituição à curetagem.</p>
+      <p><b>Método de cálculo:</b> procedimentos de AMIU ÷ total de esvaziamentos uterinos (AMIU + curetagem) × 100, a partir dos procedimentos registrados no SIH-SUS.</p>
+      <p><b>Parâmetro:</b> adequado quando igual ou superior a 50%.</p>
+      <p><b>Limitações:</b> por se tratar de dado de produção faturada, o valor nulo não distingue a unidade que não realiza o procedimento daquela que o registra sob outro código ou que referencia os casos a outro serviço.</p>
+    </section>
+
+    <section>
+      <h2>Cesariana nos grupos de Robson (G1 a G4) <span class="met-dir dir-menor">taxa por grupo: quanto menor, melhor</span></h2>
+      <p><b>Conceituação:</b> taxa de cesariana em grupos de gestantes de perfil obstétrico comparável, segundo a classificação de Robson (OMS, 2017). G1: nulíparas, feto único, cefálico, a termo, em trabalho de parto espontâneo. G2: nulíparas, feto único, cefálico, a termo, com indução ou cesariana anterior ao trabalho de parto. G3: multíparas sem cesariana prévia, feto único, cefálico, a termo, em trabalho de parto espontâneo. G4: multíparas sem cesariana prévia, com indução ou cesariana anterior ao trabalho de parto. A comparação dentro de cada grupo reduz o efeito das diferenças de perfil entre estabelecimentos.</p>
+      <p><b>Método de cálculo:</b> cesarianas do grupo ÷ nascidos vivos do grupo × 100.</p>
+      <p><b>Parâmetro:</b> faixas de taxa definidas por grupo na base institucional. O indicador classificatório "Robson ≥2 grupos" considera adequado o estabelecimento com pelo menos dois dos quatro grupos dentro da faixa; grupos sem nascidos vivos são computados como não adequados.</p>
+      <p><b>Limitações:</b> o gráfico do painel apresenta a mediana das unidades da seleção, excluídas as que não registraram partos no grupo. A medida "% Adeq. Robson G1–G4", exibida no mapa, é distinta: corresponde ao percentual de estabelecimentos classificados como adequados no grupo, com leitura inversa (quanto maior, melhor).</p>
+    </section>
+
+    <section>
+      <h2>Contracepção pós-parto — oferta de LARC <span class="met-dir dir-maior">quanto maior, melhor</span></h2>
+      <p><b>Conceituação:</b> inserções de DIU e de implante subdérmico (contraceptivos reversíveis de longa duração, LARC) registradas no SIH-SUS no ano, como marcador de oferta de planejamento reprodutivo pós-parto e pós-abortamento na unidade.</p>
+      <p><b>Método de cálculo:</b> soma das inserções de DIU e implante no ano. Classificação de adequação: três ou mais inserções.</p>
+      <p><b>Limitações:</b> o parâmetro identifica a existência de serviço ativo (insumo, profissional habilitado e fluxo), não a suficiência da oferta frente ao volume de partos. Para leitura de intensidade, o painel disponibiliza a métrica complementar de inserções por 1.000 partos. A inserção pós-placentária nem sempre é faturada, o que pode subestimar o dado.</p>
+    </section>
+
+    <section>
+      <h2>Atendimento à violência sexual <span class="met-dir dir-maior">quanto maior, melhor</span></h2>
+      <p><b>Conceituação:</b> número de atendimentos a vítimas de violência sexual registrados pelo estabelecimento no ano (SIH-SUS).</p>
+      <p><b>Método de cálculo:</b> contagem anual de atendimentos. Classificação de adequação: dois ou mais atendimentos registrados.</p>
+      <p><b>Limitações:</b> o atendimento é obrigatório em todos os hospitais do SUS (Lei nº 12.845/2013); o que o indicador capta é o registro do atendimento e o papel de referência da unidade na rede. A ausência de registro não caracteriza recusa: a unidade pode encaminhar os casos ao serviço de referência do território.</p>
+    </section>
+
+    <section>
+      <h2>SMCON neonatal e SMCON obstétrico <span class="met-dir dir-maior">adesão: quanto maior, melhor</span></h2>
+      <p><b>Conceituação:</b> adesão do estabelecimento aos módulos neonatal e obstétrico do Sistema de Monitoramento do Cuidado Obstétrico e Neonatal (SMCON/IFF-Fiocruz, estratégia Qualineo), de alimentação voluntária. Constituem dois indicadores classificatórios distintos.</p>
+      <p><b>Parâmetro:</b> adequado quando a unidade alimenta o módulo correspondente.</p>
+      <p><b>Limitações:</b> o indicador expressa a incorporação do monitoramento à rotina da unidade, não o resultado assistencial.</p>
+    </section>
+
+    <section>
+      <h2>Unidade neonatal completa <span class="met-dir dir-maior">estrutura</span></h2>
+      <p><b>Conceituação:</b> disponibilidade da linha completa de cuidado ao recém-nascido de risco — UTIN, UCINCo e UCINCa — conforme habilitações registradas no CNES (Portaria GM/MS nº 930/2012).</p>
+      <p><b>Parâmetro:</b> adequado quando a resposta é "sim" ou "não se aplica". A condição "não se aplica" corresponde às maternidades de risco habitual, que não constituem porta de entrada do recém-nascido grave; nesses casos, a retaguarda depende da regulação e do transporte neonatal.</p>
+    </section>
+
+    <section>
+      <h2>Selo de conformidade (≥5 de 9)</h2>
+      <p><b>Conceituação:</b> o estabelecimento recebe o selo quando ao menos 5 dos 9 indicadores classificatórios estão adequados: asfixia neonatal, enfermagem obstétrica, AMIU, Robson ≥2 grupos, contracepção, violência sexual, SMCON neonatal, SMCON obstétrico e unidade neonatal completa. "Robson ≥2 grupos" integra os 9 indicadores, sem constituir exigência adicional. O selo corresponde ao campo classificatório oficial da base.</p>
+      <p><b>Interpretação:</b> o selo afere conformidade com itens de qualificação — estrutura, processo e registro — e não constitui, por si, medida de qualidade assistencial. A taxa de cesariana não integra o selo. Unidades de maior porte e complexidade tendem a reunir mais itens por capacidade instalada e de registro; recomenda-se acompanhar a evolução de cada unidade no tempo, em vez de ordenar unidades de perfis distintos.</p>
+    </section>
+
+    <section>
+      <h2>Agregações e apresentação</h2>
+      <ul>
+        <li>Taxas (cesariana; LARC por 1.000 partos) são ponderadas pelo volume de partos. Percentuais de adequação correspondem à proporção de estabelecimentos adequados. AMIU e Robson, nos gráficos, utilizam a mediana das unidades da seleção.</li>
+        <li>No mapa, os indicadores em que valores maiores são desejáveis utilizam quintis dos territórios visíveis, em escala sequencial de verdes; a taxa de cesariana utiliza faixas fixas ancoradas na meta de 35%, em escala divergente azul–vermelho.</li>
+        <li>Na matriz semáforo, territórios com menos de 5 estabelecimentos são apresentados sem cor, dada a instabilidade do percentual.</li>
+        <li>Todos os agregados referem-se exclusivamente às unidades com mais de 1.000 partos no ano, e não à totalidade dos partos do território.</li>
+      </ul>
+    </section>
+  </div>
+</section>
+
 <footer>
   <div class="footer-inner">
     <div class="marca">Indicadores Básicos para a Saúde no Brasil <span>·</span> Painel 2024</div>
     <div>Fonte: SINASC / CNES / SIH-SUS · Estabelecimentos com &gt;1.000 partos em 2024 · Extração 01/07/2026</div>
     <div style="width:100%;font-size:11px;opacity:.85;margin-top:6px;line-height:1.5">Os critérios de <b>adequação</b> de cada indicador são <b>institucionais</b> (derivados de SINASC/CNES/SIH-SUS e alinhados às variáveis do SMCON/IFF-Fiocruz), enquanto a Rede Alyne não publica seu ato oficial de indicadores. A única meta oficial usada aqui é a <b>taxa de cesárea &le; 35%</b> (Rede Alyne, Portaria GM/MS 5.350/2024).</div>
+    <img src="img/logos_institucionais_branco_semgov.png" alt="IFF · Fiocruz · Rede Alyne · SUS 35 anos · Ministério da Saúde" style="display:block;max-width:420px;width:100%;height:auto;margin:14px auto 0">
   </div>
 </footer>
 
@@ -718,10 +856,34 @@ function renderKPIs(){
     {v:fmt(tot), r:'Partos em 2024', c:''}
   ];
   $('kpis').innerHTML = kpis.map(k=>
-    `<div class="kpi ${k.c}"><div class="valor">${k.v}</div><div class="rotulo">${k.r}</div></div>`).join('');
+    `<div class="kpi ${k.c}"><div class="valor">${k.v}</div><div class="rotulo">${k.r}</div></div>`).join('')
+    + `<button class="kpi" onclick="abrirMetodologia()" title="Como cada indicador é calculado"><div class="valor" style="color:var(--indigo)">&#9432; Metodologia</div><div class="rotulo">Fichas de qualificação dos indicadores · toque para abrir</div></button>`;
 }
 
 function destruir(id){ if(charts[id]){charts[id].destroy(); delete charts[id];} }
+
+// linha de referência horizontal (meta) desenhada sobre o gráfico
+const linhaMeta = {
+  id:'linhaMeta',
+  afterDatasetsDraw(chart, args, opts){
+    if(!opts || opts.valor==null) return;
+    const y = chart.scales.y.getPixelForValue(opts.valor);
+    const {left, right} = chart.chartArea;
+    const ctx = chart.ctx;
+    ctx.save();
+    ctx.strokeStyle = opts.cor || '#B2182B';
+    ctx.setLineDash([6,4]); ctx.lineWidth = 1.6;
+    ctx.beginPath(); ctx.moveTo(left, y); ctx.lineTo(right, y); ctx.stroke();
+    ctx.setLineDash([]);
+    if(opts.rotulo){
+      ctx.font = "700 10.5px 'Inter',sans-serif";
+      ctx.fillStyle = opts.cor || '#B2182B';
+      ctx.textAlign = 'right'; ctx.textBaseline = 'bottom';
+      ctx.fillText(opts.rotulo, right-4, y-3);
+    }
+    ctx.restore();
+  }
+};
 
 function renderCesReg(){
   destruir('chCesReg');
@@ -733,10 +895,14 @@ function renderCesReg(){
   });
   charts.chCesReg=new Chart($('chCesReg'),{
     type:'bar',
-    data:{labels:regs,datasets:[{data:vals,backgroundColor:C.fiocruz,borderRadius:6,maxBarThickness:56}]},
+    plugins:[linhaMeta],
+    data:{labels:regs,datasets:[{
+      // menor é melhor: azul quando na meta (≤35%), vermelho quando acima
+      data:vals,backgroundColor:vals.map(v=>v<=35?DIVERG[0]:DIVERG[4]),borderRadius:6,maxBarThickness:56}]},
     options:{
       responsive:true,maintainAspectRatio:false,
       plugins:{legend:{display:false},
+        linhaMeta:{valor:35,rotulo:'Meta Rede Alyne ≤ 35%',cor:'#B2182B'},
         datalabels:{anchor:'end',align:'top',color:C.profundo,font:{weight:'700',size:12},formatter:v=>v+'%'}},
       scales:{y:{beginAtZero:true,suggestedMax:70,grid:{color:C.mint},ticks:{callback:v=>v+'%'}},x:{grid:{display:false}}}
     }
@@ -753,13 +919,13 @@ function mediana(arr){
 function renderRobson(){
   destruir('chRobson');
   const grupos=['g1','g2','g3','g4'];
-  const vals=grupos.map(g=>mediana(filtrado.map(d=>d[g])));
-  const refs=[null,null,null,null];
+  // exclui estabelecimentos sem nascidos vivos no grupo (0% espúrio puxaria a mediana para baixo)
+  const vals=grupos.map((g,i)=>mediana(filtrado.filter(d=>d['nv'+(i+1)]>0).map(d=>d[g])));
   charts.chRobson=new Chart($('chRobson'),{
     type:'bar',
     data:{labels:['G1','G2','G3','G4'],
       datasets:[{label:'Mediana % cesárea',data:vals,
-        backgroundColor:[C.lima,C.esmeralda,C.lima,C.esmeralda],borderRadius:6,maxBarThickness:56}]},
+        backgroundColor:C.indigo,borderRadius:6,maxBarThickness:56}]},
     options:{
       responsive:true,maintainAspectRatio:false,
       plugins:{legend:{display:false},
@@ -776,7 +942,7 @@ function renderAdeq(){
     {r:'Asfixia', v:filtrado.filter(d=>d.asfC==='ADEQUADO').length},
     {r:'Enfermagem obst.', v:filtrado.filter(d=>d.enfC==='ADEQUADO').length},
     {r:'Robson &ge;2 grupos', v:filtrado.filter(d=>d.rob2).length},
-    {r:'Contracepção', v:filtrado.filter(d=>d.larc>0).length},
+    {r:'Contracepção', v:filtrado.filter(d=>d.contrOk).length},
     {r:'Violência sexual', v:filtrado.filter(d=>d.viol).length},
     {r:'Selo &ge;5', v:filtrado.filter(d=>d.selo).length}
   ];
@@ -899,6 +1065,9 @@ const SIGLA = {
 const NOME_UF = {}; Object.entries(SIGLA).forEach(([n,s])=>NOME_UF[s]=n);
 
 const VERDES = ['#DCEFE0','#A9D8B4','#6FBE87','#2E9A63','#0A5C42'];
+// escala divergente (azul = bom, vermelho = ruim) para métricas "menor é melhor" com meta oficial;
+// par azul-vermelho seguro para daltonismo (ColorBrewer RdBu sem o neutro central)
+const DIVERG = ['#2166AC','#92C5DE','#FDDBC7','#EF8A62','#B2182B'];
 const ICO=p=>'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+p+'</svg>';
 const ICONES={
   geral: ICO('<circle cx="12" cy="8.5" r="5"/><path d="M8.5 12.5 7 21l5-2.8L17 21l-1.5-8.5"/>'),
@@ -929,7 +1098,7 @@ const METRICAS = [
   // Estrutura
   {id:'neoP',    eixo:'estr',   rot:'% Neonatal completa',leg:'Estab. com unidade neonatal completa (%)',   fmtV:pct0},
   // Cesárea
-  {id:'txces',   eixo:'ces',    rot:'% Cesariana',        leg:'Taxa de cesariana (%)',                      fmtV:pctF, ref:35},
+  {id:'txces',   eixo:'ces',    rot:'% Cesariana',        leg:'Taxa de cesariana (%)',                      fmtV:pctF, ref:35, dir:'menor', brksFixos:[30,35,45,55]},
   {id:'g1A',     eixo:'ces',    rot:'% Adeq. Robson G1',  leg:'Estab. adequados no grupo 1 de Robson (%)',  fmtV:pct0},
   {id:'g2A',     eixo:'ces',    rot:'% Adeq. Robson G2',  leg:'Estab. adequados no grupo 2 de Robson (%)',  fmtV:pct0},
   {id:'g3A',     eixo:'ces',    rot:'% Adeq. Robson G3',  leg:'Estab. adequados no grupo 3 de Robson (%)',  fmtV:pct0},
@@ -937,11 +1106,12 @@ const METRICAS = [
   // Boas práticas
   {id:'enf',     eixo:'boas',   rot:'Parto vaginal assistido por enfermagem', leg:'Estab. com parto vaginal assistido por enfermagem adequado (%)', fmtV:pct0},
   {id:'amiuM',   eixo:'boas',   rot:'Mediana % AMIU',     leg:'Mediana do % de AMIU entre os estab.',       fmtV:pctF},
-  {id:'asfP',    eixo:'boas',   rot:'% Asfixia adequada', leg:'Estab. com asfixia adequada (%)',            fmtV:pct0},
+  {id:'asfP',    eixo:'boas',   rot:'Asfixia · % estab. adequados', leg:'Estab. adequados em asfixia neonatal – Apgar 5º min <7 (RN ≥2.500g sem anomalias) ≤0,6% (%)', fmtV:pct0},
   // Contracepção
-  {id:'contrP',  eixo:'contra', rot:'% Contracepção adequada', leg:'Estab. adequados em contracepção – DIU+implante (%)', fmtV:pct0},
+  {id:'contrP',  eixo:'contra', rot:'% Oferta de LARC (≥3/ano)', leg:'Estab. com oferta de LARC – ≥3 inserções de DIU/implante no ano (%)', fmtV:pct0},
+  {id:'larcM',   eixo:'contra', rot:'LARC por 1.000 partos', leg:'Inserções de DIU/implante por 1.000 partos', fmtV:v=>v.toFixed(1)},
   // Violência sexual
-  {id:'violP',   eixo:'viol',   rot:'% Atende violência', leg:'Estab. que atendem violência sexual (%)',    fmtV:pct0},
+  {id:'violP',   eixo:'viol',   rot:'% Atende violência', leg:'Estab. com atendimento regular a violência sexual – ≥2 atendimentos no ano (%)', fmtV:pct0},
   {id:'violN',   eixo:'viol',   rot:'Atendimentos viol.', leg:'Atendimentos a vítimas de violência sexual', fmtV:intF},
   // SMCon
   {id:'smnP',    eixo:'smcon',  rot:'% SMCON Neonatal',   leg:'Estab. com SMCON neonatal (%)',              fmtV:pct0},
@@ -1130,7 +1300,10 @@ function renderMapa(){
   const visiveis = territorios.filter(dentro);
   const agg = agregarTerr(nivelAtivo);
   const met = METRICAS.find(m=>m.id===metricaAtiva);
-  const brks = quintis(visiveis.map(t=>valorMetrica(agg[t.id],metricaAtiva)));
+  // métricas "menor é melhor" com meta oficial usam faixas fixas ancoradas na meta e escala divergente
+  const fixo = met.dir==='menor' && met.brksFixos;
+  const brks = fixo ? met.brksFixos : quintis(visiveis.map(t=>valorMetrica(agg[t.id],metricaAtiva)));
+  const cores = fixo ? DIVERG : VERDES;
 
   // sincronizar listas suspensas em cascata (Brasil -> Região -> Estado) e nível
   sincronizarSelectsMapa();
@@ -1154,8 +1327,8 @@ function renderMapa(){
   visiveis.forEach(t=>{  // recorte: só o que pertence à região selecionada é desenhado
     const v = valorMetrica(agg[t.id],metricaAtiva);
     let k = classe(v,brks);
-    if(visiveis.length===1 && v!=null) k=2;
-    const fill = k>=0 ? VERDES[k] : '#E9EDEA';
+    if(visiveis.length===1 && v!=null && !fixo) k=2;
+    const fill = k>=0 ? cores[k] : '#E9EDEA';
     const sel = (terrSel && String(terrSel.id)===String(t.id)) ? ' uf-selecionada' : '';
     paths += `<path class="uf-path${sel}" data-id="${t.id}" tabindex="0" role="button" aria-label="${nv.nomeDe(t)}" d="${t.d}" fill="${fill}" fill-rule="evenodd" stroke="${strokeTerr}" stroke-width="${swTerr}" vector-effect="non-scaling-stroke"><title>${nv.nomeDe(t)}</title></path>`;
   });
@@ -1189,7 +1362,7 @@ function renderMapa(){
   animarZoom(vb);
 
   // legenda
-  const escopo = vb.zoom ? ' \u00b7 quintis da regi\u00e3o' : '';
+  const escopo = fixo ? ' \u00b7 faixas fixas ancoradas na meta' : (vb.zoom ? ' \u00b7 quintis da regi\u00e3o' : '');
   $('legTitulo').textContent = met.leg + ' \u00b7 por ' + nv.rot.toLowerCase() + escopo;
   if(brks){
     const faixas=[`\u2264 ${met.fmtV(brks[0])}`,
@@ -1198,11 +1371,13 @@ function renderMapa(){
       `${met.fmtV(brks[2])} \u2013 ${met.fmtV(brks[3])}`,
       `> ${met.fmtV(brks[3])}`];
     $('legendaLinhas').innerHTML = faixas.map((f,i)=>
-      `<div class="legrow"><span class="legsw" style="background:${VERDES[i]}"></span>${f}</div>`).join('')
-      + `<div class="legrow"><span class="legsw" style="background:#E9EDEA"></span>Sem estabelecimento &gt;1.000 partos</div>`;
+      `<div class="legrow"><span class="legsw" style="background:${cores[i]}"></span>${f}</div>`).join('')
+      + `<div class="legrow"><span class="legsw" style="background:#E9EDEA"></span>Sem estabelecimento &gt;1.000 partos</div>`
+      + (fixo? `<div class="legrow" style="font-size:11px;line-height:1.4"><b>Menor \u00e9 melhor:</b>&nbsp;azul = na meta ou abaixo \u00b7 vermelho = acima da meta</div>` : '');
   } else if(visiveis.length===1){
     const v = valorMetrica(agg[visiveis[0].id],metricaAtiva);
-    $('legendaLinhas').innerHTML = `<div class="legrow"><span class="legsw" style="background:${VERDES[2]}"></span>` +
+    const kUni = fixo ? Math.max(0, classe(v,brks)) : 2;
+    $('legendaLinhas').innerHTML = `<div class="legrow"><span class="legsw" style="background:${cores[kUni]}"></span>` +
       (v!=null? 'Valor do estado: <b>&nbsp;'+met.fmtV(v)+'</b>' : 'Sem estabelecimento &gt;1.000 partos') +
       `</div><div class="legrow" style="font-size:11px">Troque o detalhe do mapa para macrorregi\u00f5es ou regi\u00f5es de sa\u00fade para ver o contraste interno do estado.</div>`;
   } else {
@@ -1314,7 +1489,9 @@ function cartaoResumo(titulo, a, rodape){
     linhas += `<div class="linha"><span>Estabelecimentos</span><b>${fmt(a.estab)}</b></div>`;
   METRICAS.filter(m=>m.eixo===eixoAtivo).forEach(m=>{
     const v = valorMetrica(a, m.id);
-    const meta = (m.ref!=null && v!=null) ? `<small style="color:${v>m.ref?'var(--alerta)':'var(--verde-fiocruz)'};font-weight:700"> ${v>m.ref?'&uarr;':'&darr;'} meta ${m.fmtV(m.ref)}</small>` : '';
+    // direção da métrica: para dir 'menor', acima da meta é ruim; para dir 'maior', abaixo da meta é ruim
+    const ruim = (m.ref!=null && v!=null) ? (m.dir==='maior' ? v<m.ref : v>m.ref) : false;
+    const meta = (m.ref!=null && v!=null) ? `<small style="color:${ruim?'var(--alerta)':'var(--verde-fiocruz)'};font-weight:700"> ${v>m.ref?'&uarr;':'&darr;'} meta ${m.fmtV(m.ref)}</small>` : '';
     linhas += `<div class="linha"><span>${m.rot}</span><b>${v!=null? m.fmtV(v) : '\u2014'}${meta}</b></div>`;
   });
   return `
@@ -1420,12 +1597,13 @@ document.addEventListener('click', e=>{
   if(b) baixarGrafico(b.dataset.c, b.dataset.n);
 });
 let estagioSel = null;
+// cores monot\u00f4nicas com o progresso: quanto mais perto do selo, mais "positiva" a cor
 const ESTAGIOS = [
   {id:'selo',    nome:'Com selo',        det:'5 ou mais indicadores', cor:'#0A213D',
     pred:d=>d.selo===1},
-  {id:'quase',   nome:'Quase l\u00e1',   det:'4 indicadores adequados', cor:'#D68910',
+  {id:'quase',   nome:'Quase l\u00e1',   det:'4 indicadores adequados', cor:'#2E9A63',
     pred:d=>!d.selo && d.nAdeq>=4},
-  {id:'caminho', nome:'No caminho',      det:'2 a 3 indicadores', cor:'#6FBE87',
+  {id:'caminho', nome:'No caminho',      det:'2 a 3 indicadores', cor:'#D68910',
     pred:d=>!d.selo && (d.nAdeq===2||d.nAdeq===3)},
   {id:'inicio',  nome:'In\u00edcio da jornada', det:'0 a 1 indicador', cor:'#C0392B',
     pred:d=>!d.selo && d.nAdeq<=1}
@@ -1479,6 +1657,15 @@ function renderSelo(){
     r.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();selecionarEstagio(r.dataset.e);}};
   });
 
+  // o selo não inclui a taxa de cesárea: mostrar sempre o cruzamento com a meta oficial
+  const unidadesSelo = base.filter(d=>d.selo===1);
+  const seloAcimaMeta = unidadesSelo.filter(d=>d.txces>35).length;
+  const avisoCes = unidadesSelo.length ?
+    `<div style="margin-top:10px;padding:10px 14px;background:#FDF3E7;border:1.5px solid #E7C795;border-radius:10px;font-size:12.5px;line-height:1.55">`+
+    `<b>O selo não inclui a taxa de cesárea.</b> Nesta seleção, ${fmt(seloAcimaMeta)} de ${fmt(unidadesSelo.length)} unidades com selo `+
+    `(${Math.round(seloAcimaMeta/unidadesSelo.length*100)}%) estão acima da meta oficial de &le;35% (Rede Alyne).</div>` : '';
+  $('seloAvisoCes').innerHTML = avisoCes;
+
   // insight: entre as "quase lá", o que mais falta
   const quaseLa = base.filter(ESTAGIOS[1].pred);
   if(quaseLa.length){
@@ -1495,11 +1682,12 @@ function renderSelo(){
 
 /* ===== Matriz semáforo território x indicador ===== */
 const MATRIZ_COLS = [
+  {k:'txces', rot:'% Ces\u00e1rea<br><small>meta \u226435%</small>', ces:true},
   {k:'asfP',  rot:'Asfixia'},
   {k:'enf',   rot:'Enferm.'},
   {k:'amiuA', rot:'AMIU'},
   {k:'rob2P', rot:'Robson \u22652'},
-  {k:'contrP',rot:'Contracep.'},
+  {k:'contrP',rot:'Oferta LARC'},
   {k:'violP', rot:'Viol\u00eancia'},
   {k:'smnP',  rot:'SMCON Neo'},
   {k:'smoP',  rot:'SMCON Obst'},
@@ -1528,25 +1716,36 @@ function dadosMatriz(){
   const extras = {};
   baseFiltrada().forEach(d=>{
     const k=nv.chave(d); if(k==null) return;
-    if(!extras[k]) extras[k]={amiuA:0,rob2:0,contr:0};
+    if(!extras[k]) extras[k]={amiuA:0,rob2:0,neoOk:0};
     if(d.flags && d.flags[2]==='1') extras[k].amiuA++;
     if(d.rob2) extras[k].rob2++;
-    if(d.larc>0) extras[k].contr++;
+    // critério de adequação do selo: unidade neonatal "sim" ou "não se aplica" (flag 8)
+    if(d.flags && d.flags[8]==='1') extras[k].neoOk++;
   });
   return territoriosEscopo().map(t=>{
     const a=agg[t.id]; if(!a) return null;
-    const e=extras[t.id]||{amiuA:0,rob2:0,contr:0};
+    const e=extras[t.id]||{amiuA:0,rob2:0,neoOk:0};
     const p=(n)=>a.estab? n/a.estab*100 : null;
     return {id:t.id, nome:nivelAtivo==='uf'?(NOME_UF[t.id]||t.nome):t.nome, n:a.estab,
-      asfP:a.asfP, enf:a.enf, amiuA:p(e.amiuA), rob2P:p(e.rob2), contrP:p(e.contr),
-      violP:a.violP, smnP:a.smnP, smoP:a.smoP, neoP:a.neoP, seloP:a.seloP};
+      txces:a.txces, asfP:a.asfP, enf:a.enf, amiuA:p(e.amiuA), rob2P:p(e.rob2), contrP:a.contrP,
+      violP:a.violP, smnP:a.smnP, smoP:a.smoP, neoP:p(e.neoOk), seloP:a.seloP};
   }).filter(Boolean);
 }
 
-function celSem(v){
+function celSem(v, n){
   if(v==null) return '<span class="cel c0">\u2014</span>';
+  // n<5: percentual inst\u00e1vel \u2014 mostra o valor sem cor
+  if(n!=null && n<5) return `<span class="cel c0" title="n insuficiente para leitura territorial (menos de 5 estabelecimentos)">${v.toFixed(0)}%</span>`;
   const c = v>=75?'c4' : v>=50?'c3' : v>=25?'c2' : 'c1';
   return `<span class="cel ${c}">${v.toFixed(0)}%</span>`;
+}
+// c\u00e9lula da taxa de ces\u00e1rea: \u00fanica meta oficial (\u226435%), escala divergente azul-vermelho
+function celCes(v, n){
+  if(v==null) return '<span class="cel c0">\u2014</span>';
+  if(n!=null && n<5) return `<span class="cel c0" title="n insuficiente para leitura territorial (menos de 5 estabelecimentos)">${v.toFixed(1)}%</span>`;
+  const k = classe(v, [30,35,45,55]);
+  const txt = (k===1||k===2) ? '#1D3229' : '#fff'; // tons claros pedem texto escuro
+  return `<span class="cel" style="background:${DIVERG[k]};color:${txt}" title="Meta oficial Rede Alyne: \u226435%">${v.toFixed(1)}%</span>`;
 }
 
 function renderMatriz(){
@@ -1562,7 +1761,7 @@ function renderMatriz(){
     MATRIZ_COLS.map(c=>`<th data-k="${c.k}">${c.rot}</th>`).join('')+'</tr>';
   const corpo = linhas.map(l=>
     `<tr><td class="terr" data-id="${l.id}" title="${l.nome}">${l.nome}</td><td class="n">${l.n}</td>`+
-    MATRIZ_COLS.map(c=>`<td>${celSem(l[c.k])}</td>`).join('')+'</tr>').join('');
+    MATRIZ_COLS.map(c=>`<td>${c.ces? celCes(l[c.k], l.n) : celSem(l[c.k], l.n)}</td>`).join('')+'</tr>').join('');
   $('matrizWrap').innerHTML = `<table class="matriz"><thead>${cab}</thead><tbody>${corpo}</tbody></table>`;
   $('matrizWrap').querySelectorAll('th').forEach(th=>th.onclick=()=>{
     const k=th.dataset.k;
@@ -1584,7 +1783,7 @@ function renderMatriz(){
 $('btnMatrizXlsx').addEventListener('click', ()=>{
   const nv = nivelDef();
   const linhas = dadosMatriz();
-  const aoa = [[nv.rot,'Estabelecimentos', ...MATRIZ_COLS.map(c=>c.rot.replace(/\u2265/g,'>='))]];
+  const aoa = [[nv.rot,'Estabelecimentos', ...MATRIZ_COLS.map(c=>c.rot.replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim().replace(/\u2265/g,'>='))]];
   linhas.forEach(l=>aoa.push([l.nome, l.n, ...MATRIZ_COLS.map(c=>l[c.k]!=null?+l[c.k].toFixed(1):null)]));
   aoa.push([]);
   aoa.push(['Sele\u00e7\u00e3o: '+contextoSelecao()+' \u00b7 % de estabelecimentos adequados \u00b7 apenas unidades >1.000 partos \u00b7 2024']);
@@ -1597,9 +1796,10 @@ $('btnMatrizXlsx').addEventListener('click', ()=>{
 const COORDS = {"2752700":[-1.4409,-48.48083],"2799278":[-12.24245,-38.9782],"2452383":[-5.5265,-47.4798],"0026794":[-19.83615,-43.91495],"2410281":[-5.18795,-37.34397],"2798662":[-22.73124,-43.46234],"2323397":[-5.0717,-42.77095],"2430711":[-9.3949,-40.49996],"2079186":[-23.48012,-46.67261],"2311682":[-15.58419,-56.09453],"2755165":[-8.04201,-48.45947],"2436477":[-26.31101,-48.84957],"2402564":[-14.87088,-40.86292],"7011857":[-22.78527,-43.40994],"2362287":[-7.22127,-35.87856],"3956369":[-12.971,-38.511],"2566168":[2.81668,-60.67053],"6627595":[-3.10108,-60.01453],"3151794":[-3.07686,-59.95674],"0155055":[-22.64215,-43.27999],"2020068":[0.04047,-51.05944],"5714397":[-10.92,-37.081],"0000434":[-8.0668,-34.8908],"2755157":[-10.16297,-48.35104],"2270609":[-22.99525,-43.36431],"5703425":[-5.35002,-49.1379],"0002232":[-10.59211,-36.94162],"2399644":[-7.11496,-34.86304],"9917322":[-1.30042,-48.46941],"2022621":[-22.89936,-47.06323],"0009628":[-23.18062,-45.85483],"2126494":[-19.9488,-44.19058],"5616298":[-9.3607,-37.30916],"2077388":[-23.5996,-46.6376],"2077639":[-23.53101,-46.44488],"2298317":[-21.76398,-41.32814],"2529068":[-3.82869,-38.55906],"2702886":[-2.56614,-44.26326],"7958838":[-8.23821,-34.98346],"2309254":[-2.53904,-44.22083],"2040069":[-23.45112,-46.53128],"5718368":[-23.53339,-46.63997],"9923837":[-9.65701,-35.72315],"7041624":[-22.87667,-43.47277],"2077396":[-20.82815,-49.39761],"2481286":[-3.74816,-38.55239],"2027356":[-23.70256,-46.54903],"2427427":[-8.03851,-34.93884],"2329905":[-2.425,-54.71666],"2499363":[-3.72616,-38.53354],"2485729":[-20.85223,-41.1154],"2707527":[-7.14577,-34.8917],"2786680":[-23.5329,-46.75968],"2297590":[-22.81837,-43.09196],"2605414":[-7.03467,-37.29002],"0007684":[-1.29426,-47.92567],"2520524":[-9.41966,-40.50308],"2522691":[-26.91024,-48.65951],"5717515":[-16.03967,-48.03667],"0010472":[-16.02322,-48.06933],"2738368":[-24.97433,-53.49411],"2485966":[-20.1934,-40.26032],"2712008":[-8.11462,-35.27847],"2078104":[-23.54693,-46.93337],"0010480":[-15.81556,-48.09593],"2222043":[-18.86861,-41.95473],"2237571":[-30.0161,-51.15863],"2205440":[-19.49658,-42.53829],"2077701":[-23.5359,-46.58871],"2672197":[-15.85316,-48.07301],"0015369":[-25.48474,-49.295],"7027397":[-22.9088,-43.19151],"0009768":[-20.45821,-54.60594],"2558254":[-26.91598,-49.05789],"2591049":[-25.49778,-54.56813],"2715864":[-25.49666,-49.31812],"2295407":[-22.90806,-43.56238],"0003840":[-12.90319,-38.40573],"0027014":[-19.92446,-43.9257],"0000418":[-8.03016,-34.90701],"6995462":[-22.909,-43.201],"2019558":[-3.1249,-60.01151],"2726653":[-2.52475,-44.2948],"2711613":[-8.03759,-34.88826],"2339196":[-16.67631,-49.27904],"2594714":[-23.42589,-51.91881],"6518893":[-22.804,-43.372],"0020516":[-8.0198,-34.92606],"2082829":[-23.4997,-46.47248],"2362821":[-7.22105,-35.8856],"6303153":[-9.65911,-35.72706],"2555646":[-27.60855,-48.63035],"0019283":[-27.58928,-48.55045],"2080338":[-23.46179,-46.59081],"0008036":[-23.50473,-46.78813],"2525569":[-14.78214,-39.27037],"2615746":[-6.06235,-49.90985],"2415488":[-7.23681,-39.41551],"2409208":[-5.78165,-35.19807],"2537788":[-27.10807,-52.59839],"2710935":[-22.21455,-54.8513],"2080052":[-23.52136,-46.18672],"6601804":[-18.95166,-48.24737],"0015245":[-25.43407,-49.29177],"8015899":[-2.90676,-41.78126],"2091585":[-23.61134,-46.49367],"0004081":[-12.84872,-38.47343],"2415844":[-14.78885,-39.04891],"2678179":[-20.34676,-40.30912],"2298120":[-22.86607,-43.43868],"2269945":[-22.86462,-43.37001],"0013846":[-25.459,-49.528],"3004104":[-3.01422,-59.99059],"3821978":[-12.70235,-38.30242],"2428393":[-8.68401,-35.5751],"2802090":[-16.42185,-39.10132],"2082209":[-23.51122,-46.87253],"4026896":[-11.31281,-41.86348],"2017318":[-3.03282,-59.96353],"7257406":[-20.19973,-40.22917],"2065665":[-23.70696,-46.7022],"3972925":[-12.12549,-45.00051],"2562545":[-3.76213,-38.61722],"2453665":[-4.87372,-43.37079],"3012212":[-23.18753,-46.88529],"2361787":[-16.33058,-48.93936],"2705982":[-20.539,-47.401],"2384299":[-25.42451,-49.26169],"0026972":[-19.92407,-43.95768],"2594277":[-28.67555,-49.38715],"2562499":[-7.20563,-39.3102],"2208172":[-17.8619,-41.50694],"2006340":[-9.652,-35.74063],"6020917":[-23.6351,-46.4995],"2804034":[-14.21379,-42.76496],"4520971":[-16.76503,-49.33958],"4001303":[-8.73611,-63.89009],"6542638":[-25.099,-50.102],"2306344":[-26.49048,-49.0763],"0024074":[-16.72334,-49.43401],"2792168":[-23.53416,-46.83035],"2206528":[-19.46573,-44.23979],"0000701":[-8.07912,-34.9105],"2645157":[-15.77848,-47.78233],"2080583":[-23.54796,-46.63561],"2191164":[-19.93635,-44.06092],"2560089":[-6.06994,-35.24365],"0010499":[-15.82248,-48.06922],"2792141":[-23.60855,-46.92026],"2012480":[-3.0959,-60.05791],"2484072":[-18.71557,-39.8512],"4261682":[-17.75613,-50.9156],"2237601":[-30.03918,-51.20795],"2795671":[-11.86859,-55.51805],"2084473":[-23.5717,-46.5901],"2000733":[-9.96971,-67.8125],"2000296":[-7.63601,-72.67407],"2452782":[-5.11239,-42.86885],"9336508":[-7.35821,-46.60533],"2265052":[-30.02918,-51.20687],"2280248":[-22.911,-43.2907],"9627812":[-6.14984,-44.1067],"4412710":[-9.61213,-35.73549],"2332930":[-1.45648,-48.4959],"2448521":[-19.54133,-40.6301],"0009717":[-20.45238,-54.61701],"3021114":[-3.69284,-40.35766],"0003859":[-12.97223,-38.50143],"2396866":[-16.4625,-54.64345],"7283458":[-1.35548,-48.38688],"2078562":[-23.47223,-46.3457],"2079828":[-23.64066,-46.81005],"2753278":[-25.54353,-49.19709],"0010502":[-15.64837,-47.79267],"2408570":[-5.75441,-35.25635],"2087804":[-24.18612,-46.79099],"2497654":[-3.73965,-38.47672],"2611295":[-3.55886,-38.95721],"5731186":[-20.33196,-40.37851],"5420938":[-23.59717,-46.40343],"0012521":[-22.88023,-43.07844],"4099206":[-11.00001,-37.09997],"2173166":[-20.25515,-42.03063],"2270714":[-22.89522,-43.22645],"2365146":[-6.77214,-43.02828],"0004170":[-12.9625,-38.49161],"2339080":[-16.65508,-49.25129],"2504332":[-27.81918,-50.33622],"2127989":[-22.22316,-45.92734],"2290227":[-22.67298,-43.28367],"2423529":[-11.2687,-37.4421],"6854729":[-27.00643,-48.63731],"2079860":[-23.55203,-46.30962],"2010631":[-9.41151,-36.63339],"2146355":[-18.8818,-48.26007],"2066092":[-23.68075,-46.67848],"2506858":[-16.71917,-49.24251],"2491710":[-28.4802,-49.0025],"2748223":[-22.89026,-48.4956],"2439263":[-23.55107,-51.46004],"2603802":[-6.84911,-35.48893],"2338564":[-16.65395,-49.30887],"2552086":[-3.50034,-39.58735],"2075717":[-23.578,-46.765],"2465833":[-19.39797,-40.07062],"0010464":[-15.78575,-47.88276],"0010529":[-15.62492,-47.65275],"2082225":[-23.4769,-46.7293],"2418665":[-2.24859,-49.49942],"2749319":[-23.02106,-45.61801],"2149990":[-16.72526,-43.87015],"2083981":[-22.82199,-47.26795],"3508528":[-29.88727,-51.15626],"2711958":[-7.7439,-35.22882],"2082349":[-23.67334,-46.45889],"2687127":[-25.52512,-48.51448],"2568713":[-27.21943,-49.64377],"2418657":[-1.68995,-50.48235],"0073482":[-1.72687,-48.88079],"2237822":[-30.02935,-51.21495],"2076926":[-23.56492,-46.74095],"2005050":[-9.7515,-36.66402],"2079119":[-21.12303,-47.79185],"2077671":[-23.72903,-46.69085],"0009709":[-20.49909,-54.61646],"3005011":[-23.76534,-53.31528],"2765942":[-23.22212,-47.26824],"0000396":[-8.0475,-34.94614],"2659107":[-15.60986,-56.10535],"2330830":[-3.18604,-52.20661],"0011843":[-20.31554,-40.32286],"2799286":[-12.96546,-39.26718],"2806215":[-3.87847,-38.62319],"2906635":[0.05727,-51.10465],"6424341":[-26.081,-53.055],"0004731":[-12.97194,-38.50231],"2503824":[-10.91266,-37.67261],"6998704":[-23.95154,-46.3221],"6848710":[-3.66394,-40.37592],"4056752":[-24.73064,-53.74115],"0027863":[-19.81754,-43.94853],"2754843":[-23.98978,-46.25255],"7580770":[-23.36212,-46.7441],"2275562":[-22.44578,-43.1425],"0000671":[-8.1091,-34.9354],"0027022":[-19.98967,-43.99705],"2205939":[-15.81058,-43.30189],"0017884":[-26.22749,-52.67069],"5200105":[-23.46297,-46.53291],"2708779":[-23.49174,-47.41299],"3316300":[-23.295,-50.057],"2678403":[-1.05026,-46.76875],"2651351":[-3.7151,-38.59742],"2153084":[-21.77699,-43.35945],"4009622":[-7.07405,-41.46693],"0806285":[-9.48971,-37.8067],"2077620":[-23.49242,-46.38898],"2232022":[-29.7765,-51.1483],"2244306":[-29.72321,-53.72041],"2579391":[-23.30996,-51.15202],"4014111":[-6.22672,-36.02111],"2551764":[-8.42231,-37.05471],"2076896":[-23.45951,-46.5822],"2400324":[-7.1181,-34.86637],"2639262":[-7.57701,-40.50772],"2027186":[-23.98848,-48.87704],"2716097":[-24.00466,-46.41879],"2781859":[-23.3117,-51.16273],"2790580":[-22.33425,-49.0654],"2391635":[-15.65498,-56.13801],"2786109":[-11.7257,-49.06943],"2704900":[-22.95211,-46.54285],"2351994":[-8.27006,-35.97417],"6209688":[-2.53657,-44.1773],"3970442":[-8.75406,-63.88188],"2016893":[-2.63452,-56.7448],"2223538":[-29.16111,-51.15578],"2723212":[-3.82164,-38.48041],"7042671":[-9.00642,-35.42872],"6602533":[-12.2495,-38.9954],"6943284":[-21.79391,-48.17907],"2495279":[-10.86882,-61.94845],"2232146":[-29.72575,-51.13691],"5005027":[-17.53479,-39.76809],"2587335":[-23.39993,-51.95504],"2280868":[-23.00719,-44.31401],"4607767":[-12.08449,-45.80416],"2772310":[-22.73728,-47.6434],"2653931":[-5.7827,-35.19681],"2077434":[-24.71401,-47.88091],"2077426":[-23.59305,-46.56076],"2798484":[-12.73768,-60.13199],"2016141":[-3.35263,-64.72808],"6108547":[-5.75419,-35.26295],"2473380":[-5.90987,-35.25991],"2192896":[-19.90425,-43.94676],"2159252":[-20.14444,-44.87393],"2750511":[-22.14181,-51.39942],"7666772":[-6.83904,-35.13861],"7366108":[-16.69638,-43.86409],"2010151":[-9.77658,-36.0941],"2462583":[-5.51032,-45.2527],"2611686":[-3.72834,-38.51551],"2470748":[-11.19012,-40.51638],"3212130":[-23.52218,-46.56327],"2691515":[-28.93904,-49.46197],"2332671":[-1.45693,-48.48551],"3139050":[-23.58463,-48.04511],"7073224":[-4.20723,-44.44825],"5903394":[-22.89252,-42.03137],"2081458":[-22.57932,-47.40043],"2077523":[-23.58433,-46.61162],"2237253":[-30.03007,-51.22269],"7486596":[-27.4909,-48.67323],"5412447":[-22.37093,-41.78693],"2799790":[-10.834,-38.536],"2784602":[-23.09269,-47.21042],"0013633":[-25.329,-49.07789],"7529384":[-22.89177,-42.47864],"2356287":[-8.05864,-39.11318],"2379341":[-26.12662,-49.80433],"2712040":[-7.88286,-40.08464],"9461493":[-1.51909,-48.61553],"2546027":[-10.68977,-37.42695],"2775999":[-20.71343,-46.61262],"2800950":[-5.58446,-35.23061],"2376334":[-19.00615,-57.65307],"2707675":[-32.035,-52.099],"2013258":[-3.29205,-60.63013],"2270390":[-22.8704,-43.33415],"2679647":[-5.0387,-42.81612],"0003794":[-12.98534,-38.47687],"2753332":[-25.36188,-49.18894],"2400243":[-7.13597,-34.84256],"2727064":[-5.08746,-42.80496],"2741989":[-25.39667,-51.4632],"2016923":[-3.13684,-58.44363],"2078015":[-23.55659,-46.67233],"3157245":[-27.59704,-48.51781],"2328399":[-4.96705,-39.02484],"2080931":[-22.01123,-47.90102],"0014109":[-24.02629,-52.40211],"2754738":[-23.07724,-52.46326],"2195437":[-21.11517,-42.95808],"2077574":[-23.48498,-46.63143],"2084163":[-23.69743,-46.61309],"2020890":[-0.03865,-51.07498],"0025135":[-22.50089,-44.05146],"2792176":[-23.70048,-46.84783],"2081695":[-23.31237,-47.27408],"2318628":[-2.9924,-47.35916],"2079798":[-22.90597,-47.06393],"2686953":[-25.089,-50.162],"2329891":[-2.4244,-54.71522],"2013029":[-3.07697,-60.05567],"3018172":[-2.52826,-45.09217],"2138875":[-21.21404,-43.77409],"2772299":[-3.66501,-45.38177],"2755092":[-22.93174,-45.45836],"2084414":[-21.16808,-47.80556],"2232081":[-30.00846,-51.07661],"2319454":[-8.11272,-35.0151],"2009250":[-9.66718,-35.72505],"2206595":[-19.7943,-47.7943],"2082128":[-22.92066,-47.11948],"2268922":[-22.73762,-42.84888],"2111624":[-21.67862,-43.34839],"2795655":[-12.32111,-55.675],"2395037":[-16.06627,-57.68513],"2087111":[-22.73397,-45.11976],"2870045":[-12.41537,-41.76974],"2798298":[-20.80379,-49.38665],"0027049":[-19.92534,-43.92928],"2452820":[-3.74173,-43.36391],"2742047":[-25.39103,-51.47657],"2522411":[-27.12491,-48.9218],"2651610":[-22.532,-55.73459],"2677563":[-6.52949,-49.85374],"2560852":[-3.72517,-40.9913],"2516632":[-2.88557,-40.1162],"2018136":[-4.07945,-63.13293],"2082926":[-23.62464,-45.42329],"0010510":[-15.77148,-47.87378],"6779069":[-2.947,-48.953],"2470098":[-12.53275,-40.29847],"2592746":[-7.12306,-34.9818],"2019566":[-3.09032,-59.8952],"6966594":[-23.96416,-46.38714],"2087715":[-22.85856,-47.2213],"2270021":[-22.93272,-43.18528],"2005417":[-9.74535,-36.63443],"2679639":[-5.0646,-42.8068],"2119528":[-17.33813,-44.93949],"2253046":[-31.75756,-52.34074],"6922902":[-4.87218,-44.87694],"2428385":[-7.74833,-37.63769],"0007641":[-1.29679,-47.92234],"2080079":[-23.53842,-46.35846],"2688689":[-23.54317,-46.64991],"2777649":[-9.01601,-42.69665],"5995280":[-25.57924,-49.39289],"2254964":[-29.72022,-52.42689],"4670906":[-15.74637,-48.27584],"2246988":[-28.25926,-52.41425],"2340194":[-16.25111,-47.92746],"2006197":[-9.53891,-35.77768],"3028399":[-23.28473,-46.74898],"2092611":[-20.55967,-48.57416],"7557523":[-20.64558,-40.48067],"0009725":[-20.51349,-54.65421],"2082888":[-22.41549,-47.55685],"2507447":[-16.37208,-39.57395],"2496046":[-11.43428,-61.45263],"0547484":[-14.5115,-49.1354],"9465464":[-23.82646,-46.7306],"2082187":[-21.16327,-47.85193],"2390043":[-12.66839,-39.10114],"2534967":[-15.54738,-47.32038],"0010537":[-15.82446,-47.89723],"7232519":[-13.2591,-43.41503],"6402305":[-16.70014,-49.09869],"2219654":[-16.73373,-43.87232],"2504537":[-6.75708,-38.22313],"2111659":[-21.24473,-44.99956],"2025507":[-22.13029,-49.56218],"2077477":[-23.55433,-46.4613],"2079135":[-23.35599,-47.85709],"2738309":[-24.95061,-53.44911],"2278324":[-22.61014,-43.18081],"2702983":[-8.88193,-36.48365],"2092298":[-23.27045,-47.29529],"2791722":[-22.29126,-48.56218],"7061021":[-5.18286,-39.26192],"2087057":[-22.71217,-47.65768],"2021064":[-0.04525,-51.16524],"2761041":[-21.55167,-45.43136],"2089327":[-21.14103,-48.97586],"6923356":[-13.83408,-40.08121],"2002078":[-9.95571,-67.81472],"2331098":[-4.27473,-55.98913],"2148293":[-18.75773,-44.42262],"2697688":[-2.59207,-44.17663],"2613476":[-6.88504,-38.55443],"9077413":[-3.65857,-45.3782],"2136945":[-20.65905,-43.78397],"3083721":[-8.2497,-35.97132],"2755149":[-10.17122,-48.88663],"2266733":[-22.92094,-42.81773],"2783789":[-25.467,-50.651],"2098369":[-15.80839,-42.23121],"2081377":[-20.42645,-49.97856],"2793008":[-29.99201,-50.13983],"2248190":[-29.77262,-57.08452],"2494299":[-9.89128,-63.03496],"2143801":[-19.88128,-44.97833],"2195585":[-19.76392,-47.96203],"2003775":[-10.28547,-36.5756],"9131922":[-5.15081,-42.7857],"2525933":[-13.37123,-39.07455],"6679528":[-7.37457,-35.8973],"2621649":[-3.78392,-49.67864],"2479907":[-3.73398,-38.53825],"7047428":[-3.76102,-38.57421],"2018144":[-3.38904,-57.70884],"4009444":[-2.90432,-41.7745],"2676923":[-1.93486,-50.81488],"2118513":[-19.78508,-42.14229],"2564211":[-7.31196,-39.3053],"2638991":[-8.89769,-36.49566],"7013620":[-2.75,-42.827],"2530236":[-3.26604,-44.61726],"2096463":[-22.36464,-46.94306],"0018333":[-25.44233,-49.1904],"2726726":[-18.59401,-46.51435],"7753470":[-9.15951,-36.03052],"2100754":[-17.21751,-46.87524],"2232103":[-29.95187,-51.09546],"2261987":[-31.32672,-54.11461],"2504901":[-8.0472,-50.0368],"2344882":[-8.01151,-34.8424],"0012505":[-22.8955,-43.11225],"2755130":[-22.13124,-51.40823],"2411393":[-26.87987,-52.40056],"2297795":[-22.39843,-42.96073],"0182974":[-22.71832,-43.55584],"2619717":[-1.36013,-48.34276],"2441675":[-16.33449,-48.96283],"7360347":[-1.19423,-47.18276],"2129469":[-21.7805,-46.56723],"2288907":[-22.46874,-44.45082],"4049020":[-22.98379,-49.86393],"2480646":[-7.48558,-38.98428],"6069134":[-22.51698,-41.94406],"2505231":[-12.14649,-44.98041],"2085194":[-23.28295,-45.9393],"2619938":[-1.76633,-55.86792],"2252694":[-31.76498,-52.3468],"2082721":[-23.52895,-47.13493],"2204622":[-15.48576,-44.36513],"2756951":[-20.78729,-51.7191],"2340992":[-1.44855,-48.49938],"2270269":[-22.90378,-43.20888],"2153882":[-21.77136,-43.34631],"2208857":[-22.4191,-45.46059],"2550792":[-23.31164,-51.15915],"2793636":[-10.64807,-51.57051],"2171945":[-21.43139,-45.95756],"2227762":[-29.62493,-50.83816],"2733676":[-23.6573,-52.607],"2232049":[-29.94062,-50.9942],"2426579":[-3.68376,-40.34696],"2442612":[-18.16333,-47.94372],"2473577":[-5.85739,-35.3548],"3314766":[-21.20096,-47.7801],"2560771":[-27.17278,-51.7348],"2458705":[-2.55297,-44.06187],"2111640":[-20.41622,-42.90508],"2259907":[-28.30618,-54.26336],"2707918":[-27.63624,-52.2833],"3559629":[-10.2142,-36.84449],"2468972":[-5.46706,-47.88189],"2764814":[-22.12063,-45.04571],"7088302":[-4.12,-44.13068],"2740435":[-24.32568,-50.61657],"2087618":[-23.54451,-47.44961],"2360411":[-2.42206,-48.25766],"2471345":[-9.88348,-56.08814],"3836061":[-4.0511,-44.47173],"2481073":[-5.18269,-40.6672],"2218690":[-19.619,-43.227],"2760924":[-16.36852,-46.90118],"5878640":[-22.53765,-44.17442],"2209195":[-18.94825,-46.98767],"2058790":[-22.723,-47.324],"2232162":[-29.82354,-51.166],"2246929":[-28.26361,-52.40722],"2495228":[-11.71665,-61.78219],"2270056":[-22.81082,-43.18478],"2294923":[-22.11232,-43.21314],"4042085":[-21.13742,-42.36465],"2301830":[-26.77129,-51.02424],"2079232":[-22.75418,-47.41921],"2395886":[-15.88374,-52.24716]};
 function cnesDe(d){return d.est.split(' - ')[0].trim();}
 let _mapu=null, _mapuCluster=null, _mapuAberto=false;
-const _MV='#279261', _MR='#C0392B', _MA='#D68910', _ML='#E67E22';
+// verde × roxo: par distinguível por daltônicos (verde × vermelho não é)
+const _MV='#279261', _MR='#7B3294', _MA='#D68910', _ML='#E67E22';
 const MAPU_METRICAS=[
-  {id:'selo',nome:'Selo de qualidade',classe:function(d){return d.selo==1?{k:'com',rot:'Com selo',cor:_MV}:{k:'sem',rot:'Sem selo',cor:_MR};}},
+  {id:'selo',nome:'Selo de conformidade',classe:function(d){return d.selo==1?{k:'com',rot:'Com selo',cor:_MV}:{k:'sem',rot:'Sem selo',cor:_MR};}},
   {id:'asf',nome:'Asfixia neonatal',classe:function(d){return d.asfC==='ADEQUADO'?{k:'ad',rot:'Adequado',cor:_MV}:{k:'in',rot:'Inadequado',cor:_MR};}},
   {id:'enf',nome:'Enfermagem obstétrica',classe:function(d){return d.enfC==='ADEQUADO'?{k:'ad',rot:'Adequado',cor:_MV}:{k:'in',rot:'Inadequado',cor:_MR};}},
   {id:'rob',nome:'Robson ≥2 grupos',classe:function(d){return d.rob2==1?{k:'ad',rot:'Adequado',cor:_MV}:{k:'in',rot:'Não adequado',cor:_MR};}}
@@ -1701,6 +1901,17 @@ function toggleMapaUnidades(){
   if(_mapuAberto){ popularUFMapa(); popularMacroMapa(); renderMapaUnidades(true); setTimeout(function(){if(_mapu)_mapu.invalidateSize();},120); }
 }
 function exportarMapaUnidadesPNG(){ alert('Para exportar o mapa, use a captura de tela do navegador.'); }
+
+/* ===== visão de metodologia ===== */
+function abrirMetodologia(){
+  document.body.classList.add('metodologia');
+  const v = document.getElementById('metodologiaView');
+  if(v) v.scrollTop = 0;
+}
+function fecharMetodologia(){ document.body.classList.remove('metodologia'); }
+document.addEventListener('keydown', e=>{
+  if(e.key==='Escape' && document.body.classList.contains('metodologia')) fecharMetodologia();
+});
 
 function render(){
   renderKPIs(); renderCesReg(); renderRobson(); renderAdeq(); renderTop(); renderTabela(); renderMapa();

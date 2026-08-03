@@ -26,7 +26,7 @@ flags_def = [
     ('Viol\u00eancia sexual',  df['CLASSIFICAÇÃO VIOLÊNCIA SEXUAL']=='SIM'),
     ('SMCON neonatal',      df['SMCON NEO'].astype(str).str.strip()=='ok'),
     ('SMCON obst\u00e9trico',  df['SMCON OBST'].astype(str).str.strip()=='ok'),
-    ('Neonatal completa',   df['UNIDADE NEONATAL COMPLETA'].astype(str).str.strip().isin(['SIM','NÃO SE APLICA'])),
+    ('Neonatal completa',   df['UNIDADE NEONATAL COMPLETA'].isin(['SIM', 'NÃO SE APLICA'])),
 ]
 mat = pd.DataFrame({n: s.astype(int) for n, s in flags_def})
 
@@ -53,6 +53,7 @@ for i, r in df.iterrows():
         "viol": 1 if r['CLASSIFICAÇÃO VIOLÊNCIA SEXUAL']=='SIM' else 0,
         "smN": 1 if str(r['SMCON NEO']).strip()=='ok' else 0,
         "smO": 1 if str(r['SMCON OBST']).strip()=='ok' else 0,
+        "contrOk": 1 if r['CLASSIFICAÇÃO CONTRACEPÇÃO']=='SIM' else 0,
         "selo": 1 if r['CLASSIFICAÇÃO TOTAL \u22655 ROBSON 2 GRUPOS']=='ADEQUADO' else 0,
         "nAdeq": int(mat.iloc[i].sum()),
         "flags": ''.join(str(mat.iloc[i, j]) for j in range(9)),
@@ -61,8 +62,9 @@ for i, r in df.iterrows():
         rec[f'g{g}']  = round(float(num(f'% CESAREANA G{g}').iloc[i]), 1)
         rec[f'nv{g}'] = int(num(f'TOTAL NV G{g}').iloc[i])
         rec[f'cs{g}'] = int(num(f'Nº CESAREANA G{g}').iloc[i])
+        rec[f'g{g}C'] = 1 if num(f'CLASSIFICAÇÃO G{g}').iloc[i]==1 else 0
     recs.append(rec)
 
-json.dump(recs, open('dados.json','w',encoding='utf-8'), ensure_ascii=False, separators=(',',':'))
-json.dump([n for n,_ in flags_def], open('flags_nomes.json','w',encoding='utf-8'), ensure_ascii=False)
+json.dump(recs, open('dados/dados.json','w',encoding='utf-8'), ensure_ascii=False, separators=(',',':'))
+json.dump([n for n,_ in flags_def], open('dados/flags_nomes.json','w',encoding='utf-8'), ensure_ascii=False)
 print(f"dados.json: {len(recs)} estabelecimentos")

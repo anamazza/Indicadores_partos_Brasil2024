@@ -1,0 +1,14 @@
+# OS / editor junk
+.DS_Store
+Thumbs.db
+~$*
+*.tmp
+.vscode/
+.idea/
+
+# réguas de logos com Governo do Brasil: manter só localmente (período eleitoral)
+img/logos_institucionais_branco.png
+img/logos_institucionais_preto.png
+
+# documentos internos de trabalho
+Parecer_Banca_Especialistas.md

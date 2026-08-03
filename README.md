@@ -35,7 +35,9 @@ Todos os dados são públicos e agregados por estabelecimento; não há informa�
 
 **Matriz semáforo.** Cada célula é o % de estabelecimentos do território adequados no indicador, em quatro faixas: ≥75%, 50–74%, 25–49% e <25%. Territórios com poucas unidades têm percentuais instáveis; o `n` acompanha cada linha.
 
-**Estágios do selo.** Contados sobre 9 indicadores classificatórios (asfixia, enfermagem obstétrica, AMIU, Robson ≥2 grupos, contracepção, violência sexual, SMCON neonatal, SMCON obstétrico e unidade neonatal completa). O selo exibido é sempre o campo oficial da planilha; o estágio "Quase lá" (4 indicadores) contém casos limítrofes da regra oficial.
+**Estágios do selo.** O selo reconhece estabelecimentos com **5 ou mais dos 9 indicadores classificatórios** adequados (asfixia, enfermagem obstétrica, AMIU, Robson ≥2 grupos, contracepção, violência sexual, SMCON neonatal, SMCON obstétrico e unidade neonatal completa). Robson ≥2 grupos é **um dos 9 indicadores contados, não uma exigência à parte** — há estabelecimentos com selo sem Robson ≥2 grupos. A "unidade neonatal completa" conta como adequada quando é "sim" **ou** "não se aplica". O selo exibido é o campo oficial da planilha e corresponde exatamente a `nAdeq ≥ 5`.
+
+**Critérios de adequação (importante).** Os limiares que classificam cada indicador como "adequado" (ex.: asfixia ≤ 0,6%; enfermagem e AMIU ≥ 50%; contracepção com DIU+implante ≥ 3; violência sexual ≥ 2 atendimentos; grupos de Robson) são **institucionais**, derivados dos sistemas nacionais (SINASC, CNES, SIH-SUS) e alinhados às variáveis coletadas pelo SMCON (IFF/Fiocruz). A Rede Alyne (Portaria GM/MS 5.350/2024) ainda **não publicou o ato oficial de indicadores** ao qual remete; a única meta oficial referenciada no painel é a **taxa de cesárea ≤ 35%** (valor de referência da Rede Alyne).
 
 **Enquadramento do zoom.** As caixas de zoom por UF excluem ilhas oceânicas remotas (Trindade/Martim Vaz no ES e Fernando de Noronha em PE, que continuam desenhadas no mapa nacional) e aplicam um piso de enquadramento para que estados pequenos não sejam ampliados desproporcionalmente.
 
