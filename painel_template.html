@@ -112,7 +112,7 @@ header h1 span{font-weight:500;opacity:.92}
   font-family:'Archivo';font-weight:800;font-size:13px;padding:8px 16px;border-radius:0 0 0 14px}
 
 /* ===== Layout ===== */
-.wrap{max-width:1240px;margin:0 auto;padding:0 20px 60px}
+.wrap{max-width:1320px;margin:0 auto;padding:0 20px 60px}
 
 /* Filtros */
 .filtros{
@@ -2071,10 +2071,15 @@ function montarInicio(){
   $('trilhoNav').querySelectorAll('button[data-e]').forEach(b=>b.onclick=()=>entrarPainel(b.dataset.e));
   atualizarTrilho();
 }
+// os gráficos são desenhados com a capa aberta; ao entrar no painel o conteúdo muda de largura
+// (recuo do trilho), então é preciso reprocessar o tamanho dos canvas
+function redimensionarCharts(){
+  setTimeout(()=>{ Object.values(charts).forEach(c=>{ try{c.resize();}catch(e){} }); }, 80);
+}
 function irMapaUnidades(){
   document.body.classList.remove('inicio');
   document.body.classList.add('com-trilho');
-  atualizarTrilho();
+  atualizarTrilho(); redimensionarCharts();
   if(typeof _mapuAberto!=='undefined' && !_mapuAberto) toggleMapaUnidades();
   setTimeout(()=>{ const el=document.getElementById('mapuCard'); if(el) el.scrollIntoView({behavior:'auto', block:'start'}); }, 180);
 }
@@ -2087,7 +2092,7 @@ function entrarPainel(eixo){
   document.body.classList.add('com-trilho');
   eixoAtivo = eixo;
   metricaAtiva = METRICAS.find(m=>m.eixo===eixo).id;
-  renderMapa(); atualizarTrilho();
+  renderMapa(); atualizarTrilho(); redimensionarCharts();
   const alvo = document.querySelector('.mapa-controles') || document.querySelector('.mapa-wrap');
   if(alvo) alvo.scrollIntoView({behavior:'auto', block:'start'});
 }
