@@ -973,9 +973,10 @@ function renderAdeq(){
       datasets:[{data:itens.map(i=>+(i.v/n*100).toFixed(0)),backgroundColor:C.indigo,borderRadius:6,maxBarThickness:26}]},
     options:{
       indexAxis:'y',responsive:true,maintainAspectRatio:false,
+      layout:{padding:{left:10}},
       plugins:{legend:{display:false},
         datalabels:{anchor:'end',align:'right',color:C.indigo,font:{weight:'700',size:11},formatter:v=>v+'%'}},
-      scales:{x:{beginAtZero:true,max:110,grid:{color:C.mint},ticks:{callback:v=>v<=100?v+'%':''}},y:{grid:{display:false}}}
+      scales:{x:{beginAtZero:true,max:110,grid:{color:C.mint},ticks:{callback:v=>v<=100?v+'%':''}},y:{grid:{display:false},ticks:{padding:6}}}
     }
   });
 }
@@ -992,10 +993,11 @@ function renderTop(){
       datasets:[{data:top.map(d=>d.tot),backgroundColor:C.esmeralda,borderRadius:6,maxBarThickness:24}]},
     options:{
       indexAxis:'y',responsive:true,maintainAspectRatio:false,
+      layout:{padding:{left:10}},
       plugins:{legend:{display:false},
         tooltip:{callbacks:{title:i=>top[i[0].dataIndex].est}},
         datalabels:{anchor:'end',align:'right',color:C.profundo,font:{weight:'700',size:10.5},formatter:v=>v.toLocaleString('pt-BR')}},
-      scales:{x:{beginAtZero:true,grid:{color:C.mint}},y:{grid:{display:false},ticks:{font:{size:10.5}}}}
+      scales:{x:{beginAtZero:true,grid:{color:C.mint}},y:{grid:{display:false},ticks:{font:{size:10.5},padding:6}}}
     }
   });
 }
