@@ -605,7 +605,7 @@ body.metodologia{overflow:hidden}
     </div>
     <div id="seloInsight" style="margin-top:14px;padding:12px 14px;background:var(--mint-card);border:1.5px solid var(--borda);border-radius:10px;font-size:12.5px;line-height:1.55"></div>
     <div id="seloAvisoCes"></div>
-    <div style="margin-top:8px;font-size:11px;color:var(--texto-suave)">Selo = 5 ou mais dos 9 indicadores classificatórios adequados: Asfixia, Parto vaginal assistido por enfermeira, AMIU, Robson &ge;2 grupos, Oferta de LARC, Atendimento de violência sexual, SMCON Neo, SMCON Obstétrico e Unidade Neonatal completa. Robson &ge;2 grupos é um dos 9 indicadores, não uma exigência à parte; "unidade neonatal completa" conta como adequada quando é "sim" ou "não se aplica". O selo é o campo oficial da planilha. Limiares institucionais de adequação: asfixia &le;0,6% (&ge;2.500g, sem anomalias); parto vaginal assistido por enfermeira &ge;50%; AMIU &ge;50%; oferta de LARC &ge;3 inserções de DIU/implante no ano; atendimento de violência sexual &ge;2 no ano; Robson por faixas de taxa por grupo, conforme planilha institucional.</div>
+    <div style="margin-top:8px;font-size:11px;color:var(--texto-suave)">Selo = 5 ou mais dos 9 indicadores classificatórios adequados: Asfixia, Parto vaginal assistido por enfermeira, AMIU, Robson &ge;2 grupos, Oferta de LARC, Atendimento de violência sexual, SMCON Neonatal, SMCON Obstétrico e Unidade Neonatal completa. Robson &ge;2 grupos é um dos 9 indicadores, não uma exigência à parte; "unidade neonatal completa" conta como adequada quando é "sim" ou "não se aplica". O selo é o campo oficial da planilha. Limiares institucionais de adequação: asfixia &le;0,6% (&ge;2.500g, sem anomalias); parto vaginal assistido por enfermeira &ge;50%; AMIU &ge;50%; oferta de LARC &ge;3 inserções de DIU/implante no ano; atendimento de violência sexual &ge;2 no ano; Robson por faixas de taxa por grupo, conforme planilha institucional.</div>
   </div>
 
   <div class="secao-titulo" style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><h2>Mapa de unidades</h2><button class="acao btn-xlsx" id="mapuToggle" onclick="toggleMapaUnidades()">&#9654; Mostrar mapa</button></div>
@@ -755,8 +755,8 @@ body.metodologia{overflow:hidden}
     </section>
 
     <section>
-      <h2>SMCON Neo e SMCON Obstétrico</h2>
-      <p><b>Conceituação:</b> adesão do estabelecimento aos módulos neonatal e obstétrico do Sistema de Monitoramento do Cuidado Obstétrico e Neonatal (SMCON/IFF-Fiocruz, estratégia Qualineo), de alimentação voluntária. Constituem dois indicadores classificatórios distintos.</p>
+      <h2>SMCON Neonatal e SMCON Obstétrico</h2>
+      <p><b>Conceituação:</b> adesão do estabelecimento aos módulos Neonatal e Obstétrico do Sistema de Monitoramento do Cuidado Obstétrico e Neonatal (SMCON/IFF-Fiocruz, estratégia Qualineo), de alimentação voluntária. Constituem dois indicadores classificatórios distintos.</p>
       <p><b>Parâmetro:</b> adequado quando a unidade alimenta o módulo correspondente.</p>
       <p><b>Limitações:</b> o indicador expressa a incorporação do monitoramento à rotina da unidade, não o resultado assistencial.</p>
       <p><b>Fonte:</b> IFF/Fiocruz — SMCON (estratégia Qualineo), alimentado pelas próprias unidades.</p>
@@ -771,7 +771,7 @@ body.metodologia{overflow:hidden}
 
     <section>
       <h2>Selo de conformidade (≥5 de 9)</h2>
-      <p><b>Conceituação:</b> o estabelecimento recebe o selo quando ao menos 5 dos 9 indicadores classificatórios estão adequados: Asfixia, Parto vaginal assistido por enfermeira, AMIU, Robson ≥2 grupos, Oferta de LARC, Atendimento de violência sexual, SMCON Neo, SMCON Obstétrico e Unidade Neonatal completa. "Robson ≥2 grupos" integra os 9 indicadores, sem constituir exigência adicional. O selo corresponde ao campo classificatório oficial da base.</p>
+      <p><b>Conceituação:</b> o estabelecimento recebe o selo quando ao menos 5 dos 9 indicadores classificatórios estão adequados: Asfixia, Parto vaginal assistido por enfermeira, AMIU, Robson ≥2 grupos, Oferta de LARC, Atendimento de violência sexual, SMCON Neonatal, SMCON Obstétrico e Unidade Neonatal completa. "Robson ≥2 grupos" integra os 9 indicadores, sem constituir exigência adicional. O selo corresponde ao campo classificatório oficial da base.</p>
       <p><b>Interpretação:</b> o selo afere conformidade com itens de qualificação — estrutura, processo e registro — e não constitui, por si, medida de qualidade assistencial. A taxa de cesariana não integra o selo. Unidades de maior porte e complexidade tendem a reunir mais itens por capacidade instalada e de registro; recomenda-se acompanhar a evolução de cada unidade no tempo, em vez de ordenar unidades de perfis distintos.</p>
       <p><b>Fonte:</b> campo classificatório oficial da base institucional (planilha derivada de SINASC, CNES e SIH-SUS; extração de 01/07/2026).</p>
     </section>
@@ -1016,7 +1016,7 @@ function renderAdeq(){
     {r:'Asfixia', v:filtrado.filter(d=>d.asfC==='ADEQUADO').length},
     {r:'Oferta de LARC', v:filtrado.filter(d=>d.contrOk).length},
     {r:'Atendimento de violência sexual', v:filtrado.filter(d=>d.viol).length},
-    {r:'SMCON Neo e/ou Obst', v:filtrado.filter(d=>d.smN||d.smO).length},
+    {r:'SMCON Neonatal e/ou Obstétrico', v:filtrado.filter(d=>d.smN||d.smO).length},
     {r:'Selo &ge;5', v:filtrado.filter(d=>d.selo).length}
   ];
   const corAdeq=v=>v>=75?VERDES[4]:v>=50?VERDES[3]:v>=25?VERDES[2]:VERDES[1];
@@ -1168,7 +1168,7 @@ const EIXOS = [
   {id:'boas',  rot:'Boas pr\u00e1ticas'},
   {id:'contra',rot:'Contracep\u00e7\u00e3o'},
   {id:'viol',  rot:'Viol\u00eancia sexual'},
-  {id:'smcon', rot:'SMCon'}
+  {id:'smcon', rot:'SMCON'}
 ];
 const pctF = v=>v.toFixed(1)+'%';
 const pct0 = v=>v.toFixed(0)+'%';
@@ -1195,10 +1195,10 @@ const METRICAS = [
   // Violência sexual
   {id:'violP',   eixo:'viol',   rot:'% Atendimento de violência sexual', leg:'Estab. que atendem violência sexual (%)', fmtV:pctF, abs:a=>[a.violSim,a.estab]},
   {id:'violN',   eixo:'viol',   rot:'Atendimentos de violência sexual', leg:'Atendimentos a vítimas de violência sexual', fmtV:intF},
-  // SMCon
-  {id:'smnP',    eixo:'smcon',  rot:'% SMCON Neo',        leg:'Estab. com SMCON neonatal (%)',              fmtV:pctF, abs:a=>[a.smN,a.estab]},
-  {id:'smoP',    eixo:'smcon',  rot:'% SMCON Obstétrico', leg:'Estab. com SMCON obstétrico (%)',            fmtV:pctF, abs:a=>[a.smO,a.estab]},
-  {id:'smAlgumP',eixo:'smcon',  rot:'% SMCON Neo e/ou Obst', leg:'Estab. com SMCON neonatal ou obstétrico (%)', fmtV:pctF, abs:a=>[a.smAlgum,a.estab]}
+  // SMCON
+  {id:'smnP',    eixo:'smcon',  rot:'% SMCON Neonatal',  leg:'Estab. com SMCON Neonatal (%)',              fmtV:pctF, abs:a=>[a.smN,a.estab]},
+  {id:'smoP',    eixo:'smcon',  rot:'% SMCON Obstétrico', leg:'Estab. com SMCON Obstétrico (%)',            fmtV:pctF, abs:a=>[a.smO,a.estab]},
+  {id:'smAlgumP',eixo:'smcon',  rot:'% SMCON Neonatal e/ou Obstétrico', leg:'Estab. com SMCON Neonatal ou Obstétrico (%)', fmtV:pctF, abs:a=>[a.smAlgum,a.estab]}
 ];
 let eixoAtivo = 'ces';
 let metricaAtiva = 'rob2P';
@@ -1641,7 +1641,7 @@ function exportarMapaPNG(){
   img.src='data:image/svg+xml;base64,'+btoa(unescape(encodeURIComponent(xml)));
 }
 
-const FLAG_NOMES = ["Asfixia", "Parto vaginal assistido por enfermeira", "AMIU", "Robson ≥2 grupos", "Oferta de LARC", "Atendimento de violência sexual", "SMCON Neo", "SMCON Obstétrico", "Unidade Neonatal completa"];
+const FLAG_NOMES = ["Asfixia", "Parto vaginal assistido por enfermeira", "AMIU", "Robson ≥2 grupos", "Oferta de LARC", "Atendimento de violência sexual", "SMCON Neonatal", "SMCON Obstétrico", "Unidade Neonatal completa"];
 
 /* Contexto legível da seleção atual, do mais específico ao mais geral */
 function contextoSelecao(){
@@ -1797,7 +1797,7 @@ const MATRIZ_COLS = [
   {k:'asfP',  rot:'Asfixia'},
   {k:'contrP',rot:'Oferta de LARC'},
   {k:'violP', rot:'Atendimento de viol\u00eancia sexual'},
-  {k:'smnP',  rot:'SMCON Neo'},
+  {k:'smnP',  rot:'SMCON Neonatal'},
   {k:'smoP',  rot:'SMCON Obstétrico'},
   {k:'seloP', rot:'Selo \u22655'}
 ];

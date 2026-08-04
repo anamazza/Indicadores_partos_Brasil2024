@@ -81,14 +81,14 @@ As metas por grupo são **institucionais**, adotadas pela Coordenação com base
 
 ### 4.6 Monitoramento pelo SMCON
 
-**SMCON Neo · SMCON Obstétrico · SMCON Neo e/ou Obst.** Adesão do estabelecimento aos módulos neonatal e obstétrico do SMCON (IFF/Fiocruz, Estratégia Qualineo), de alimentação voluntária. Adequado quando a unidade alimenta o(s) módulo(s).
+**SMCON Neonatal · SMCON Obstétrico · SMCON Neonatal e/ou Obstétrico.** Adesão do estabelecimento aos módulos Neonatal e Obstétrico do SMCON (IFF/Fiocruz, Estratégia Qualineo), de alimentação voluntária. Adequado quando a unidade alimenta o(s) módulo(s).
 *Fonte:* IFF/Fiocruz — Instrutivo do SMCON.
 
 ## 5. Selo de conformidade
 
 O selo reconhece os estabelecimentos com **5 ou mais dos 9 indicadores classificatórios** adequados. Corresponde ao campo classificatório da planilha (número de indicadores adequados ≥ 5).
 
-Os 9 indicadores: Asfixia · Parto vaginal assistido por enfermeira · AMIU · Robson ≥2 grupos · Oferta de LARC · Atendimento de violência sexual · SMCON Neo · SMCON Obstétrico · Unidade Neonatal completa.
+Os 9 indicadores: Asfixia · Parto vaginal assistido por enfermeira · AMIU · Robson ≥2 grupos · Oferta de LARC · Atendimento de violência sexual · SMCON Neonatal · SMCON Obstétrico · Unidade Neonatal completa.
 
 - "Unidade Neonatal completa" conta como adequada quando é **"sim" ou "não se aplica"**.
 - "Robson ≥2 grupos" é **um dos 9 indicadores contados**, não uma exigência à parte.
@@ -110,9 +110,9 @@ Valores agregados dos 543 estabelecimentos, para conferência.
 |---|---|---|---|
 | % Cesariana adequada (≥2 grupos) | 56,7% (308/543) | % Oferta de LARC | 35,7% (194/543) |
 | % Adeq. Robson G1 | 41,8% (227/543) | % Atendimento de violência sexual | 41,4% (225/543) |
-| % Adeq. Robson G2 | 51,0% (277/543) | % SMCON Neo | 19,7% (107/543) |
+| % Adeq. Robson G2 | 51,0% (277/543) | % SMCON Neonatal | 19,7% (107/543) |
 | % Adeq. Robson G3 | 38,9% (211/543) | % SMCON Obstétrico | 9,4% (51/543) |
-| % Adeq. Robson G4 | 50,1% (272/543) | % SMCON Neo e/ou Obst | 22,1% (120/543) |
+| % Adeq. Robson G4 | 50,1% (272/543) | % SMCON Neonatal e/ou Obstétrico | 22,1% (120/543) |
 | % Parto vaginal assistido por enfermeira | 28,5% (155/543) | % Unidade Neonatal completa | 43,6% (237/543) |
 | % Asfixia | 71,5% (388/543) | % com Selo | 22,5% (122/543) |
 

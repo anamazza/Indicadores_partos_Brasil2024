@@ -24,7 +24,7 @@ flags_def = [
     ('Robson \u22652 grupos', df['CLASSIFICAÇÃO ROBSON  (\u22652 GRUPOS)']=='ADEQUADO'),
     ('Oferta de LARC', df['CLASSIFICAÇÃO CONTRACEPÇÃO']=='SIM'),
     ('Atendimento de viol\u00eancia sexual', df['CLASSIFICAÇÃO VIOLÊNCIA SEXUAL']=='SIM'),
-    ('SMCON Neo', df['SMCON NEO'].astype(str).str.strip()=='ok'),
+    ('SMCON Neonatal', df['SMCON NEO'].astype(str).str.strip()=='ok'),
     ('SMCON Obst\u00e9trico', df['SMCON OBST'].astype(str).str.strip()=='ok'),
     ('Unidade Neonatal completa', df['UNIDADE NEONATAL COMPLETA'].isin(['SIM', 'NÃO SE APLICA'])),
 ]
