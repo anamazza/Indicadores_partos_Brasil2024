@@ -44,19 +44,21 @@ Cada estabelecimento traz seus dados brutos e sua classificação de adequação
 
 A Classificação de Robson (OMS, 2017) divide as gestantes em 10 grupos mutuamente exclusivos a partir de características obstétricas, permitindo comparar taxas de cesárea de forma padronizada. O painel acompanha os quatro grupos de menor risco:
 
-| Grupo | Perfil | Referência OMS |
+| Grupo | Perfil | Meta por grupo (OMS) |
 |---|---|---|
-| G1 | Nulípara, feto único cefálico, ≥37 sem, trabalho espontâneo | 10% |
-| G2 | Nulípara, induzida ou cesárea antes do trabalho | 35% |
-| G3 | Multípara sem cesárea anterior, espontâneo | 3% |
-| G4 | Multípara, induzida ou cesárea antes do trabalho | 15% |
+| G1 | Nulípara, feto único cefálico, ≥37 sem, trabalho espontâneo | ≤10% |
+| G2 | Nulípara, induzida ou cesárea antes do trabalho | ≤35% |
+| G3 | Multípara sem cesárea anterior, espontâneo | ≤3% |
+| G4 | Multípara, induzida ou cesárea antes do trabalho | ≤15% |
 
-**% Cesariana adequada (≥2 grupos)** — indicador-síntese da via de nascimento: estabelecimento adequado quando **pelo menos 2 dos 4 grupos** estão dentro da faixa de referência do grupo.
-*Cálculo:* estab. com ≥2 grupos adequados ÷ estab. × 100 · *Adequação por grupo:* faixas institucionais da planilha (referências OMS acima) · *Fonte:* SINASC (DNV: paridade, idade gestacional, apresentação, via de nascimento); WHO — Robson Classification Manual (2017).
+**Cada grupo de Robson tem a sua própria meta**, e a adequação do estabelecimento é avaliada grupo a grupo contra essas metas na base institucional.
+
+**% Cesariana adequada (≥2 grupos)** — indicador-síntese da via de nascimento: estabelecimento adequado quando **pelo menos 2 dos 4 grupos** estão dentro da meta do grupo.
+*Cálculo:* estab. com ≥2 grupos adequados ÷ estab. × 100 · *Adequação por grupo:* metas por grupo aplicadas na planilha institucional (tabela acima) · *Fonte:* SINASC (DNV: paridade, idade gestacional, apresentação, via de nascimento); WHO — Robson Classification Manual (2017).
 
 **% Cesariana Adeq. Robson G1 a G4** — % de estabelecimentos adequados em cada grupo, individualmente.
 
-**Gráfico "Cesariana nos grupos de Robson"** — **média** do % de cesariana dos estabelecimentos da seleção em cada grupo, excluídos os sem partos no grupo; quanto menor, melhor.
+**Gráfico "Cesariana nos grupos de Robson"** — **média** do % de cesariana dos estabelecimentos da seleção em cada grupo, excluídos os sem partos no grupo, comparada à meta do grupo (barra verde = média dentro da meta; vermelha = acima).
 
 O painel **não exibe** taxa geral de cesariana nem meta de 35%; a taxa por estabelecimento permanece disponível nas exportações. *Referência de contexto:* OMS (2015) considera 10–15% a faixa populacional ideal.
 

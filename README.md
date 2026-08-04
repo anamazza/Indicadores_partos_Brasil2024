@@ -39,7 +39,7 @@ Todos os dados são públicos e agregados por estabelecimento; não há informa�
 
 **Estatística de agregação.** Percentuais de adequação = proporção de estabelecimentos adequados, sempre com o número absoluto (adequados/total) — inclusive a asfixia (% de estabelecimentos com taxa ≤0,6%). % AMIU e a cesariana nos grupos de Robson usam a **média** das unidades da seleção (excluídas, no caso de Robson, as sem partos no grupo). O painel **não usa mediana**.
 
-**Cesárea.** A leitura é pelos **grupos de Robson (G1 a G4)**, com referências OMS por grupo (10% · 35% · 3% · 15%); estabelecimento adequado = **≥2 grupos** dentro da faixa. Não há meta de taxa geral de cesariana no painel.
+**Cesárea.** A leitura é pelos **grupos de Robson (G1 a G4)** — cada grupo tem a sua própria meta (OMS: G1 ≤10% · G2 ≤35% · G3 ≤3% · G4 ≤15%); estabelecimento adequado = **≥2 grupos** dentro da meta. Não há meta de taxa geral de cesariana no painel.
 
 **Classes do mapa.** Todos os indicadores mapeados são percentuais de adequação ("mais é melhor"). Quintis sobre os territórios visíveis no nível selecionado; escala sequencial de verdes, segura para daltonismo; faixas repetidas são colapsadas na legenda. Territórios sem estabelecimento elegível aparecem em cinza.
 

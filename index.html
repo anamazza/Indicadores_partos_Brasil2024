@@ -550,7 +550,7 @@ body.metodologia{overflow:hidden}
     </div>
     <div class="card">
       <div class="card-head"><div><h3>Cesariana nos grupos de Robson</h3>
-      <div class="sub">Média dos estabelecimentos selecionados · G1 a G4 · quanto menor, melhor · exclui estab. sem partos no grupo · referências OMS: G1 10% · G2 35% · G3 3% · G4 15%</div></div>
+      <div class="sub">Média dos estabelecimentos selecionados · G1 a G4 · exclui estab. sem partos no grupo · metas por grupo (OMS): G1 &le;10% · G2 &le;35% · G3 &le;3% · G4 &le;15%</div></div>
       <button class="png-mini" data-c="chRobson" data-n="robson_g1_g4">&#8681; PNG</button></div>
       <div class="ctx-linha"></div>
       <div class="chart-box"><canvas id="chRobson"></canvas></div>
@@ -690,8 +690,9 @@ body.metodologia{overflow:hidden}
     <section>
       <h2>Cesariana adequada — Robson &ge;2 grupos <span class="met-dir dir-maior">quanto maior, melhor</span></h2>
       <p><b>Conceituação:</b> proporção de estabelecimentos com pelo menos dois dos quatro grupos de Robson de menor risco (G1 a G4) com taxa de cesariana dentro da referência do grupo.</p>
-      <p><b>Método de cálculo:</b> estabelecimentos com &ge;2 grupos adequados ÷ estabelecimentos da seleção × 100. A adequação de cada grupo segue a classificação da base institucional (planilha), com referências da OMS por grupo: G1 10% · G2 35% · G3 3% · G4 15%.</p>
+      <p><b>Método de cálculo:</b> estabelecimentos com &ge;2 grupos adequados ÷ estabelecimentos da seleção × 100. A adequação de cada grupo segue a classificação da base institucional (planilha), com metas por grupo (OMS): G1 &le;10% · G2 &le;35% · G3 &le;3% · G4 &le;15%.</p>
       <p><b>Observação:</b> o painel não exibe meta de taxa geral de cesariana; a leitura recomendada é por grupos de Robson. "Robson &ge;2 grupos" é um dos 9 indicadores classificatórios do selo de conformidade.</p>
+      <p><b>Fonte:</b> SINASC (DNV: variáveis obstétricas da classificação de Robson e via de nascimento); classificação por grupo da base institucional. Método: OMS — Robson Classification Manual (2017).</p>
     </section>
 
     <section>
@@ -700,6 +701,7 @@ body.metodologia{overflow:hidden}
       <p><b>Método de cálculo do indicador:</b> % de estabelecimentos com asfixia adequada = estabelecimentos com taxa ≤0,6% ÷ estabelecimentos da seleção × 100, exibido com o número absoluto (adequados/total). A taxa da unidade (nascidos ≥2.500g sem anomalias com Apgar 5' &lt;7 ÷ total × 100, SINASC) aparece na lista de estabelecimentos ao passar o mouse.</p>
       <p><b>Parâmetro:</b> unidade adequada quando a taxa é igual ou inferior a 0,6% (limiar institucional).</p>
       <p><b>Limitações:</b> em unidades com pequeno número de casos, a taxa apresenta oscilação aleatória importante. Taxa de 0,0% em unidade de grande volume sugere falha de registro do Apgar na Declaração de Nascido Vivo e deve ser objeto de verificação, não de comparação.</p>
+      <p><b>Fonte:</b> SINASC (DNV: Apgar no 5º minuto, peso ao nascer e anomalias congênitas).</p>
     </section>
 
     <section>
@@ -708,6 +710,7 @@ body.metodologia{overflow:hidden}
       <p><b>Método de cálculo:</b> partos vaginais assistidos por enfermagem obstétrica ÷ total de partos vaginais × 100 (SINASC).</p>
       <p><b>Parâmetro:</b> adequado quando igual ou superior a 50%.</p>
       <p><b>Limitações:</b> o campo apresenta subregistro conhecido. Valores nulos em unidades que dispõem de Centro de Parto Normal indicam falha de preenchimento da DNV, e não ausência da prática.</p>
+      <p><b>Fonte:</b> SINASC (DNV: campo "profissional que assistiu o parto"). Referências: OMS (2018); Diretrizes Nacionais de Assistência ao Parto Normal (Ministério da Saúde).</p>
     </section>
 
     <section>
@@ -716,14 +719,17 @@ body.metodologia{overflow:hidden}
       <p><b>Método de cálculo:</b> procedimentos de AMIU ÷ total de esvaziamentos uterinos (AMIU + curetagem) × 100, a partir dos procedimentos registrados no SIH-SUS.</p>
       <p><b>Parâmetro:</b> adequado quando igual ou superior a 50%.</p>
       <p><b>Limitações:</b> por se tratar de dado de produção faturada, o valor nulo não distingue a unidade que não realiza o procedimento daquela que o registra sob outro código ou que referencia os casos a outro serviço.</p>
+      <p><b>Fonte:</b> SIH-SUS (procedimentos de AMIU e curetagem). Referência: norma técnica de Atenção Humanizada ao Abortamento (Ministério da Saúde).</p>
     </section>
 
     <section>
-      <h2>Cesariana nos grupos de Robson (G1 a G4) <span class="met-dir dir-menor">taxa por grupo: quanto menor, melhor</span></h2>
+      <h2>Cesariana nos grupos de Robson (G1 a G4) <span class="met-dir dir-maior">metas por grupo</span></h2>
       <p><b>Conceituação:</b> taxa de cesariana em grupos de gestantes de perfil obstétrico comparável, segundo a classificação de Robson (OMS, 2017). G1: nulíparas, feto único, cefálico, a termo, em trabalho de parto espontâneo. G2: nulíparas, feto único, cefálico, a termo, com indução ou cesariana anterior ao trabalho de parto. G3: multíparas sem cesariana prévia, feto único, cefálico, a termo, em trabalho de parto espontâneo. G4: multíparas sem cesariana prévia, com indução ou cesariana anterior ao trabalho de parto. A comparação dentro de cada grupo reduz o efeito das diferenças de perfil entre estabelecimentos.</p>
       <p><b>Método de cálculo:</b> cesarianas do grupo ÷ nascidos vivos do grupo × 100.</p>
-      <p><b>Parâmetro:</b> faixas de taxa definidas por grupo na base institucional (referências OMS: G1 10% · G2 35% · G3 3% · G4 15%). O indicador classificatório "Robson ≥2 grupos" considera adequado o estabelecimento com pelo menos dois dos quatro grupos dentro da faixa; grupos sem nascidos vivos são computados como não adequados.</p>
+      <p><b>Metas por grupo (OMS):</b> G1 &le;10% · G2 &le;35% · G3 &le;3% · G4 &le;15% — cada grupo é avaliado contra a sua própria meta, aplicada na classificação da base institucional.</p>
+      <p><b>Parâmetro:</b> o indicador classificatório "Robson ≥2 grupos" considera adequado o estabelecimento com pelo menos dois dos quatro grupos dentro da meta; grupos sem nascidos vivos são computados como não adequados.</p>
       <p><b>Limitações:</b> o gráfico do painel apresenta a média das unidades da seleção, excluídas as que não registraram partos no grupo. A medida "% Cesariana Adeq. Robson G1–G4", exibida no mapa, é distinta: corresponde ao percentual de estabelecimentos classificados como adequados no grupo, com leitura inversa (quanto maior, melhor).</p>
+      <p><b>Fonte:</b> SINASC (DNV: paridade, idade gestacional, apresentação, início do trabalho de parto e via de nascimento). Método: OMS — Robson Classification Manual (2017).</p>
     </section>
 
     <section>
@@ -731,6 +737,7 @@ body.metodologia{overflow:hidden}
       <p><b>Conceituação:</b> oferta de contraceptivos reversíveis de longa duração (DIU e implante subdérmico) no pós-parto e pós-abortamento, registrada no SIH-SUS, como marcador de planejamento reprodutivo na unidade.</p>
       <p><b>Método de cálculo:</b> % de estabelecimentos com classificação de contracepção adequada na base institucional (planilha), exibido com o número absoluto (adequados/total).</p>
       <p><b>Limitações:</b> o parâmetro identifica a existência de serviço ativo (insumo, profissional habilitado e fluxo), não a suficiência da oferta frente ao volume de partos. A inserção pós-placentária nem sempre é faturada, o que pode subestimar o dado.</p>
+      <p><b>Fonte:</b> SIH-SUS (procedimentos de inserção de DIU e implante subdérmico). Referência: Nota Técnica de ampliação do acesso ao DIU (Ministério da Saúde / IFF-Fiocruz).</p>
     </section>
 
     <section>
@@ -738,6 +745,7 @@ body.metodologia{overflow:hidden}
       <p><b>Conceituação:</b> número de atendimentos a vítimas de violência sexual registrados pelo estabelecimento no ano (SIH-SUS).</p>
       <p><b>Método de cálculo:</b> contagem anual de atendimentos. Classificação de adequação: dois ou mais atendimentos registrados.</p>
       <p><b>Limitações:</b> o atendimento é obrigatório em todos os hospitais do SUS (Lei nº 12.845/2013); o que o indicador capta é o registro do atendimento e o papel de referência da unidade na rede. A ausência de registro não caracteriza recusa: a unidade pode encaminhar os casos ao serviço de referência do território.</p>
+      <p><b>Fonte:</b> SIH-SUS (registros de atendimento a vítimas de violência sexual). Referência: Lei nº 12.845/2013.</p>
     </section>
 
     <section>
@@ -745,18 +753,21 @@ body.metodologia{overflow:hidden}
       <p><b>Conceituação:</b> adesão do estabelecimento aos módulos neonatal e obstétrico do Sistema de Monitoramento do Cuidado Obstétrico e Neonatal (SMCON/IFF-Fiocruz, estratégia Qualineo), de alimentação voluntária. Constituem dois indicadores classificatórios distintos.</p>
       <p><b>Parâmetro:</b> adequado quando a unidade alimenta o módulo correspondente.</p>
       <p><b>Limitações:</b> o indicador expressa a incorporação do monitoramento à rotina da unidade, não o resultado assistencial.</p>
+      <p><b>Fonte:</b> IFF/Fiocruz — SMCON (estratégia Qualineo), alimentado pelas próprias unidades.</p>
     </section>
 
     <section>
       <h2>Unidade neonatal completa <span class="met-dir dir-maior">estrutura</span></h2>
       <p><b>Conceituação:</b> disponibilidade da linha completa de cuidado ao recém-nascido de risco — UTIN, UCINCo e UCINCa — conforme habilitações registradas no CNES (Portaria GM/MS nº 930/2012).</p>
       <p><b>Parâmetro:</b> adequado quando a resposta é "sim" ou "não se aplica". A condição "não se aplica" corresponde às maternidades de risco habitual, que não constituem porta de entrada do recém-nascido grave; nesses casos, a retaguarda depende da regulação e do transporte neonatal.</p>
+      <p><b>Fonte:</b> CNES (habilitações de UTIN, UCINCo e UCINCa). Referências: Portaria GM/MS nº 930/2012; Portaria SAES/MS nº 2.902/2025.</p>
     </section>
 
     <section>
       <h2>Selo de conformidade (≥5 de 9)</h2>
       <p><b>Conceituação:</b> o estabelecimento recebe o selo quando ao menos 5 dos 9 indicadores classificatórios estão adequados: asfixia neonatal, enfermagem obstétrica, AMIU, Robson ≥2 grupos, contracepção, violência sexual, SMCON neonatal, SMCON obstétrico e unidade neonatal completa. "Robson ≥2 grupos" integra os 9 indicadores, sem constituir exigência adicional. O selo corresponde ao campo classificatório oficial da base.</p>
       <p><b>Interpretação:</b> o selo afere conformidade com itens de qualificação — estrutura, processo e registro — e não constitui, por si, medida de qualidade assistencial. A taxa de cesariana não integra o selo. Unidades de maior porte e complexidade tendem a reunir mais itens por capacidade instalada e de registro; recomenda-se acompanhar a evolução de cada unidade no tempo, em vez de ordenar unidades de perfis distintos.</p>
+      <p><b>Fonte:</b> campo classificatório oficial da base institucional (planilha derivada de SINASC, CNES e SIH-SUS; extração de 01/07/2026).</p>
     </section>
 
     <section>
@@ -958,7 +969,7 @@ function renderRobson(){
       responsive:true,maintainAspectRatio:false,
       plugins:{legend:{display:false},
         tooltip:{callbacks:{label:c=>{const g=grupos[c.dataIndex];
-          return c.parsed.y.toFixed(1)+'% · referência OMS: '+ROBSON_REF[g]+'%';}}},
+          return c.parsed.y.toFixed(1)+'% · meta do grupo (OMS): ≤'+ROBSON_REF[g]+'%';}}},
         datalabels:{anchor:'end',align:'top',color:C.profundo,font:{weight:'700',size:12},formatter:v=>v.toFixed(1)+'%'}},
       scales:{y:{beginAtZero:true,suggestedMax:100,grid:{color:C.mint},ticks:{callback:v=>v+'%'}},x:{grid:{display:false}}}
     }
@@ -1446,7 +1457,6 @@ function renderMapa(){
       linhasLeg += `<div class="legrow"><span class="legsw" style="background:${VERDES[met.inv? 4-i : i]}"></span>${rot}</div>`;
     });
     $('legendaLinhas').innerHTML = linhasLeg
-      + (met.inv? `<div class="legrow" style="font-size:11px;color:var(--texto-suave)">Quanto menor, melhor: verde escuro = menores valores</div>` : '')
       + `<div class="legrow"><span class="legsw" style="background:#E9EDEA"></span>Sem estabelecimento &gt;1.000 partos</div>`;
   } else if(visiveis.length===1){
     const v = valorMetrica(agg[visiveis[0].id],metricaAtiva);
