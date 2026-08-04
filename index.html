@@ -271,6 +271,8 @@ body.sheet-aberta .sheet-scrim{opacity:1;pointer-events:auto}
 .rail-chips .chip{display:block;width:100%;text-align:left;margin-bottom:6px;white-space:normal;line-height:1.25}
 .rail-chips .chip:last-child{margin-bottom:0}
 #mapaSvg{max-width:540px;margin:0 auto}
+/* com zoom (região/estado), o mapa usa toda a largura disponível */
+.mapa-svg-card.mapa-zoom #mapaSvg{max-width:none}
 @media(max-width:520px){
   .mapa-esquerda{grid-template-columns:118px 1fr;gap:8px}
   .rail-grupo{padding:7px}
@@ -1304,7 +1306,7 @@ function viewBoxAtual(){
     let x=x0-pad, y=y0-pad, w=(x1-x0)+2*pad, h=(y1-y0)+2*pad;
     // sem piso de enquadramento: o estado filtrado preenche o quadro
     // (traço e rótulos são vetoriais e se ajustam à escala)
-    const MINW=20, MINH=18;
+    const MINW=8, MINH=7;
     if(w<MINW){ const cx=x+w/2; w=MINW; x=cx-w/2; }
     if(h<MINH){ const cy=y+h/2; h=MINH; y=cy-h/2; }
     return {x,y,w,h,zoom:true};
@@ -1372,7 +1374,7 @@ function renderMapa(){
     borda += `<path d="${u.d}" fill="none" stroke="#1D3229" stroke-width="1.5" vector-effect="non-scaling-stroke" stroke-linejoin="round" pointer-events="none"/>`;
   });
   if(nivelAtivo==='uf'){
-    const fs = Math.max(7, 15*esc);
+    const fs = Math.min(Math.max(7, 15*esc), vb.w*0.075); // rótulo proporcional ao zoom
     GEO.niveis.uf.forEach(t=>{
       if(!dentro(t)) return;
       labels += `<text x="${t.cx}" y="${t.cy}" text-anchor="middle" font-size="${fs.toFixed(1)}" font-weight="700" fill="#1D3229" style="paint-order:stroke;stroke:#ffffff;stroke-width:${(2.6*esc).toFixed(2)}px;pointer-events:none">${t.id}</text>`;
@@ -1390,6 +1392,7 @@ function renderMapa(){
       labels += `<text x="${t.cx}" y="${t.cy}" text-anchor="middle" font-size="${fs.toFixed(2)}" font-weight="700" fill="#1D3229" style="paint-order:stroke;stroke:#ffffff;stroke-width:${(2.2*esc).toFixed(2)}px;pointer-events:none">${nome}</text>`;
     });
   }
+  $('mapaContainer').classList.toggle('mapa-zoom', !!vb.zoom);
   $('mapaContainer').innerHTML =
     `<svg id="mapaSvg" viewBox="${vb.x.toFixed(1)} ${vb.y.toFixed(1)} ${vb.w.toFixed(1)} ${vb.h.toFixed(1)}" xmlns="http://www.w3.org/2000/svg">${paths}${borda}${labels}${hits}</svg>`;
   animarZoom(vb);
