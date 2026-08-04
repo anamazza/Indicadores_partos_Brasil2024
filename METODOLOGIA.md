@@ -17,8 +17,8 @@ Documento de 15/07/2026, **revisado em 04/08/2026** após a reunião de gestão 
 Cada estabelecimento traz seus dados brutos e sua classificação de adequação. O painel agrega por território em três níveis — UF, macrorregião de saúde e região de saúde.
 
 - **Indicadores de adequação ("% … adequada")**: (nº de estabelecimentos adequados ÷ nº de estabelecimentos) × 100, sempre exibido com o número absoluto **(adequados/total)** e 1 casa decimal.
-- **Médias (o painel não usa mediana)**: % AMIU, % asfixia e as taxas de cesariana nos grupos de Robson (gráfico) são a **média dos percentuais dos estabelecimentos** da seleção; no gráfico de Robson, excluem-se os estabelecimentos sem partos no grupo.
-- **Mapa**: cores em quintis calculados sobre os territórios visíveis; escala sequencial de verdes, segura para daltonismo; faixas repetidas são colapsadas na legenda; cinza = território sem estabelecimento elegível. Em indicadores em que **menor é melhor** (ex.: % asfixia), a escala é invertida (verde escuro = menores valores).
+- **Médias (o painel não usa mediana)**: % AMIU e as taxas de cesariana nos grupos de Robson (gráfico) são a **média dos percentuais dos estabelecimentos** da seleção; no gráfico de Robson, excluem-se os estabelecimentos sem partos no grupo.
+- **Mapa**: todos os indicadores mapeados são percentuais de adequação ("mais é melhor"); cores em quintis calculados sobre os territórios visíveis; escala sequencial de verdes, segura para daltonismo; faixas repetidas são colapsadas na legenda; cinza = território sem estabelecimento elegível.
 - **Cobertura parcial**: todo agregado reflete apenas as unidades com mais de 1.000 partos — não a totalidade dos partos do território.
 
 **Sistemas de informação-fonte.** O SINASC (Sistema de Informações sobre Nascidos Vivos) fornece os nascidos vivos e a riqueza clínica da Declaração de Nascido Vivo — via de nascimento, quem assistiu o parto, Apgar, peso e as variáveis da classificação de Robson; o CNES identifica os estabelecimentos e suas habilitações (unidade neonatal, alto risco); e o SIH/SUS fornece os procedimentos financiados pelo SUS (AMIU, inserção de DIU/implante, entre outros). O SMCON (IFF/Fiocruz) é um sistema de monitoramento voluntário, presente em parte das unidades, e figura aqui como indicador de adesão — não como fonte dos demais.
@@ -68,8 +68,8 @@ O painel **não exibe** taxa geral de cesariana nem meta de 35%; a taxa por esta
 **% AMIU** — A Aspiração Manual Intrauterina é a técnica recomendada pela OMS para o esvaziamento uterino no abortamento, por ser mais segura e menos traumática que a curetagem.
 *Cálculo:* **média** do % de AMIU entre os estabelecimentos · *Adequação (selo):* institucional · *Fonte:* SIH/SUS (procedimentos); OMS/FEBRASGO.
 
-**% Asfixia** — Proporção de recém-nascidos com Apgar <7 no 5º minuto entre os nascidos com ≥2.500g e sem malformação — marcador sensível da qualidade da assistência ao parto; **quanto menor, melhor**.
-*Cálculo:* **média** do % de asfixia entre os estabelecimentos · *Adequação (selo):* institucional (asfixia ≤0,6%) · *Fonte:* SINASC (DNV: Apgar e peso).
+**% Asfixia adequada** — A taxa de asfixia da unidade é a proporção de recém-nascidos com Apgar <7 no 5º minuto entre os nascidos com ≥2.500g e sem malformação — marcador sensível da qualidade da assistência ao parto. O indicador do painel é o **percentual de estabelecimentos adequados** (taxa ≤0,6%).
+*Cálculo:* estab. com asfixia adequada ÷ estab. × 100 (adequados/total) · *Adequação:* institucional (taxa ≤0,6%) · *Fonte:* SINASC (DNV: Apgar e peso). A taxa de cada unidade permanece visível na lista de estabelecimentos (tooltip) e nas exportações.
 
 ### 2.5 Contracepção
 
@@ -117,7 +117,7 @@ Valores agregados dos 543 estabelecimentos (1.253.881 partos), para conferência
 | % Adeq. Robson G3 | 38,9% (211/543) | % SMCON Obstétrico | 9,4% (51/543) |
 | % Adeq. Robson G4 | 50,1% (272/543) | % SMCON Neo e/ou Obst | 22,1% (120/543) |
 | % Parto vaginal assistido por enfermeira | 28,5% (155/543) | % Unidade Neonatal completa | 43,6% (237/543) |
-| % Asfixia (média) | 0,5% | Neonatal adequada no selo (SIM ou N/A) | 60,8% (330/543) |
+| % Asfixia adequada | 71,5% (388/543) | Neonatal adequada no selo (SIM ou N/A) | 60,8% (330/543) |
 | % AMIU (média) | 12,6% | % com Selo | 22,5% (122/543) |
 
 Médias do % de cesariana nos grupos (estab. com partos no grupo): G1 36,1% · G2 66,3% · G3 18,5% · G4 49,1%.

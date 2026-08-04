@@ -517,7 +517,7 @@ body.metodologia{overflow:hidden}
           <div id="legendaLinhas"></div>
         </div>
         <div class="info-uf" id="infoUF"><div class="vazio">Toque em um estado para ver o resumo e filtrar o painel.</div></div>
-        <div class="mapa-nota">Indicadores em que "mais é melhor" usam quintis dos territórios do nível selecionado, em escala sequencial de verdes (mais escuro = maior = melhor). Em indicadores em que "menor é melhor" (ex.: % asfixia), a escala é invertida: verde mais escuro = menores valores. Escalas seguras para daltonismo. Territórios em cinza não possuem estabelecimento com mais de 1.000 partos; os agregados refletem apenas essas unidades, não a totalidade dos partos do território.</div>
+        <div class="mapa-nota">Os indicadores do mapa são percentuais de adequação ("mais é melhor") e usam quintis dos territórios do nível selecionado, em escala sequencial de verdes (mais escuro = maior = melhor), segura para daltonismo. Territórios em cinza não possuem estabelecimento com mais de 1.000 partos; os agregados refletem apenas essas unidades, não a totalidade dos partos do território.</div>
       </div>
     </div>
   </div>
@@ -644,7 +644,7 @@ body.metodologia{overflow:hidden}
           <th data-k="rob2">Robson &ge;2</th>
           <th data-k="enf" class="num" title="% de partos vaginais do estabelecimento assistidos por enfermeira obstétrica/obstetriz · cor = adequação (verde: ≥50%)">Parto enfermeira</th>
           <th data-k="amiu" class="num" title="% de AMIU do estabelecimento nos esvaziamentos uterinos · cor = adequação (verde: ≥50%)">AMIU</th>
-          <th data-k="asf" class="num" title="% de asfixia do estabelecimento (RN ≥2.500g sem anomalias com Apgar <7 no 5º min) · quanto menor, melhor · cor = adequação (verde: ≤0,6%)">Asfixia</th>
+          <th data-k="asf" class="num" title="Adequação de asfixia: SIM quando o % de RN ≥2.500g sem anomalias com Apgar <7 no 5º min é ≤0,6% · passe o mouse na célula para ver o % da unidade">Asfixia</th>
           <th data-k="contrOk">Contracep.</th>
           <th data-k="viol">Violência</th>
           <th data-k="selo">Selo &ge;5</th>
@@ -676,10 +676,10 @@ body.metodologia{overflow:hidden}
     </section>
 
     <section>
-      <h2>Asfixia neonatal <span class="met-dir dir-menor">quanto menor, melhor</span></h2>
-      <p><b>Conceituação:</b> proporção de nascidos vivos com peso igual ou superior a 2.500g, sem anomalias congênitas, com índice de Apgar inferior a 7 no 5º minuto de vida. O Apgar baixo é utilizado como marcador de possível asfixia ao nascer, desfecho sensível à qualidade da vigilância do trabalho de parto e da reanimação neonatal.</p>
-      <p><b>Método de cálculo:</b> nascidos vivos ≥2.500g sem anomalias com Apgar 5' &lt;7 ÷ total de nascidos vivos ≥2.500g sem anomalias × 100 (SINASC).</p>
-      <p><b>Parâmetro:</b> adequado quando a taxa é igual ou inferior a 0,6%.</p>
+      <h2>Asfixia neonatal — % de estabelecimentos adequados <span class="met-dir dir-maior">quanto maior, melhor</span></h2>
+      <p><b>Conceituação:</b> a taxa de asfixia da unidade é a proporção de nascidos vivos com peso igual ou superior a 2.500g, sem anomalias congênitas, com índice de Apgar inferior a 7 no 5º minuto de vida. O Apgar baixo é utilizado como marcador de possível asfixia ao nascer, desfecho sensível à qualidade da vigilância do trabalho de parto e da reanimação neonatal.</p>
+      <p><b>Método de cálculo do indicador:</b> % de estabelecimentos com asfixia adequada = estabelecimentos com taxa ≤0,6% ÷ estabelecimentos da seleção × 100, exibido com o número absoluto (adequados/total). A taxa da unidade (nascidos ≥2.500g sem anomalias com Apgar 5' &lt;7 ÷ total × 100, SINASC) aparece na lista de estabelecimentos ao passar o mouse.</p>
+      <p><b>Parâmetro:</b> unidade adequada quando a taxa é igual ou inferior a 0,6% (limiar institucional).</p>
       <p><b>Limitações:</b> em unidades com pequeno número de casos, a taxa apresenta oscilação aleatória importante. Taxa de 0,0% em unidade de grande volume sugere falha de registro do Apgar na Declaração de Nascido Vivo e deve ser objeto de verificação, não de comparação.</p>
     </section>
 
@@ -743,8 +743,8 @@ body.metodologia{overflow:hidden}
     <section>
       <h2>Agregações e apresentação</h2>
       <ul>
-        <li>Percentuais de adequação correspondem à proporção de estabelecimentos adequados, exibida com o número absoluto (adequados/total). % AMIU, % asfixia e a cesariana nos grupos de Robson, nos gráficos, utilizam a média das unidades da seleção.</li>
-        <li>No mapa, os indicadores em que valores maiores são desejáveis utilizam quintis dos territórios visíveis, em escala sequencial de verdes; nos indicadores em que menor é melhor (ex.: % asfixia), a escala de cores é invertida.</li>
+        <li>Percentuais de adequação correspondem à proporção de estabelecimentos adequados, exibida com o número absoluto (adequados/total). % AMIU e a cesariana nos grupos de Robson, nos gráficos, utilizam a média das unidades da seleção.</li>
+        <li>No mapa, todos os indicadores utilizam quintis dos territórios visíveis, em escala sequencial de verdes (mais escuro = maior adequação).</li>
         <li>Na matriz semáforo, territórios com menos de 5 estabelecimentos são apresentados sem cor, dada a instabilidade do percentual.</li>
         <li>Todos os agregados referem-se exclusivamente às unidades com mais de 1.000 partos no ano, e não à totalidade dos partos do território.</li>
       </ul>
@@ -1043,7 +1043,7 @@ function renderTabela(){
       <td>${bd(!!d.rob2, d.rob2?'SIM':'—')}</td>
       <td class="num">${bd(d.enfC==='ADEQUADO', d.enf.toFixed(1)+'%')}</td>
       <td class="num">${bd(d.flags&&d.flags[2]==='1', d.amiu.toFixed(1)+'%')}</td>
-      <td class="num">${bd(d.asfC==='ADEQUADO', d.asf.toFixed(1)+'%')}</td>
+      <td title="% de asfixia da unidade: ${d.asf.toFixed(1)}% (adequado: ≤0,6%)">${bd(d.asfC==='ADEQUADO', d.asfC==='ADEQUADO'?'SIM':'—')}</td>
       <td>${bd(!!d.contrOk, d.contrOk?'SIM':'—')}</td>
       <td>${bd(!!d.viol, d.viol?'SIM':'—')}</td>
       <td>${d.selo?'<span class="badge b-selo">SELO</span>':''}</td>
@@ -1137,7 +1137,7 @@ const METRICAS = [
   // Boas práticas
   {id:'enf',     eixo:'boas',   rot:'% Parto vaginal assistido por enfermeira', leg:'Estab. com parto vaginal assistido por enfermeira adequado (%)', fmtV:pctF, abs:a=>[a.enfOk,a.estab]},
   {id:'amiuM',   eixo:'boas',   rot:'% AMIU',             leg:'Média do % de AMIU entre os estab.',         fmtV:pctF},
-  {id:'asfM',    eixo:'boas',   rot:'% Asfixia',          leg:'Média do % de asfixia (Apgar <7 no 5º min) · quanto menor, melhor', fmtV:pctF, inv:true},
+  {id:'asfP',    eixo:'boas',   rot:'% Asfixia adequada', leg:'Estab. com asfixia adequada – Apgar <7 no 5º min ≤0,6% (%)', fmtV:pctF, abs:a=>[a.asfOk,a.estab]},
   // Contracepção
   {id:'contrP',  eixo:'contra', rot:'% Contracepção adequada', leg:'Estab. adequados em contracepção – DIU+implante (%)', fmtV:pctF, abs:a=>[a.contrOkN,a.estab]},
   // Violência sexual
@@ -1302,9 +1302,9 @@ function viewBoxAtual(){
     });
     const pad=Math.max(x1-x0,y1-y0)*0.05;
     let x=x0-pad, y=y0-pad, w=(x1-x0)+2*pad, h=(y1-y0)+2*pad;
-    // piso de enquadramento: estados pequenos (ES, SE, AL...) não ampliam além de ~6x,
-    // mantendo a proporção visual coerente entre os estados
-    const MINW=150, MINH=131;
+    // piso de enquadramento: estados pequenos (ES, SE, AL...) não ampliam além de ~12x,
+    // preenchendo melhor o quadro no filtro por estado sem distorcer o traço
+    const MINW=75, MINH=66;
     if(w<MINW){ const cx=x+w/2; w=MINW; x=cx-w/2; }
     if(h<MINH){ const cy=y+h/2; h=MINH; y=cy-h/2; }
     return {x,y,w,h,zoom:true};

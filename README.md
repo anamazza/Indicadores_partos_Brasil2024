@@ -37,11 +37,11 @@ Todos os dados são públicos e agregados por estabelecimento; não há informa�
 
 **Cobertura parcial (importante).** O painel inclui apenas estabelecimentos com mais de 1.000 partos em 2024. Agregados territoriais refletem somente essas unidades, não a totalidade dos partos do território. Todo agregado exibe o número de estabelecimentos considerados.
 
-**Estatística de agregação.** Percentuais de adequação = proporção de estabelecimentos adequados, sempre com o número absoluto (adequados/total). % AMIU, % asfixia e a cesariana nos grupos de Robson usam a **média** das unidades da seleção (excluídas, no caso de Robson, as sem partos no grupo). O painel **não usa mediana**.
+**Estatística de agregação.** Percentuais de adequação = proporção de estabelecimentos adequados, sempre com o número absoluto (adequados/total) — inclusive a asfixia (% de estabelecimentos com taxa ≤0,6%). % AMIU e a cesariana nos grupos de Robson usam a **média** das unidades da seleção (excluídas, no caso de Robson, as sem partos no grupo). O painel **não usa mediana**.
 
 **Cesárea.** A leitura é pelos **grupos de Robson (G1 a G4)**, com referências OMS por grupo (10% · 35% · 3% · 15%); estabelecimento adequado = **≥2 grupos** dentro da faixa. Não há meta de taxa geral de cesariana no painel.
 
-**Classes do mapa.** Quintis sobre os territórios visíveis no nível selecionado; escala sequencial de verdes, segura para daltonismo; faixas repetidas são colapsadas na legenda. Em indicadores em que **menor é melhor** (ex.: % asfixia), a escala é invertida (verde escuro = menores valores). Territórios sem estabelecimento elegível aparecem em cinza.
+**Classes do mapa.** Todos os indicadores mapeados são percentuais de adequação ("mais é melhor"). Quintis sobre os territórios visíveis no nível selecionado; escala sequencial de verdes, segura para daltonismo; faixas repetidas são colapsadas na legenda. Territórios sem estabelecimento elegível aparecem em cinza.
 
 **Matriz semáforo.** Cada célula é o % de estabelecimentos do território adequados no indicador, em quatro faixas: ≥75%, 50–74%, 25–49% e <25%. Territórios com menos de 5 unidades aparecem sem cor (percentual instável); o `n` acompanha cada linha.
 
