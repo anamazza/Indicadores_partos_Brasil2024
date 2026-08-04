@@ -1,117 +1,110 @@
-# Metodologia dos Indicadores
+# Nota Metodológica
 
-**Painel de Indicadores Obstétricos e Neonatais — Brasil 2024**
+**Coordenação de Ações Nacionais e de Cooperação em Saúde da Mulher, da Criança e do Adolescente**
+Instituto Nacional de Saúde da Mulher, da Criança e do Adolescente Fernando Figueira (IFF/Fiocruz) · SUS
+
+**Painel de Indicadores Obstétricos e Neonatais — Brasil, 2024**
 Estabelecimentos com mais de 1.000 partos · 543 unidades · 1.253.881 partos
-
-Fonte dos dados: SINASC / CNES / SIH-SUS · Extração 01/07/2026
-Documento de 15/07/2026, **revisado em 04/08/2026** após a reunião de gestão de 03/08/2026.
-
-> **Base de dados única.** Todo número do painel deriva da planilha institucional `ESTABELECIMENTOS_ACIMA_DE_1000_PARTOS_2024__INDICADORES` (543 linhas × 57 colunas). O painel apenas **agrega** a classificação já existente na planilha; o script `scripts/04_auditoria.py` reconfere os números exibidos diretamente contra ela (resultado atual: **36 verificações OK, 0 falhas**).
-
-**Oficial vs. institucional.** Os indicadores são reconhecidos e alinhados à Rede de Atenção Materna e Infantil (Portaria GM/MS 5.350/2024) e ao SMCON (IFF/Fiocruz), mas os **limiares** que definem cada indicador como "adequado" são **institucionais** — não constam nos atos oficiais consultados, que remetem a um ato de indicadores ainda não publicado. Desde a revisão de 04/08/2026, o painel **não exibe meta de taxa geral de cesariana**; a leitura de cesárea é feita pelos grupos de Robson (seção 2.3).
+Fonte dos dados: SINASC, CNES e SIH-SUS · Extração de 01/07/2026 · Documento revisado em 04/08/2026
 
 ---
 
-## 1. Como os agregados são calculados
+## 1. Objeto e abrangência
 
-Cada estabelecimento traz seus dados brutos e sua classificação de adequação. O painel agrega por território em três níveis — UF, macrorregião de saúde e região de saúde.
+Esta nota descreve a construção dos indicadores do Painel de Indicadores Obstétricos e Neonatais. O painel reúne os **543 estabelecimentos de saúde com mais de 1.000 partos em 2024**, que responderam por **1.253.881 nascimentos**. Todos os agregados referem-se exclusivamente a essas unidades e não à totalidade dos partos do território; cada agregado exibe o número de estabelecimentos considerados.
 
-- **Indicadores de adequação ("% … adequada")**: (nº de estabelecimentos adequados ÷ nº de estabelecimentos) × 100, sempre exibido com o número absoluto **(adequados/total)** e 1 casa decimal.
-- **Médias (o painel não usa mediana)**: % AMIU e as taxas de cesariana nos grupos de Robson (gráfico) são a **média dos percentuais dos estabelecimentos** da seleção; no gráfico de Robson, excluem-se os estabelecimentos sem partos no grupo.
-- **Mapa**: todos os indicadores mapeados são percentuais de adequação ("mais é melhor"); cores em quintis calculados sobre os territórios visíveis; escala sequencial de verdes, segura para daltonismo; faixas repetidas são colapsadas na legenda; cinza = território sem estabelecimento elegível.
-- **Cobertura parcial**: todo agregado reflete apenas as unidades com mais de 1.000 partos — não a totalidade dos partos do território.
+A **base de dados é única**: a planilha institucional derivada de SINASC, CNES e SIH-SUS (extração de 01/07/2026). O painel apenas **agrega** a classificação de adequação já existente na planilha. O script de auditoria (`scripts/04_auditoria.py`) recalcula os números exibidos diretamente contra a planilha; resultado atual: **36 verificações, 0 falhas**.
 
-**Sistemas de informação-fonte.** O SINASC (Sistema de Informações sobre Nascidos Vivos) fornece os nascidos vivos e a riqueza clínica da Declaração de Nascido Vivo — via de nascimento, quem assistiu o parto, Apgar, peso e as variáveis da classificação de Robson; o CNES identifica os estabelecimentos e suas habilitações (unidade neonatal, alto risco); e o SIH/SUS fornece os procedimentos financiados pelo SUS (AMIU, inserção de DIU/implante, entre outros). O SMCON (IFF/Fiocruz) é um sistema de monitoramento voluntário, presente em parte das unidades, e figura aqui como indicador de adesão — não como fonte dos demais.
+Os dados são públicos e agregados por estabelecimento; não há informação individual de pacientes.
 
-## 2. Os indicadores — o que são, como se calculam e fontes
+## 2. Sistemas de informação de origem
 
-### 2.1 Visão geral
+- **SINASC** (Sistema de Informações sobre Nascidos Vivos) — nascidos vivos e variáveis da Declaração de Nascido Vivo: via de nascimento, profissional que assistiu o parto, Apgar, peso e as variáveis da classificação de Robson.
+- **CNES** (Cadastro Nacional de Estabelecimentos de Saúde) — identificação dos estabelecimentos e habilitações (unidade neonatal, alto risco).
+- **SIH/SUS** (Sistema de Informações Hospitalares) — procedimentos financiados pelo SUS (AMIU, inserção de DIU e implante, entre outros).
+- **SMCON** (Sistema de Monitoramento do Cuidado Obstétrico e Neonatal, IFF/Fiocruz) — figura como indicador de adesão, não como fonte dos demais.
 
-**% com Selo de conformidade** — Síntese da qualidade global: reconhece os estabelecimentos que alcançam pelo menos 5 dos 9 indicadores classificatórios adequados (seção 3).
-*Cálculo:* estab. com selo ÷ estab. × 100 · *Adequação:* campo oficial da planilha (≥5 de 9) · *Fonte:* planilha institucional (SINASC/CNES/SIH).
+## 3. Método de agregação
 
-**Estabelecimentos e Partos** — Números de contexto: contagem de unidades com mais de 1.000 partos e soma dos nascidos vivos de 2024.
-*Fonte:* partos: SINASC (via DNV); estabelecimentos: CNES.
+- **Percentuais de adequação** — (nº de estabelecimentos adequados ÷ nº de estabelecimentos) × 100, apresentados com o número absoluto (adequados/total) e uma casa decimal.
+- **Médias** — o percentual de AMIU e as taxas de cesariana por grupo de Robson (gráfico) correspondem à média dos estabelecimentos da seleção; no gráfico de Robson, excluem-se as unidades sem partos no grupo. O painel não utiliza mediana.
+- **Mapa coroplético** — todos os indicadores mapeados são percentuais de adequação; as classes são quintis dos territórios visíveis, em escala sequencial de verdes, segura para daltonismo. Territórios sem estabelecimento elegível aparecem em cinza.
+- **Matriz semáforo** — cada célula é o percentual de estabelecimentos adequados do território no indicador, em quatro faixas (≥75%, 50–74%, 25–49%, <25%). Territórios com menos de 5 unidades são apresentados em tom atenuado (percentual instável); o `n` acompanha cada linha.
 
-### 2.2 Estrutura
+## 4. Indicadores
 
-**% Unidade Neonatal completa** — Capacidade instalada para o cuidado ao recém-nascido de risco: presença de UTIN, UCINCo e UCINCa. Maternidades de risco habitual, que não precisam do conjunto completo, recebem "não se aplica".
-*Cálculo:* % de estabelecimentos com unidade neonatal completa = SIM · *Adequação (selo):* SIM **ou** "não se aplica" · *Fonte:* CNES (habilitações); Portaria SAES/MS 2.902/2025; Portaria GM/MS 5.350/2024, Art. 47.
+### 4.1 Estrutura
 
-**Nota — HGPAR não é indicador de qualidade.** A sigla designa a habilitação "Hospital de Gestação e Puerpério de Alto Risco" (CNES/SAIPS). É classificação estrutural — não figura entre os indicadores mapeáveis; o dado permanece como característica do estabelecimento na exportação. *Fonte:* Portaria GM/MS 5.350/2024; Nota Técnica Conjunta 220.
+**Unidade Neonatal completa.** Disponibilidade da linha completa de cuidado ao recém-nascido de risco (UTIN, UCINCo e UCINCa), conforme habilitações do CNES. Adequado quando a resposta é **"sim"** ou **"não se aplica"** — esta última correspondente às maternidades de risco habitual.
+*Fonte:* CNES; Portaria GM/MS nº 5.350/2024; Portaria SAES/MS nº 2.902/2025.
 
-### 2.3 Cesárea — grupos de Robson
+### 4.2 Cesárea — grupos de Robson
 
-A Classificação de Robson (OMS, 2017) divide as gestantes em 10 grupos mutuamente exclusivos a partir de características obstétricas, permitindo comparar taxas de cesárea de forma padronizada. O painel acompanha os quatro grupos de menor risco:
+A Classificação de Robson (OMS, 2017) distribui as gestantes em grupos mutuamente exclusivos segundo características obstétricas, permitindo comparar taxas de cesariana de forma padronizada. O painel acompanha os quatro grupos de menor risco e avalia cada um contra a sua **meta institucional**:
 
-| Grupo | Perfil | Meta institucional (ref. OMS/OPAS 2017) |
+| Grupo | Perfil | Meta institucional |
 |---|---|---|
-| G1 | Nulípara, feto único cefálico, ≥37 sem, trabalho espontâneo | ≤10% |
-| G2 | Nulípara, induzida ou cesárea antes do trabalho | ≤35% (faixa do manual: 20–35%) |
-| G3 | Multípara sem cesárea anterior, espontâneo | ≤3% |
-| G4 | Multípara, induzida ou cesárea antes do trabalho | ≤15% |
+| G1 | Nulípara, feto único cefálico, ≥37 semanas, trabalho de parto espontâneo | ≤ 10% |
+| G2 | Nulípara, com indução ou cesárea anterior ao trabalho de parto | ≤ 35% |
+| G3 | Multípara sem cesárea anterior, trabalho de parto espontâneo | ≤ 3% |
+| G4 | Multípara, com indução ou cesárea anterior ao trabalho de parto | ≤ 15% |
 
-**Cada grupo de Robson tem a sua própria meta**, aplicada grupo a grupo na classificação da base institucional. As metas são **institucionais**, ancoradas nas referências de interpretação do *Robson Classification: Implementation Manual* (OMS, 2017; versão OPAS) — valores **descritivos e não normativos**: o próprio manual adverte que não foram validados nem vinculados a melhores desfechos, e a OMS não fixa metas por grupo.
+As metas por grupo são **institucionais**, adotadas pela Coordenação com base nas referências de interpretação do *Robson Classification: Implementation Manual* (OMS, 2017; versão OPAS). Para o **G2**, cuja referência é uma faixa (20–35%), adotou-se nesta primeira versão o limite superior (**≤ 35%**), para simplificar a leitura — parâmetro sujeito a revisão.
 
-**Existe valor mínimo por grupo?** Não. Nenhuma fonte oficial (OMS, OPAS, Ministério da Saúde, ANS, FEBRASGO) define piso de cesariana por grupo de Robson. O Manual OMS/OPAS traz faixa apenas para o G2 (20–35%) e o G5 (50–60%); para G1, G3 e G4 há somente teto. No nível **populacional**, taxa de cesárea abaixo de ~9% sinaliza falta de acesso (Lancet Global Health, 2018; faixa associada a melhores desfechos: 9–19%). Taxas muito baixas nos grupos de baixo risco devem motivar **verificação da qualidade do registro**, não classificação de inadequação; o alerta clínico de "baixo demais" aplica-se sobretudo aos grupos 6–9 (pélvico, gemelar, situação transversa), não monitorados individualmente neste painel. Referência brasileira correlata: o Projeto Parto Adequado (ANS/IHI/HIAE) define piso de **parto vaginal** no agregado G1–G4 (≥40% na fase 2; ≥60% nos pioneiros), não piso de cesárea por grupo.
+**% Cesariana adequada (≥2 grupos).** Indicador-síntese da via de nascimento: o estabelecimento é adequado quando pelo menos **2 dos 4 grupos** estão dentro da meta.
+*Cálculo:* estab. com ≥2 grupos adequados ÷ estab. × 100. *Fonte:* SINASC.
 
-**% Cesariana adequada (≥2 grupos)** — indicador-síntese da via de nascimento: estabelecimento adequado quando **pelo menos 2 dos 4 grupos** estão dentro da meta do grupo.
-*Cálculo:* estab. com ≥2 grupos adequados ÷ estab. × 100 · *Adequação por grupo:* metas por grupo aplicadas na planilha institucional (tabela acima) · *Fonte:* SINASC (DNV: paridade, idade gestacional, apresentação, via de nascimento); WHO — Robson Classification Manual (2017).
+**% Cesariana Adeq. Robson G1 a G4.** Percentual de estabelecimentos adequados em cada grupo, individualmente.
 
-**% Cesariana Adeq. Robson G1 a G4** — % de estabelecimentos adequados em cada grupo, individualmente.
+**Gráfico "Cesariana nos grupos de Robson".** Média do percentual de cesariana dos estabelecimentos da seleção em cada grupo (excluídos os sem partos no grupo). A meta de cada grupo consta do subtítulo do gráfico e do tooltip de cada barra. O painel não exibe taxa geral de cesariana.
 
-**Gráfico "Cesariana nos grupos de Robson"** — **média** do % de cesariana dos estabelecimentos da seleção em cada grupo, excluídos os sem partos no grupo. A meta de cada grupo aparece no subtítulo do gráfico e no tooltip de cada barra.
+### 4.3 Boas práticas
 
-O painel **não exibe** taxa geral de cesariana nem meta de 35%; a taxa por estabelecimento permanece disponível nas exportações. *Referência de contexto:* OMS (2015) considera 10–15% a faixa populacional ideal.
+**Parto vaginal assistido por enfermeira.** Proporção de partos vaginais assistidos por enfermeira obstétrica ou obstetriz. Adequado ≥ 50%.
+*Fonte:* SINASC.
 
-### 2.4 Boas práticas
+**AMIU.** Aspiração Manual Intrauterina, técnica recomendada para o esvaziamento uterino no abortamento. Exibida como média do percentual entre os estabelecimentos.
+*Fonte:* SIH/SUS.
 
-**% Parto vaginal assistido por enfermeira** — Proporção adequada de partos vaginais assistidos por enfermeiras obstétricas/obstetrizes; o cuidado de baixa intervenção associa-se a menos cesáreas e melhores desfechos.
-*Cálculo:* % de estabelecimentos adequados (adequados/total) · *Adequação:* institucional (planilha) · *Fonte:* SINASC (DNV).
+**Asfixia.** Percentual de estabelecimentos adequados quanto à asfixia neonatal — taxa de recém-nascidos ≥ 2.500 g, sem anomalias, com Apgar < 7 no 5º minuto **≤ 0,6%**. A taxa de cada unidade permanece disponível na lista de estabelecimentos (ao passar o mouse) e nas exportações.
+*Fonte:* SINASC.
 
-**% AMIU** — A Aspiração Manual Intrauterina é a técnica recomendada pela OMS para o esvaziamento uterino no abortamento, por ser mais segura e menos traumática que a curetagem.
-*Cálculo:* **média** do % de AMIU entre os estabelecimentos · *Adequação (selo):* institucional · *Fonte:* SIH/SUS (procedimentos); OMS/FEBRASGO.
+### 4.4 Oferta de LARC
 
-**% Asfixia** — A taxa de asfixia da unidade é a proporção de recém-nascidos com Apgar <7 no 5º minuto entre os nascidos com ≥2.500g e sem malformação — marcador sensível da qualidade da assistência ao parto. O indicador do painel é o **percentual de estabelecimentos adequados** (taxa ≤0,6%).
-*Cálculo:* estab. com asfixia adequada ÷ estab. × 100 (adequados/total) · *Adequação:* institucional (taxa ≤0,6%) · *Fonte:* SINASC (DNV: Apgar e peso). A taxa de cada unidade permanece visível na lista de estabelecimentos (tooltip) e nas exportações.
+**Oferta de LARC.** Oferta de contracepção reversível de longa ação (DIU e implante subdérmico) no pós-parto e pós-abortamento. Percentual de estabelecimentos com oferta adequada, conforme a classificação da planilha.
+*Fonte:* SIH/SUS.
 
-### 2.5 Contracepção
+### 4.5 Atendimento de violência sexual
 
-**% Oferta de LARC** — Oferta de contracepção reversível de longa ação (DIU e implante subdérmico) no pós-parto e pós-abortamento imediato.
-*Cálculo:* % de estabelecimentos com classificação de contracepção adequada (adequados/total) · *Adequação:* institucional (DIU + implante inseridos no ano, conforme planilha) · *Fonte:* SIH/SUS (procedimentos de inserção); Nota Técnica de Ampliação do DIU (MS/IFF-Fiocruz).
+**Atendimento de violência sexual.** Percentual de estabelecimentos que atendem vítimas de violência sexual (adequado ≥ 2 atendimentos registrados no ano). O painel também exibe o número de atendimentos.
+*Fonte:* SIH/SUS; Lei nº 12.845/2013.
 
-*(O rótulo "% Oferta de LARC" refere-se à adequação da oferta — DIU + implante — segundo a classificação da planilha; o indicador de volume por 1.000 partos permanece fora do painel.)*
+### 4.6 Monitoramento pelo SMCON
 
-### 2.6 Violência sexual
+**SMCON Neo · SMCON Obstétrico · SMCON Neo e/ou Obst.** Adesão do estabelecimento aos módulos neonatal e obstétrico do SMCON (IFF/Fiocruz, Estratégia Qualineo), de alimentação voluntária. Adequado quando a unidade alimenta o(s) módulo(s).
+*Fonte:* IFF/Fiocruz — Instrutivo do SMCON.
 
-**% Atendimento de violência sexual** — Proporção de estabelecimentos que atendem vítimas de violência sexual; a maternidade é porta de entrada para acolhimento, profilaxias, contracepção de emergência e notificação compulsória. O painel também exibe o número de **atendimentos**.
-*Cálculo:* % de estabelecimentos com classificação = SIM (adequados/total) · *Adequação:* institucional (≥2 atendimentos registrados no ano) · *Fonte:* registro SUS; Convenção de Belém do Pará (1994).
+## 5. Selo de conformidade
 
-### 2.7 SMCON
+O selo reconhece os estabelecimentos com **5 ou mais dos 9 indicadores classificatórios** adequados. Corresponde ao campo classificatório da planilha (número de indicadores adequados ≥ 5).
 
-**% SMCON Neo · % SMCON Obstétrico · % SMCON Neo e/ou Obst** — O Sistema de Monitoramento do Cuidado Obstétrico e Neonatal (IFF/Fiocruz, Estratégia Qualineo) é uma plataforma de coleta e análise de dados clínicos. Os indicadores mostram a adesão ao módulo neonatal, ao obstétrico, ou a pelo menos um deles.
-*Cálculo:* % de estabelecimentos com o(s) módulo(s) alimentado(s) (adequados/total) · *Fonte:* IFF/Fiocruz — Instrutivo do SMCON.
+Os 9 indicadores: Asfixia · Parto vaginal assistido por enfermeira · AMIU · Robson ≥2 grupos · Oferta de LARC · Atendimento de violência sexual · SMCON Neo · SMCON Obstétrico · Unidade Neonatal completa.
 
-## 3. O selo de conformidade
-
-O selo reconhece estabelecimentos com **5 ou mais dos 9 indicadores classificatórios** adequados. É o campo oficial da planilha e corresponde exatamente a "número de indicadores adequados ≥ 5".
-
-Os 9 indicadores classificatórios: 1. Asfixia · 2. Enfermagem obstétrica · 3. AMIU · 4. Robson ≥2 grupos · 5. Oferta de LARC (contracepção) · 6. Violência sexual · 7. SMCON neonatal · 8. SMCON obstétrico · 9. Unidade neonatal completa.
-
-Duas regras importantes:
-- "Unidade neonatal completa" conta como adequada quando é **SIM ou "não se aplica"** (não penaliza maternidades de risco habitual).
-- Robson ≥2 grupos é **um dos 9 indicadores contados** — não é uma exigência à parte. Há estabelecimentos com selo sem Robson ≥2 grupos.
+- "Unidade Neonatal completa" conta como adequada quando é **"sim" ou "não se aplica"**.
+- "Robson ≥2 grupos" é **um dos 9 indicadores contados**, não uma exigência à parte.
 
 | Estágio | Critério | Brasil 2024 |
 |---|---|---|
-| **Com selo** | 5 ou mais indicadores adequados | 122 (22,5%) |
-| **Quase lá** | 4 indicadores adequados | 129 (23,8%) |
-| **No caminho** | 2 a 3 indicadores adequados | 229 (42,2%) |
-| **Início da jornada** | 0 a 1 indicador adequado | 63 (11,6%) |
+| Com selo | 5 ou mais indicadores adequados | 122 (22,5%) |
+| Quase lá | 4 indicadores adequados | 129 (23,8%) |
+| No caminho | 2 a 3 indicadores adequados | 229 (42,2%) |
+| Início da jornada | 0 a 1 indicador adequado | 63 (11,6%) |
 
-## 4. Resultados nacionais (2024) — referência
+O selo afere conformidade com itens de qualificação — estrutura, processo e registro — e não constitui, por si, medida de qualidade assistencial. A taxa de cesariana não integra o selo.
 
-Valores agregados dos 543 estabelecimentos (1.253.881 partos), para conferência.
+## 6. Resultados nacionais de referência (2024)
+
+Valores agregados dos 543 estabelecimentos, para conferência.
 
 | Indicador | Nacional | Indicador | Nacional |
 |---|---|---|---|
@@ -121,36 +114,33 @@ Valores agregados dos 543 estabelecimentos (1.253.881 partos), para conferência
 | % Adeq. Robson G3 | 38,9% (211/543) | % SMCON Obstétrico | 9,4% (51/543) |
 | % Adeq. Robson G4 | 50,1% (272/543) | % SMCON Neo e/ou Obst | 22,1% (120/543) |
 | % Parto vaginal assistido por enfermeira | 28,5% (155/543) | % Unidade Neonatal completa | 43,6% (237/543) |
-| % Asfixia | 71,5% (388/543) | Neonatal adequada no selo (SIM ou N/A) | 60,8% (330/543) |
-| % AMIU (média) | 12,6% | % com Selo | 22,5% (122/543) |
+| % Asfixia | 71,5% (388/543) | % com Selo | 22,5% (122/543) |
 
-Médias do % de cesariana nos grupos (estab. com partos no grupo): G1 36,1% · G2 66,3% · G3 18,5% · G4 49,1%.
+Média do percentual de cesariana nos grupos (estabelecimentos com partos no grupo): G1 36,1% · G2 66,3% · G3 18,5% · G4 49,1%.
 
-## 5. Fontes e referências
+## 7. Natureza dos parâmetros
 
-- BRASIL. Ministério da Saúde. **Portaria GM/MS nº 5.350, de 12/09/2024** — institui a Rede de Atenção Materna e Infantil no SUS e os requisitos de unidade neonatal.
-- BRASIL. Ministério da Saúde. **Portaria GM/MS nº 5.349, de 12/09/2024** — financiamento da Rede.
-- BRASIL. Ministério da Saúde. **Nota Técnica Conjunta nº 220** (SEI 0044549197).
-- BRASIL. Ministério da Saúde/SAES. **Portaria SAES/MS nº 2.902, de 26/06/2025** — códigos de leitos e habilitações neonatais no CNES (UTIN II/III, UCINCo, UCINCa).
-- IFF/FIOCRUZ. **Instrutivo do SMCON** — módulos Parto/Nascimento/Abortamento e Cuidado Neonatal (Estratégia Qualineo).
-- MINISTÉRIO DA SAÚDE/IFF-FIOCRUZ. **Nota Técnica de Ampliação do acesso ao DIU**.
-- WORLD HEALTH ORGANIZATION. **Robson Classification: Implementation Manual.** Genebra: OMS, 2017 (versão OPAS: *La clasificación de Robson: Manual de aplicación*). Valores por grupo são referências de interpretação, não normativos.
-- WORLD HEALTH ORGANIZATION. **WHO Statement on Caesarean Section Rates.** Genebra: OMS, 2015.
-- MOLINA, G. et al. / Global Network. **Minimum and rational proportion of caesarean sections.** *Lancet Global Health*, 2018 — piso populacional (~9%) e faixa 9–19%.
-- ANS/IHI/HIAE. **Projeto Parto Adequado** — piso de parto vaginal no agregado dos grupos 1–4 de Robson (≥40% fase 2; ≥60% pioneiros).
-- ANS. **Fichas Técnicas dos Indicadores — QualiSS.**
+| Item | Natureza |
+|---|---|
+| Dados-fonte (nascidos vivos, procedimentos, cadastro) | Oficial — SINASC, SIH/SUS, CNES |
+| Definição de "unidade neonatal completa" | Oficial — habilitações CNES (Portaria SAES/MS 2.902/2025) |
+| Variáveis clínicas (via de nascimento, Apgar etc.) | DNV/SINASC, alinhadas ao Instrutivo do SMCON |
+| Método da classificação de Robson | Oficial — OMS, 2017 |
+| Metas por grupo de Robson e demais limiares de adequação | Institucionais — adotados pela Coordenação |
+| Taxa geral de cesariana | Não exibida no painel; leitura por grupos de Robson |
+
+## 8. Referências
+
+- BRASIL. Ministério da Saúde. **Portaria GM/MS nº 5.350, de 12 de setembro de 2024** — institui a Rede de Atenção Materna e Infantil no SUS.
+- BRASIL. Ministério da Saúde. **Portaria GM/MS nº 5.349, de 12 de setembro de 2024** — financiamento da Rede.
+- BRASIL. Ministério da Saúde/SAES. **Portaria SAES/MS nº 2.902, de 26 de junho de 2025** — leitos e habilitações neonatais no CNES.
+- BRASIL. Ministério da Saúde. **Nota Técnica Conjunta nº 220**.
+- IFF/FIOCRUZ. **Instrutivo do SMCON** — Estratégia Qualineo.
+- MINISTÉRIO DA SAÚDE / IFF-FIOCRUZ. **Nota Técnica de ampliação do acesso ao DIU**.
+- ORGANIZAÇÃO MUNDIAL DA SAÚDE. **Robson Classification: Implementation Manual.** Genebra: OMS, 2017 (versão OPAS: *La clasificación de Robson: Manual de aplicación*).
+- BRASIL. **Lei nº 12.845, de 1º de agosto de 2013** — atendimento obrigatório a vítimas de violência sexual.
 - Dados-fonte do painel: **SINASC, CNES e SIH/SUS** (extração de 01/07/2026).
 
-## 6. Oficial × institucional e auditoria
+## 9. Auditoria
 
-| Item | Situação |
-|---|---|
-| Dados-fonte do painel | OFICIAL — SINASC (nascidos vivos/DNV), SIH/SUS (procedimentos), CNES (cadastro) |
-| Definição de "unidade neonatal completa" | OFICIAL — habilitações CNES (Portaria 2.902/2025) |
-| Definições das variáveis clínicas (via de nascimento, Apgar etc.) | DNV/SINASC; alinhadas ao Instrutivo SMCON (IFF/Fiocruz) |
-| Classificação de Robson e metas por grupo | Método: OMS (2017). Metas por grupo: INSTITUCIONAIS, ancoradas nas referências não normativas do Manual OMS/OPAS 2017; sem piso oficial por grupo |
-| Limiares de adequação (asfixia, enfermagem, AMIU, contracepção, violência) | INSTITUCIONAL — não constam em ato oficial publicado |
-| Selo (≥5 de 9 indicadores) e estágios | INSTITUCIONAL / operacional |
-| Meta de taxa geral de cesariana | NÃO EXIBIDA no painel (revisão de 04/08/2026); leitura por grupos de Robson |
-
-**Auditoria:** o script `scripts/04_auditoria.py` recalcula os números do painel diretamente da planilha; resultado atual: **36 verificações OK, 0 falhas**.
+O script `scripts/04_auditoria.py` recalcula os números do painel diretamente da planilha institucional. **Resultado atual: 36 verificações, 0 falhas.**
