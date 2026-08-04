@@ -19,14 +19,14 @@ norm = df['PARTO NORMAL'] + df['PARTO NORMAL EM CPN'] + df['PARTO NORMAL EM GEST
 # 9 indicadores classificatórios (ordem fixa: define o campo flags)
 flags_def = [
     ('Asfixia',             df['CLASSIFICAÇÃO ASFIXIA']=='ADEQUADO'),
-    ('Enfermagem obst.',    df['CLASSIFICAÇÃO PARTO ENF.']=='ADEQUADO'),
+    ('Parto vaginal assistido por enfermeira', df['CLASSIFICAÇÃO PARTO ENF.']=='ADEQUADO'),
     ('AMIU',                df['CLASSIFICAÇÃO AMIU']=='ADEQUADO'),
     ('Robson \u22652 grupos', df['CLASSIFICAÇÃO ROBSON  (\u22652 GRUPOS)']=='ADEQUADO'),
     ('Oferta de LARC', df['CLASSIFICAÇÃO CONTRACEPÇÃO']=='SIM'),
-    ('Viol\u00eancia sexual',  df['CLASSIFICAÇÃO VIOLÊNCIA SEXUAL']=='SIM'),
-    ('SMCON neonatal',      df['SMCON NEO'].astype(str).str.strip()=='ok'),
-    ('SMCON obst\u00e9trico',  df['SMCON OBST'].astype(str).str.strip()=='ok'),
-    ('Neonatal completa',   df['UNIDADE NEONATAL COMPLETA'].isin(['SIM', 'NÃO SE APLICA'])),
+    ('Atendimento de viol\u00eancia sexual', df['CLASSIFICAÇÃO VIOLÊNCIA SEXUAL']=='SIM'),
+    ('SMCON Neo', df['SMCON NEO'].astype(str).str.strip()=='ok'),
+    ('SMCON Obst\u00e9trico', df['SMCON OBST'].astype(str).str.strip()=='ok'),
+    ('Unidade Neonatal completa', df['UNIDADE NEONATAL COMPLETA'].isin(['SIM', 'NÃO SE APLICA'])),
 ]
 mat = pd.DataFrame({n: s.astype(int) for n, s in flags_def})
 

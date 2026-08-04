@@ -367,7 +367,7 @@ body.sheet-aberta .sheet-scrim{opacity:1;pointer-events:auto}
 table.matriz{width:100%;border-collapse:collapse;font-size:12px;min-width:980px}
 .matriz thead th{background:var(--verde-esmeralda);color:#fff;font-family:'Archivo';font-weight:700;
   font-size:10px;text-transform:uppercase;letter-spacing:.4px;padding:9px 7px;cursor:pointer;user-select:none;
-  text-align:center;white-space:nowrap;position:sticky;top:0}
+  text-align:center;white-space:normal;min-width:84px;line-height:1.25;position:sticky;top:0}
 .matriz thead th:first-child{text-align:left}
 .matriz thead th:hover{background:var(--verde-profundo)}
 .matriz tbody td{padding:6px 7px;border-bottom:1px solid var(--mint);text-align:center;font-variant-numeric:tabular-nums}
@@ -608,7 +608,7 @@ body.metodologia{overflow:hidden}
     </div>
     <div id="seloInsight" style="margin-top:14px;padding:12px 14px;background:var(--mint-card);border:1.5px solid var(--borda);border-radius:10px;font-size:12.5px;line-height:1.55"></div>
     <div id="seloAvisoCes"></div>
-    <div style="margin-top:8px;font-size:11px;color:var(--texto-suave)">Selo = 5 ou mais dos 9 indicadores classificatórios adequados: asfixia, enfermagem obstétrica, AMIU, Robson &ge;2 grupos, oferta de LARC (contracepção), violência sexual, SMCON neonatal e obstétrico, e unidade neonatal completa. Robson &ge;2 grupos é um dos 9 indicadores, não uma exigência à parte; "unidade neonatal completa" conta como adequada quando é "sim" ou "não se aplica". O selo é o campo oficial da planilha. Limiares institucionais de adequação: asfixia &le;0,6% (&ge;2.500g, sem anomalias); enfermagem obstétrica &ge;50% dos partos vaginais; AMIU &ge;50%; oferta de LARC &ge;3 inserções de DIU/implante no ano; violência sexual &ge;2 atendimentos no ano; Robson por faixas de taxa por grupo, conforme planilha institucional.</div>
+    <div style="margin-top:8px;font-size:11px;color:var(--texto-suave)">Selo = 5 ou mais dos 9 indicadores classificatórios adequados: Asfixia, Parto vaginal assistido por enfermeira, AMIU, Robson &ge;2 grupos, Oferta de LARC, Atendimento de violência sexual, SMCON Neo, SMCON Obstétrico e Unidade Neonatal completa. Robson &ge;2 grupos é um dos 9 indicadores, não uma exigência à parte; "unidade neonatal completa" conta como adequada quando é "sim" ou "não se aplica". O selo é o campo oficial da planilha. Limiares institucionais de adequação: asfixia &le;0,6% (&ge;2.500g, sem anomalias); parto vaginal assistido por enfermeira &ge;50%; AMIU &ge;50%; oferta de LARC &ge;3 inserções de DIU/implante no ano; atendimento de violência sexual &ge;2 no ano; Robson por faixas de taxa por grupo, conforme planilha institucional.</div>
   </div>
 
   <div class="secao-titulo" style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><h2>Mapa de unidades</h2><button class="acao btn-xlsx" id="mapuToggle" onclick="toggleMapaUnidades()">&#9654; Mostrar mapa</button></div>
@@ -618,7 +618,7 @@ body.metodologia{overflow:hidden}
     <button class="png-mini" onclick="exportarMapaUnidadesPNG()">&#8681; PNG</button></div>
     <div class="ctx-linha"></div>
     <div class="mapu-ctrl mapu-filtros"><label for="mapuUF">Estado:</label><select id="mapuUF" onchange="mapuSetUF(this.value)"><option value="">Todos</option></select><label for="mapuMacro">Macrorregi&atilde;o:</label><select id="mapuMacro" onchange="mapuSetMacro(this.value)"><option value="">Todas</option></select><button class="mapu-limpar" onclick="mapuLimparFiltros()">Limpar filtros</button></div>
-    <div class="mapu-ctrl"><label for="mapuMetrica">Colorir por:</label><select id="mapuMetrica" onchange="mudarMetricaMapa(this.value)"><option value="selo">Selo de conformidade</option><option value="asf">Asfixia neonatal</option><option value="enf">Enfermagem obst&eacute;trica</option><option value="rob">Robson &ge;2 grupos</option></select><span class="mapu-hint">Clique nos itens da legenda para mostrar/ocultar grupos</span></div>
+    <div class="mapu-ctrl"><label for="mapuMetrica">Colorir por:</label><select id="mapuMetrica" onchange="mudarMetricaMapa(this.value)"><option value="selo">Selo de conformidade</option><option value="asf">Asfixia</option><option value="enf">Parto vaginal assistido por enfermeira</option><option value="rob">Robson &ge;2 grupos</option></select><span class="mapu-hint">Clique nos itens da legenda para mostrar/ocultar grupos</span></div>
     <div class="mapu-legenda" id="mapuLegenda"></div>
     <div id="mapaUnidades" style="height:540px;border-radius:12px;border:1.5px solid var(--borda);overflow:hidden;margin-top:4px"></div>
     <div style="margin-top:8px;font-size:11px;color:var(--texto-suave)">Selo de conformidade oficial da planilha (&ge;5 dos 9 indicadores classificat&oacute;rios adequados; "n&atilde;o se aplica" em unidade neonatal conta como adequado). Coordenadas por CNES; duas unidades sem geo exata usam o centro do munic&iacute;pio.</div>
@@ -667,13 +667,13 @@ body.metodologia{overflow:hidden}
           <th data-k="est">Estabelecimento</th>
           <th data-k="mun">Município (UF)</th>
           <th data-k="tot" class="num">Partos</th>
-          <th data-k="neoFlag">Neonatal completa</th>
-          <th data-k="rob2">Robson &ge;2</th>
-          <th data-k="enf" class="num" title="% de partos vaginais do estabelecimento assistidos por enfermeira obstétrica/obstetriz · cor = adequação (verde: ≥50%)">Parto enfermeira</th>
+          <th data-k="neoFlag">Unidade Neonatal completa</th>
+          <th data-k="rob2">Robson &ge;2 grupos</th>
+          <th data-k="enf" class="num" title="% de partos vaginais do estabelecimento assistidos por enfermeira obstétrica/obstetriz · cor = adequação (verde: ≥50%)">Parto vaginal assistido por enfermeira</th>
           <th data-k="amiu" class="num" title="% de AMIU do estabelecimento nos esvaziamentos uterinos · cor = adequação (verde: ≥50%)">AMIU</th>
           <th data-k="asf" class="num" title="Adequação de asfixia: SIM quando o % de RN ≥2.500g sem anomalias com Apgar <7 no 5º min é ≤0,6% · passe o mouse na célula para ver o % da unidade">Asfixia</th>
-          <th data-k="contrOk" title="Oferta de LARC (DIU + implante) adequada">Oferta LARC</th>
-          <th data-k="viol">Violência</th>
+          <th data-k="contrOk" title="Oferta de LARC (DIU + implante) adequada">Oferta de LARC</th>
+          <th data-k="viol">Atendimento de violência sexual</th>
           <th data-k="selo">Selo &ge;5</th>
         </tr>
       </thead>
@@ -714,7 +714,7 @@ body.metodologia{overflow:hidden}
     </section>
 
     <section>
-      <h2>Parto vaginal assistido por enfermagem obstétrica <span class="met-dir dir-maior">quanto maior, melhor</span></h2>
+      <h2>Parto vaginal assistido por enfermeira <span class="met-dir dir-maior">quanto maior, melhor</span></h2>
       <p><b>Conceituação:</b> proporção de partos vaginais assistidos por enfermeira obstétrica ou obstetriz, conforme o campo "profissional que assistiu o parto" da Declaração de Nascido Vivo. Expressa a adoção do modelo assistencial recomendado para a gestação de risco habitual (OMS, 2018; Diretrizes Nacionais de Assistência ao Parto Normal, Ministério da Saúde).</p>
       <p><b>Método de cálculo:</b> partos vaginais assistidos por enfermagem obstétrica ÷ total de partos vaginais × 100 (SINASC).</p>
       <p><b>Parâmetro:</b> adequado quando igual ou superior a 50%.</p>
@@ -750,7 +750,7 @@ body.metodologia{overflow:hidden}
     </section>
 
     <section>
-      <h2>Atendimento à violência sexual <span class="met-dir dir-maior">quanto maior, melhor</span></h2>
+      <h2>Atendimento de violência sexual <span class="met-dir dir-maior">quanto maior, melhor</span></h2>
       <p><b>Conceituação:</b> número de atendimentos a vítimas de violência sexual registrados pelo estabelecimento no ano (SIH-SUS).</p>
       <p><b>Método de cálculo:</b> contagem anual de atendimentos. Classificação de adequação: dois ou mais atendimentos registrados.</p>
       <p><b>Limitações:</b> o atendimento é obrigatório em todos os hospitais do SUS (Lei nº 12.845/2013); o que o indicador capta é o registro do atendimento e o papel de referência da unidade na rede. A ausência de registro não caracteriza recusa: a unidade pode encaminhar os casos ao serviço de referência do território.</p>
@@ -758,7 +758,7 @@ body.metodologia{overflow:hidden}
     </section>
 
     <section>
-      <h2>SMCON neonatal e SMCON obstétrico <span class="met-dir dir-maior">adesão: quanto maior, melhor</span></h2>
+      <h2>SMCON Neo e SMCON Obstétrico <span class="met-dir dir-maior">adesão: quanto maior, melhor</span></h2>
       <p><b>Conceituação:</b> adesão do estabelecimento aos módulos neonatal e obstétrico do Sistema de Monitoramento do Cuidado Obstétrico e Neonatal (SMCON/IFF-Fiocruz, estratégia Qualineo), de alimentação voluntária. Constituem dois indicadores classificatórios distintos.</p>
       <p><b>Parâmetro:</b> adequado quando a unidade alimenta o módulo correspondente.</p>
       <p><b>Limitações:</b> o indicador expressa a incorporação do monitoramento à rotina da unidade, não o resultado assistencial.</p>
@@ -774,7 +774,7 @@ body.metodologia{overflow:hidden}
 
     <section>
       <h2>Selo de conformidade (≥5 de 9)</h2>
-      <p><b>Conceituação:</b> o estabelecimento recebe o selo quando ao menos 5 dos 9 indicadores classificatórios estão adequados: asfixia neonatal, enfermagem obstétrica, AMIU, Robson ≥2 grupos, oferta de LARC (contracepção), violência sexual, SMCON neonatal, SMCON obstétrico e unidade neonatal completa. "Robson ≥2 grupos" integra os 9 indicadores, sem constituir exigência adicional. O selo corresponde ao campo classificatório oficial da base.</p>
+      <p><b>Conceituação:</b> o estabelecimento recebe o selo quando ao menos 5 dos 9 indicadores classificatórios estão adequados: Asfixia, Parto vaginal assistido por enfermeira, AMIU, Robson ≥2 grupos, Oferta de LARC, Atendimento de violência sexual, SMCON Neo, SMCON Obstétrico e Unidade Neonatal completa. "Robson ≥2 grupos" integra os 9 indicadores, sem constituir exigência adicional. O selo corresponde ao campo classificatório oficial da base.</p>
       <p><b>Interpretação:</b> o selo afere conformidade com itens de qualificação — estrutura, processo e registro — e não constitui, por si, medida de qualidade assistencial. A taxa de cesariana não integra o selo. Unidades de maior porte e complexidade tendem a reunir mais itens por capacidade instalada e de registro; recomenda-se acompanhar a evolução de cada unidade no tempo, em vez de ordenar unidades de perfis distintos.</p>
       <p><b>Fonte:</b> campo classificatório oficial da base institucional (planilha derivada de SINASC, CNES e SIH-SUS; extração de 01/07/2026).</p>
     </section>
@@ -1118,7 +1118,7 @@ if($('btnTabelaXlsx')) $('btnTabelaXlsx').addEventListener('click',()=>{
     'Munic\u00edpio (UF)':d.mun+' ('+(SIGLA[d.uf]||d.uf)+')','Regi\u00e3o de Sa\u00fade':d.rsN,'Macrorregi\u00e3o':d.mrsN,
     'Gest\u00e3o':d.gestao,'Natureza jur\u00eddica':d.nat,'Partos':d.tot,
     'Unidade Neonatal completa':d.neo,'Robson \u22652 grupos':d.rob2?'SIM':'N\u00c3O',
-    '% Parto enfermeira':d.enf,'Classif. enfermagem':d.enfC,
+    '% Parto vaginal assistido por enfermeira':d.enf,'Classif. enfermagem':d.enfC,
     '% AMIU':d.amiu,'% Asfixia':d.asf,'Classif. asfixia':d.asfC,
     'Contracep\u00e7\u00e3o adequada':d.contrOk?'SIM':'N\u00c3O','Atendimento de viol\u00eancia sexual':d.viol?'SIM':'N\u00c3O',
     'Atendimentos de viol\u00eancia':d.violN,'% Ces\u00e1rea G1':d.g1,'% G2':d.g2,'% G3':d.g3,'% G4':d.g4,
@@ -1793,15 +1793,15 @@ function renderSelo(){
 
 /* ===== Matriz semáforo território x indicador ===== */
 const MATRIZ_COLS = [
-  {k:'neoAdqP',rot:'Neonatal completa'},
-  {k:'rob2P', rot:'Robson \u22652'},
-  {k:'enf',   rot:'Parto enfermeira'},
+  {k:'neoAdqP',rot:'Unidade Neonatal completa'},
+  {k:'rob2P', rot:'Robson \u22652 grupos'},
+  {k:'enf',   rot:'Parto vaginal assistido por enfermeira'},
   {k:'amiuA', rot:'AMIU'},
   {k:'asfP',  rot:'Asfixia'},
-  {k:'contrP',rot:'Oferta LARC'},
-  {k:'violP', rot:'Viol\u00eancia'},
+  {k:'contrP',rot:'Oferta de LARC'},
+  {k:'violP', rot:'Atendimento de viol\u00eancia sexual'},
   {k:'smnP',  rot:'SMCON Neo'},
-  {k:'smoP',  rot:'SMCON Obst'},
+  {k:'smoP',  rot:'SMCON Obstétrico'},
   {k:'seloP', rot:'Selo \u22655'}
 ];
 let matrizOrd = {k:'seloP', asc:false};
@@ -1902,8 +1902,8 @@ const MAPU_METRICAS=[
       if(e.pred(d)) return {k:(i+1)+'_'+e.id, rot:e.nome, cor:e.cor}; }
     return {k:'9_outros', rot:'Sem classificação', cor:'#9AA8A0'};
   }},
-  {id:'asf',nome:'Asfixia neonatal',classe:function(d){return d.asfC==='ADEQUADO'?{k:'ad',rot:'Adequado',cor:_MV}:{k:'in',rot:'Inadequado',cor:_MR};}},
-  {id:'enf',nome:'Enfermagem obstétrica',classe:function(d){return d.enfC==='ADEQUADO'?{k:'ad',rot:'Adequado',cor:_MV}:{k:'in',rot:'Inadequado',cor:_MR};}},
+  {id:'asf',nome:'Asfixia',classe:function(d){return d.asfC==='ADEQUADO'?{k:'ad',rot:'Adequado',cor:_MV}:{k:'in',rot:'Inadequado',cor:_MR};}},
+  {id:'enf',nome:'Parto vaginal assistido por enfermeira',classe:function(d){return d.enfC==='ADEQUADO'?{k:'ad',rot:'Adequado',cor:_MV}:{k:'in',rot:'Inadequado',cor:_MR};}},
   {id:'rob',nome:'Robson ≥2 grupos',classe:function(d){return d.rob2==1?{k:'ad',rot:'Adequado',cor:_MV}:{k:'in',rot:'Não adequado',cor:_MR};}}
 ];
 let _mapuMetrica='selo';
@@ -2025,10 +2025,10 @@ function render(){
 function exportarExcel(){
   const linhas=filtrado.map(d=>({
     'Região':d.reg,'UF':d.uf,'Município':d.mun,'Estabelecimento':d.est,'Gestão':d.gestao,
-    'Natureza jurídica':d.nat,'HGPAR':d.hgpar?'SIM':'NÃO','Neonatal completa':d.neo,
+    'Natureza jurídica':d.nat,'HGPAR':d.hgpar?'SIM':'NÃO','Unidade Neonatal completa':d.neo,
     'Partos totais':d.tot,'Cesarianas':d.ces,'Partos normais':d.norm,'Partos em CPN':d.cpn,
     '% Cesariana':d.txces,'% Asfixia':d.asf,'Classif. asfixia':d.asfC,
-    '% Enfermagem obst.':d.enf,'Classif. enfermagem':d.enfC,'% AMIU':d.amiu,
+    '% Parto vaginal assistido por enfermeira':d.enf,'Classif. enfermagem':d.enfC,'% AMIU':d.amiu,
     '% Cesárea G1':d.g1,'% Cesárea G2':d.g2,'% Cesárea G3':d.g3,'% Cesárea G4':d.g4,
     'Grupos Robson adequados':d.robAd,'Robson ≥2 grupos':d.rob2?'SIM':'NÃO',
     'DIU':d.diu,'Implante':d.imp,'LARC total':d.larc,'Oferta de LARC':d.contrOk?'SIM':'NÃO',
@@ -2062,15 +2062,15 @@ function exportarPDF(){
   doc.autoTable({
     startY:26,
     // ">=" no lugar de "≥": a fonte padrao do jsPDF nao possui o caractere e sobrepoe as colunas
-    head:[['Estabelecimento','Município (UF)','Partos','Neonatal','Robson >=2','Enfermeira','AMIU','Asfixia','Oferta LARC','Violência','Selo']],
+    head:[['Estabelecimento','Município (UF)','Partos','Unidade Neonatal completa','Robson >=2 grupos','Parto vaginal assistido por enfermeira','AMIU','Asfixia','Oferta de LARC','Atendimento de violência sexual','Selo >=5']],
     body:corpo,
     styles:{fontSize:6.8,cellPadding:1.4,overflow:'linebreak'},
     headStyles:{fillColor:[14,122,86],fontSize:7,fontStyle:'bold'},
     alternateRowStyles:{fillColor:[246,251,247]},
-    columnStyles:{0:{cellWidth:66},1:{cellWidth:32},2:{cellWidth:14,halign:'right'},
-      3:{cellWidth:20,halign:'center'},4:{cellWidth:20,halign:'center'},5:{cellWidth:20,halign:'right'},
-      6:{cellWidth:15,halign:'right'},7:{cellWidth:15,halign:'right'},8:{cellWidth:18,halign:'center'},
-      9:{cellWidth:19,halign:'center'},10:{cellWidth:13,halign:'center'}}
+    columnStyles:{0:{cellWidth:56},1:{cellWidth:28},2:{cellWidth:14,halign:'right'},
+      3:{cellWidth:23,halign:'center'},4:{cellWidth:21,halign:'center'},5:{cellWidth:25,halign:'right'},
+      6:{cellWidth:14,halign:'right'},7:{cellWidth:15,halign:'right'},8:{cellWidth:18,halign:'center'},
+      9:{cellWidth:24,halign:'center'},10:{cellWidth:13,halign:'center'}}
   });
   const pgs=doc.internal.getNumberOfPages();
   for(let i=1;i<=pgs;i++){
