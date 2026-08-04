@@ -1662,17 +1662,24 @@ function renderSelo(){
   const comSelo = contagens[0];
 
   // rosca central
+  // a rosca reage ao est\u00e1gio selecionado: mostra o est\u00e1gio em rela\u00e7\u00e3o ao total da sele\u00e7\u00e3o
+  const iSel = estagioSel ? ESTAGIOS.findIndex(e=>e.id===estagioSel) : 0;
+  const eSel = ESTAGIOS[iSel<0?0:iSel];
+  const nSel = contagens[iSel<0?0:iSel];
+  const rotResto = estagioSel && estagioSel!=='selo' ? 'Demais est\u00e1gios' : 'Sem selo';
   charts.chSeloDonut = new Chart($('chSeloDonut'),{
     type:'doughnut',
-    data:{labels:['Com selo','Sem selo'],
-      datasets:[{data:[comSelo, base.length-comSelo],
-        backgroundColor:['#0A213D','#DCEFE0'], borderWidth:0, cutout:'72%'}]},
+    data:{labels:[eSel.nome, rotResto],
+      datasets:[{data:[nSel, base.length-nSel],
+        backgroundColor:[eSel.cor,'#DCEFE0'], borderWidth:0, cutout:'72%'}]},
     options:{responsive:true,maintainAspectRatio:false,
       plugins:{legend:{display:false},datalabels:{display:false},
         tooltip:{callbacks:{label:c=>c.label+': '+c.parsed+' unidades'}}}}
   });
-  $('seloPct').textContent = base.length? Math.round(comSelo/total*100)+'%' : '\u2014';
-  $('seloLeg').innerHTML = fmt(comSelo)+' de '+fmt(base.length)+'<br>com selo';
+  $('seloPct').textContent = base.length? Math.round(nSel/total*100)+'%' : '\u2014';
+  $('seloPct').style.color = eSel.cor;
+  $('seloLeg').innerHTML = fmt(nSel)+' de '+fmt(base.length)+'<br>'+
+    (estagioSel && estagioSel!=='selo' ? eSel.nome.toLowerCase() : 'com selo');
 
   // estágios em barras horizontais nomeadas
   const max = Math.max(...contagens,1);
