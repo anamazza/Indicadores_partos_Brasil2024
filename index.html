@@ -2097,12 +2097,16 @@ function exportarPDF(){
   });
   doc.autoTable({
     startY:26,
-    head:[['Estabelecimento','Município (UF)','Partos','Neonatal','Robson ≥2','Enfermeira','AMIU','Asfixia','Oferta LARC','Violência','Selo']],
+    // ">=" no lugar de "≥": a fonte padrao do jsPDF nao possui o caractere e sobrepoe as colunas
+    head:[['Estabelecimento','Município (UF)','Partos','Neonatal','Robson >=2','Enfermeira','AMIU','Asfixia','Oferta LARC','Violência','Selo']],
     body:corpo,
-    styles:{fontSize:6.8,cellPadding:1.4},
+    styles:{fontSize:6.8,cellPadding:1.4,overflow:'linebreak'},
     headStyles:{fillColor:[14,122,86],fontSize:7,fontStyle:'bold'},
     alternateRowStyles:{fillColor:[246,251,247]},
-    columnStyles:{0:{cellWidth:74},2:{halign:'right'},5:{halign:'right'},6:{halign:'right'},7:{halign:'right'}}
+    columnStyles:{0:{cellWidth:66},1:{cellWidth:32},2:{cellWidth:14,halign:'right'},
+      3:{cellWidth:20,halign:'center'},4:{cellWidth:20,halign:'center'},5:{cellWidth:20,halign:'right'},
+      6:{cellWidth:15,halign:'right'},7:{cellWidth:15,halign:'right'},8:{cellWidth:18,halign:'center'},
+      9:{cellWidth:19,halign:'center'},10:{cellWidth:13,halign:'center'}}
   });
   const pgs=doc.internal.getNumberOfPages();
   for(let i=1;i<=pgs;i++){
