@@ -659,28 +659,6 @@ body.metodologia{overflow:hidden}
         <label for="tblSelo">Selo &ge;5</label>
         <select id="tblSelo"><option value="">Todos</option><option value="1">Com selo</option><option value="0">Sem selo</option></select>
       </div>
-      <div class="campo" style="min-width:150px">
-        <label for="tblAdeq">Situação rápida</label>
-        <select id="tblAdeq">
-          <option value="">Todas</option>
-          <optgroup label="Precisam de atenção (inadequados)">
-            <option value="asfRuim">Asfixia inadequada</option>
-            <option value="enfRuim">Enfermagem inadequada</option>
-            <option value="rob2Nao">Robson &lt;2 grupos</option>
-            <option value="larcSem">Sem oferta de LARC</option>
-            <option value="neoSem">Sem unidade neonatal completa</option>
-            <option value="violNao">Não atende violência sexual</option>
-          </optgroup>
-          <optgroup label="Destaques (adequados)">
-            <option value="asfOk">Asfixia adequada</option>
-            <option value="enfOk">Enfermagem adequada</option>
-            <option value="rob2Sim">Robson &ge;2 grupos</option>
-            <option value="larcCom">Com oferta de LARC</option>
-            <option value="neoCom">Com unidade neonatal completa</option>
-            <option value="violSim">Atende violência sexual</option>
-          </optgroup>
-        </select>
-      </div>
     </div>
     <div class="contagem" id="contagem"></div>
     <table id="tabela">
@@ -1092,23 +1070,9 @@ let tblLimite = 25;
 function linhasTabela(){
   const q = ($('tblBusca')?$('tblBusca').value:'').trim().toLowerCase();
   const selo = $('tblSelo')?$('tblSelo').value:'';
-  const adeq = $('tblAdeq')?$('tblAdeq').value:'';
   return filtrado.filter(d=>
     (!q || d.est.toLowerCase().includes(q) || d.mun.toLowerCase().includes(q)) &&
-    (selo==='' || String(d.selo)===selo) &&
-    (adeq==='' ||
-      (adeq==='asfRuim' && d.asfC==='INADEQUADO') ||
-      (adeq==='asfOk'   && d.asfC==='ADEQUADO') ||
-      (adeq==='enfRuim' && d.enfC!=='ADEQUADO') ||
-      (adeq==='enfOk'   && d.enfC==='ADEQUADO') ||
-      (adeq==='rob2Nao' && !d.rob2) ||
-      (adeq==='rob2Sim' && !!d.rob2) ||
-      (adeq==='larcSem' && !d.contrOk) ||
-      (adeq==='larcCom' && !!d.contrOk) ||
-      (adeq==='neoSem'  && !(d.flags && d.flags[8]==='1')) ||
-      (adeq==='neoCom'  && d.flags && d.flags[8]==='1') ||
-      (adeq==='violNao' && !d.viol) ||
-      (adeq==='violSim' && !!d.viol))
+    (selo==='' || String(d.selo)===selo)
   );
 }
 function renderTabela(){
@@ -1144,7 +1108,7 @@ function renderTabela(){
     btn.textContent = 'Mostrar mais '+Math.min(50, dados.length-tblLimite)+' (de '+dados.length+')'; }
 }
 if($('btnMaisLinhas')) $('btnMaisLinhas').addEventListener('click',()=>{ tblLimite+=50; renderTabela(); });
-['tblBusca','tblSelo','tblAdeq'].forEach(id=>{
+['tblBusca','tblSelo'].forEach(id=>{
   const el=$(id); if(!el) return;
   el.addEventListener(id==='tblBusca'?'input':'change',()=>{ tblLimite=25; renderTabela(); });
 });
