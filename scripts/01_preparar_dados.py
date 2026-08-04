@@ -22,7 +22,7 @@ flags_def = [
     ('Enfermagem obst.',    df['CLASSIFICAÇÃO PARTO ENF.']=='ADEQUADO'),
     ('AMIU',                df['CLASSIFICAÇÃO AMIU']=='ADEQUADO'),
     ('Robson \u22652 grupos', df['CLASSIFICAÇÃO ROBSON  (\u22652 GRUPOS)']=='ADEQUADO'),
-    ('Contracep\u00e7\u00e3o', df['CLASSIFICAÇÃO CONTRACEPÇÃO']=='SIM'),
+    ('Oferta de LARC', df['CLASSIFICAÇÃO CONTRACEPÇÃO']=='SIM'),
     ('Viol\u00eancia sexual',  df['CLASSIFICAÇÃO VIOLÊNCIA SEXUAL']=='SIM'),
     ('SMCON neonatal',      df['SMCON NEO'].astype(str).str.strip()=='ok'),
     ('SMCON obst\u00e9trico',  df['SMCON OBST'].astype(str).str.strip()=='ok'),

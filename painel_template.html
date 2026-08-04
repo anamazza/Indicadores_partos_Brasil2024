@@ -169,6 +169,22 @@ button.kpi:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(10,33,61,
 .png-mini{border:1.5px solid var(--verde-fiocruz);background:var(--branco);color:var(--verde-fiocruz);
   border-radius:8px;padding:5px 10px;font-family:'Archivo';font-weight:700;font-size:11px;cursor:pointer;flex-shrink:0;white-space:nowrap}
 .png-mini:hover{background:var(--verde-fiocruz);color:#fff}
+/* seleção múltipla (natureza jurídica) */
+.multisel{position:relative}
+.multisel-btn{width:100%;display:flex;align-items:center;justify-content:space-between;gap:8px;
+  border:1.5px solid var(--borda);border-radius:9px;padding:9px 11px;font-family:'Inter';font-size:13px;
+  background:#fff;color:var(--texto);cursor:pointer;text-align:left}
+.multisel-btn:focus{outline:none;border-color:var(--verde-fiocruz)}
+.multisel-seta{color:var(--texto-suave);font-size:11px}
+.multisel-pop{position:absolute;top:calc(100% + 4px);left:0;min-width:100%;z-index:60;display:none;
+  background:#fff;border:1.5px solid var(--borda);border-radius:10px;box-shadow:0 6px 18px rgba(10,92,66,.18);padding:8px}
+.multisel.aberto .multisel-pop{display:block}
+.campo label.multisel-item{display:flex;align-items:center;justify-content:flex-start;gap:8px;
+  padding:6px 8px;border-radius:7px;font-size:12.5px;font-weight:600;letter-spacing:0;
+  text-transform:none;color:var(--texto);cursor:pointer;white-space:nowrap}
+.campo label.multisel-item:hover{background:var(--mint)}
+.campo .multisel-item input{accent-color:var(--verde-fiocruz);flex:0 0 auto;margin:0;
+  width:16px;height:16px;padding:0;border:none;background:none;border-radius:3px}
 .ctx-linha{font-size:11px;color:var(--indigo);font-weight:700;margin:2px 0 10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .ctx-limpar{border:1px solid var(--borda);background:var(--mint-card);color:var(--verde-profundo);
   border-radius:14px;padding:2px 10px;font-size:10.5px;font-weight:700;cursor:pointer;font-family:'Inter'}
@@ -477,8 +493,11 @@ body.metodologia{overflow:hidden}
       <select id="fMun"><option value="">Todos</option></select>
     </div>
     <div class="campo">
-      <label for="fNat">Natureza jurídica</label>
-      <select id="fNat"><option value="">Todas</option></select>
+      <label for="fNatBtn">Natureza jurídica</label>
+      <div class="multisel" id="fNat">
+        <button type="button" class="multisel-btn" id="fNatBtn" aria-haspopup="true"><span id="fNatRot">Todas</span><span class="multisel-seta">&#9662;</span></button>
+        <div class="multisel-pop" id="fNatPop" role="group" aria-label="Natureza jurídica"></div>
+      </div>
     </div>
     <div class="campo" style="min-width:200px">
       <label for="fBusca">Buscar estabelecimento</label>
@@ -589,7 +608,7 @@ body.metodologia{overflow:hidden}
     </div>
     <div id="seloInsight" style="margin-top:14px;padding:12px 14px;background:var(--mint-card);border:1.5px solid var(--borda);border-radius:10px;font-size:12.5px;line-height:1.55"></div>
     <div id="seloAvisoCes"></div>
-    <div style="margin-top:8px;font-size:11px;color:var(--texto-suave)">Selo = 5 ou mais dos 9 indicadores classificatórios adequados: asfixia, enfermagem obstétrica, AMIU, Robson &ge;2 grupos, contracepção, violência sexual, SMCON neonatal e obstétrico, e unidade neonatal completa. Robson &ge;2 grupos é um dos 9 indicadores, não uma exigência à parte; "unidade neonatal completa" conta como adequada quando é "sim" ou "não se aplica". O selo é o campo oficial da planilha. Limiares institucionais de adequação: asfixia &le;0,6% (&ge;2.500g, sem anomalias); enfermagem obstétrica &ge;50% dos partos vaginais; AMIU &ge;50%; contracepção &ge;3 inserções de DIU/implante no ano; violência sexual &ge;2 atendimentos no ano; Robson por faixas de taxa por grupo, conforme planilha institucional.</div>
+    <div style="margin-top:8px;font-size:11px;color:var(--texto-suave)">Selo = 5 ou mais dos 9 indicadores classificatórios adequados: asfixia, enfermagem obstétrica, AMIU, Robson &ge;2 grupos, oferta de LARC (contracepção), violência sexual, SMCON neonatal e obstétrico, e unidade neonatal completa. Robson &ge;2 grupos é um dos 9 indicadores, não uma exigência à parte; "unidade neonatal completa" conta como adequada quando é "sim" ou "não se aplica". O selo é o campo oficial da planilha. Limiares institucionais de adequação: asfixia &le;0,6% (&ge;2.500g, sem anomalias); enfermagem obstétrica &ge;50% dos partos vaginais; AMIU &ge;50%; oferta de LARC &ge;3 inserções de DIU/implante no ano; violência sexual &ge;2 atendimentos no ano; Robson por faixas de taxa por grupo, conforme planilha institucional.</div>
   </div>
 
   <div class="secao-titulo" style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><h2>Mapa de unidades</h2><button class="acao btn-xlsx" id="mapuToggle" onclick="toggleMapaUnidades()">&#9654; Mostrar mapa</button></div>
@@ -647,7 +666,7 @@ body.metodologia{overflow:hidden}
           <option value="asfRuim">Asfixia inadequada</option>
           <option value="enfOk">Enfermagem adequada</option>
           <option value="semNeo">Sem neonatal completa</option>
-          <option value="contr0">Sem contracepção adequada</option>
+          <option value="contr0">Sem oferta de LARC</option>
         </select>
       </div>
     </div>
@@ -663,7 +682,7 @@ body.metodologia{overflow:hidden}
           <th data-k="enf" class="num" title="% de partos vaginais do estabelecimento assistidos por enfermeira obstétrica/obstetriz · cor = adequação (verde: ≥50%)">Parto enfermeira</th>
           <th data-k="amiu" class="num" title="% de AMIU do estabelecimento nos esvaziamentos uterinos · cor = adequação (verde: ≥50%)">AMIU</th>
           <th data-k="asf" class="num" title="Adequação de asfixia: SIM quando o % de RN ≥2.500g sem anomalias com Apgar <7 no 5º min é ≤0,6% · passe o mouse na célula para ver o % da unidade">Asfixia</th>
-          <th data-k="contrOk">Contracep.</th>
+          <th data-k="contrOk" title="Oferta de LARC (DIU + implante) adequada">Oferta LARC</th>
           <th data-k="viol">Violência</th>
           <th data-k="selo">Selo &ge;5</th>
         </tr>
@@ -733,9 +752,9 @@ body.metodologia{overflow:hidden}
     </section>
 
     <section>
-      <h2>Contracepção pós-parto — DIU e implante <span class="met-dir dir-maior">quanto maior, melhor</span></h2>
+      <h2>Oferta de LARC — DIU e implante <span class="met-dir dir-maior">quanto maior, melhor</span></h2>
       <p><b>Conceituação:</b> oferta de contraceptivos reversíveis de longa duração (DIU e implante subdérmico) no pós-parto e pós-abortamento, registrada no SIH-SUS, como marcador de planejamento reprodutivo na unidade.</p>
-      <p><b>Método de cálculo:</b> % de estabelecimentos com classificação de contracepção adequada na base institucional (planilha), exibido com o número absoluto (adequados/total).</p>
+      <p><b>Método de cálculo:</b> % de estabelecimentos com oferta de LARC (contracepção) adequada na base institucional (planilha), exibido com o número absoluto (adequados/total).</p>
       <p><b>Limitações:</b> o parâmetro identifica a existência de serviço ativo (insumo, profissional habilitado e fluxo), não a suficiência da oferta frente ao volume de partos. A inserção pós-placentária nem sempre é faturada, o que pode subestimar o dado.</p>
       <p><b>Fonte:</b> SIH-SUS (procedimentos de inserção de DIU e implante subdérmico). Referência: Nota Técnica de ampliação do acesso ao DIU (Ministério da Saúde / IFF-Fiocruz).</p>
     </section>
@@ -765,7 +784,7 @@ body.metodologia{overflow:hidden}
 
     <section>
       <h2>Selo de conformidade (≥5 de 9)</h2>
-      <p><b>Conceituação:</b> o estabelecimento recebe o selo quando ao menos 5 dos 9 indicadores classificatórios estão adequados: asfixia neonatal, enfermagem obstétrica, AMIU, Robson ≥2 grupos, contracepção, violência sexual, SMCON neonatal, SMCON obstétrico e unidade neonatal completa. "Robson ≥2 grupos" integra os 9 indicadores, sem constituir exigência adicional. O selo corresponde ao campo classificatório oficial da base.</p>
+      <p><b>Conceituação:</b> o estabelecimento recebe o selo quando ao menos 5 dos 9 indicadores classificatórios estão adequados: asfixia neonatal, enfermagem obstétrica, AMIU, Robson ≥2 grupos, oferta de LARC (contracepção), violência sexual, SMCON neonatal, SMCON obstétrico e unidade neonatal completa. "Robson ≥2 grupos" integra os 9 indicadores, sem constituir exigência adicional. O selo corresponde ao campo classificatório oficial da base.</p>
       <p><b>Interpretação:</b> o selo afere conformidade com itens de qualificação — estrutura, processo e registro — e não constitui, por si, medida de qualidade assistencial. A taxa de cesariana não integra o selo. Unidades de maior porte e complexidade tendem a reunir mais itens por capacidade instalada e de registro; recomenda-se acompanhar a evolução de cada unidade no tempo, em vez de ordenar unidades de perfis distintos.</p>
       <p><b>Fonte:</b> campo classificatório oficial da base institucional (planilha derivada de SINASC, CNES e SIH-SUS; extração de 01/07/2026).</p>
     </section>
@@ -824,21 +843,42 @@ let filtrado = DADOS.slice();
 let ordem = {k:'tot', asc:false};
 let charts = {};
 
-function popularSelect(id, valores, atual){
+const REG_ORDEM = ['Norte','Nordeste','Centro-Oeste','Sudeste','Sul'];
+const ordenarRegioes = arr => arr.slice().sort((a,b)=>REG_ORDEM.indexOf(a)-REG_ORDEM.indexOf(b));
+function popularSelect(id, valores, atual, ordemFixa){
   const sel = $(id); const prev = atual!==undefined?atual:sel.value;
   sel.innerHTML = '<option value="">'+(sel.options[0]?sel.options[0].text:'Todos')+'</option>';
-  valores.sort((a,b)=>a.localeCompare(b,'pt')).forEach(v=>{
+  (ordemFixa? ordemFixa(valores) : valores.sort((a,b)=>a.localeCompare(b,'pt'))).forEach(v=>{
     const o=document.createElement('option'); o.value=v; o.textContent=v; sel.appendChild(o);
   });
   if(valores.includes(prev)) sel.value=prev; else sel.value='';
 }
 
+let natSel = new Set();
+const natOk = d => !natSel.size || natSel.has(d.nat);
+function atualizarNatSel(){
+  $('fNatRot').textContent = natSel.size===0 ? 'Todas' :
+    (natSel.size===1 ? [...natSel][0] : natSel.size+' selecionadas');
+  $('fNatPop').querySelectorAll('input').forEach(ch=>{ ch.checked = natSel.has(ch.value); });
+}
+function initNatSel(){
+  const vals=[...new Set(DADOS.map(d=>d.nat))].sort((a,b)=>a.localeCompare(b,'pt'));
+  $('fNatPop').innerHTML = vals.map(v=>
+    `<label class="multisel-item"><input type="checkbox" value="${v}"> ${v}</label>`).join('');
+  $('fNatPop').querySelectorAll('input').forEach(ch=>ch.addEventListener('change',()=>{
+    if(ch.checked) natSel.add(ch.value); else natSel.delete(ch.value);
+    atualizarNatSel(); aplicar();
+  }));
+  $('fNatBtn').addEventListener('click',e=>{ e.stopPropagation(); $('fNat').classList.toggle('aberto'); });
+  document.addEventListener('click',e=>{ if(!$('fNat').contains(e.target)) $('fNat').classList.remove('aberto'); });
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape') $('fNat').classList.remove('aberto'); });
+}
 function initFiltros(){
-  popularSelect('fReg',[...new Set(DADOS.map(d=>d.reg))]);
+  popularSelect('fReg',[...new Set(DADOS.map(d=>d.reg))],undefined,ordenarRegioes);
   popularSelect('fUF',[...new Set(DADOS.map(d=>d.uf))]);
   popularSelect('fMun',[...new Set(DADOS.map(d=>d.mun))]);
-  popularSelect('fNat',[...new Set(DADOS.map(d=>d.nat))]);
-  ['fReg','fUF','fMun','fNat'].forEach(id=>$(id).addEventListener('change',()=>{encadear(id);aplicar();}));
+  initNatSel();
+  ['fReg','fUF','fMun'].forEach(id=>$(id).addEventListener('change',()=>{encadear(id);aplicar();}));
   $('fBusca').addEventListener('input',aplicar);
 }
 
@@ -858,10 +898,10 @@ function encadear(origem){
 
 function aplicar(){
   tblLimite = 25;
-  const reg=$('fReg').value, uf=$('fUF').value, mun=$('fMun').value, nat=$('fNat').value,
+  const reg=$('fReg').value, uf=$('fUF').value, mun=$('fMun').value,
         q=$('fBusca').value.trim().toLowerCase();
   filtrado = DADOS.filter(d=>
-    (!reg||d.reg===reg)&&(!uf||d.uf===uf)&&(!mun||d.mun===mun)&&(!nat||d.nat===nat)&&
+    (!reg||d.reg===reg)&&(!uf||d.uf===uf)&&(!mun||d.mun===mun)&&natOk(d)&&
     (!q||d.est.toLowerCase().includes(q))&&
     (!terrSel||terrSel.nivel==='uf'||
       (terrSel.nivel==='macro'&&d.mrs===terrSel.id)||
@@ -873,7 +913,8 @@ function aplicar(){
 
 function limpar(){
   terrSel=null; estagioSel=null;
-  ['fReg','fUF','fMun','fNat'].forEach(id=>$(id).value='');
+  ['fReg','fUF','fMun'].forEach(id=>$(id).value='');
+  natSel.clear(); atualizarNatSel();
   $('fBusca').value='';
   popularSelect('fUF',[...new Set(DADOS.map(d=>d.uf))]);
   popularSelect('fMun',[...new Set(DADOS.map(d=>d.mun))]);
@@ -929,7 +970,7 @@ const linhaMeta = {
 
 function renderCesReg(){
   destruir('chCesReg');
-  const regs=[...new Set(filtrado.map(d=>d.reg))].sort();
+  const regs=ordenarRegioes([...new Set(filtrado.map(d=>d.reg))]);
   const dadosReg=regs.map(r=>{
     const s=filtrado.filter(d=>d.reg===r);
     const ok=s.filter(d=>d.rob2).length;
@@ -986,7 +1027,7 @@ function renderAdeq(){
     {r:'Parto vaginal assistido por enfermeira', v:filtrado.filter(d=>d.enfC==='ADEQUADO').length},
     {r:'AMIU', v:filtrado.filter(d=>d.flags&&d.flags[2]==='1').length},
     {r:'Asfixia', v:filtrado.filter(d=>d.asfC==='ADEQUADO').length},
-    {r:'Contracepção', v:filtrado.filter(d=>d.contrOk).length},
+    {r:'Oferta de LARC', v:filtrado.filter(d=>d.contrOk).length},
     {r:'Atendimento de violência sexual', v:filtrado.filter(d=>d.viol).length},
     {r:'SMCON Neo e/ou Obst', v:filtrado.filter(d=>d.smN||d.smO).length},
     {r:'Selo &ge;5', v:filtrado.filter(d=>d.selo).length}
@@ -1167,9 +1208,9 @@ const METRICAS = [
   // Boas práticas
   {id:'enf',     eixo:'boas',   rot:'% Parto vaginal assistido por enfermeira', leg:'Estab. com parto vaginal assistido por enfermeira adequado (%)', fmtV:pctF, abs:a=>[a.enfOk,a.estab]},
   {id:'amiuM',   eixo:'boas',   rot:'% AMIU',             leg:'Média do % de AMIU entre os estab.',         fmtV:pctF},
-  {id:'asfP',    eixo:'boas',   rot:'% Asfixia adequada', leg:'Estab. com asfixia adequada – Apgar <7 no 5º min ≤0,6% (%)', fmtV:pctF, abs:a=>[a.asfOk,a.estab]},
+  {id:'asfP',    eixo:'boas',   rot:'% Asfixia',          leg:'Estab. com asfixia adequada – Apgar <7 no 5º min ≤0,6% (%)', fmtV:pctF, abs:a=>[a.asfOk,a.estab]},
   // Contracepção
-  {id:'contrP',  eixo:'contra', rot:'% Contracepção adequada', leg:'Estab. adequados em contracepção – DIU+implante (%)', fmtV:pctF, abs:a=>[a.contrOkN,a.estab]},
+  {id:'contrP',  eixo:'contra', rot:'% Oferta de LARC', leg:'Estab. com oferta de LARC adequada – DIU+implante (%)', fmtV:pctF, abs:a=>[a.contrOkN,a.estab]},
   // Violência sexual
   {id:'violP',   eixo:'viol',   rot:'% Atendimento de violência sexual', leg:'Estab. que atendem violência sexual (%)', fmtV:pctF, abs:a=>[a.violSim,a.estab]},
   {id:'violN',   eixo:'viol',   rot:'Atendimentos de violência sexual', leg:'Atendimentos a vítimas de violência sexual', fmtV:intF},
@@ -1241,8 +1282,8 @@ function derivar(a){
   return a;
 }
 function baseFiltrada(){
-  const nat=$('fNat').value, q=$('fBusca').value.trim().toLowerCase();
-  return DADOS.filter(d=>(!nat||d.nat===nat)&&(!q||d.est.toLowerCase().includes(q)));
+  const q=$('fBusca').value.trim().toLowerCase();
+  return DADOS.filter(d=>natOk(d)&&(!q||d.est.toLowerCase().includes(q)));
 }
 function agregarTerr(nivel){
   const nv = NIVEIS.find(n=>n.id===nivel);
@@ -1420,7 +1461,7 @@ function renderMapa(){
       let nome = String(t.nome||'');
       const suf = ' - '+ufSig;
       if(ufSig && nome.endsWith(suf)) nome = nome.slice(0, -suf.length); // tira a UF, redundante no zoom
-      if(nome.length>26) nome = nome.slice(0,24)+'\\u2026';
+      if(nome.length>30) nome = nome.slice(0,28)+'…';
       labels += `<text x="${t.cx}" y="${t.cy}" text-anchor="middle" font-size="${fs.toFixed(2)}" font-weight="700" fill="#1D3229" style="paint-order:stroke;stroke:#ffffff;stroke-width:${(2.2*esc).toFixed(2)}px;pointer-events:none">${nome}</text>`;
     });
   }
@@ -1629,7 +1670,7 @@ function contextoSelecao(){
   else if($('fUF').value) partes.push($('fUF').value);
   else if($('fReg').value) partes.push('Regi\u00e3o '+$('fReg').value);
   else partes.push('Brasil');
-  if($('fNat').value) partes.push($('fNat').value.toLowerCase());
+  if(natSel.size) partes.push([...natSel].map(v=>v.toLowerCase()).join(' + '));
   if(estagioSel!=null) partes.push('selo: '+ESTAGIOS.find(x=>x.id===estagioSel).nome.toLowerCase());
   if($('fBusca').value.trim()) partes.push('busca: "'+$('fBusca').value.trim()+'"');
   return partes.join(' \u00b7 ');
@@ -1698,10 +1739,10 @@ function renderSelo(){
   destruir('chSeloDonut');
   // base: filtros vigentes exceto o próprio estágio
   const salvo = estagioSel; estagioSel = null;
-  const reg=$('fReg').value, uf=$('fUF').value, mun=$('fMun').value, nat=$('fNat').value,
+  const reg=$('fReg').value, uf=$('fUF').value, mun=$('fMun').value,
         q=$('fBusca').value.trim().toLowerCase();
   const base = DADOS.filter(d=>
-    (!reg||d.reg===reg)&&(!uf||d.uf===uf)&&(!mun||d.mun===mun)&&(!nat||d.nat===nat)&&
+    (!reg||d.reg===reg)&&(!uf||d.uf===uf)&&(!mun||d.mun===mun)&&natOk(d)&&
     (!q||d.est.toLowerCase().includes(q))&&
     (!terrSel||terrSel.nivel==='uf'||
       (terrSel.nivel==='macro'&&d.mrs===terrSel.id)||
@@ -1773,7 +1814,7 @@ const MATRIZ_COLS = [
   {k:'enf',   rot:'Parto enfermeira'},
   {k:'amiuA', rot:'AMIU'},
   {k:'asfP',  rot:'Asfixia'},
-  {k:'contrP',rot:'Contracep.'},
+  {k:'contrP',rot:'Oferta LARC'},
   {k:'violP', rot:'Viol\u00eancia'},
   {k:'smnP',  rot:'SMCON Neo'},
   {k:'smoP',  rot:'SMCON Obst'},
@@ -2006,7 +2047,7 @@ function exportarExcel(){
     '% Enfermagem obst.':d.enf,'Classif. enfermagem':d.enfC,'% AMIU':d.amiu,
     '% Cesárea G1':d.g1,'% Cesárea G2':d.g2,'% Cesárea G3':d.g3,'% Cesárea G4':d.g4,
     'Grupos Robson adequados':d.robAd,'Robson ≥2 grupos':d.rob2?'SIM':'NÃO',
-    'DIU':d.diu,'Implante':d.imp,'LARC total':d.larc,'Contracepção adequada':d.contrOk?'SIM':'NÃO',
+    'DIU':d.diu,'Implante':d.imp,'LARC total':d.larc,'Oferta de LARC':d.contrOk?'SIM':'NÃO',
     'Atendimento de violência sexual':d.viol?'SIM':'','Atendimentos de violência':d.violN,
     'Indicadores adequados':d.nAdeq,'Selo ≥5':d.selo?'ADEQUADO':''
   }));
@@ -2036,7 +2077,7 @@ function exportarPDF(){
   });
   doc.autoTable({
     startY:26,
-    head:[['Estabelecimento','Município (UF)','Partos','Neonatal','Robson ≥2','Enfermeira','AMIU','Asfixia','Contracep.','Violência','Selo']],
+    head:[['Estabelecimento','Município (UF)','Partos','Neonatal','Robson ≥2','Enfermeira','AMIU','Asfixia','Oferta LARC','Violência','Selo']],
     body:corpo,
     styles:{fontSize:6.8,cellPadding:1.4},
     headStyles:{fillColor:[14,122,86],fontSize:7,fontStyle:'bold'},
@@ -2079,7 +2120,7 @@ function filtrosAtivos(){
   if($('fReg').value) lista.push({rot:'Regi\u00e3o: '+$('fReg').value, limpa:()=>{$('fReg').value='';encadear('fReg');}});
   if($('fUF').value) lista.push({rot:'UF: '+$('fUF').value, limpa:()=>{$('fUF').value='';encadear('fUF');}});
   if($('fMun').value) lista.push({rot:$('fMun').value, limpa:()=>{$('fMun').value='';}});
-  if($('fNat').value) lista.push({rot:$('fNat').value, limpa:()=>{$('fNat').value='';}});
+  if(natSel.size) lista.push({rot:'Natureza: '+[...natSel].join(', '), limpa:()=>{natSel.clear(); atualizarNatSel();}});
   if($('fBusca').value.trim()) lista.push({rot:'Busca: '+$('fBusca').value.trim(), limpa:()=>{$('fBusca').value='';}});
   if(terrSel && terrSel.nivel!=='uf' && terrSel.nome)
     lista.push({rot:terrSel.nome, limpa:()=>{terrSel=null;}});

@@ -70,15 +70,15 @@ O painel **não exibe** taxa geral de cesariana nem meta de 35%; a taxa por esta
 **% AMIU** — A Aspiração Manual Intrauterina é a técnica recomendada pela OMS para o esvaziamento uterino no abortamento, por ser mais segura e menos traumática que a curetagem.
 *Cálculo:* **média** do % de AMIU entre os estabelecimentos · *Adequação (selo):* institucional · *Fonte:* SIH/SUS (procedimentos); OMS/FEBRASGO.
 
-**% Asfixia adequada** — A taxa de asfixia da unidade é a proporção de recém-nascidos com Apgar <7 no 5º minuto entre os nascidos com ≥2.500g e sem malformação — marcador sensível da qualidade da assistência ao parto. O indicador do painel é o **percentual de estabelecimentos adequados** (taxa ≤0,6%).
+**% Asfixia** — A taxa de asfixia da unidade é a proporção de recém-nascidos com Apgar <7 no 5º minuto entre os nascidos com ≥2.500g e sem malformação — marcador sensível da qualidade da assistência ao parto. O indicador do painel é o **percentual de estabelecimentos adequados** (taxa ≤0,6%).
 *Cálculo:* estab. com asfixia adequada ÷ estab. × 100 (adequados/total) · *Adequação:* institucional (taxa ≤0,6%) · *Fonte:* SINASC (DNV: Apgar e peso). A taxa de cada unidade permanece visível na lista de estabelecimentos (tooltip) e nas exportações.
 
 ### 2.5 Contracepção
 
-**% Contracepção adequada** — Oferta de contracepção reversível de longa ação (DIU e implante subdérmico) no pós-parto e pós-abortamento imediato.
+**% Oferta de LARC** — Oferta de contracepção reversível de longa ação (DIU e implante subdérmico) no pós-parto e pós-abortamento imediato.
 *Cálculo:* % de estabelecimentos com classificação de contracepção adequada (adequados/total) · *Adequação:* institucional (DIU + implante inseridos no ano, conforme planilha) · *Fonte:* SIH/SUS (procedimentos de inserção); Nota Técnica de Ampliação do DIU (MS/IFF-Fiocruz).
 
-*(Revisão de 04/08/2026: o indicador de volume de LARC — inserções por 1.000 partos — foi retirado do painel para evitar confusão de interpretação; a leitura é pela classificação de adequação.)*
+*(O rótulo "% Oferta de LARC" refere-se à adequação da oferta — DIU + implante — segundo a classificação da planilha; o indicador de volume por 1.000 partos permanece fora do painel.)*
 
 ### 2.6 Violência sexual
 
@@ -94,7 +94,7 @@ O painel **não exibe** taxa geral de cesariana nem meta de 35%; a taxa por esta
 
 O selo reconhece estabelecimentos com **5 ou mais dos 9 indicadores classificatórios** adequados. É o campo oficial da planilha e corresponde exatamente a "número de indicadores adequados ≥ 5".
 
-Os 9 indicadores classificatórios: 1. Asfixia · 2. Enfermagem obstétrica · 3. AMIU · 4. Robson ≥2 grupos · 5. Contracepção · 6. Violência sexual · 7. SMCON neonatal · 8. SMCON obstétrico · 9. Unidade neonatal completa.
+Os 9 indicadores classificatórios: 1. Asfixia · 2. Enfermagem obstétrica · 3. AMIU · 4. Robson ≥2 grupos · 5. Oferta de LARC (contracepção) · 6. Violência sexual · 7. SMCON neonatal · 8. SMCON obstétrico · 9. Unidade neonatal completa.
 
 Duas regras importantes:
 - "Unidade neonatal completa" conta como adequada quando é **SIM ou "não se aplica"** (não penaliza maternidades de risco habitual).
@@ -113,13 +113,13 @@ Valores agregados dos 543 estabelecimentos (1.253.881 partos), para conferência
 
 | Indicador | Nacional | Indicador | Nacional |
 |---|---|---|---|
-| % Cesariana adequada (≥2 grupos) | 56,7% (308/543) | % Contracepção adequada | 35,7% (194/543) |
+| % Cesariana adequada (≥2 grupos) | 56,7% (308/543) | % Oferta de LARC | 35,7% (194/543) |
 | % Adeq. Robson G1 | 41,8% (227/543) | % Atendimento de violência sexual | 41,4% (225/543) |
 | % Adeq. Robson G2 | 51,0% (277/543) | % SMCON Neo | 19,7% (107/543) |
 | % Adeq. Robson G3 | 38,9% (211/543) | % SMCON Obstétrico | 9,4% (51/543) |
 | % Adeq. Robson G4 | 50,1% (272/543) | % SMCON Neo e/ou Obst | 22,1% (120/543) |
 | % Parto vaginal assistido por enfermeira | 28,5% (155/543) | % Unidade Neonatal completa | 43,6% (237/543) |
-| % Asfixia adequada | 71,5% (388/543) | Neonatal adequada no selo (SIM ou N/A) | 60,8% (330/543) |
+| % Asfixia | 71,5% (388/543) | Neonatal adequada no selo (SIM ou N/A) | 60,8% (330/543) |
 | % AMIU (média) | 12,6% | % com Selo | 22,5% (122/543) |
 
 Médias do % de cesariana nos grupos (estab. com partos no grupo): G1 36,1% · G2 66,3% · G3 18,5% · G4 49,1%.
