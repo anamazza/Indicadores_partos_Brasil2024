@@ -157,6 +157,10 @@ button.kpi:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(10,33,61,
 .secao-titulo h2{font-size:17px;font-weight:800;color:var(--verde-profundo)}
 .secao-titulo::after{content:'';flex:1;height:2px;background:linear-gradient(90deg,var(--verde-fiocruz),transparent)}
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+/* cards de grid/flex podem encolher abaixo do conteúdo do canvas (evita rolagem horizontal) */
+.grid-2>.card{min-width:0}
+.card{min-width:0}
+.chart-box{overflow:hidden}
 @media(max-width:820px){.grid-2{grid-template-columns:1fr}}
 .card{background:var(--branco);border-radius:14px;box-shadow:var(--sombra);padding:18px}
 .card h3{font-size:13.5px;font-weight:700;color:var(--texto);margin-bottom:2px}
@@ -165,7 +169,17 @@ button.kpi:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(10,33,61,
 .png-mini{border:1.5px solid var(--verde-fiocruz);background:var(--branco);color:var(--verde-fiocruz);
   border-radius:8px;padding:5px 10px;font-family:'Archivo';font-weight:700;font-size:11px;cursor:pointer;flex-shrink:0;white-space:nowrap}
 .png-mini:hover{background:var(--verde-fiocruz);color:#fff}
-.ctx-linha{font-size:11px;color:var(--indigo);font-weight:700;margin:2px 0 10px}
+.ctx-linha{font-size:11px;color:var(--indigo);font-weight:700;margin:2px 0 10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ctx-limpar{border:1px solid var(--borda);background:var(--mint-card);color:var(--verde-profundo);
+  border-radius:14px;padding:2px 10px;font-size:10.5px;font-weight:700;cursor:pointer;font-family:'Inter'}
+.ctx-limpar:hover{background:#fff;border-color:var(--verde-fiocruz)}
+/* impressão: só a metodologia, em fluxo normal */
+@media print{
+  body.metodologia>*:not(#metodologiaView){display:none!important}
+  body.metodologia{overflow:visible!important}
+  #metodologiaView{position:static!important;overflow:visible!important;background:#fff!important}
+  .met-topo{display:none!important}
+}
 .chart-box{position:relative;height:300px}
 .chart-box.alto{height:380px}
 
@@ -665,10 +679,11 @@ body.metodologia{overflow:hidden}
   <div class="met-topo">
     <button class="btn-voltar" onclick="fecharMetodologia()">&#8592; Voltar ao painel</button>
     <b>Metodologia dos indicadores</b>
+    <button class="btn-voltar" style="margin-left:auto" onclick="window.print()" title="Na janela de impressão, escolha 'Salvar como PDF'">&#8681; Baixar PDF</button>
   </div>
   <div class="met-inner">
     <h1>Nota metodológica · fichas de qualificação dos indicadores</h1>
-    <div class="met-sub">Fontes: SINASC, CNES e SIH-SUS. Universo: estabelecimentos com mais de 1.000 partos em 2024 (543 unidades; 1.253.881 partos). Extração de 01/07/2026. Base institucional alinhada às variáveis do SMCON/IFF-Fiocruz. Os parâmetros de adequação são institucionais e não constam em ato oficial publicado, exceto a meta de taxa de cesariana.</div>
+    <div class="met-sub">Fontes: SINASC, CNES e SIH-SUS. Universo: estabelecimentos com mais de 1.000 partos em 2024 (543 unidades; 1.253.881 partos). Extração de 01/07/2026. Base institucional alinhada às variáveis do SMCON/IFF-Fiocruz. Os parâmetros de adequação são institucionais e não constam em ato oficial publicado.</div>
 
     <section>
       <h2>Cesariana adequada — Robson &ge;2 grupos <span class="met-dir dir-maior">quanto maior, melhor</span></h2>
@@ -1241,8 +1256,10 @@ function valorMetrica(a, id){
 }
 
 function quintis(vals){
+  // com poucos territórios (regiões com 4 UFs, estados com poucas RS),
+  // as faixas são calculadas por interpolação a partir de 2 valores
   const v = vals.filter(x=>x!=null).sort((a,b)=>a-b);
-  if(v.length<5) return null;
+  if(v.length<2) return null;
   const q = p=>{ const i=(v.length-1)*p; const lo=Math.floor(i), hi=Math.ceil(i);
     return v[lo]+(v[hi]-v[lo])*(i-lo); };
   return [q(.2),q(.4),q(.6),q(.8)];
@@ -1339,6 +1356,8 @@ function renderMapa(){
   const fixo = met.dir==='menor' && met.brksFixos;
   const brks = fixo ? met.brksFixos : quintis(visiveis.map(t=>valorMetrica(agg[t.id],metricaAtiva)));
   const cores = fixo ? DIVERG : VERDES;
+  // todos os territórios com (praticamente) o mesmo valor: tom médio único
+  const uniforme = !!brks && met.fmtV(brks[0])===met.fmtV(brks[3]);
 
   // sincronizar listas suspensas em cascata (Brasil -> Região -> Estado) e nível
   sincronizarSelectsMapa();
@@ -1362,7 +1381,7 @@ function renderMapa(){
   visiveis.forEach(t=>{  // recorte: só o que pertence à região selecionada é desenhado
     const v = valorMetrica(agg[t.id],metricaAtiva);
     let k = classe(v,brks);
-    if(visiveis.length===1 && v!=null) k=2;
+    if((uniforme || visiveis.length===1) && v!=null) k=2;
     const fill = k>=0 ? VERDES[met.inv? 4-k : k] : '#E9EDEA';
     const sel = (terrSel && String(terrSel.id)===String(t.id)) ? ' uf-selecionada' : '';
     paths += `<path class="uf-path${sel}" data-id="${t.id}" tabindex="0" role="button" aria-label="${nv.nomeDe(t)}" d="${t.d}" fill="${fill}" fill-rule="evenodd" stroke="${strokeTerr}" stroke-width="${swTerr}" vector-effect="non-scaling-stroke"><title>${nv.nomeDe(t)}</title></path>`;
@@ -1400,7 +1419,11 @@ function renderMapa(){
   // legenda
   const escopo = fixo ? ' \u00b7 faixas fixas ancoradas na meta' : (vb.zoom ? ' \u00b7 quintis da regi\u00e3o' : '');
   $('legTitulo').textContent = met.leg + ' \u00b7 por ' + nv.rot.toLowerCase() + escopo;
-  if(brks){
+  if(brks && uniforme){
+    $('legendaLinhas').innerHTML =
+      `<div class="legrow"><span class="legsw" style="background:${VERDES[2]}"></span>${met.fmtV(brks[0])} em todos os territ\u00f3rios com valor</div>`
+      + `<div class="legrow"><span class="legsw" style="background:#E9EDEA"></span>Sem estabelecimento &gt;1.000 partos</div>`;
+  } else if(brks){
     // constr\u00f3i as faixas colapsando empates (muitos territ\u00f3rios com o mesmo valor)
     // e marcando com ">" os limites que j\u00e1 apareceram em faixa anterior
     const valsLeg = visiveis.map(t=>valorMetrica(agg[t.id],metricaAtiva)).filter(v=>v!=null);
@@ -1601,7 +1624,17 @@ function contextoSelecao(){
 }
 function atualizarContextos(){
   const txt = 'Sele\u00e7\u00e3o: '+contextoSelecao()+' \u00b7 '+filtrado.length+' estabelecimento'+(filtrado.length===1?'':'s');
-  document.querySelectorAll('.ctx-linha').forEach(el=>el.textContent=txt);
+  const temFiltro = filtrosAtivos().length>0;
+  document.querySelectorAll('.ctx-linha').forEach(el=>{
+    el.textContent = txt;
+    if(temFiltro){
+      const b=document.createElement('button');
+      b.className='ctx-limpar'; b.type='button'; b.textContent='\u00d7 limpar filtros';
+      b.title='Limpar todos os filtros do painel';
+      b.onclick=limpar;
+      el.appendChild(b);
+    }
+  });
 }
 
 /* Download de gráfico em PNG com título e contexto embutidos */
