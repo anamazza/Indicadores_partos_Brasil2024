@@ -271,8 +271,8 @@ body.sheet-aberta .sheet-scrim{opacity:1;pointer-events:auto}
 .rail-chips .chip{display:block;width:100%;text-align:left;margin-bottom:6px;white-space:normal;line-height:1.25}
 .rail-chips .chip:last-child{margin-bottom:0}
 #mapaSvg{max-width:540px;margin:0 auto}
-/* com zoom (região/estado), o mapa usa toda a largura disponível */
-.mapa-svg-card.mapa-zoom #mapaSvg{max-width:none}
+/* com zoom (região/estado), o mapa cresce além dos 540px, com teto para não dominar a tela */
+.mapa-svg-card.mapa-zoom #mapaSvg{max-width:640px;max-height:540px}
 @media(max-width:520px){
   .mapa-esquerda{grid-template-columns:118px 1fr;gap:8px}
   .rail-grupo{padding:7px}
