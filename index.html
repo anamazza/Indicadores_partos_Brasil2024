@@ -470,7 +470,7 @@ body.metodologia{overflow:hidden}
     </div>
     <span class="eyebrow">Painel de Indicadores · Atenção Obstétrica e Neonatal</span>
     <h1>Estabelecimentos com mais de 1.000 partos no Brasil · <span>conceitos e aplicações dos indicadores de qualidade</span></h1>
-    <div class="header-sub">543 estabelecimentos · 1,25 milhão de partos · indicadores de asfixia neonatal, enfermagem obstétrica, AMIU, grupos de Robson, contracepção pós-parto e atendimento à violência sexual</div>
+    <div class="header-sub">543 estabelecimentos · 1,25 milhão de partos · indicadores sobre leitos da Unidade Neonatal, grupos de Robson, parto por enfermeira, AMIU, asfixia, contracepção, violência sexual e monitoramento de indicadores pelo SMCON</div>
   </div>
 </header>
 
@@ -663,10 +663,22 @@ body.metodologia{overflow:hidden}
         <label for="tblAdeq">Situação rápida</label>
         <select id="tblAdeq">
           <option value="">Todas</option>
-          <option value="asfRuim">Asfixia inadequada</option>
-          <option value="enfOk">Enfermagem adequada</option>
-          <option value="semNeo">Sem neonatal completa</option>
-          <option value="contr0">Sem oferta de LARC</option>
+          <optgroup label="Precisam de atenção (inadequados)">
+            <option value="asfRuim">Asfixia inadequada</option>
+            <option value="enfRuim">Enfermagem inadequada</option>
+            <option value="rob2Nao">Robson &lt;2 grupos</option>
+            <option value="larcSem">Sem oferta de LARC</option>
+            <option value="neoSem">Sem unidade neonatal completa</option>
+            <option value="violNao">Não atende violência sexual</option>
+          </optgroup>
+          <optgroup label="Destaques (adequados)">
+            <option value="asfOk">Asfixia adequada</option>
+            <option value="enfOk">Enfermagem adequada</option>
+            <option value="rob2Sim">Robson &ge;2 grupos</option>
+            <option value="larcCom">Com oferta de LARC</option>
+            <option value="neoCom">Com unidade neonatal completa</option>
+            <option value="violSim">Atende violência sexual</option>
+          </optgroup>
         </select>
       </div>
     </div>
@@ -1086,9 +1098,17 @@ function linhasTabela(){
     (selo==='' || String(d.selo)===selo) &&
     (adeq==='' ||
       (adeq==='asfRuim' && d.asfC==='INADEQUADO') ||
+      (adeq==='asfOk'   && d.asfC==='ADEQUADO') ||
+      (adeq==='enfRuim' && d.enfC!=='ADEQUADO') ||
       (adeq==='enfOk'   && d.enfC==='ADEQUADO') ||
-      (adeq==='semNeo'  && d.neo!=='SIM') ||
-      (adeq==='contr0'  && !d.contrOk))
+      (adeq==='rob2Nao' && !d.rob2) ||
+      (adeq==='rob2Sim' && !!d.rob2) ||
+      (adeq==='larcSem' && !d.contrOk) ||
+      (adeq==='larcCom' && !!d.contrOk) ||
+      (adeq==='neoSem'  && !(d.flags && d.flags[8]==='1')) ||
+      (adeq==='neoCom'  && d.flags && d.flags[8]==='1') ||
+      (adeq==='violNao' && !d.viol) ||
+      (adeq==='violSim' && !!d.viol))
   );
 }
 function renderTabela(){
@@ -1111,12 +1131,12 @@ function renderTabela(){
       <td>${d.mun} (${SIGLA[d.uf]||d.uf})</td>
       <td class="num">${fmt(d.tot)}</td>
       <td>${bd(d.flags&&d.flags[8]==='1', d.neo==='SIM'?'SIM':(d.flags&&d.flags[8]==='1'?'N/A':'NÃO'))}</td>
-      <td>${bd(!!d.rob2, d.rob2?'SIM':'—')}</td>
+      <td>${bd(!!d.rob2, d.rob2?'SIM':'NÃO')}</td>
       <td class="num">${bd(d.enfC==='ADEQUADO', d.enf.toFixed(1)+'%')}</td>
       <td class="num">${bd(d.flags&&d.flags[2]==='1', d.amiu.toFixed(1)+'%')}</td>
-      <td title="% de asfixia da unidade: ${d.asf.toFixed(1)}% (adequado: ≤0,6%)">${bd(d.asfC==='ADEQUADO', d.asfC==='ADEQUADO'?'SIM':'—')}</td>
-      <td>${bd(!!d.contrOk, d.contrOk?'SIM':'—')}</td>
-      <td>${bd(!!d.viol, d.viol?'SIM':'—')}</td>
+      <td title="% de asfixia da unidade: ${d.asf.toFixed(1)}% (adequado: ≤0,6%)">${bd(d.asfC==='ADEQUADO', d.asfC==='ADEQUADO'?'SIM':'NÃO')}</td>
+      <td>${bd(!!d.contrOk, d.contrOk?'SIM':'NÃO')}</td>
+      <td>${bd(!!d.viol, d.viol?'SIM':'NÃO')}</td>
       <td>${d.selo?'<span class="badge b-selo">SELO</span>':''}</td>
     </tr>`).join('');
   const btn = $('btnMaisLinhas');
@@ -2070,9 +2090,9 @@ function exportarPDF(){
     const nome=d.est.replace(/^\d+\s*-\s*/,'');
     return [
       nome.length>48?nome.slice(0,46)+'…':nome, d.mun+' ('+(SIGLA[d.uf]||d.uf)+')', fmt(d.tot),
-      d.neo==='SIM'?'SIM':(d.flags&&d.flags[8]==='1'?'N/A':'NÃO'), d.rob2?'SIM':'—',
+      d.neo==='SIM'?'SIM':(d.flags&&d.flags[8]==='1'?'N/A':'NÃO'), d.rob2?'SIM':'NÃO',
       d.enf.toFixed(1)+'%', d.amiu.toFixed(1)+'%', d.asf.toFixed(1)+'%',
-      d.contrOk?'SIM':'—', d.viol?'SIM':'—', d.selo?'SELO':''
+      d.contrOk?'SIM':'NÃO', d.viol?'SIM':'NÃO', d.selo?'SELO':''
     ];
   });
   doc.autoTable({
