@@ -44,14 +44,16 @@ Cada estabelecimento traz seus dados brutos e sua classificação de adequação
 
 A Classificação de Robson (OMS, 2017) divide as gestantes em 10 grupos mutuamente exclusivos a partir de características obstétricas, permitindo comparar taxas de cesárea de forma padronizada. O painel acompanha os quatro grupos de menor risco:
 
-| Grupo | Perfil | Meta por grupo (OMS) |
+| Grupo | Perfil | Meta institucional (ref. OMS/OPAS 2017) |
 |---|---|---|
 | G1 | Nulípara, feto único cefálico, ≥37 sem, trabalho espontâneo | ≤10% |
-| G2 | Nulípara, induzida ou cesárea antes do trabalho | ≤35% |
+| G2 | Nulípara, induzida ou cesárea antes do trabalho | ≤35% (faixa do manual: 20–35%) |
 | G3 | Multípara sem cesárea anterior, espontâneo | ≤3% |
 | G4 | Multípara, induzida ou cesárea antes do trabalho | ≤15% |
 
-**Cada grupo de Robson tem a sua própria meta**, e a adequação do estabelecimento é avaliada grupo a grupo contra essas metas na base institucional.
+**Cada grupo de Robson tem a sua própria meta**, aplicada grupo a grupo na classificação da base institucional. As metas são **institucionais**, ancoradas nas referências de interpretação do *Robson Classification: Implementation Manual* (OMS, 2017; versão OPAS) — valores **descritivos e não normativos**: o próprio manual adverte que não foram validados nem vinculados a melhores desfechos, e a OMS não fixa metas por grupo.
+
+**Existe valor mínimo por grupo?** Não. Nenhuma fonte oficial (OMS, OPAS, Ministério da Saúde, ANS, FEBRASGO) define piso de cesariana por grupo de Robson. O Manual OMS/OPAS traz faixa apenas para o G2 (20–35%) e o G5 (50–60%); para G1, G3 e G4 há somente teto. No nível **populacional**, taxa de cesárea abaixo de ~9% sinaliza falta de acesso (Lancet Global Health, 2018; faixa associada a melhores desfechos: 9–19%). Taxas muito baixas nos grupos de baixo risco devem motivar **verificação da qualidade do registro**, não classificação de inadequação; o alerta clínico de "baixo demais" aplica-se sobretudo aos grupos 6–9 (pélvico, gemelar, situação transversa), não monitorados individualmente neste painel. Referência brasileira correlata: o Projeto Parto Adequado (ANS/IHI/HIAE) define piso de **parto vaginal** no agregado G1–G4 (≥40% na fase 2; ≥60% nos pioneiros), não piso de cesárea por grupo.
 
 **% Cesariana adequada (≥2 grupos)** — indicador-síntese da via de nascimento: estabelecimento adequado quando **pelo menos 2 dos 4 grupos** estão dentro da meta do grupo.
 *Cálculo:* estab. com ≥2 grupos adequados ÷ estab. × 100 · *Adequação por grupo:* metas por grupo aplicadas na planilha institucional (tabela acima) · *Fonte:* SINASC (DNV: paridade, idade gestacional, apresentação, via de nascimento); WHO — Robson Classification Manual (2017).
@@ -132,8 +134,10 @@ Médias do % de cesariana nos grupos (estab. com partos no grupo): G1 36,1% · G
 - BRASIL. Ministério da Saúde/SAES. **Portaria SAES/MS nº 2.902, de 26/06/2025** — códigos de leitos e habilitações neonatais no CNES (UTIN II/III, UCINCo, UCINCa).
 - IFF/FIOCRUZ. **Instrutivo do SMCON** — módulos Parto/Nascimento/Abortamento e Cuidado Neonatal (Estratégia Qualineo).
 - MINISTÉRIO DA SAÚDE/IFF-FIOCRUZ. **Nota Técnica de Ampliação do acesso ao DIU**.
-- WORLD HEALTH ORGANIZATION. **Robson Classification: Implementation Manual.** Genebra: OMS, 2017.
+- WORLD HEALTH ORGANIZATION. **Robson Classification: Implementation Manual.** Genebra: OMS, 2017 (versão OPAS: *La clasificación de Robson: Manual de aplicación*). Valores por grupo são referências de interpretação, não normativos.
 - WORLD HEALTH ORGANIZATION. **WHO Statement on Caesarean Section Rates.** Genebra: OMS, 2015.
+- MOLINA, G. et al. / Global Network. **Minimum and rational proportion of caesarean sections.** *Lancet Global Health*, 2018 — piso populacional (~9%) e faixa 9–19%.
+- ANS/IHI/HIAE. **Projeto Parto Adequado** — piso de parto vaginal no agregado dos grupos 1–4 de Robson (≥40% fase 2; ≥60% pioneiros).
 - ANS. **Fichas Técnicas dos Indicadores — QualiSS.**
 - Dados-fonte do painel: **SINASC, CNES e SIH/SUS** (extração de 01/07/2026).
 
@@ -144,7 +148,7 @@ Médias do % de cesariana nos grupos (estab. com partos no grupo): G1 36,1% · G
 | Dados-fonte do painel | OFICIAL — SINASC (nascidos vivos/DNV), SIH/SUS (procedimentos), CNES (cadastro) |
 | Definição de "unidade neonatal completa" | OFICIAL — habilitações CNES (Portaria 2.902/2025) |
 | Definições das variáveis clínicas (via de nascimento, Apgar etc.) | DNV/SINASC; alinhadas ao Instrutivo SMCON (IFF/Fiocruz) |
-| Classificação de Robson e referências por grupo | Método OMS (2017); faixas de adequação por grupo: INSTITUCIONAL (planilha) |
+| Classificação de Robson e metas por grupo | Método: OMS (2017). Metas por grupo: INSTITUCIONAIS, ancoradas nas referências não normativas do Manual OMS/OPAS 2017; sem piso oficial por grupo |
 | Limiares de adequação (asfixia, enfermagem, AMIU, contracepção, violência) | INSTITUCIONAL — não constam em ato oficial publicado |
 | Selo (≥5 de 9 indicadores) e estágios | INSTITUCIONAL / operacional |
 | Meta de taxa geral de cesariana | NÃO EXIBIDA no painel (revisão de 04/08/2026); leitura por grupos de Robson |

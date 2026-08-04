@@ -569,7 +569,7 @@ body.metodologia{overflow:hidden}
     </div>
     <div class="card">
       <div class="card-head"><div><h3>Cesariana nos grupos de Robson</h3>
-      <div class="sub">Média dos estabelecimentos selecionados · G1 a G4 · exclui estab. sem partos no grupo · metas por grupo (OMS): G1 &le;10% · G2 &le;35% · G3 &le;3% · G4 &le;15%</div></div>
+      <div class="sub">Média dos estabelecimentos selecionados · G1 a G4 · exclui estab. sem partos no grupo · metas por grupo (institucionais · ref. Manual de Robson, OMS/OPAS 2017): G1 &le;10% · G2 &le;35% · G3 &le;3% · G4 &le;15%</div></div>
       <button class="png-mini" data-c="chRobson" data-n="robson_g1_g4">&#8681; PNG</button></div>
       <div class="ctx-linha"></div>
       <div class="chart-box"><canvas id="chRobson"></canvas></div>
@@ -699,7 +699,7 @@ body.metodologia{overflow:hidden}
     <section>
       <h2>Cesariana adequada — Robson &ge;2 grupos <span class="met-dir dir-maior">quanto maior, melhor</span></h2>
       <p><b>Conceituação:</b> proporção de estabelecimentos com pelo menos dois dos quatro grupos de Robson de menor risco (G1 a G4) com taxa de cesariana dentro da referência do grupo.</p>
-      <p><b>Método de cálculo:</b> estabelecimentos com &ge;2 grupos adequados ÷ estabelecimentos da seleção × 100. A adequação de cada grupo segue a classificação da base institucional (planilha), com metas por grupo (OMS): G1 &le;10% · G2 &le;35% · G3 &le;3% · G4 &le;15%.</p>
+      <p><b>Método de cálculo:</b> estabelecimentos com &ge;2 grupos adequados ÷ estabelecimentos da seleção × 100. A adequação de cada grupo segue a classificação da base institucional (planilha), com metas por grupo (institucionais · ref. Manual de Robson, OMS/OPAS 2017): G1 &le;10% · G2 &le;35% · G3 &le;3% · G4 &le;15%.</p>
       <p><b>Observação:</b> o painel não exibe meta de taxa geral de cesariana; a leitura recomendada é por grupos de Robson. "Robson &ge;2 grupos" é um dos 9 indicadores classificatórios do selo de conformidade.</p>
       <p><b>Fonte:</b> SINASC (DNV: variáveis obstétricas da classificação de Robson e via de nascimento); classificação por grupo da base institucional. Método: OMS — Robson Classification Manual (2017).</p>
     </section>
@@ -735,7 +735,7 @@ body.metodologia{overflow:hidden}
       <h2>Cesariana nos grupos de Robson (G1 a G4) <span class="met-dir dir-maior">metas por grupo</span></h2>
       <p><b>Conceituação:</b> taxa de cesariana em grupos de gestantes de perfil obstétrico comparável, segundo a classificação de Robson (OMS, 2017). G1: nulíparas, feto único, cefálico, a termo, em trabalho de parto espontâneo. G2: nulíparas, feto único, cefálico, a termo, com indução ou cesariana anterior ao trabalho de parto. G3: multíparas sem cesariana prévia, feto único, cefálico, a termo, em trabalho de parto espontâneo. G4: multíparas sem cesariana prévia, com indução ou cesariana anterior ao trabalho de parto. A comparação dentro de cada grupo reduz o efeito das diferenças de perfil entre estabelecimentos.</p>
       <p><b>Método de cálculo:</b> cesarianas do grupo ÷ nascidos vivos do grupo × 100.</p>
-      <p><b>Metas por grupo (OMS):</b> G1 &le;10% · G2 &le;35% · G3 &le;3% · G4 &le;15% — cada grupo é avaliado contra a sua própria meta, aplicada na classificação da base institucional.</p>
+      <p><b>Metas por grupo:</b> G1 &le;10% · G2 &le;35% · G3 &le;3% · G4 &le;15% — metas institucionais aplicadas na classificação da base, ancoradas nas referências de interpretação do Manual de Robson (OMS/OPAS, 2017), que são descritivas e não normativas. O manual traz faixa apenas para o G2 (20–35%); para G1, G3 e G4 há somente teto, e nenhuma fonte oficial define valor mínimo por grupo.</p>
       <p><b>Parâmetro:</b> o indicador classificatório "Robson ≥2 grupos" considera adequado o estabelecimento com pelo menos dois dos quatro grupos dentro da meta; grupos sem nascidos vivos são computados como não adequados.</p>
       <p><b>Limitações:</b> o gráfico do painel apresenta a média das unidades da seleção, excluídas as que não registraram partos no grupo. A medida "% Cesariana Adeq. Robson G1–G4", exibida no mapa, é distinta: corresponde ao percentual de estabelecimentos classificados como adequados no grupo, com leitura inversa (quanto maior, melhor).</p>
       <p><b>Fonte:</b> SINASC (DNV: paridade, idade gestacional, apresentação, início do trabalho de parto e via de nascimento). Método: OMS — Robson Classification Manual (2017).</p>
@@ -1000,7 +1000,7 @@ function renderRobson(){
       responsive:true,maintainAspectRatio:false,
       plugins:{legend:{display:false},
         tooltip:{callbacks:{label:c=>{const g=grupos[c.dataIndex];
-          return c.parsed.y.toFixed(1)+'% · meta do grupo (OMS): ≤'+ROBSON_REF[g]+'%';}}},
+          return c.parsed.y.toFixed(1)+'% · meta do grupo (ref. OMS/OPAS 2017): ≤'+ROBSON_REF[g]+'%';}}},
         datalabels:{anchor:'end',align:'top',color:C.profundo,font:{weight:'700',size:12},formatter:v=>v.toFixed(1)+'%'}},
       scales:{y:{beginAtZero:true,suggestedMax:100,grid:{color:C.mint},ticks:{callback:v=>v+'%'}},x:{grid:{display:false}}}
     }
