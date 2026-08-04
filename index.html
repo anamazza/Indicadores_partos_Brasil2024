@@ -480,18 +480,18 @@ footer{background:var(--indigo);color:#fff;margin-top:50px}
     </div>
   </div>
 
-  <div class="secao-titulo"><h2>Via de parto</h2></div>
+  <div class="secao-titulo"><h2>Via de Nascimento</h2></div>
   <div class="grid-2">
     <div class="card">
-      <div class="card-head"><div><h3>Taxa de cesariana por região</h3>
-      <div class="sub">Percentual ponderado pelo volume de partos da seleção</div></div>
-      <button class="png-mini" data-c="chCesReg" data-n="cesariana_por_regiao">&#8681; PNG</button></div>
+      <div class="card-head"><div><h3>Cesariana adequada por região (Robson &ge;2 grupos)</h3>
+      <div class="sub">% de estabelecimentos com pelo menos 2 grupos de Robson dentro da referência · rótulos com o nº absoluto de adequados</div></div>
+      <button class="png-mini" data-c="chCesReg" data-n="cesariana_adequada_por_regiao">&#8681; PNG</button></div>
       <div class="ctx-linha"></div>
       <div class="chart-box"><canvas id="chCesReg"></canvas></div>
     </div>
     <div class="card">
       <div class="card-head"><div><h3>Cesariana nos grupos de Robson</h3>
-      <div class="sub">Mediana dos estabelecimentos selecionados · G1 a G4</div></div>
+      <div class="sub">Média dos estabelecimentos selecionados · G1 a G4 · quanto menor, melhor · exclui estab. sem partos no grupo · referências OMS: G1 10% · G2 35% · G3 3% · G4 15%</div></div>
       <button class="png-mini" data-c="chRobson" data-n="robson_g1_g4">&#8681; PNG</button></div>
       <div class="ctx-linha"></div>
       <div class="chart-box"><canvas id="chRobson"></canvas></div>
@@ -501,7 +501,7 @@ footer{background:var(--indigo);color:#fff;margin-top:50px}
   <div class="secao-titulo"><h2>Qualidade assistencial</h2></div>
   <div class="card">
     <div class="card-head"><div><h3>Adequação dos indicadores</h3>
-    <div class="sub">Estabelecimentos classificados como adequados na seleção</div></div>
+    <div class="sub">Estabelecimentos classificados como adequados na seleção · % com nº absoluto (adequados/total) · ordem padrão dos indicadores</div></div>
     <button class="png-mini" data-c="chAdeq" data-n="adequacao_indicadores">&#8681; PNG</button></div>
     <div class="ctx-linha"></div>
     <div class="chart-box"><canvas id="chAdeq"></canvas></div>
@@ -534,8 +534,8 @@ footer{background:var(--indigo);color:#fff;margin-top:50px}
 
   <div class="secao-titulo" style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><h2>Mapa de unidades</h2><button class="acao btn-xlsx" id="mapuToggle" onclick="toggleMapaUnidades()">&#9654; Mostrar mapa</button></div>
   <div class="card" id="mapuCard" style="display:none">
-    <div class="card-head"><div><h3>Mapa de unidades &middot; com selo &times; sem selo</h3>
-    <div class="sub">Cada ponto &eacute; um estabelecimento &middot; verde = com selo, vermelho = sem selo &middot; respeita os filtros do painel</div></div>
+    <div class="card-head"><div><h3>Mapa de unidades &middot; est&aacute;gios do selo</h3>
+    <div class="sub">Cada ponto &eacute; um estabelecimento, na cor do seu est&aacute;gio do selo: Com selo, Quase l&aacute;, No caminho e In&iacute;cio da jornada &middot; respeita os filtros do painel</div></div>
     <button class="png-mini" onclick="exportarMapaUnidadesPNG()">&#8681; PNG</button></div>
     <div class="ctx-linha"></div>
     <div class="mapu-ctrl mapu-filtros"><label for="mapuUF">Estado:</label><select id="mapuUF" onchange="mapuSetUF(this.value)"><option value="">Todos</option></select><label for="mapuMacro">Macrorregi&atilde;o:</label><select id="mapuMacro" onchange="mapuSetMacro(this.value)"><option value="">Todas</option></select><button class="mapu-limpar" onclick="mapuLimparFiltros()">Limpar filtros</button></div>
@@ -583,7 +583,7 @@ footer{background:var(--indigo);color:#fff;margin-top:50px}
           <option value="asfRuim">Asfixia inadequada</option>
           <option value="enfOk">Enfermagem adequada</option>
           <option value="semNeo">Sem neonatal completa</option>
-          <option value="larc0">Sem oferta de LARC</option>
+          <option value="contr0">Sem contracepção adequada</option>
         </select>
       </div>
     </div>
@@ -592,14 +592,15 @@ footer{background:var(--indigo);color:#fff;margin-top:50px}
       <thead>
         <tr>
           <th data-k="est">Estabelecimento</th>
-          <th data-k="uf">UF</th>
-          <th data-k="mun">Município</th>
+          <th data-k="mun">Município (UF)</th>
           <th data-k="tot" class="num">Partos</th>
-          <th data-k="txces" class="num">% Cesárea</th>
-          <th data-k="asf" class="num">Asfixia %</th>
-          <th data-k="enf" class="num">Enf. Obst. %</th>
-          <th data-k="g1" class="num">G1 %</th>
-          <th data-k="larc" class="num">LARC</th>
+          <th data-k="neoFlag">Neonatal completa</th>
+          <th data-k="rob2">Robson &ge;2</th>
+          <th data-k="enf" class="num">Parto enfermeira</th>
+          <th data-k="amiu" class="num">AMIU</th>
+          <th data-k="asf" class="num">Asfixia</th>
+          <th data-k="contrOk">Contracep.</th>
+          <th data-k="viol">Violência</th>
           <th data-k="selo">Selo &ge;5</th>
         </tr>
       </thead>
@@ -616,7 +617,7 @@ footer{background:var(--indigo);color:#fff;margin-top:50px}
   <div class="footer-inner">
     <div class="marca">Indicadores Básicos para a Saúde no Brasil <span>·</span> Painel 2024</div>
     <div>Fonte: SINASC / CNES / SIH-SUS · Estabelecimentos com &gt;1.000 partos em 2024 · Extração 01/07/2026</div>
-    <div style="width:100%;font-size:11px;opacity:.85;margin-top:6px;line-height:1.5">Os critérios de <b>adequação</b> de cada indicador são <b>institucionais</b> (derivados de SINASC/CNES/SIH-SUS e alinhados às variáveis do SMCON/IFF-Fiocruz), enquanto a Rede Alyne não publica seu ato oficial de indicadores. A única meta oficial usada aqui é a <b>taxa de cesárea &le; 35%</b> (Rede Alyne, Portaria GM/MS 5.350/2024).</div>
+    <div style="width:100%;font-size:11px;opacity:.85;margin-top:6px;line-height:1.5">Os critérios de <b>adequação</b> de cada indicador são <b>institucionais</b> (derivados de SINASC/CNES/SIH-SUS e alinhados às variáveis do SMCON/IFF-Fiocruz). A adequação de cesariana é avaliada pelos <b>grupos de Robson (G1 a G4)</b>: estabelecimento adequado quando pelo menos <b>2 grupos</b> estão dentro da referência do grupo.</div>
   </div>
 </footer>
 
@@ -646,7 +647,8 @@ const C = {
   indigo:'#0A213D', mint:'#EDF6EF', alerta:'#C0392B', ambar:'#D68910'
 };
 
-DADOS.forEach(d=>{ d.txces = d.tot>0 ? +(d.ces/d.tot*100).toFixed(1) : 0; });
+DADOS.forEach(d=>{ d.txces = d.tot>0 ? +(d.ces/d.tot*100).toFixed(1) : 0;
+  d.neoFlag = (d.flags && d.flags[8]==='1') ? 1 : 0; });
 
 const $ = id=>document.getElementById(id);
 let filtrado = DADOS.slice();
@@ -726,19 +728,23 @@ function destruir(id){ if(charts[id]){charts[id].destroy(); delete charts[id];} 
 function renderCesReg(){
   destruir('chCesReg');
   const regs=[...new Set(filtrado.map(d=>d.reg))].sort();
-  const vals=regs.map(r=>{
+  const dadosReg=regs.map(r=>{
     const s=filtrado.filter(d=>d.reg===r);
-    const t=s.reduce((a,d)=>a+d.tot,0), c=s.reduce((a,d)=>a+d.ces,0);
-    return t?+(c/t*100).toFixed(1):0;
+    const ok=s.filter(d=>d.rob2).length;
+    return {ok, n:s.length, pct:s.length? +(ok/s.length*100).toFixed(1):0};
   });
+  const corDe=v=>v>=75?VERDES[4]:v>=50?VERDES[3]:v>=25?VERDES[2]:VERDES[1]; // degradê pela adequação
   charts.chCesReg=new Chart($('chCesReg'),{
     type:'bar',
-    data:{labels:regs,datasets:[{data:vals,backgroundColor:C.fiocruz,borderRadius:6,maxBarThickness:56}]},
+    data:{labels:regs,datasets:[{data:dadosReg.map(x=>x.pct),
+      backgroundColor:dadosReg.map(x=>corDe(x.pct)),borderRadius:6,maxBarThickness:56}]},
     options:{
       responsive:true,maintainAspectRatio:false,
       plugins:{legend:{display:false},
-        datalabels:{anchor:'end',align:'top',color:C.profundo,font:{weight:'700',size:12},formatter:v=>v+'%'}},
-      scales:{y:{beginAtZero:true,suggestedMax:70,grid:{color:C.mint},ticks:{callback:v=>v+'%'}},x:{grid:{display:false}}}
+        tooltip:{callbacks:{label:c=>{const x=dadosReg[c.dataIndex];return x.pct.toFixed(1)+'% · '+x.ok+' de '+x.n+' estab. adequados (≥2 grupos)';}}},
+        datalabels:{anchor:'end',align:'top',color:C.profundo,font:{weight:'700',size:11},
+          formatter:(v,c)=>{const x=dadosReg[c.dataIndex];return v.toFixed(1)+'%\n('+x.ok+'/'+x.n+')';}}},
+      scales:{y:{beginAtZero:true,suggestedMax:100,grid:{color:C.mint},ticks:{callback:v=>v+'%'}},x:{grid:{display:false}}}
     }
   });
 }
@@ -750,20 +756,26 @@ function mediana(arr){
   return a.length%2?a[m]:+((a[m-1]+a[m])/2).toFixed(1);
 }
 
+const ROBSON_REF={g1:10,g2:35,g3:3,g4:15}; // referências OMS por grupo
 function renderRobson(){
   destruir('chRobson');
   const grupos=['g1','g2','g3','g4'];
-  const vals=grupos.map(g=>mediana(filtrado.map(d=>d[g])));
-  const refs=[null,null,null,null];
+  // média apenas dos estabelecimentos com partos no grupo
+  const vals=grupos.map(g=>{
+    const v=mediaArr(filtrado.filter(d=>d['nv'+g.slice(1)]>0).map(d=>d[g]));
+    return v==null? 0 : +v.toFixed(1);
+  });
   charts.chRobson=new Chart($('chRobson'),{
     type:'bar',
     data:{labels:['G1','G2','G3','G4'],
-      datasets:[{label:'Mediana % cesárea',data:vals,
-        backgroundColor:[C.lima,C.esmeralda,C.lima,C.esmeralda],borderRadius:6,maxBarThickness:56}]},
+      datasets:[{label:'Média % cesárea',data:vals,
+        backgroundColor:grupos.map((g,i)=>vals[i]<=ROBSON_REF[g]?C.fiocruz:C.alerta),borderRadius:6,maxBarThickness:56}]},
     options:{
       responsive:true,maintainAspectRatio:false,
       plugins:{legend:{display:false},
-        datalabels:{anchor:'end',align:'top',color:C.profundo,font:{weight:'700',size:12},formatter:v=>v+'%'}},
+        tooltip:{callbacks:{label:c=>{const g=grupos[c.dataIndex];
+          return c.parsed.y.toFixed(1)+'% · referência OMS: '+ROBSON_REF[g]+'%';}}},
+        datalabels:{anchor:'end',align:'top',color:C.profundo,font:{weight:'700',size:12},formatter:v=>v.toFixed(1)+'%'}},
       scales:{y:{beginAtZero:true,suggestedMax:100,grid:{color:C.mint},ticks:{callback:v=>v+'%'}},x:{grid:{display:false}}}
     }
   });
@@ -772,23 +784,31 @@ function renderRobson(){
 function renderAdeq(){
   destruir('chAdeq');
   const n=filtrado.length||1;
+  // ordem padrão dos indicadores (mesma sequência em todo o painel)
   const itens=[
+    {r:'Unidade Neonatal completa', v:filtrado.filter(d=>d.flags&&d.flags[8]==='1').length},
+    {r:'Cesariana adequada (Robson &ge;2 grupos)', v:filtrado.filter(d=>d.rob2).length},
+    {r:'Parto vaginal assistido por enfermeira', v:filtrado.filter(d=>d.enfC==='ADEQUADO').length},
+    {r:'AMIU', v:filtrado.filter(d=>d.flags&&d.flags[2]==='1').length},
     {r:'Asfixia', v:filtrado.filter(d=>d.asfC==='ADEQUADO').length},
-    {r:'Enfermagem obst.', v:filtrado.filter(d=>d.enfC==='ADEQUADO').length},
-    {r:'Robson &ge;2 grupos', v:filtrado.filter(d=>d.rob2).length},
-    {r:'Contracepção', v:filtrado.filter(d=>d.larc>0).length},
-    {r:'Violência sexual', v:filtrado.filter(d=>d.viol).length},
+    {r:'Contracepção', v:filtrado.filter(d=>d.contrOk).length},
+    {r:'Atendimento de violência sexual', v:filtrado.filter(d=>d.viol).length},
+    {r:'SMCON Neo e/ou Obst', v:filtrado.filter(d=>d.smN||d.smO).length},
     {r:'Selo &ge;5', v:filtrado.filter(d=>d.selo).length}
   ];
+  const corAdeq=v=>v>=75?VERDES[4]:v>=50?VERDES[3]:v>=25?VERDES[2]:VERDES[1];
   charts.chAdeq=new Chart($('chAdeq'),{
     type:'bar',
     data:{labels:itens.map(i=>i.r.replace(/&ge;/g,'\u2265')),
-      datasets:[{data:itens.map(i=>+(i.v/n*100).toFixed(0)),backgroundColor:C.indigo,borderRadius:6,maxBarThickness:26}]},
+      datasets:[{data:itens.map(i=>+(i.v/n*100).toFixed(1)),
+        backgroundColor:itens.map(i=>corAdeq(i.v/n*100)),borderRadius:6,maxBarThickness:26}]},
     options:{
       indexAxis:'y',responsive:true,maintainAspectRatio:false,
       plugins:{legend:{display:false},
-        datalabels:{anchor:'end',align:'right',color:C.indigo,font:{weight:'700',size:11},formatter:v=>v+'%'}},
-      scales:{x:{beginAtZero:true,max:110,grid:{color:C.mint},ticks:{callback:v=>v<=100?v+'%':''}},y:{grid:{display:false}}}
+        tooltip:{callbacks:{label:c=>{const i=itens[c.dataIndex];return c.parsed.x.toFixed(1)+'% · '+i.v+' de '+n+' estabelecimentos';}}},
+        datalabels:{anchor:'end',align:'right',color:C.indigo,font:{weight:'700',size:10.5},
+          formatter:(v,c)=>{const i=itens[c.dataIndex];return v.toFixed(1)+'% ('+i.v+'/'+n+')';}}},
+      scales:{x:{beginAtZero:true,max:118,grid:{color:C.mint},ticks:{callback:v=>v<=100?v+'%':''}},y:{grid:{display:false},ticks:{font:{size:10.5}}}}
     }
   });
 }
@@ -802,7 +822,12 @@ function renderTop(){
         const nome=d.est.replace(/^\d+\s-\s/,'');
         return nome.length>70?nome.slice(0,68)+'…':nome;
       }),
-      datasets:[{data:top.map(d=>d.tot),backgroundColor:C.esmeralda,borderRadius:6,maxBarThickness:24}]},
+      datasets:[{data:top.map(d=>d.tot),
+        backgroundColor:top.map((d,i)=>{ // degradê do maior para o menor volume
+          const t=top.length>1? i/(top.length-1) : 0;
+          const mix=(a,b)=>Math.round(a+(b-a)*t);
+          return `rgb(${mix(10,111)},${mix(92,190)},${mix(66,135)})`;
+        }),borderRadius:6,maxBarThickness:24}]},
     options:{
       indexAxis:'y',responsive:true,maintainAspectRatio:false,
       plugins:{legend:{display:false},
@@ -825,7 +850,7 @@ function linhasTabela(){
       (adeq==='asfRuim' && d.asfC==='INADEQUADO') ||
       (adeq==='enfOk'   && d.enfC==='ADEQUADO') ||
       (adeq==='semNeo'  && d.neo!=='SIM') ||
-      (adeq==='larc0'   && d.larc===0))
+      (adeq==='contr0'  && !d.contrOk))
   );
 }
 function renderTabela(){
@@ -841,17 +866,19 @@ function renderTabela(){
   $('contagem').textContent = (dados.length>visiveis.length?
       'Mostrando '+visiveis.length+' de '+dados.length+' estabelecimentos' :
       dados.length+' estabelecimento'+(dados.length===1?'':'s'))+terrTxt;
+  const bd=(ok,txt)=>`<span class="badge ${ok?'b-ok':'b-ruim'}">${txt}</span>`;
   $('tbody').innerHTML = visiveis.map(d=>`
     <tr>
-      <td>${d.est}</td>
-      <td>${d.uf}</td>
-      <td>${d.mun}</td>
+      <td title="${d.est}">${d.est.replace(/^\d+\s*-\s*/,'')}</td>
+      <td>${d.mun} (${SIGLA[d.uf]||d.uf})</td>
       <td class="num">${fmt(d.tot)}</td>
-      <td class="num">${d.txces.toFixed(1)}%</td>
-      <td class="num"><span class="badge ${d.asfC==='ADEQUADO'?'b-ok':'b-ruim'}">${d.asf.toFixed(1)}%</span></td>
-      <td class="num"><span class="badge ${d.enfC==='ADEQUADO'?'b-ok':'b-ruim'}">${d.enf.toFixed(1)}%</span></td>
-      <td class="num">${d.g1.toFixed(1)}%</td>
-      <td class="num">${fmt(d.larc)}</td>
+      <td>${bd(d.flags&&d.flags[8]==='1', d.neo==='SIM'?'SIM':(d.flags&&d.flags[8]==='1'?'N/A':'NÃO'))}</td>
+      <td>${bd(!!d.rob2, d.rob2?'SIM':'—')}</td>
+      <td class="num">${bd(d.enfC==='ADEQUADO', d.enf.toFixed(1)+'%')}</td>
+      <td class="num">${bd(d.flags&&d.flags[2]==='1', d.amiu.toFixed(1)+'%')}</td>
+      <td class="num">${bd(d.asfC==='ADEQUADO', d.asf.toFixed(1)+'%')}</td>
+      <td>${bd(!!d.contrOk, d.contrOk?'SIM':'—')}</td>
+      <td>${bd(!!d.viol, d.viol?'SIM':'—')}</td>
       <td>${d.selo?'<span class="badge b-selo">SELO</span>':''}</td>
     </tr>`).join('');
   const btn = $('btnMaisLinhas');
@@ -865,11 +892,14 @@ if($('btnMaisLinhas')) $('btnMaisLinhas').addEventListener('click',()=>{ tblLimi
 });
 if($('btnTabelaXlsx')) $('btnTabelaXlsx').addEventListener('click',()=>{
   const linhas = linhasTabela().map(d=>({
-    'Estabelecimento':d.est,'UF':d.uf,'Munic\u00edpio':d.mun,'Regi\u00e3o de Sa\u00fade':d.rsN,'Macrorregi\u00e3o':d.mrsN,
-    'Gest\u00e3o':d.gestao,'Natureza jur\u00eddica':d.nat,'Partos':d.tot,'% Cesariana':d.txces,
-    '% Asfixia':d.asf,'Classif. asfixia':d.asfC,'% Enfermagem':d.enf,'Classif. enfermagem':d.enfC,
-    '% AMIU':d.amiu,'% Ces\u00e1rea G1':d.g1,'% G2':d.g2,'% G3':d.g3,'% G4':d.g4,
-    'DIU':d.diu,'Implante':d.imp,'LARC':d.larc,'Atend. viol\u00eancia':d.violN,
+    'CNES':d.est.split(' - ')[0],'Estabelecimento':d.est.replace(/^\d+\s*-\s*/,''),
+    'Munic\u00edpio (UF)':d.mun+' ('+(SIGLA[d.uf]||d.uf)+')','Regi\u00e3o de Sa\u00fade':d.rsN,'Macrorregi\u00e3o':d.mrsN,
+    'Gest\u00e3o':d.gestao,'Natureza jur\u00eddica':d.nat,'Partos':d.tot,
+    'Unidade Neonatal completa':d.neo,'Robson \u22652 grupos':d.rob2?'SIM':'N\u00c3O',
+    '% Parto enfermeira':d.enf,'Classif. enfermagem':d.enfC,
+    '% AMIU':d.amiu,'% Asfixia':d.asf,'Classif. asfixia':d.asfC,
+    'Contracep\u00e7\u00e3o adequada':d.contrOk?'SIM':'N\u00c3O','Atendimento de viol\u00eancia sexual':d.viol?'SIM':'N\u00c3O',
+    'Atendimentos de viol\u00eancia':d.violN,'% Ces\u00e1rea G1':d.g1,'% G2':d.g2,'% G3':d.g3,'% G4':d.g4,
     'Indicadores adequados':d.nAdeq,'Selo \u22655':d.selo?'SIM':''
   }));
   const ws=XLSX.utils.json_to_sheet(linhas);
@@ -923,33 +953,33 @@ const pct0 = v=>v.toFixed(0)+'%';
 const intF = v=>Math.round(v).toLocaleString('pt-BR');
 const METRICAS = [
   // Visão geral
-  {id:'selo',    eixo:'geral',  rot:'% com Selo',         leg:'% de estabelecimentos com selo ≥5',          fmtV:pct0},
+  {id:'selo',    eixo:'geral',  rot:'% com Selo',         leg:'% de estabelecimentos com selo ≥5',          fmtV:pctF, abs:a=>[a.selo,a.estab]},
   {id:'estab',   eixo:'geral',  rot:'Estabelecimentos',   leg:'Estabelecimentos >1.000 partos',             fmtV:intF},
   {id:'partos',  eixo:'geral',  rot:'Partos',             leg:'Partos em 2024',                             fmtV:intF},
   // Estrutura
-  {id:'neoP',    eixo:'estr',   rot:'% Neonatal completa',leg:'Estab. com unidade neonatal completa (%)',   fmtV:pct0},
+  {id:'neoP',    eixo:'estr',   rot:'% Unidade Neonatal completa', leg:'Estab. com unidade neonatal completa (%)', fmtV:pctF, abs:a=>[a.neoSim,a.estab]},
   // Cesárea
-  {id:'txces',   eixo:'ces',    rot:'% Cesariana',        leg:'Taxa de cesariana (%)',                      fmtV:pctF, ref:35},
-  {id:'g1A',     eixo:'ces',    rot:'% Adeq. Robson G1',  leg:'Estab. adequados no grupo 1 de Robson (%)',  fmtV:pct0},
-  {id:'g2A',     eixo:'ces',    rot:'% Adeq. Robson G2',  leg:'Estab. adequados no grupo 2 de Robson (%)',  fmtV:pct0},
-  {id:'g3A',     eixo:'ces',    rot:'% Adeq. Robson G3',  leg:'Estab. adequados no grupo 3 de Robson (%)',  fmtV:pct0},
-  {id:'g4A',     eixo:'ces',    rot:'% Adeq. Robson G4',  leg:'Estab. adequados no grupo 4 de Robson (%)',  fmtV:pct0},
+  {id:'rob2P',   eixo:'ces',    rot:'% Cesariana adequada (≥2 grupos)', leg:'Estab. com pelo menos 2 grupos de Robson adequados (%)', fmtV:pctF, abs:a=>[a.rob2ok,a.estab]},
+  {id:'g1A',     eixo:'ces',    rot:'% Cesariana Adeq. Robson G1', leg:'Estab. adequados no grupo 1 de Robson (%)',  fmtV:pctF, abs:a=>[a.g1ok,a.estab]},
+  {id:'g2A',     eixo:'ces',    rot:'% Cesariana Adeq. Robson G2', leg:'Estab. adequados no grupo 2 de Robson (%)',  fmtV:pctF, abs:a=>[a.g2ok,a.estab]},
+  {id:'g3A',     eixo:'ces',    rot:'% Cesariana Adeq. Robson G3', leg:'Estab. adequados no grupo 3 de Robson (%)',  fmtV:pctF, abs:a=>[a.g3ok,a.estab]},
+  {id:'g4A',     eixo:'ces',    rot:'% Cesariana Adeq. Robson G4', leg:'Estab. adequados no grupo 4 de Robson (%)',  fmtV:pctF, abs:a=>[a.g4ok,a.estab]},
   // Boas práticas
-  {id:'enf',     eixo:'boas',   rot:'Parto vaginal assistido por enfermagem', leg:'Estab. com parto vaginal assistido por enfermagem adequado (%)', fmtV:pct0},
-  {id:'amiuM',   eixo:'boas',   rot:'Mediana % AMIU',     leg:'Mediana do % de AMIU entre os estab.',       fmtV:pctF},
-  {id:'asfP',    eixo:'boas',   rot:'% Asfixia adequada', leg:'Estab. com asfixia adequada (%)',            fmtV:pct0},
+  {id:'enf',     eixo:'boas',   rot:'% Parto vaginal assistido por enfermeira', leg:'Estab. com parto vaginal assistido por enfermeira adequado (%)', fmtV:pctF, abs:a=>[a.enfOk,a.estab]},
+  {id:'amiuM',   eixo:'boas',   rot:'% AMIU',             leg:'Média do % de AMIU entre os estab.',         fmtV:pctF},
+  {id:'asfM',    eixo:'boas',   rot:'% Asfixia',          leg:'Média do % de asfixia (Apgar <7 no 5º min) · quanto menor, melhor', fmtV:pctF, inv:true},
   // Contracepção
-  {id:'contrP',  eixo:'contra', rot:'% Contracepção adequada', leg:'Estab. adequados em contracepção – DIU+implante (%)', fmtV:pct0},
+  {id:'contrP',  eixo:'contra', rot:'% Contracepção adequada', leg:'Estab. adequados em contracepção – DIU+implante (%)', fmtV:pctF, abs:a=>[a.contrOkN,a.estab]},
   // Violência sexual
-  {id:'violP',   eixo:'viol',   rot:'% Atende violência', leg:'Estab. que atendem violência sexual (%)',    fmtV:pct0},
-  {id:'violN',   eixo:'viol',   rot:'Atendimentos viol.', leg:'Atendimentos a vítimas de violência sexual', fmtV:intF},
+  {id:'violP',   eixo:'viol',   rot:'% Atendimento de violência sexual', leg:'Estab. que atendem violência sexual (%)', fmtV:pctF, abs:a=>[a.violSim,a.estab]},
+  {id:'violN',   eixo:'viol',   rot:'Atendimentos de violência sexual', leg:'Atendimentos a vítimas de violência sexual', fmtV:intF},
   // SMCon
-  {id:'smnP',    eixo:'smcon',  rot:'% SMCON Neonatal',   leg:'Estab. com SMCON neonatal (%)',              fmtV:pct0},
-  {id:'smoP',    eixo:'smcon',  rot:'% SMCON Obstétrico', leg:'Estab. com SMCON obstétrico (%)',            fmtV:pct0},
-  {id:'smAlgumP',eixo:'smcon',  rot:'% SMCON (neo ou obst)', leg:'Estab. com SMCON neonatal ou obstétrico (%)', fmtV:pct0}
+  {id:'smnP',    eixo:'smcon',  rot:'% SMCON Neo',        leg:'Estab. com SMCON neonatal (%)',              fmtV:pctF, abs:a=>[a.smN,a.estab]},
+  {id:'smoP',    eixo:'smcon',  rot:'% SMCON Obstétrico', leg:'Estab. com SMCON obstétrico (%)',            fmtV:pctF, abs:a=>[a.smO,a.estab]},
+  {id:'smAlgumP',eixo:'smcon',  rot:'% SMCON Neo e/ou Obst', leg:'Estab. com SMCON neonatal ou obstétrico (%)', fmtV:pctF, abs:a=>[a.smAlgum,a.estab]}
 ];
 let eixoAtivo = 'ces';
-let metricaAtiva = 'txces';
+let metricaAtiva = 'rob2P';
 const NIVEIS = [
   {id:'uf',    rot:'UF',                 chave:d=>SIGLA[d.uf],  nomeDe:t=>NOME_UF[t.id]||t.nome, raioFallback:30},
   {id:'macro', rot:'Macrorregi\u00e3o',  chave:d=>d.mrs,        nomeDe:t=>t.nome,                raioFallback:16},
@@ -965,13 +995,18 @@ function medianaArr(arr){
   const m=Math.floor(a.length/2);
   return a.length%2?a[m]:(a[m-1]+a[m])/2;
 }
+function mediaArr(arr){
+  const a=arr.filter(v=>v!=null&&!isNaN(v));
+  if(!a.length) return null;
+  return a.reduce((s,v)=>s+v,0)/a.length;
+}
 
 // UFs por região do país (para o zoom)
 const REG_UFS = {};
 DADOS.forEach(d=>{ const s=SIGLA[d.uf]; if(s){(REG_UFS[d.reg]=REG_UFS[d.reg]||new Set()).add(s);} });
 
 function novoAcum(){return {tot:0,ces:0,estab:0,selo:0,enfOk:0,larc:0,diu:0,imp:0,cpn:0,
-  nv1:0,cs1:0,nv3:0,cs3:0,asfOk:0,neoSim:0,hgpar:0,smN:0,smO:0,cpnEst:0,violSim:0,violN:0,amiuV:[],g1ok:0,g2ok:0,g3ok:0,g4ok:0,contrOkN:0,smAlgum:0};}
+  nv1:0,cs1:0,nv3:0,cs3:0,asfOk:0,neoSim:0,hgpar:0,smN:0,smO:0,cpnEst:0,violSim:0,violN:0,amiuV:[],asfV:[],g1ok:0,g2ok:0,g3ok:0,g4ok:0,rob2ok:0,neoAdq:0,contrOkN:0,smAlgum:0};}
 function acumular(a,d){
   a.tot+=d.tot; a.ces+=d.ces; a.estab++;
   if(d.selo) a.selo++;
@@ -983,12 +1018,14 @@ function acumular(a,d){
   if(d.smO) a.smO++;
   if(d.smN||d.smO) a.smAlgum++;
   if(d.g1C) a.g1ok++; if(d.g2C) a.g2ok++; if(d.g3C) a.g3ok++; if(d.g4C) a.g4ok++;
+  if(d.rob2) a.rob2ok++;
+  if(d.flags && d.flags[8]==='1') a.neoAdq++;
   if(d.contrOk) a.contrOkN++;
   if(d.cpn>0) a.cpnEst++;
   if(d.viol) a.violSim++;
   a.violN+=d.violN; a.larc+=d.larc; a.diu+=d.diu; a.imp+=d.imp; a.cpn+=d.cpn;
   a.nv1+=d.nv1; a.cs1+=d.cs1; a.nv3+=d.nv3; a.cs3+=d.cs3;
-  a.amiuV.push(d.amiu);
+  a.amiuV.push(d.amiu); a.asfV.push(d.asf);
 }
 function derivar(a){
   const p=(n,dv)=>dv? n/dv*100 : null;
@@ -998,10 +1035,12 @@ function derivar(a){
   a.asfP=p(a.asfOk,a.estab); a.neoP=p(a.neoSim,a.estab); a.hgparP=p(a.hgpar,a.estab);
   a.smnP=p(a.smN,a.estab); a.smoP=p(a.smO,a.estab);
   a.enf=p(a.enfOk,a.estab); a.cpnE=p(a.cpnEst,a.estab);
-  a.amiuM=medianaArr(a.amiuV);
+  a.amiuM=mediaArr(a.amiuV);
+  a.asfM=mediaArr(a.asfV);
   a.larcM=a.tot? a.larc/a.tot*1000 : null;
   a.violP=p(a.violSim,a.estab);
   a.g1A=p(a.g1ok,a.estab); a.g2A=p(a.g2ok,a.estab); a.g3A=p(a.g3ok,a.estab); a.g4A=p(a.g4ok,a.estab);
+  a.rob2P=p(a.rob2ok,a.estab); a.neoAdqP=p(a.neoAdq,a.estab);
   a.contrP=p(a.contrOkN,a.estab);
   a.smAlgumP=p(a.smAlgum,a.estab);
   a.seloP=p(a.selo,a.estab);
@@ -1155,7 +1194,7 @@ function renderMapa(){
     const v = valorMetrica(agg[t.id],metricaAtiva);
     let k = classe(v,brks);
     if(visiveis.length===1 && v!=null) k=2;
-    const fill = k>=0 ? VERDES[k] : '#E9EDEA';
+    const fill = k>=0 ? VERDES[met.inv? 4-k : k] : '#E9EDEA';
     const sel = (terrSel && String(terrSel.id)===String(t.id)) ? ' uf-selecionada' : '';
     paths += `<path class="uf-path${sel}" data-id="${t.id}" tabindex="0" role="button" aria-label="${nv.nomeDe(t)}" d="${t.d}" fill="${fill}" fill-rule="evenodd" stroke="${strokeTerr}" stroke-width="${swTerr}" vector-effect="non-scaling-stroke"><title>${nv.nomeDe(t)}</title></path>`;
   });
@@ -1197,8 +1236,20 @@ function renderMapa(){
       `${met.fmtV(brks[1])} \u2013 ${met.fmtV(brks[2])}`,
       `${met.fmtV(brks[2])} \u2013 ${met.fmtV(brks[3])}`,
       `> ${met.fmtV(brks[3])}`];
-    $('legendaLinhas').innerHTML = faixas.map((f,i)=>
-      `<div class="legrow"><span class="legsw" style="background:${VERDES[i]}"></span>${f}</div>`).join('')
+    // faixas repetidas (muitos territ\u00f3rios com o mesmo valor) s\u00e3o exibidas uma \u00fanica vez
+    const valsLeg = visiveis.map(t=>valorMetrica(agg[t.id],metricaAtiva)).filter(v=>v!=null);
+    const maxLeg = valsLeg.length? Math.max(...valsLeg) : null;
+    const vistos = new Set();
+    let linhasLeg = '';
+    faixas.forEach((f,i)=>{
+      const chave = f.replace(/[\u2264>\s]/g,'');
+      if(f.includes('\u2013') && f.split('\u2013')[0].trim()===f.split('\u2013')[1].trim()) return;
+      if(i===4 && maxLeg!=null && maxLeg<=brks[3]) return; // sem valores acima da \u00faltima faixa
+      if(vistos.has(chave)) return; vistos.add(chave);
+      linhasLeg += `<div class="legrow"><span class="legsw" style="background:${VERDES[met.inv? 4-i : i]}"></span>${f}</div>`;
+    });
+    $('legendaLinhas').innerHTML = linhasLeg
+      + (met.inv? `<div class="legrow" style="font-size:11px;color:var(--texto-suave)">Quanto menor, melhor: verde escuro = menores valores</div>` : '')
       + `<div class="legrow"><span class="legsw" style="background:#E9EDEA"></span>Sem estabelecimento &gt;1.000 partos</div>`;
   } else if(visiveis.length===1){
     const v = valorMetrica(agg[visiveis[0].id],metricaAtiva);
@@ -1207,17 +1258,6 @@ function renderMapa(){
       `</div><div class="legrow" style="font-size:11px">Troque o detalhe do mapa para macrorregi\u00f5es ou regi\u00f5es de sa\u00fade para ver o contraste interno do estado.</div>`;
   } else {
     $('legendaLinhas').innerHTML = '<div class="legrow">Territ\u00f3rios insuficientes para formar quintis.</div>';
-  }
-
-  // referência oficial de meta (ex.: cesárea ≤ 35% Rede Alyne)
-  if(met.ref!=null){
-    const vals = visiveis.map(t=>valorMetrica(agg[t.id],metricaAtiva)).filter(v=>v!=null);
-    const acima = vals.filter(v=>v>met.ref).length;
-    $('legendaLinhas').innerHTML +=
-      `<div class="legrow" style="margin-top:6px;padding-top:6px;border-top:1px dashed var(--borda);font-size:11.5px;line-height:1.45">`+
-      `<b>Meta oficial (Rede Alyne): ≤ ${met.fmtV(met.ref)}</b><br>`+
-      `${acima} de ${vals.length} ${nv.rot.toLowerCase()}${vals.length!==1?'s':''} acima da meta `+
-      `<span style="color:var(--texto-suave)">(agregado dos estab. &gt;1.000 partos)</span></div>`;
   }
 
   const selecionar = (id)=>{
@@ -1255,6 +1295,7 @@ function renderMapa(){
       const v = valorMetrica(a, metricaAtiva);
       tt.innerHTML = `<div class="tt-nome">${nv.nomeDe(t)}</div>`+
         `<div class="tt-linha"><span>${met.rot}</span><b class="tt-metrica">${v!=null?met.fmtV(v):'\u2014'}</b></div>`+
+        (a&&met.abs&&v!=null? (x=>`<div class="tt-linha"><span>Adequados</span><b>${fmt(x[0])} de ${fmt(x[1])}</b></div>`)(met.abs(a)) : '')+
         (a? `<div class="tt-linha"><span>Estabelecimentos</span><b>${fmt(a.estab)}</b></div>`+
             `<div class="tt-linha"><span>Partos 2024</span><b>${fmt(a.tot)}</b></div>`
           : `<div class="tt-linha"><span>Sem estabelecimento &gt;1.000 partos</span></div>`)+
@@ -1314,8 +1355,8 @@ function cartaoResumo(titulo, a, rodape){
     linhas += `<div class="linha"><span>Estabelecimentos</span><b>${fmt(a.estab)}</b></div>`;
   METRICAS.filter(m=>m.eixo===eixoAtivo).forEach(m=>{
     const v = valorMetrica(a, m.id);
-    const meta = (m.ref!=null && v!=null) ? `<small style="color:${v>m.ref?'var(--alerta)':'var(--verde-fiocruz)'};font-weight:700"> ${v>m.ref?'&uarr;':'&darr;'} meta ${m.fmtV(m.ref)}</small>` : '';
-    linhas += `<div class="linha"><span>${m.rot}</span><b>${v!=null? m.fmtV(v) : '\u2014'}${meta}</b></div>`;
+    const abs = (m.abs && v!=null) ? (x=>`<small style="color:var(--texto-suave);font-weight:600"> (${fmt(x[0])}/${fmt(x[1])})</small>`)(m.abs(a)) : '';
+    linhas += `<div class="linha"><span>${m.rot}</span><b>${v!=null? m.fmtV(v) : '\u2014'}${abs}</b></div>`;
   });
   return `
     <div class="nome-uf">${titulo}</div>
@@ -1423,9 +1464,9 @@ let estagioSel = null;
 const ESTAGIOS = [
   {id:'selo',    nome:'Com selo',        det:'5 ou mais indicadores', cor:'#0A213D',
     pred:d=>d.selo===1},
-  {id:'quase',   nome:'Quase l\u00e1',   det:'4 indicadores adequados', cor:'#D68910',
+  {id:'quase',   nome:'Quase l\u00e1',   det:'4 indicadores adequados', cor:'#279261',
     pred:d=>!d.selo && d.nAdeq>=4},
-  {id:'caminho', nome:'No caminho',      det:'2 a 3 indicadores', cor:'#6FBE87',
+  {id:'caminho', nome:'No caminho',      det:'2 a 3 indicadores', cor:'#D68910',
     pred:d=>!d.selo && (d.nAdeq===2||d.nAdeq===3)},
   {id:'inicio',  nome:'In\u00edcio da jornada', det:'0 a 1 indicador', cor:'#C0392B',
     pred:d=>!d.selo && d.nAdeq<=1}
@@ -1495,15 +1536,15 @@ function renderSelo(){
 
 /* ===== Matriz semáforo território x indicador ===== */
 const MATRIZ_COLS = [
-  {k:'asfP',  rot:'Asfixia'},
-  {k:'enf',   rot:'Enferm.'},
-  {k:'amiuA', rot:'AMIU'},
+  {k:'neoAdqP',rot:'Neonatal completa'},
   {k:'rob2P', rot:'Robson \u22652'},
+  {k:'enf',   rot:'Parto enfermeira'},
+  {k:'amiuA', rot:'AMIU'},
+  {k:'asfP',  rot:'Asfixia'},
   {k:'contrP',rot:'Contracep.'},
   {k:'violP', rot:'Viol\u00eancia'},
   {k:'smnP',  rot:'SMCON Neo'},
   {k:'smoP',  rot:'SMCON Obst'},
-  {k:'neoP',  rot:'Neonatal'},
   {k:'seloP', rot:'Selo \u22655'}
 ];
 let matrizOrd = {k:'seloP', asc:false};
@@ -1528,18 +1569,16 @@ function dadosMatriz(){
   const extras = {};
   baseFiltrada().forEach(d=>{
     const k=nv.chave(d); if(k==null) return;
-    if(!extras[k]) extras[k]={amiuA:0,rob2:0,contr:0};
+    if(!extras[k]) extras[k]={amiuA:0};
     if(d.flags && d.flags[2]==='1') extras[k].amiuA++;
-    if(d.rob2) extras[k].rob2++;
-    if(d.larc>0) extras[k].contr++;
   });
   return territoriosEscopo().map(t=>{
     const a=agg[t.id]; if(!a) return null;
-    const e=extras[t.id]||{amiuA:0,rob2:0,contr:0};
+    const e=extras[t.id]||{amiuA:0};
     const p=(n)=>a.estab? n/a.estab*100 : null;
     return {id:t.id, nome:nivelAtivo==='uf'?(NOME_UF[t.id]||t.nome):t.nome, n:a.estab,
-      asfP:a.asfP, enf:a.enf, amiuA:p(e.amiuA), rob2P:p(e.rob2), contrP:p(e.contr),
-      violP:a.violP, smnP:a.smnP, smoP:a.smoP, neoP:a.neoP, seloP:a.seloP};
+      asfP:a.asfP, enf:a.enf, amiuA:p(e.amiuA), rob2P:a.rob2P, contrP:a.contrP,
+      violP:a.violP, smnP:a.smnP, smoP:a.smoP, neoAdqP:a.neoAdqP, seloP:a.seloP};
   }).filter(Boolean);
 }
 
@@ -1599,7 +1638,11 @@ function cnesDe(d){return d.est.split(' - ')[0].trim();}
 let _mapu=null, _mapuCluster=null, _mapuAberto=false;
 const _MV='#279261', _MR='#C0392B', _MA='#D68910', _ML='#E67E22';
 const MAPU_METRICAS=[
-  {id:'selo',nome:'Selo de qualidade',classe:function(d){return d.selo==1?{k:'com',rot:'Com selo',cor:_MV}:{k:'sem',rot:'Sem selo',cor:_MR};}},
+  {id:'selo',nome:'Selo de qualidade',classe:function(d){
+    for(var i=0;i<ESTAGIOS.length;i++){ var e=ESTAGIOS[i];
+      if(e.pred(d)) return {k:(i+1)+'_'+e.id, rot:e.nome, cor:e.cor}; }
+    return {k:'9_outros', rot:'Sem classificação', cor:'#9AA8A0'};
+  }},
   {id:'asf',nome:'Asfixia neonatal',classe:function(d){return d.asfC==='ADEQUADO'?{k:'ad',rot:'Adequado',cor:_MV}:{k:'in',rot:'Inadequado',cor:_MR};}},
   {id:'enf',nome:'Enfermagem obstétrica',classe:function(d){return d.enfC==='ADEQUADO'?{k:'ad',rot:'Adequado',cor:_MV}:{k:'in',rot:'Inadequado',cor:_MR};}},
   {id:'rob',nome:'Robson ≥2 grupos',classe:function(d){return d.rob2==1?{k:'ad',rot:'Adequado',cor:_MV}:{k:'in',rot:'Não adequado',cor:_MR};}}
@@ -1664,7 +1707,8 @@ function renderMapaUnidades(fit){
     var nome=d.est.replace(/^\d+\s*-\s*/,'');
     var cesPct=d.tot?(d.ces/d.tot*100):0;
     var dia=raioVol(d.tot);
-    var seloTxt=d.selo==1?'Com selo':'Sem selo', seloCor=d.selo==1?_MV:_MR;
+    var estagio=ESTAGIOS.find(function(e){return e.pred(d);});
+    var seloTxt=estagio?estagio.nome:'—', seloCor=estagio?estagio.cor:'#9AA8A0';
     var pop='<div style="font-family:Inter,sans-serif;min-width:210px;max-width:260px">'+
       '<div style="font-weight:700;color:#1D3229;font-size:13px;margin-bottom:2px">'+nome+'</div>'+
       '<div style="font-size:11px;color:#4E6A5C;margin-bottom:6px">'+d.mun+' &middot; '+d.uf+'</div>'+
@@ -1676,7 +1720,7 @@ function renderMapaUnidades(fit){
       '<div class="mapu-prow"><span>Gest&atilde;o</span><b>'+d.gestao+'</b></div>'+
       '</div></div>';
     var icon=L.divIcon({className:'mapu-pin-w',iconSize:[dia,dia],html:'<span class="mapu-pin" style="width:'+dia+'px;height:'+dia+'px;background:'+cls.cor+'"></span>'});
-    var mk=L.marker(c,{icon:icon,_cor:cls.cor}).bindPopup(pop,{maxWidth:280}).bindTooltip(nome,{direction:'top',sticky:true,opacity:.95});
+    var mk=L.marker(c,{icon:icon,_cor:cls.cor}).bindPopup(pop,{maxWidth:280}).bindTooltip(nome+' · '+cls.rot,{direction:'top',sticky:true,opacity:.95});
     _mapuCluster.addLayer(mk); pts.push(c);
   });
   renderMapuLegenda(cont,rotcor,plot);
@@ -1716,8 +1760,10 @@ function exportarExcel(){
     '% Cesariana':d.txces,'% Asfixia':d.asf,'Classif. asfixia':d.asfC,
     '% Enfermagem obst.':d.enf,'Classif. enfermagem':d.enfC,'% AMIU':d.amiu,
     '% Cesárea G1':d.g1,'% Cesárea G2':d.g2,'% Cesárea G3':d.g3,'% Cesárea G4':d.g4,
-    'Grupos Robson adequados':d.robAd,'DIU':d.diu,'Implante':d.imp,'LARC total':d.larc,
-    'Atende violência sexual':d.viol?'SIM':'','Selo ≥5':d.selo?'ADEQUADO':''
+    'Grupos Robson adequados':d.robAd,'Robson ≥2 grupos':d.rob2?'SIM':'NÃO',
+    'DIU':d.diu,'Implante':d.imp,'LARC total':d.larc,'Contracepção adequada':d.contrOk?'SIM':'NÃO',
+    'Atendimento de violência sexual':d.viol?'SIM':'','Atendimentos de violência':d.violN,
+    'Indicadores adequados':d.nAdeq,'Selo ≥5':d.selo?'ADEQUADO':''
   }));
   const ws=XLSX.utils.json_to_sheet(linhas);
   const wb=XLSX.utils.book_new();
@@ -1734,19 +1780,23 @@ function exportarPDF(){
   doc.setFontSize(9); doc.setFont('helvetica','normal');
   const reg=$('fReg').value||'Todas', uf=$('fUF').value||'Todas', mun=$('fMun').value||'Todos';
   doc.text(`Seleção: Região ${reg} · UF ${uf} · Município ${mun} · ${filtrado.length} estabelecimentos`,10,17);
-  const corpo=filtrado.slice().sort((a,b)=>b.tot-a.tot).map(d=>[
-    d.est.length>52?d.est.slice(0,50)+'…':d.est, d.uf, d.mun, fmt(d.tot),
-    d.txces.toFixed(1)+'%', d.asf.toFixed(1)+'%', d.enf.toFixed(1)+'%', d.g1.toFixed(1)+'%',
-    fmt(d.larc), d.selo?'SELO':''
-  ]);
+  const corpo=filtrado.slice().sort((a,b)=>b.tot-a.tot).map(d=>{
+    const nome=d.est.replace(/^\d+\s*-\s*/,'');
+    return [
+      nome.length>48?nome.slice(0,46)+'…':nome, d.mun+' ('+(SIGLA[d.uf]||d.uf)+')', fmt(d.tot),
+      d.neo==='SIM'?'SIM':(d.flags&&d.flags[8]==='1'?'N/A':'NÃO'), d.rob2?'SIM':'—',
+      d.enf.toFixed(1)+'%', d.amiu.toFixed(1)+'%', d.asf.toFixed(1)+'%',
+      d.contrOk?'SIM':'—', d.viol?'SIM':'—', d.selo?'SELO':''
+    ];
+  });
   doc.autoTable({
     startY:26,
-    head:[['Estabelecimento','UF','Município','Partos','% Cesárea','Asfixia','Enf. Obst.','G1','LARC','Selo']],
+    head:[['Estabelecimento','Município (UF)','Partos','Neonatal','Robson ≥2','Enfermeira','AMIU','Asfixia','Contracep.','Violência','Selo']],
     body:corpo,
     styles:{fontSize:6.8,cellPadding:1.4},
     headStyles:{fillColor:[14,122,86],fontSize:7,fontStyle:'bold'},
     alternateRowStyles:{fillColor:[246,251,247]},
-    columnStyles:{0:{cellWidth:88},3:{halign:'right'},4:{halign:'right'},5:{halign:'right'},6:{halign:'right'},7:{halign:'right'},8:{halign:'right'}}
+    columnStyles:{0:{cellWidth:74},2:{halign:'right'},5:{halign:'right'},6:{halign:'right'},7:{halign:'right'}}
   });
   const pgs=doc.internal.getNumberOfPages();
   for(let i=1;i<=pgs;i++){
@@ -1822,7 +1872,7 @@ function montarInicio(){
   $('ihPartos').textContent = DADOS.reduce((s,d)=>s+d.tot,0).toLocaleString('pt-BR');
   $('inicioGrade').innerHTML = EIXOS.map(e=>
     `<button class="ih-item" data-e="${e.id}"><span class="ih-circ">${ICONES[e.id]||''}</span><span>${e.rot}</span></button>`).join('')
-    + `<button class="ih-item ih-mapa" id="ihMapaU"><span class="ih-circ">${ICO_MAPAU}</span><span>Mapa de unidades<br>selo &times; sem selo</span></button>`;
+    + `<button class="ih-item ih-mapa" id="ihMapaU"><span class="ih-circ">${ICO_MAPAU}</span><span>Mapa de unidades<br>est&aacute;gios do selo</span></button>`;
   $('inicioGrade').querySelectorAll('.ih-item[data-e]').forEach(b=>b.onclick=()=>entrarPainel(b.dataset.e));
   $('ihMapaU').onclick = irMapaUnidades;
   $('trilhoNav').innerHTML = `<button class="home" title="Voltar ao início" aria-label="Voltar ao início">${ICO_HOME}</button>`+
