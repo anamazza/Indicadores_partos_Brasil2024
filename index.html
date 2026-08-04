@@ -364,6 +364,7 @@ table.matriz{width:100%;border-collapse:collapse;font-size:12px;min-width:980px}
 .c2{background:#FBE7C0;color:#7A5410}
 .c1{background:#FBE9E7;color:#A93226}
 .c0{background:#F0F2F0;color:#9AA8A0}
+.cel-instavel{opacity:.5}
 .matriz-legenda{display:flex;flex-wrap:wrap;gap:12px;margin-top:10px;font-size:11px;color:var(--texto-suave);align-items:center}
 
 /* Tooltip do mapa (desktop) */
@@ -617,10 +618,11 @@ body.metodologia{overflow:hidden}
       <span><span class="cel c3">50–74%</span></span>
       <span><span class="cel c2">25–49%</span></span>
       <span><span class="cel c1">&lt;25%</span></span>
-      <span><span class="cel c0">—</span> sem unidades / n&lt;5</span>
+      <span><span class="cel c0">—</span> sem unidades</span>
+      <span><span class="cel c3 cel-instavel">n&lt;5</span> tom atenuado = menos de 5 unidades (percentual instável)</span>
     </div>
     <div class="matriz-legenda">
-      <span style="flex:1;text-align:right">Territórios com menos de 5 unidades aparecem sem cor (percentual instável); observe o n. Neonatal: "não se aplica" conta como adequado (critério do selo).</span>
+      <span style="flex:1;text-align:right">Territórios com menos de 5 unidades aparecem em tom atenuado (percentual instável); observe o n. Neonatal: "não se aplica" conta como adequado (critério do selo).</span>
     </div>
   </div>
 
@@ -1804,9 +1806,9 @@ function dadosMatriz(){
 
 function celSem(v, n){
   if(v==null) return '<span class="cel c0">\u2014</span>';
-  // n<5: percentual inst\u00e1vel \u2014 mostra o valor sem cor
-  if(n!=null && n<5) return `<span class="cel c0" title="n insuficiente para leitura territorial (menos de 5 estabelecimentos)">${v.toFixed(0)}%</span>`;
   const c = v>=75?'c4' : v>=50?'c3' : v>=25?'c2' : 'c1';
+  // n<5: percentual inst\u00e1vel \u2014 mant\u00e9m a cor do sem\u00e1foro em tom atenuado
+  if(n!=null && n<5) return `<span class="cel ${c} cel-instavel" title="n pequeno (${n} estabelecimento${n>1?'s':''}): percentual inst\u00e1vel">${v.toFixed(0)}%</span>`;
   return `<span class="cel ${c}">${v.toFixed(0)}%</span>`;
 }
 function renderMatriz(){

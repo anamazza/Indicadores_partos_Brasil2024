@@ -43,7 +43,7 @@ Todos os dados são públicos e agregados por estabelecimento; não há informa�
 
 **Classes do mapa.** Todos os indicadores mapeados são percentuais de adequação ("mais é melhor"). Quintis sobre os territórios visíveis no nível selecionado; escala sequencial de verdes, segura para daltonismo; faixas repetidas são colapsadas na legenda. Territórios sem estabelecimento elegível aparecem em cinza.
 
-**Matriz semáforo.** Cada célula é o % de estabelecimentos do território adequados no indicador, em quatro faixas: ≥75%, 50–74%, 25–49% e <25%. Territórios com menos de 5 unidades aparecem sem cor (percentual instável); o `n` acompanha cada linha.
+**Matriz semáforo.** Cada célula é o % de estabelecimentos do território adequados no indicador, em quatro faixas: ≥75%, 50–74%, 25–49% e <25%. Territórios com menos de 5 unidades aparecem em tom atenuado (percentual instável); o `n` acompanha cada linha.
 
 **Estágios do selo.** O selo reconhece estabelecimentos com **5 ou mais dos 9 indicadores classificatórios** adequados (asfixia, enfermagem obstétrica, AMIU, Robson ≥2 grupos, contracepção, violência sexual, SMCON neonatal, SMCON obstétrico e unidade neonatal completa). Robson ≥2 grupos é **um dos 9 indicadores, não uma exigência à parte**. A "unidade neonatal completa" conta como adequada quando é "sim" **ou** "não se aplica". O selo exibido é o campo oficial da planilha (`nAdeq ≥ 5`).
 
