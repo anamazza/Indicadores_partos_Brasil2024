@@ -1302,9 +1302,9 @@ function viewBoxAtual(){
     });
     const pad=Math.max(x1-x0,y1-y0)*0.05;
     let x=x0-pad, y=y0-pad, w=(x1-x0)+2*pad, h=(y1-y0)+2*pad;
-    // piso de enquadramento: estados pequenos (ES, SE, AL...) não ampliam além de ~12x,
-    // preenchendo melhor o quadro no filtro por estado sem distorcer o traço
-    const MINW=75, MINH=66;
+    // sem piso de enquadramento: o estado filtrado preenche o quadro
+    // (traço e rótulos são vetoriais e se ajustam à escala)
+    const MINW=20, MINH=18;
     if(w<MINW){ const cx=x+w/2; w=MINW; x=cx-w/2; }
     if(h<MINH){ const cy=y+h/2; h=MINH; y=cy-h/2; }
     return {x,y,w,h,zoom:true};
@@ -1398,22 +1398,24 @@ function renderMapa(){
   const escopo = fixo ? ' \u00b7 faixas fixas ancoradas na meta' : (vb.zoom ? ' \u00b7 quintis da regi\u00e3o' : '');
   $('legTitulo').textContent = met.leg + ' \u00b7 por ' + nv.rot.toLowerCase() + escopo;
   if(brks){
-    const faixas=[`\u2264 ${met.fmtV(brks[0])}`,
-      `${met.fmtV(brks[0])} \u2013 ${met.fmtV(brks[1])}`,
-      `${met.fmtV(brks[1])} \u2013 ${met.fmtV(brks[2])}`,
-      `${met.fmtV(brks[2])} \u2013 ${met.fmtV(brks[3])}`,
-      `> ${met.fmtV(brks[3])}`];
-    // faixas repetidas (muitos territ\u00f3rios com o mesmo valor) s\u00e3o exibidas uma \u00fanica vez
+    // constr\u00f3i as faixas colapsando empates (muitos territ\u00f3rios com o mesmo valor)
+    // e marcando com ">" os limites que j\u00e1 apareceram em faixa anterior
     const valsLeg = visiveis.map(t=>valorMetrica(agg[t.id],metricaAtiva)).filter(v=>v!=null);
     const maxLeg = valsLeg.length? Math.max(...valsLeg) : null;
-    const vistos = new Set();
+    const limites=[[null,brks[0]],[brks[0],brks[1]],[brks[1],brks[2]],[brks[2],brks[3]],[brks[3],null]];
+    const vistos = new Set(), bordas = new Set();
     let linhasLeg = '';
-    faixas.forEach((f,i)=>{
-      const chave = f.replace(/[\u2264>\s]/g,'');
-      if(f.includes('\u2013') && f.split('\u2013')[0].trim()===f.split('\u2013')[1].trim()) return;
-      if(i===4 && maxLeg!=null && maxLeg<=brks[3]) return; // sem valores acima da \u00faltima faixa
-      if(vistos.has(chave)) return; vistos.add(chave);
-      linhasLeg += `<div class="legrow"><span class="legsw" style="background:${VERDES[met.inv? 4-i : i]}"></span>${f}</div>`;
+    limites.forEach((par,i)=>{
+      const lo=par[0], hi=par[1];
+      if(lo!=null && hi!=null && met.fmtV(lo)===met.fmtV(hi)) return;   // faixa vazia (empate)
+      if(i===4 && maxLeg!=null && maxLeg<=brks[3]) return;              // nada acima da \u00faltima
+      let rot;
+      if(lo==null)      rot = hi===0 ? met.fmtV(0) : '\u2264 '+met.fmtV(hi);
+      else if(hi==null) rot = '> '+met.fmtV(lo);
+      else rot = (bordas.has(met.fmtV(lo)) ? '> '+met.fmtV(lo) : met.fmtV(lo))+' \u2013 '+met.fmtV(hi);
+      if(vistos.has(rot)) return; vistos.add(rot);
+      if(hi!=null) bordas.add(met.fmtV(hi));
+      linhasLeg += `<div class="legrow"><span class="legsw" style="background:${VERDES[met.inv? 4-i : i]}"></span>${rot}</div>`;
     });
     $('legendaLinhas').innerHTML = linhasLeg
       + (met.inv? `<div class="legrow" style="font-size:11px;color:var(--texto-suave)">Quanto menor, melhor: verde escuro = menores valores</div>` : '')
