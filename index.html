@@ -995,7 +995,7 @@ function renderRobson(){
     type:'bar',
     data:{labels:['G1','G2','G3','G4'],
       datasets:[{label:'Média % cesárea',data:vals,
-        backgroundColor:grupos.map((g,i)=>vals[i]<=ROBSON_REF[g]?C.fiocruz:C.alerta),borderRadius:6,maxBarThickness:56}]},
+        backgroundColor:[C.lima,C.esmeralda,C.lima,C.esmeralda],borderRadius:6,maxBarThickness:56}]},
     options:{
       responsive:true,maintainAspectRatio:false,
       plugins:{legend:{display:false},

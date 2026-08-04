@@ -58,7 +58,7 @@ A Classificação de Robson (OMS, 2017) divide as gestantes em 10 grupos mutuame
 
 **% Cesariana Adeq. Robson G1 a G4** — % de estabelecimentos adequados em cada grupo, individualmente.
 
-**Gráfico "Cesariana nos grupos de Robson"** — **média** do % de cesariana dos estabelecimentos da seleção em cada grupo, excluídos os sem partos no grupo, comparada à meta do grupo (barra verde = média dentro da meta; vermelha = acima).
+**Gráfico "Cesariana nos grupos de Robson"** — **média** do % de cesariana dos estabelecimentos da seleção em cada grupo, excluídos os sem partos no grupo. A meta de cada grupo aparece no subtítulo do gráfico e no tooltip de cada barra.
 
 O painel **não exibe** taxa geral de cesariana nem meta de 35%; a taxa por estabelecimento permanece disponível nas exportações. *Referência de contexto:* OMS (2015) considera 10–15% a faixa populacional ideal.
 
