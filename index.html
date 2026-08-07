@@ -615,7 +615,7 @@ body.metodologia{overflow:hidden}
     <button class="png-mini" onclick="exportarMapaUnidadesPNG()">&#8681; PNG</button></div>
     <div class="ctx-linha"></div>
     <div class="mapu-ctrl mapu-filtros"><label for="mapuUF">Estado:</label><select id="mapuUF" onchange="mapuSetUF(this.value)"><option value="">Todos</option></select><label for="mapuMacro">Macrorregi&atilde;o:</label><select id="mapuMacro" onchange="mapuSetMacro(this.value)"><option value="">Todas</option></select><button class="mapu-limpar" onclick="mapuLimparFiltros()">Limpar filtros</button></div>
-    <div class="mapu-ctrl"><label for="mapuMetrica">Colorir por:</label><select id="mapuMetrica" onchange="mudarMetricaMapa(this.value)"><option value="selo">Selo de conformidade</option><option value="asf">Asfixia</option><option value="enf">Parto vaginal assistido por enfermeira</option><option value="rob">Robson &ge;2 grupos</option></select><span class="mapu-hint">Clique nos itens da legenda para mostrar/ocultar grupos</span></div>
+    <div class="mapu-ctrl"><label for="mapuMetrica">Colorir por:</label><select id="mapuMetrica" onchange="mudarMetricaMapa(this.value)"><option value="selo">Selo de conformidade</option><option value="neo">Unidade Neonatal completa</option><option value="rob">Robson &ge;2 grupos</option><option value="enf">Parto vaginal assistido por enfermeira</option><option value="amiu">AMIU</option><option value="asf">Asfixia</option><option value="larc">Oferta de LARC</option><option value="viol">Atendimento de viol&ecirc;ncia sexual</option><option value="smn">SMCON Neonatal</option><option value="smo">SMCON Obstétrico</option></select><span class="mapu-hint">Clique nos itens da legenda para mostrar/ocultar grupos</span></div>
     <div class="mapu-legenda" id="mapuLegenda"></div>
     <div id="mapaUnidades" style="height:540px;border-radius:12px;border:1.5px solid var(--borda);overflow:hidden;margin-top:4px"></div>
     <div style="margin-top:8px;font-size:11px;color:var(--texto-suave)">Selo de conformidade oficial da planilha (&ge;5 dos 9 indicadores classificat&oacute;rios adequados; "n&atilde;o se aplica" em unidade neonatal conta como adequado). Coordenadas por CNES; duas unidades sem geo exata usam o centro do munic&iacute;pio.</div>
@@ -1899,9 +1899,15 @@ const MAPU_METRICAS=[
       if(e.pred(d)) return {k:(i+1)+'_'+e.id, rot:e.nome, cor:e.cor}; }
     return {k:'9_outros', rot:'Sem classificação', cor:'#9AA8A0'};
   }},
-  {id:'asf',nome:'Asfixia',classe:function(d){return d.asfC==='ADEQUADO'?{k:'ad',rot:'Adequado',cor:_MV}:{k:'in',rot:'Inadequado',cor:_MR};}},
-  {id:'enf',nome:'Parto vaginal assistido por enfermeira',classe:function(d){return d.enfC==='ADEQUADO'?{k:'ad',rot:'Adequado',cor:_MV}:{k:'in',rot:'Inadequado',cor:_MR};}},
-  {id:'rob',nome:'Robson ≥2 grupos',classe:function(d){return d.rob2==1?{k:'ad',rot:'Adequado',cor:_MV}:{k:'in',rot:'Não adequado',cor:_MR};}}
+  {id:'neo',nome:'Unidade Neonatal completa',classe:function(d){return (d.flags&&d.flags[8]==='1')?{k:'ad',rot:'Adequado',cor:_MV}:{k:'in',rot:'Não adequado',cor:_MR};}},
+  {id:'rob',nome:'Robson ≥2 grupos',classe:function(d){return d.rob2==1?{k:'ad',rot:'Adequado',cor:_MV}:{k:'in',rot:'Não adequado',cor:_MR};}},
+  {id:'enf',nome:'Parto vaginal assistido por enfermeira',classe:function(d){return d.enfC==='ADEQUADO'?{k:'ad',rot:'Adequado',cor:_MV}:{k:'in',rot:'Não adequado',cor:_MR};}},
+  {id:'amiu',nome:'AMIU',classe:function(d){return (d.flags&&d.flags[2]==='1')?{k:'ad',rot:'Adequado',cor:_MV}:{k:'in',rot:'Não adequado',cor:_MR};}},
+  {id:'asf',nome:'Asfixia',classe:function(d){return d.asfC==='ADEQUADO'?{k:'ad',rot:'Adequado',cor:_MV}:{k:'in',rot:'Não adequado',cor:_MR};}},
+  {id:'larc',nome:'Oferta de LARC',classe:function(d){return d.contrOk?{k:'ad',rot:'Adequado',cor:_MV}:{k:'in',rot:'Não adequado',cor:_MR};}},
+  {id:'viol',nome:'Atendimento de violência sexual',classe:function(d){return d.viol?{k:'ad',rot:'Adequado',cor:_MV}:{k:'in',rot:'Não adequado',cor:_MR};}},
+  {id:'smn',nome:'SMCON Neonatal',classe:function(d){return d.smN?{k:'ad',rot:'Adequado',cor:_MV}:{k:'in',rot:'Não adequado',cor:_MR};}},
+  {id:'smo',nome:'SMCON Obstétrico',classe:function(d){return d.smO?{k:'ad',rot:'Adequado',cor:_MV}:{k:'in',rot:'Não adequado',cor:_MR};}}
 ];
 let _mapuMetrica='selo';
 let _mapuUF='', _mapuMacro='';
