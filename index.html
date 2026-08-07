@@ -616,7 +616,7 @@ body.metodologia{overflow:hidden}
   <div class="secao-titulo" style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><h2>Mapa de unidades</h2><button class="acao btn-xlsx" id="mapuToggle" onclick="toggleMapaUnidades()">&#9654; Mostrar mapa</button></div>
   <div class="card" id="mapuCard" style="display:none">
     <div class="card-head"><div><h3>Mapa de unidades &middot; est&aacute;gios do selo</h3>
-    <div class="sub">Cada ponto &eacute; um estabelecimento, na cor do seu est&aacute;gio do selo: Com selo, Quase l&aacute;, No caminho e In&iacute;cio da jornada &middot; respeita os filtros do painel</div></div>
+    <div class="sub">Cada ponto &eacute; um estabelecimento, na cor do seu est&aacute;gio do selo: Com selo, Quase l&aacute;, No caminho e In&iacute;cio da jornada &middot; use "Colorir por" para ver qualquer um dos 9 indicadores do selo &middot; respeita os filtros do painel</div></div>
     <button class="png-mini" onclick="exportarMapaUnidadesPNG()">&#8681; PNG</button></div>
     <div class="ctx-linha"></div>
     <div class="mapu-ctrl mapu-filtros"><label for="mapuUF">Estado:</label><select id="mapuUF" onchange="mapuSetUF(this.value)"><option value="">Todos</option></select><label for="mapuMacro">Macrorregi&atilde;o:</label><select id="mapuMacro" onchange="mapuSetMacro(this.value)"><option value="">Todas</option></select><button class="mapu-limpar" onclick="mapuLimparFiltros()">Limpar filtros</button></div>
@@ -779,6 +779,14 @@ body.metodologia{overflow:hidden}
       <p><b>Conceituação:</b> o estabelecimento recebe o selo quando ao menos 5 dos 9 indicadores classificatórios estão adequados: Asfixia, Parto vaginal assistido por enfermeira, AMIU, Robson ≥2 grupos, Oferta de LARC, Atendimento de violência sexual, SMCON Neonatal, SMCON Obstétrico e Unidade Neonatal completa. "Robson ≥2 grupos" integra os 9 indicadores, sem constituir exigência adicional. O selo corresponde ao campo classificatório oficial da base.</p>
       <p><b>Interpretação:</b> o selo afere conformidade com itens de qualificação — estrutura, processo e registro — e não constitui, por si, medida de qualidade assistencial. A taxa de cesariana não integra o selo. Unidades de maior porte e complexidade tendem a reunir mais itens por capacidade instalada e de registro; recomenda-se acompanhar a evolução de cada unidade no tempo, em vez de ordenar unidades de perfis distintos.</p>
       <p><b>Fonte:</b> campo classificatório oficial da base institucional (planilha derivada de SINASC, CNES e SIH-SUS; extração de 01/07/2026).</p>
+    </section>
+
+    <section>
+      <h2>Mapa de unidades — estágios do selo</h2>
+      <p><b>Conceituação:</b> mapa de pontos em que cada estabelecimento é representado na cor do seu estágio do selo — Com selo, Quase lá, No caminho e Início da jornada. O seletor "Colorir por" permite recolorir os pontos por qualquer um dos 9 indicadores classificatórios, em verde (adequado) × roxo (não adequado), par de cores seguro para daltonismo.</p>
+      <p><b>Método de apresentação:</b> o tamanho de cada ponto é proporcional à raiz do total de partos da unidade. Pontos próximos são agrupados em círculos cuja composição de cores reflete as categorias dos estabelecimentos agrupados; a legenda permite mostrar ou ocultar cada categoria, e o mapa respeita os filtros do painel, além dos recortes por estado e macrorregião.</p>
+      <p><b>Ficha da unidade:</b> ao tocar em um ponto, exibem-se o estágio do selo com o número de indicadores adequados (n/9), o total de partos, a natureza jurídica e a gestão. A taxa de cesariana não é exibida, em coerência com a leitura por grupos de Robson.</p>
+      <p><b>Fonte:</b> coordenadas geocodificadas por CNES (duas unidades sem geolocalização exata utilizam o centro do município); categorias derivadas dos indicadores classificatórios da base institucional.</p>
     </section>
 
     <section>
