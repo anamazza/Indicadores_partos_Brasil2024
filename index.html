@@ -203,9 +203,14 @@ button.kpi:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(10,33,61,
 .tabela-card{background:var(--branco);border-radius:14px;box-shadow:var(--sombra);padding:18px;overflow-x:auto}
 table{width:100%;border-collapse:collapse;font-size:12.5px;min-width:860px}
 thead th{
-  background:var(--verde-esmeralda);color:#fff;font-family:'Archivo';font-weight:700;font-size:11px;
-  text-transform:uppercase;letter-spacing:.5px;padding:10px 9px;text-align:left;cursor:pointer;user-select:none;white-space:nowrap
+  background:var(--verde-esmeralda);color:#fff;font-family:'Archivo';font-weight:700;font-size:10.5px;
+  text-transform:uppercase;letter-spacing:.4px;padding:9px 8px;text-align:left;cursor:pointer;user-select:none;
+  white-space:normal;line-height:1.25;vertical-align:middle
 }
+/* nomes longos quebram em 2-3 linhas dentro de colunas de largura contida */
+thead th[data-k="neoFlag"],thead th[data-k="rob2"]{max-width:96px}
+thead th[data-k="enf"]{max-width:118px}
+thead th[data-k="contrOk"],thead th[data-k="viol"]{max-width:104px}
 thead th:hover{background:var(--verde-profundo)}
 tbody td{padding:8px 9px;border-bottom:1px solid var(--mint)}
 tbody tr:hover{background:var(--mint-card)}
