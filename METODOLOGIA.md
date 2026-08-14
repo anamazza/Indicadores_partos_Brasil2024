@@ -30,7 +30,7 @@ Os dados são públicos e agregados por estabelecimento; não há informação i
 - **Médias** — o percentual de AMIU e as taxas de cesariana por grupo de Robson (gráfico) correspondem à média dos estabelecimentos da seleção; no gráfico de Robson, excluem-se as unidades sem partos no grupo. O painel não utiliza mediana.
 - **Mapa coroplético** — todos os indicadores mapeados são percentuais de adequação; as classes são quintis dos territórios visíveis, em escala sequencial de verdes, segura para daltonismo. Territórios sem estabelecimento elegível aparecem em cinza.
 - **Matriz semáforo** — cada célula é o percentual de estabelecimentos adequados do território no indicador, em quatro faixas (≥75%, 50–74%, 25–49%, <25%). Territórios com menos de 5 unidades são apresentados em tom atenuado (percentual instável); o `n` acompanha cada linha.
-- **Mapa de unidades** — cada estabelecimento é um ponto na cor do seu estágio do selo (Com selo, Quase lá, No caminho, Início da jornada); o seletor "Colorir por" recolore os pontos por qualquer um dos 9 indicadores classificatórios, em verde (adequado) × roxo (não adequado), par seguro para daltonismo. O tamanho do ponto é proporcional à raiz do total de partos; agrupamentos exibem a composição de cores das unidades agrupadas, e a legenda permite ocultar categorias. A ficha de cada unidade traz o estágio do selo com o número de indicadores adequados (n/9), total de partos, natureza jurídica e gestão — sem taxa de cesariana, em coerência com a leitura por grupos de Robson. Coordenadas geocodificadas por CNES; duas unidades sem geolocalização exata utilizam o centro do município.
+- **Mapa de unidades** — cada estabelecimento é um ponto na cor do seu estágio de qualificação (Alta qualificação, Quase lá, No caminho, Início da jornada); o seletor "Colorir por" recolore os pontos por qualquer um dos 9 indicadores classificatórios, em verde (adequado) × roxo (não adequado), par seguro para daltonismo. O tamanho do ponto é proporcional à raiz do total de partos; agrupamentos exibem a composição de cores das unidades agrupadas, e a legenda permite ocultar categorias. A ficha de cada unidade traz o estágio de qualificação com o número de indicadores adequados (n/9), total de partos, natureza jurídica e gestão — sem taxa de cesariana, em coerência com a leitura por grupos de Robson. Coordenadas geocodificadas por CNES; duas unidades sem geolocalização exata utilizam o centro do município.
 
 ## 4. Indicadores
 
@@ -85,9 +85,9 @@ As metas por grupo são **institucionais**, adotadas pela Coordenação com base
 **SMCON Neonatal · SMCON Obstétrico · SMCON Neonatal e/ou Obstétrico.** Adesão do estabelecimento aos módulos Neonatal e Obstétrico do SMCON (IFF/Fiocruz, Estratégia Qualineo), de alimentação voluntária. Adequado quando a unidade alimenta o(s) módulo(s).
 *Fonte:* IFF/Fiocruz — Instrutivo do SMCON.
 
-## 5. Selo de conformidade
+## 5. Estágios de qualificação
 
-O selo reconhece os estabelecimentos com **5 ou mais dos 9 indicadores classificatórios** adequados. Corresponde ao campo classificatório da planilha (número de indicadores adequados ≥ 5).
+A **alta qualificação** reconhece os estabelecimentos com **5 ou mais dos 9 indicadores classificatórios** adequados. Corresponde ao campo classificatório oficial da planilha (ali denominado "selo de conformidade": número de indicadores adequados ≥ 5).
 
 Os 9 indicadores: Asfixia · Parto vaginal assistido por enfermeira · AMIU · Robson ≥2 grupos · Oferta de LARC · Atendimento de violência sexual · SMCON Neonatal · SMCON Obstétrico · Unidade Neonatal completa.
 
@@ -96,12 +96,12 @@ Os 9 indicadores: Asfixia · Parto vaginal assistido por enfermeira · AMIU · R
 
 | Estágio | Critério | Brasil 2024 |
 |---|---|---|
-| Com selo | 5 ou mais indicadores adequados | 122 (22,5%) |
+| Alta qualificação | 5 ou mais indicadores adequados | 122 (22,5%) |
 | Quase lá | 4 indicadores adequados | 129 (23,8%) |
 | No caminho | 2 a 3 indicadores adequados | 229 (42,2%) |
 | Início da jornada | 0 a 1 indicador adequado | 63 (11,6%) |
 
-O selo afere conformidade com itens de qualificação — estrutura, processo e registro — e não constitui, por si, medida de qualidade assistencial. A taxa de cesariana não integra o selo.
+A classificação afere conformidade com itens de qualificação — estrutura, processo e registro — e não constitui, por si, medida de qualidade assistencial. A taxa de cesariana não integra a classificação.
 
 ## 6. Resultados nacionais de referência (2024)
 
@@ -115,7 +115,7 @@ Valores agregados dos 543 estabelecimentos, para conferência.
 | % Adeq. Robson G3 | 38,9% (211/543) | % SMCON Obstétrico | 9,4% (51/543) |
 | % Adeq. Robson G4 | 50,1% (272/543) | % SMCON Neonatal e/ou Obstétrico | 22,1% (120/543) |
 | % Parto vaginal assistido por enfermeira | 28,5% (155/543) | % Unidade Neonatal completa | 43,6% (237/543) |
-| % Asfixia | 71,5% (388/543) | % com Selo | 22,5% (122/543) |
+| % Asfixia | 71,5% (388/543) | % Alta qualificação | 22,5% (122/543) |
 
 Média do percentual de cesariana nos grupos (estabelecimentos com partos no grupo): G1 36,1% · G2 66,3% · G3 18,5% · G4 49,1%.
 

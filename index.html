@@ -211,6 +211,7 @@ thead th{
 thead th[data-k="neoFlag"],thead th[data-k="rob2"]{max-width:96px}
 thead th[data-k="enf"]{max-width:118px}
 thead th[data-k="contrOk"],thead th[data-k="viol"]{max-width:104px}
+thead th[data-k="selo"]{max-width:96px}
 thead th:hover{background:var(--verde-profundo)}
 tbody td{padding:8px 9px;border-bottom:1px solid var(--mint)}
 tbody tr:hover{background:var(--mint-card)}
@@ -218,7 +219,7 @@ td.num{text-align:right;font-variant-numeric:tabular-nums}
 .badge{display:inline-block;padding:2px 9px;border-radius:12px;font-size:10.5px;font-weight:700}
 .b-ok{background:#E3F4E8;color:var(--verde-profundo)}
 .b-ruim{background:#FBE9E7;color:var(--alerta)}
-.b-selo{background:var(--indigo);color:#fff}
+.b-selo{background:var(--indigo);color:#fff;font-size:9px;letter-spacing:.2px;white-space:nowrap}
 .contagem{font-size:12px;color:var(--texto-suave);margin:8px 2px}
 
 /* Mapa do Brasil */
@@ -325,7 +326,7 @@ body.sheet-aberta .sheet-scrim{opacity:1;pointer-events:auto}
   .ctrl-grupo .metricas .chip{flex-shrink:0}
 }
 
-/* Selo: rosca + estágios */
+/* Estágios de qualificação: rosca + barras */
 .selo-grid{display:grid;grid-template-columns:230px 1fr;gap:24px;align-items:center}
 @media(max-width:640px){.selo-grid{grid-template-columns:1fr}}
 .selo-donut{position:relative;height:210px}
@@ -447,11 +448,11 @@ body.metodologia{overflow:hidden}
       <div class="ih-sep"></div>
       <div class="ih-stat"><b id="ihPartos">&ndash;</b><span>partos em 2024</span></div>
     </div>
-    <div class="ih-escolha">Escolha um eixo para come&ccedil;ar</div>
+    <div class="ih-escolha">Escolha um indicador para come&ccedil;ar</div>
     <div class="ih-grade" id="inicioGrade"></div>
   </div>
 </section>
-<nav class="trilho" id="trilhoNav" aria-label="Navega&ccedil;&atilde;o por eixos"></nav>
+<nav class="trilho" id="trilhoNav" aria-label="Navega&ccedil;&atilde;o por indicadores"></nav>
 
 <header>
   <svg class="hex-bg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
@@ -544,7 +545,6 @@ body.metodologia{overflow:hidden}
     <div class="mapa-wrap">
       <div class="mapa-esquerda">
         <div class="mapa-rail">
-          <div class="rail-grupo"><span class="ctrl-label">Eixo temático</span><div class="rail-chips" id="eixoChips"></div></div>
           <div class="rail-grupo"><span class="ctrl-label">Indicador</span><div class="rail-chips" id="metricas"></div></div>
         </div>
         <div class="mapa-svg-card" id="mapaContainer"></div>
@@ -595,11 +595,11 @@ body.metodologia{overflow:hidden}
     <div class="chart-box alto" style="height:440px"><canvas id="chTop"></canvas></div>
   </div>
 
-  <div class="secao-titulo"><h2>Selo de conformidade</h2></div>
+  <div class="secao-titulo"><h2>Estágios de qualificação</h2></div>
   <div class="card">
-    <div class="card-head"><div><h3>Selo de conformidade com itens de qualificação (&ge;5 de 9 adequados)</h3>
-    <div class="sub">Onde a rede está na jornada até o selo · toque em um estágio para filtrar o painel</div></div>
-    <button class="png-mini" data-c="chSeloDonut" data-n="selo_qualidade">&#8681; PNG</button></div>
+    <div class="card-head"><div><h3>Estágios de qualificação das unidades (alta qualificação: &ge;5 de 9 itens adequados)</h3>
+    <div class="sub">Onde a rede está na jornada até a alta qualificação · toque em um estágio para filtrar o painel</div></div>
+    <button class="png-mini" data-c="chSeloDonut" data-n="estagios_qualificacao">&#8681; PNG</button></div>
     <div class="ctx-linha"></div>
     <div class="selo-grid">
       <div class="selo-donut">
@@ -610,20 +610,20 @@ body.metodologia{overflow:hidden}
     </div>
     <div id="seloInsight" style="margin-top:14px;padding:12px 14px;background:var(--mint-card);border:1.5px solid var(--borda);border-radius:10px;font-size:12.5px;line-height:1.55"></div>
     <div id="seloAvisoCes"></div>
-    <div style="margin-top:8px;font-size:11px;color:var(--texto-suave)">Selo = 5 ou mais dos 9 indicadores classificatórios adequados: Asfixia, Parto vaginal assistido por enfermeira, AMIU, Robson &ge;2 grupos, Oferta de LARC, Atendimento de violência sexual, SMCON Neonatal, SMCON Obstétrico e Unidade Neonatal completa. Robson &ge;2 grupos é um dos 9 indicadores, não uma exigência à parte; "unidade neonatal completa" conta como adequada quando é "sim" ou "não se aplica". O selo é o campo oficial da planilha. Limiares institucionais de adequação: asfixia &le;0,6% (&ge;2.500g, sem anomalias); parto vaginal assistido por enfermeira &ge;50%; AMIU &ge;50%; oferta de LARC &ge;3 inserções de DIU/implante no ano; atendimento de violência sexual &ge;2 no ano; Robson por faixas de taxa por grupo, conforme planilha institucional.</div>
+    <div style="margin-top:8px;font-size:11px;color:var(--texto-suave)">Alta qualificação = 5 ou mais dos 9 indicadores classificatórios adequados: Asfixia, Parto vaginal assistido por enfermeira, AMIU, Robson &ge;2 grupos, Oferta de LARC, Atendimento de violência sexual, SMCON Neonatal, SMCON Obstétrico e Unidade Neonatal completa. Robson &ge;2 grupos é um dos 9 indicadores, não uma exigência à parte; "unidade neonatal completa" conta como adequada quando é "sim" ou "não se aplica". A classificação é o campo oficial da planilha. Limiares institucionais de adequação: asfixia &le;0,6% (&ge;2.500g, sem anomalias); parto vaginal assistido por enfermeira &ge;50%; AMIU &ge;50%; oferta de LARC &ge;3 inserções de DIU/implante no ano; atendimento de violência sexual &ge;2 no ano; Robson por faixas de taxa por grupo, conforme planilha institucional.</div>
   </div>
 
   <div class="secao-titulo" style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><h2>Mapa de unidades</h2><button class="acao btn-xlsx" id="mapuToggle" onclick="toggleMapaUnidades()">&#9654; Mostrar mapa</button></div>
   <div class="card" id="mapuCard" style="display:none">
-    <div class="card-head"><div><h3>Mapa de unidades &middot; est&aacute;gios do selo</h3>
-    <div class="sub">Cada ponto &eacute; um estabelecimento, na cor do seu est&aacute;gio do selo: Com selo, Quase l&aacute;, No caminho e In&iacute;cio da jornada &middot; use "Colorir por" para ver qualquer um dos 9 indicadores do selo &middot; respeita os filtros do painel</div></div>
+    <div class="card-head"><div><h3>Mapa de unidades &middot; est&aacute;gios de qualifica&ccedil;&atilde;o</h3>
+    <div class="sub">Cada ponto &eacute; um estabelecimento, na cor do seu est&aacute;gio de qualifica&ccedil;&atilde;o: Alta qualifica&ccedil;&atilde;o, Quase l&aacute;, No caminho e In&iacute;cio da jornada &middot; use "Colorir por" para ver qualquer um dos 9 indicadores classificat&oacute;rios &middot; respeita os filtros do painel</div></div>
     <button class="png-mini" onclick="exportarMapaUnidadesPNG()">&#8681; PNG</button></div>
     <div class="ctx-linha"></div>
     <div class="mapu-ctrl mapu-filtros"><label for="mapuUF">Estado:</label><select id="mapuUF" onchange="mapuSetUF(this.value)"><option value="">Todos</option></select><label for="mapuMacro">Macrorregi&atilde;o:</label><select id="mapuMacro" onchange="mapuSetMacro(this.value)"><option value="">Todas</option></select><button class="mapu-limpar" onclick="mapuLimparFiltros()">Limpar filtros</button></div>
-    <div class="mapu-ctrl"><label for="mapuMetrica">Colorir por:</label><select id="mapuMetrica" onchange="mudarMetricaMapa(this.value)"><option value="selo">Selo de conformidade</option><option value="neo">Unidade Neonatal completa</option><option value="rob">Robson &ge;2 grupos</option><option value="enf">Parto vaginal assistido por enfermeira</option><option value="amiu">AMIU</option><option value="asf">Asfixia</option><option value="larc">Oferta de LARC</option><option value="viol">Atendimento de viol&ecirc;ncia sexual</option><option value="smn">SMCON Neonatal</option><option value="smo">SMCON Obstétrico</option></select><span class="mapu-hint">Clique nos itens da legenda para mostrar/ocultar grupos</span></div>
+    <div class="mapu-ctrl"><label for="mapuMetrica">Colorir por:</label><select id="mapuMetrica" onchange="mudarMetricaMapa(this.value)"><option value="selo">Est&aacute;gio de qualifica&ccedil;&atilde;o</option><option value="neo">Unidade Neonatal completa</option><option value="rob">Robson &ge;2 grupos</option><option value="enf">Parto vaginal assistido por enfermeira</option><option value="amiu">AMIU</option><option value="asf">Asfixia</option><option value="larc">Oferta de LARC</option><option value="viol">Atendimento de viol&ecirc;ncia sexual</option><option value="smn">SMCON Neonatal</option><option value="smo">SMCON Obstétrico</option></select><span class="mapu-hint">Clique nos itens da legenda para mostrar/ocultar grupos</span></div>
     <div class="mapu-legenda" id="mapuLegenda"></div>
     <div id="mapaUnidades" style="height:540px;border-radius:12px;border:1.5px solid var(--borda);overflow:hidden;margin-top:4px"></div>
-    <div style="margin-top:8px;font-size:11px;color:var(--texto-suave)">Selo de conformidade oficial da planilha (&ge;5 dos 9 indicadores classificat&oacute;rios adequados; "n&atilde;o se aplica" em unidade neonatal conta como adequado). Coordenadas por CNES; duas unidades sem geo exata usam o centro do munic&iacute;pio.</div>
+    <div style="margin-top:8px;font-size:11px;color:var(--texto-suave)">Classifica&ccedil;&atilde;o pelo campo oficial da planilha: alta qualifica&ccedil;&atilde;o = &ge;5 dos 9 indicadores classificat&oacute;rios adequados ("n&atilde;o se aplica" em unidade neonatal conta como adequado). Coordenadas por CNES; duas unidades sem geo exata usam o centro do munic&iacute;pio.</div>
   </div>
 
   <div class="secao-titulo"><h2>Matriz semáforo</h2></div>
@@ -643,7 +643,7 @@ body.metodologia{overflow:hidden}
       <span><span class="cel c3 cel-instavel">n&lt;5</span> tom atenuado = menos de 5 unidades (percentual instável)</span>
     </div>
     <div class="matriz-legenda">
-      <span style="flex:1;text-align:right">Territórios com menos de 5 unidades aparecem em tom atenuado (percentual instável); observe o n. Neonatal: "não se aplica" conta como adequado (critério do selo).</span>
+      <span style="flex:1;text-align:right">Territórios com menos de 5 unidades aparecem em tom atenuado (percentual instável); observe o n. Neonatal: "não se aplica" conta como adequado (critério da classificação).</span>
     </div>
   </div>
 
@@ -658,8 +658,8 @@ body.metodologia{overflow:hidden}
         <input id="tblBusca" type="text" placeholder="Nome, CNES ou município...">
       </div>
       <div class="campo" style="min-width:130px">
-        <label for="tblSelo">Selo &ge;5</label>
-        <select id="tblSelo"><option value="">Todos</option><option value="1">Com selo</option><option value="0">Sem selo</option></select>
+        <label for="tblSelo">Qualifica&ccedil;&atilde;o</label>
+        <select id="tblSelo"><option value="">Todos</option><option value="1">Alta qualificação</option><option value="0">Demais estágios</option></select>
       </div>
     </div>
     <div class="contagem" id="contagem"></div>
@@ -676,7 +676,7 @@ body.metodologia{overflow:hidden}
           <th data-k="asf" class="num" title="Adequação de asfixia: SIM quando o % de RN ≥2.500g sem anomalias com Apgar <7 no 5º min é ≤0,6% · passe o mouse na célula para ver o % da unidade">Asfixia</th>
           <th data-k="contrOk" title="Oferta de LARC (DIU + implante) adequada">Oferta de LARC</th>
           <th data-k="viol">Atendimento de violência sexual</th>
-          <th data-k="selo">Selo &ge;5</th>
+          <th data-k="selo">Alta qualifica&ccedil;&atilde;o</th>
         </tr>
       </thead>
       <tbody id="tbody"></tbody>
@@ -702,7 +702,7 @@ body.metodologia{overflow:hidden}
       <h2>Cesariana adequada — Robson &ge;2 grupos</h2>
       <p><b>Conceituação:</b> proporção de estabelecimentos com pelo menos dois dos quatro grupos de Robson de menor risco (G1 a G4) com taxa de cesariana dentro da referência do grupo.</p>
       <p><b>Método de cálculo:</b> estabelecimentos com &ge;2 grupos adequados ÷ estabelecimentos da seleção × 100. A adequação de cada grupo segue a classificação da base institucional (planilha), com metas por grupo (institucionais · ref. Manual de Robson, OMS/OPAS 2017): G1 &le;10% · G2 &le;35% · G3 &le;3% · G4 &le;15%.</p>
-      <p><b>Observação:</b> o painel não exibe meta de taxa geral de cesariana; a leitura recomendada é por grupos de Robson. "Robson &ge;2 grupos" é um dos 9 indicadores classificatórios do selo de conformidade.</p>
+      <p><b>Observação:</b> o painel não exibe meta de taxa geral de cesariana; a leitura recomendada é por grupos de Robson. "Robson &ge;2 grupos" é um dos 9 indicadores classificatórios da qualificação das unidades.</p>
       <p><b>Fonte:</b> SINASC (DNV: variáveis obstétricas da classificação de Robson e via de nascimento); classificação por grupo da base institucional. Método: OMS — Robson Classification Manual (2017).</p>
     </section>
 
@@ -775,17 +775,17 @@ body.metodologia{overflow:hidden}
     </section>
 
     <section>
-      <h2>Selo de conformidade (≥5 de 9)</h2>
-      <p><b>Conceituação:</b> o estabelecimento recebe o selo quando ao menos 5 dos 9 indicadores classificatórios estão adequados: Asfixia, Parto vaginal assistido por enfermeira, AMIU, Robson ≥2 grupos, Oferta de LARC, Atendimento de violência sexual, SMCON Neonatal, SMCON Obstétrico e Unidade Neonatal completa. "Robson ≥2 grupos" integra os 9 indicadores, sem constituir exigência adicional. O selo corresponde ao campo classificatório oficial da base.</p>
-      <p><b>Interpretação:</b> o selo afere conformidade com itens de qualificação — estrutura, processo e registro — e não constitui, por si, medida de qualidade assistencial. A taxa de cesariana não integra o selo. Unidades de maior porte e complexidade tendem a reunir mais itens por capacidade instalada e de registro; recomenda-se acompanhar a evolução de cada unidade no tempo, em vez de ordenar unidades de perfis distintos.</p>
+      <h2>Estágios de qualificação (alta qualificação: ≥5 de 9)</h2>
+      <p><b>Conceituação:</b> o estabelecimento alcança a alta qualificação quando ao menos 5 dos 9 indicadores classificatórios estão adequados: Asfixia, Parto vaginal assistido por enfermeira, AMIU, Robson ≥2 grupos, Oferta de LARC, Atendimento de violência sexual, SMCON Neonatal, SMCON Obstétrico e Unidade Neonatal completa. "Robson ≥2 grupos" integra os 9 indicadores, sem constituir exigência adicional. A classificação corresponde ao campo classificatório oficial da base (ali denominado "selo de conformidade").</p>
+      <p><b>Interpretação:</b> a classificação afere conformidade com itens de qualificação — estrutura, processo e registro — e não constitui, por si, medida de qualidade assistencial. A taxa de cesariana não integra a classificação. Unidades de maior porte e complexidade tendem a reunir mais itens por capacidade instalada e de registro; recomenda-se acompanhar a evolução de cada unidade no tempo, em vez de ordenar unidades de perfis distintos.</p>
       <p><b>Fonte:</b> campo classificatório oficial da base institucional (planilha derivada de SINASC, CNES e SIH-SUS; extração de 01/07/2026).</p>
     </section>
 
     <section>
-      <h2>Mapa de unidades — estágios do selo</h2>
-      <p><b>Conceituação:</b> mapa de pontos em que cada estabelecimento é representado na cor do seu estágio do selo — Com selo, Quase lá, No caminho e Início da jornada. O seletor "Colorir por" permite recolorir os pontos por qualquer um dos 9 indicadores classificatórios, em verde (adequado) × roxo (não adequado), par de cores seguro para daltonismo.</p>
+      <h2>Mapa de unidades — estágios de qualificação</h2>
+      <p><b>Conceituação:</b> mapa de pontos em que cada estabelecimento é representado na cor do seu estágio de qualificação — Alta qualificação, Quase lá, No caminho e Início da jornada. O seletor "Colorir por" permite recolorir os pontos por qualquer um dos 9 indicadores classificatórios, em verde (adequado) × roxo (não adequado), par de cores seguro para daltonismo.</p>
       <p><b>Método de apresentação:</b> o tamanho de cada ponto é proporcional à raiz do total de partos da unidade. Pontos próximos são agrupados em círculos cuja composição de cores reflete as categorias dos estabelecimentos agrupados; a legenda permite mostrar ou ocultar cada categoria, e o mapa respeita os filtros do painel, além dos recortes por estado e macrorregião.</p>
-      <p><b>Ficha da unidade:</b> ao tocar em um ponto, exibem-se o estágio do selo com o número de indicadores adequados (n/9), o total de partos, a natureza jurídica e a gestão. A taxa de cesariana não é exibida, em coerência com a leitura por grupos de Robson.</p>
+      <p><b>Ficha da unidade:</b> ao tocar em um ponto, exibem-se o estágio de qualificação com o número de indicadores adequados (n/9), o total de partos, a natureza jurídica e a gestão. A taxa de cesariana não é exibida, em coerência com a leitura por grupos de Robson.</p>
       <p><b>Fonte:</b> coordenadas geocodificadas por CNES (duas unidades sem geolocalização exata utilizam o centro do município); categorias derivadas dos indicadores classificatórios da base institucional.</p>
     </section>
 
@@ -1030,7 +1030,7 @@ function renderAdeq(){
     {r:'Oferta de LARC', v:filtrado.filter(d=>d.contrOk).length},
     {r:'Atendimento de violência sexual', v:filtrado.filter(d=>d.viol).length},
     {r:'SMCON Neonatal e/ou Obstétrico', v:filtrado.filter(d=>d.smN||d.smO).length},
-    {r:'Selo &ge;5', v:filtrado.filter(d=>d.selo).length}
+    {r:'Alta qualificação (&ge;5 de 9)', v:filtrado.filter(d=>d.selo).length}
   ];
   const corAdeq=v=>v>=75?VERDES[4]:v>=50?VERDES[3]:v>=25?VERDES[2]:VERDES[1];
   charts.chAdeq=new Chart($('chAdeq'),{
@@ -1111,7 +1111,7 @@ function renderTabela(){
       <td title="% de asfixia da unidade: ${d.asf.toFixed(1)}% (adequado: ≤0,6%)">${bd(d.asfC==='ADEQUADO', d.asfC==='ADEQUADO'?'SIM':'NÃO')}</td>
       <td>${bd(!!d.contrOk, d.contrOk?'SIM':'NÃO')}</td>
       <td>${bd(!!d.viol, d.viol?'SIM':'NÃO')}</td>
-      <td>${d.selo?'<span class="badge b-selo">SELO</span>':''}</td>
+      <td>${d.selo?'<span class="badge b-selo">ALTA QUALIFICAÇÃO</span>':''}</td>
     </tr>`).join('');
   const btn = $('btnMaisLinhas');
   if(btn){ btn.style.display = dados.length>tblLimite? 'inline-block':'none';
@@ -1132,7 +1132,7 @@ if($('btnTabelaXlsx')) $('btnTabelaXlsx').addEventListener('click',()=>{
     '% AMIU':d.amiu,'% Asfixia':d.asf,'Classif. asfixia':d.asfC,
     'Contracep\u00e7\u00e3o adequada':d.contrOk?'SIM':'N\u00c3O','Atendimento de viol\u00eancia sexual':d.viol?'SIM':'N\u00c3O',
     'Atendimentos de viol\u00eancia':d.violN,'% Ces\u00e1rea G1':d.g1,'% G2':d.g2,'% G3':d.g3,'% G4':d.g4,
-    'Indicadores adequados':d.nAdeq,'Selo \u22655':d.selo?'SIM':''
+    'Indicadores adequados':d.nAdeq,'Alta qualifica\u00e7\u00e3o (\u22655 de 9)':d.selo?'SIM':''
   }));
   const ws=XLSX.utils.json_to_sheet(linhas);
   const wb=XLSX.utils.book_new();
@@ -1166,55 +1166,51 @@ const VERDES = ['#DCEFE0','#A9D8B4','#6FBE87','#2E9A63','#0A5C42'];
 const DIVERG = ['#2166AC','#92C5DE','#FDDBC7','#EF8A62','#B2182B'];
 const ICO=p=>'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+p+'</svg>';
 const ICONES={
-  geral: ICO('<circle cx="12" cy="8.5" r="5"/><path d="M8.5 12.5 7 21l5-2.8L17 21l-1.5-8.5"/>'),
-  estr:  ICO('<path d="M5 21V8l7-4 7 4v13"/><path d="M9.5 21v-4.5h5V21"/><path d="M12 8v3.5M10.25 9.75h3.5"/><path d="M4 21h16"/>'),
-  ces:   ICO('<circle cx="10.8" cy="4.4" r="2.1"/><path d="M8.9 21v-4.6c-1.5-.7-2.4-2.2-2.4-3.9 0-1.9 1.2-3.5 2.9-4.1"/><path d="M9.4 8.4c.9-.25 1.9-.2 2.8.15 2.2.85 3.6 2.9 3.4 5.2-.2 2-1.6 3.6-3.5 4.1V21"/>'),
-  boas:  ICO('<path d="M12 20s-6.6-4.3-6.6-9.1A4.1 4.1 0 0 1 12 7.4a4.1 4.1 0 0 1 6.6 3.5C18.6 15.7 12 20 12 20z"/><path d="M9.2 11.7l1.9 1.9 3.6-3.8"/>'),
-  contra:ICO('<path d="M6.5 7.5C9 5.8 15 5.8 17.5 7.5"/><path d="M12 6.4V15.5"/><path d="M12 15.5c-.7 1.7-1.3 3-2.2 4.6"/><path d="M12 15.5c.7 1.7 1.3 3 2.2 4.6"/>'),
-  viol:  ICO('<path d="M12 3.2l7 2.8v5.2c0 4.4-3 7.4-7 8.9-4-1.5-7-4.5-7-8.9V6l7-2.8z"/><path d="M12 14.8s-2.4-1.5-2.4-3.3A1.55 1.55 0 0 1 12 10a1.55 1.55 0 0 1 2.4 1.5c0 1.8-2.4 3.3-2.4 3.3z"/>'),
-  smcon: ICO('<rect x="3" y="4.5" width="18" height="12" rx="2"/><path d="M6.5 11h2l1.4-3 2 5 1.4-2h3.2"/><path d="M9.5 20.5h5M12 16.5v4"/>')
+  selo:  ICO('<circle cx="12" cy="8.5" r="5"/><path d="M8.5 12.5 7 21l5-2.8L17 21l-1.5-8.5"/>'),
+  neoP:  ICO('<path d="M5 21V8l7-4 7 4v13"/><path d="M9.5 21v-4.5h5V21"/><path d="M12 8v3.5M10.25 9.75h3.5"/><path d="M4 21h16"/>'),
+  rob2P: ICO('<circle cx="10.8" cy="4.4" r="2.1"/><path d="M8.9 21v-4.6c-1.5-.7-2.4-2.2-2.4-3.9 0-1.9 1.2-3.5 2.9-4.1"/><path d="M9.4 8.4c.9-.25 1.9-.2 2.8.15 2.2.85 3.6 2.9 3.4 5.2-.2 2-1.6 3.6-3.5 4.1V21"/>'),
+  enf:   ICO('<path d="M12 20s-6.6-4.3-6.6-9.1A4.1 4.1 0 0 1 12 7.4a4.1 4.1 0 0 1 6.6 3.5C18.6 15.7 12 20 12 20z"/><path d="M9.2 11.7l1.9 1.9 3.6-3.8"/>'),
+  amiuM: ICO('<path d="m18 2 4 4"/><path d="m17 7 3-3"/><path d="M19 9 9.7 18.3a2.4 2.4 0 0 1-3.4 0L5 17a2.4 2.4 0 0 1 0-3.4L14.3 4.3"/><path d="m9 11 4 4"/><path d="m5 19-3 3"/>'),
+  asfP:  ICO('<path d="M4 8h9a2.5 2.5 0 1 0-2.4-3.2"/><path d="M3 12h13.5a3 3 0 1 1-2.8 4"/><path d="M4 16h6"/>'),
+  contrP:ICO('<path d="M6.5 7.5C9 5.8 15 5.8 17.5 7.5"/><path d="M12 6.4V15.5"/><path d="M12 15.5c-.7 1.7-1.3 3-2.2 4.6"/><path d="M12 15.5c.7 1.7 1.3 3 2.2 4.6"/>'),
+  violP: ICO('<path d="M12 3.2l7 2.8v5.2c0 4.4-3 7.4-7 8.9-4-1.5-7-4.5-7-8.9V6l7-2.8z"/><path d="M12 14.8s-2.4-1.5-2.4-3.3A1.55 1.55 0 0 1 12 10a1.55 1.55 0 0 1 2.4 1.5c0 1.8-2.4 3.3-2.4 3.3z"/>'),
+  smAlgumP: ICO('<rect x="3" y="4.5" width="18" height="12" rx="2"/><path d="M6.5 11h2l1.4-3 2 5 1.4-2h3.2"/><path d="M9.5 20.5h5M12 16.5v4"/>')
 };
-const EIXOS = [
-  {id:'geral', rot:'Vis\u00e3o geral'},
-  {id:'estr',  rot:'Estrutura'},
-  {id:'ces',   rot:'Ces\u00e1rea'},
-  {id:'boas',  rot:'Boas pr\u00e1ticas'},
-  {id:'contra',rot:'Contracep\u00e7\u00e3o'},
-  {id:'viol',  rot:'Viol\u00eancia sexual'},
-  {id:'smcon', rot:'SMCON'}
+// navegação direta pelos indicadores, na ordem padrão (sem eixos temáticos)
+const PRINCIPAIS = [
+  {id:'neoP',     rot:'Unidade Neonatal completa'},
+  {id:'rob2P',    rot:'Cesariana adequada (Robson \u22652 grupos)'},
+  {id:'enf',      rot:'Parto vaginal assistido por enfermeira'},
+  {id:'amiuM',    rot:'AMIU'},
+  {id:'asfP',     rot:'Asfixia'},
+  {id:'contrP',   rot:'Oferta de LARC'},
+  {id:'violP',    rot:'Atendimento de viol\u00eancia sexual'},
+  {id:'smAlgumP', rot:'SMCON Neonatal e/ou Obst\u00e9trico'},
+  {id:'selo',     rot:'Alta qualifica\u00e7\u00e3o'}
 ];
 const pctF = v=>v.toFixed(1)+'%';
 const pct0 = v=>v.toFixed(0)+'%';
 const intF = v=>Math.round(v).toLocaleString('pt-BR');
 const METRICAS = [
-  // Visão geral
-  {id:'selo',    eixo:'geral',  rot:'% com Selo',         leg:'% de estabelecimentos com selo ≥5',          fmtV:pctF, abs:a=>[a.selo,a.estab]},
-  {id:'estab',   eixo:'geral',  rot:'Estabelecimentos',   leg:'Estabelecimentos >1.000 partos',             fmtV:intF},
-  {id:'partos',  eixo:'geral',  rot:'Partos',             leg:'Partos em 2024',                             fmtV:intF},
-  // Estrutura
-  {id:'neoP',    eixo:'estr',   rot:'% Unidade Neonatal completa', leg:'Estab. com unidade neonatal completa (%)', fmtV:pctF, abs:a=>[a.neoSim,a.estab]},
-  // Cesárea
-  {id:'rob2P',   eixo:'ces',    rot:'% Cesariana adequada (≥2 grupos)', leg:'Estab. com pelo menos 2 grupos de Robson adequados (%)', fmtV:pctF, abs:a=>[a.rob2ok,a.estab]},
-  {id:'g1A',     eixo:'ces',    rot:'% Cesariana Adeq. Robson G1', leg:'Estab. adequados no grupo 1 de Robson (%)',  fmtV:pctF, abs:a=>[a.g1ok,a.estab]},
-  {id:'g2A',     eixo:'ces',    rot:'% Cesariana Adeq. Robson G2', leg:'Estab. adequados no grupo 2 de Robson (%)',  fmtV:pctF, abs:a=>[a.g2ok,a.estab]},
-  {id:'g3A',     eixo:'ces',    rot:'% Cesariana Adeq. Robson G3', leg:'Estab. adequados no grupo 3 de Robson (%)',  fmtV:pctF, abs:a=>[a.g3ok,a.estab]},
-  {id:'g4A',     eixo:'ces',    rot:'% Cesariana Adeq. Robson G4', leg:'Estab. adequados no grupo 4 de Robson (%)',  fmtV:pctF, abs:a=>[a.g4ok,a.estab]},
-  // Boas práticas
-  {id:'enf',     eixo:'boas',   rot:'% Parto vaginal assistido por enfermeira', leg:'Estab. com parto vaginal assistido por enfermeira adequado (%)', fmtV:pctF, abs:a=>[a.enfOk,a.estab]},
-  {id:'amiuM',   eixo:'boas',   rot:'% AMIU',             leg:'Média do % de AMIU entre os estab.',         fmtV:pctF},
-  {id:'asfP',    eixo:'boas',   rot:'% Asfixia',          leg:'Estab. com asfixia adequada – Apgar <7 no 5º min ≤0,6% (%)', fmtV:pctF, abs:a=>[a.asfOk,a.estab]},
-  // Contracepção
-  {id:'contrP',  eixo:'contra', rot:'% Oferta de LARC', leg:'Estab. com oferta de LARC adequada – DIU+implante (%)', fmtV:pctF, abs:a=>[a.contrOkN,a.estab]},
-  // Violência sexual
-  {id:'violP',   eixo:'viol',   rot:'% Atendimento de violência sexual', leg:'Estab. que atendem violência sexual (%)', fmtV:pctF, abs:a=>[a.violSim,a.estab]},
-  {id:'violN',   eixo:'viol',   rot:'Atendimentos de violência sexual', leg:'Atendimentos a vítimas de violência sexual', fmtV:intF},
-  // SMCON
-  {id:'smnP',    eixo:'smcon',  rot:'% SMCON Neonatal',  leg:'Estab. com SMCON Neonatal (%)',              fmtV:pctF, abs:a=>[a.smN,a.estab]},
-  {id:'smoP',    eixo:'smcon',  rot:'% SMCON Obstétrico', leg:'Estab. com SMCON Obstétrico (%)',            fmtV:pctF, abs:a=>[a.smO,a.estab]},
-  {id:'smAlgumP',eixo:'smcon',  rot:'% SMCON Neonatal e/ou Obstétrico', leg:'Estab. com SMCON Neonatal ou Obstétrico (%)', fmtV:pctF, abs:a=>[a.smAlgum,a.estab]}
+  {id:'neoP',    grp:'neoP',    rot:'% Unidade Neonatal completa', leg:'Estab. com unidade neonatal completa (%)', fmtV:pctF, abs:a=>[a.neoSim,a.estab]},
+  {id:'rob2P',   grp:'rob2P',   rot:'% Cesariana adequada (≥2 grupos)', leg:'Estab. com pelo menos 2 grupos de Robson adequados (%)', fmtV:pctF, abs:a=>[a.rob2ok,a.estab]},
+  {id:'g1A',     grp:'rob2P',   rot:'% Cesariana Adeq. Robson G1', leg:'Estab. adequados no grupo 1 de Robson (%)',  fmtV:pctF, abs:a=>[a.g1ok,a.estab]},
+  {id:'g2A',     grp:'rob2P',   rot:'% Cesariana Adeq. Robson G2', leg:'Estab. adequados no grupo 2 de Robson (%)',  fmtV:pctF, abs:a=>[a.g2ok,a.estab]},
+  {id:'g3A',     grp:'rob2P',   rot:'% Cesariana Adeq. Robson G3', leg:'Estab. adequados no grupo 3 de Robson (%)',  fmtV:pctF, abs:a=>[a.g3ok,a.estab]},
+  {id:'g4A',     grp:'rob2P',   rot:'% Cesariana Adeq. Robson G4', leg:'Estab. adequados no grupo 4 de Robson (%)',  fmtV:pctF, abs:a=>[a.g4ok,a.estab]},
+  {id:'enf',     grp:'enf',     rot:'% Parto vaginal assistido por enfermeira', leg:'Estab. com parto vaginal assistido por enfermeira adequado (%)', fmtV:pctF, abs:a=>[a.enfOk,a.estab]},
+  {id:'amiuM',   grp:'amiuM',   rot:'% AMIU',             leg:'Média do % de AMIU entre os estab.',         fmtV:pctF},
+  {id:'asfP',    grp:'asfP',    rot:'% Asfixia',          leg:'Estab. com asfixia adequada – Apgar <7 no 5º min ≤0,6% (%)', fmtV:pctF, abs:a=>[a.asfOk,a.estab]},
+  {id:'contrP',  grp:'contrP',  rot:'% Oferta de LARC', leg:'Estab. com oferta de LARC adequada – DIU+implante (%)', fmtV:pctF, abs:a=>[a.contrOkN,a.estab]},
+  {id:'violP',   grp:'violP',   rot:'% Atendimento de violência sexual', leg:'Estab. que atendem violência sexual (%)', fmtV:pctF, abs:a=>[a.violSim,a.estab]},
+  {id:'violN',   grp:'violP',   rot:'Atendimentos de violência sexual', leg:'Atendimentos a vítimas de violência sexual', fmtV:intF},
+  {id:'smAlgumP',grp:'smAlgumP',rot:'% SMCON Neonatal e/ou Obstétrico', leg:'Estab. com SMCON Neonatal ou Obstétrico (%)', fmtV:pctF, abs:a=>[a.smAlgum,a.estab]},
+  {id:'selo',    grp:'selo',    rot:'% Alta qualificação', leg:'Estab. em alta qualificação – ≥5 de 9 indicadores (%)', fmtV:pctF, abs:a=>[a.selo,a.estab]},
+  {id:'estab',   grp:'selo',    rot:'Estabelecimentos',   leg:'Estabelecimentos >1.000 partos',             fmtV:intF},
+  {id:'partos',  grp:'selo',    rot:'Partos',             leg:'Partos em 2024',                             fmtV:intF}
 ];
-let eixoAtivo = 'ces';
-let metricaAtiva = 'rob2P';
+const grpDe = id => (METRICAS.find(m=>m.id===id)||{}).grp || id;
+let metricaAtiva = 'neoP';
 const NIVEIS = [
   {id:'uf',    rot:'UF',                 chave:d=>SIGLA[d.uf],  nomeDe:t=>NOME_UF[t.id]||t.nome, raioFallback:30},
   {id:'macro', rot:'Macrorregi\u00e3o',  chave:d=>d.mrs,        nomeDe:t=>t.nome,                raioFallback:16},
@@ -1409,14 +1405,7 @@ function renderMapa(){
 
   // sincronizar listas suspensas em cascata (Brasil -> Região -> Estado) e nível
   sincronizarSelectsMapa();
-  $('eixoChips').innerHTML = EIXOS.map(e=>
-    `<button class="chip chip-eixo ${e.id===eixoAtivo?'ativo':''}" data-e="${e.id}">${ICONES[e.id]||''}<span>${e.rot}</span></button>`).join('');
-  $('eixoChips').querySelectorAll('.chip').forEach(c=>c.onclick=()=>{
-    eixoAtivo=c.dataset.e;
-    metricaAtiva=METRICAS.find(m=>m.eixo===eixoAtivo).id;
-    renderMapa();
-  });
-  $('metricas').innerHTML = METRICAS.filter(m=>m.eixo===eixoAtivo).map(m=>
+  $('metricas').innerHTML = METRICAS.map(m=>
     `<button class="chip ${m.id===metricaAtiva?'ativo':''}" data-m="${m.id}">${m.rot}</button>`).join('');
   $('metricas').querySelectorAll('.chip').forEach(c=>c.onclick=()=>{metricaAtiva=c.dataset.m; renderMapa();});
   if(typeof atualizarTrilho==='function') atualizarTrilho();
@@ -1591,19 +1580,18 @@ function animarZoom(alvo){
 }
 
 function cartaoResumo(titulo, a, rodape){
-  // mostra apenas os indicadores do eixo tem\u00e1tico ativo
-  const eixoRot = (EIXOS.find(e=>e.id===eixoAtivo)||{}).rot || '';
-  let linhas = '';
-  if(eixoAtivo!=='geral')
-    linhas += `<div class="linha"><span>Estabelecimentos</span><b>${fmt(a.estab)}</b></div>`;
-  METRICAS.filter(m=>m.eixo===eixoAtivo).forEach(m=>{
+  // resumo fixo: os indicadores principais, na ordem padrão
+  let linhas = `<div class="linha"><span>Estabelecimentos</span><b>${fmt(a.estab)}</b></div>`
+    + `<div class="linha"><span>Partos</span><b>${fmt(a.tot)}</b></div>`;
+  PRINCIPAIS.forEach(p=>{
+    const m = METRICAS.find(x=>x.id===p.id);
     const v = valorMetrica(a, m.id);
     const abs = (m.abs && v!=null) ? (x=>`<small style="color:var(--texto-suave);font-weight:600"> (${fmt(x[0])}/${fmt(x[1])})</small>`)(m.abs(a)) : '';
     linhas += `<div class="linha"><span>${m.rot}</span><b>${v!=null? m.fmtV(v) : '\u2014'}${abs}</b></div>`;
   });
   return `
     <div class="nome-uf">${titulo}</div>
-    <div style="font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--verde-esmeralda);margin:-2px 0 6px">${eixoRot}</div>
+    <div style="font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--verde-esmeralda);margin:-2px 0 6px">ordem padr\u00e3o dos indicadores</div>
     ${linhas}
     <div style="margin-top:8px;font-size:11px;color:var(--texto-suave)">${rodape}</div>`;
 }
@@ -1665,7 +1653,7 @@ function contextoSelecao(){
   else if($('fReg').value) partes.push('Regi\u00e3o '+$('fReg').value);
   else partes.push('Brasil');
   if(natSel.size) partes.push([...natSel].map(v=>v.toLowerCase()).join(' + '));
-  if(estagioSel!=null) partes.push('selo: '+ESTAGIOS.find(x=>x.id===estagioSel).nome.toLowerCase());
+  if(estagioSel!=null) partes.push('estágio: '+ESTAGIOS.find(x=>x.id===estagioSel).nome.toLowerCase());
   if($('fBusca').value.trim()) partes.push('busca: "'+$('fBusca').value.trim()+'"');
   return partes.join(' \u00b7 ');
 }
@@ -1714,9 +1702,9 @@ document.addEventListener('click', e=>{
   if(b) baixarGrafico(b.dataset.c, b.dataset.n);
 });
 let estagioSel = null;
-// cores monot\u00f4nicas com o progresso: quanto mais perto do selo, mais "positiva" a cor
+// cores monot\u00f4nicas com o progresso: quanto mais perto da alta qualificação, mais "positiva" a cor
 const ESTAGIOS = [
-  {id:'selo',     nome:'Com selo',        det:'5 ou mais indicadores', cor:'#0A213D',
+  {id:'selo',     nome:'Alta qualificação', det:'5 ou mais indicadores', cor:'#0A213D',
     pred:d=>d.selo===1},
   {id:'quase',   nome:'Quase l\u00e1',   det:'4 indicadores adequados', cor:'#279261',
     pred:d=>!d.selo && d.nAdeq>=4},
@@ -1751,7 +1739,7 @@ function renderSelo(){
   const iSel = estagioSel ? ESTAGIOS.findIndex(e=>e.id===estagioSel) : 0;
   const eSel = ESTAGIOS[iSel<0?0:iSel];
   const nSel = contagens[iSel<0?0:iSel];
-  const rotResto = estagioSel && estagioSel!=='selo' ? 'Demais est\u00e1gios' : 'Sem selo';
+  const rotResto = 'Demais est\u00e1gios';
   charts.chSeloDonut = new Chart($('chSeloDonut'),{
     type:'doughnut',
     data:{labels:[eSel.nome, rotResto],
@@ -1764,7 +1752,7 @@ function renderSelo(){
   $('seloPct').textContent = base.length? Math.round(nSel/total*100)+'%' : '\u2014';
   $('seloPct').style.color = eSel.cor;
   $('seloLeg').innerHTML = fmt(nSel)+' de '+fmt(base.length)+'<br>'+
-    (estagioSel && estagioSel!=='selo' ? eSel.nome.toLowerCase() : 'com selo');
+    (estagioSel && estagioSel!=='selo' ? eSel.nome.toLowerCase() : 'em alta qualificação');
 
   // estágios em barras horizontais nomeadas
   const max = Math.max(...contagens,1);
@@ -1790,7 +1778,7 @@ function renderSelo(){
     const faltas = FLAG_NOMES.map((n,i)=>({n, f:grupo.filter(d=>d.flags[i]==='0').length}))
       .sort((a,b)=>b.f-a.f).slice(0,3);
     const abertura = alvo.id==='quase'
-      ? `<b>${fmt(grupo.length)} unidade${grupo.length>1?'s':''} a um indicador do selo.</b>`
+      ? `<b>${fmt(grupo.length)} unidade${grupo.length>1?'s':''} a um indicador da alta qualificação.</b>`
       : `<b>Est\u00e1gio "${alvo.nome}": ${fmt(grupo.length)} unidade${grupo.length>1?'s':''} (${alvo.det}).</b>`;
     $('seloInsight').innerHTML = abertura+
       ` O que mais falta entre elas: `+faltas.map(x=>`${x.n} (${x.f})`).join(', ')+'.'+
@@ -1812,7 +1800,7 @@ const MATRIZ_COLS = [
   {k:'violP', rot:'Atendimento de viol\u00eancia sexual'},
   {k:'smnP',  rot:'SMCON Neonatal'},
   {k:'smoP',  rot:'SMCON Obstétrico'},
-  {k:'seloP', rot:'Selo \u22655'}
+  {k:'seloP', rot:'Alta qualifica\u00e7\u00e3o'}
 ];
 let matrizOrd = {k:'seloP', asc:false};
 
@@ -1907,7 +1895,7 @@ let _mapu=null, _mapuCluster=null, _mapuAberto=false;
 // verde × roxo: par distinguível por daltônicos (verde × vermelho não é)
 const _MV='#279261', _MR='#7B3294', _MA='#D68910', _ML='#E67E22';
 const MAPU_METRICAS=[
-  {id:'selo',nome:'Selo de conformidade',classe:function(d){
+  {id:'selo',nome:'Estágio de qualificação',classe:function(d){
     for(var i=0;i<ESTAGIOS.length;i++){ var e=ESTAGIOS[i];
       if(e.pred(d)) return {k:(i+1)+'_'+e.id, rot:e.nome, cor:e.cor}; }
     return {k:'9_outros', rot:'Sem classificação', cor:'#9AA8A0'};
@@ -2047,7 +2035,7 @@ function exportarExcel(){
     'Grupos Robson adequados':d.robAd,'Robson ≥2 grupos':d.rob2?'SIM':'NÃO',
     'DIU':d.diu,'Implante':d.imp,'LARC total':d.larc,'Oferta de LARC':d.contrOk?'SIM':'NÃO',
     'Atendimento de violência sexual':d.viol?'SIM':'','Atendimentos de violência':d.violN,
-    'Indicadores adequados':d.nAdeq,'Selo ≥5':d.selo?'ADEQUADO':''
+    'Indicadores adequados':d.nAdeq,'Alta qualificação (≥5 de 9)':d.selo?'SIM':''
   }));
   const ws=XLSX.utils.json_to_sheet(linhas);
   const wb=XLSX.utils.book_new();
@@ -2070,13 +2058,13 @@ function exportarPDF(){
       nome.length>48?nome.slice(0,46)+'…':nome, d.mun+' ('+(SIGLA[d.uf]||d.uf)+')', fmt(d.tot),
       d.neo==='SIM'?'SIM':(d.flags&&d.flags[8]==='1'?'N/A':'NÃO'), d.rob2?'SIM':'NÃO',
       d.enf.toFixed(1)+'%', d.amiu.toFixed(1)+'%', d.asf.toFixed(1)+'%',
-      d.contrOk?'SIM':'NÃO', d.viol?'SIM':'NÃO', d.selo?'SELO':''
+      d.contrOk?'SIM':'NÃO', d.viol?'SIM':'NÃO', d.selo?'SIM':''
     ];
   });
   doc.autoTable({
     startY:26,
     // ">=" no lugar de "≥": a fonte padrao do jsPDF nao possui o caractere e sobrepoe as colunas
-    head:[['Estabelecimento','Município (UF)','Partos','Unidade Neonatal completa','Robson >=2 grupos','Parto vaginal assistido por enfermeira','AMIU','Asfixia','Oferta de LARC','Atendimento de violência sexual','Selo >=5']],
+    head:[['Estabelecimento','Município (UF)','Partos','Unidade Neonatal completa','Robson >=2 grupos','Parto vaginal assistido por enfermeira','AMIU','Asfixia','Oferta de LARC','Atendimento de violência sexual','Alta qualificação']],
     body:corpo,
     styles:{fontSize:6.8,cellPadding:1.4,overflow:'linebreak'},
     headStyles:{fillColor:[14,122,86],fontSize:7,fontStyle:'bold'},
@@ -2084,7 +2072,7 @@ function exportarPDF(){
     columnStyles:{0:{cellWidth:56},1:{cellWidth:28},2:{cellWidth:14,halign:'right'},
       3:{cellWidth:23,halign:'center'},4:{cellWidth:21,halign:'center'},5:{cellWidth:25,halign:'right'},
       6:{cellWidth:14,halign:'right'},7:{cellWidth:15,halign:'right'},8:{cellWidth:18,halign:'center'},
-      9:{cellWidth:24,halign:'center'},10:{cellWidth:13,halign:'center'}}
+      9:{cellWidth:24,halign:'center'},10:{cellWidth:18,halign:'center'}}
   });
   const pgs=doc.internal.getNumberOfPages();
   for(let i=1;i<=pgs;i++){
@@ -2128,7 +2116,7 @@ function filtrosAtivos(){
     lista.push({rot:terrSel.nome, limpa:()=>{terrSel=null;}});
   if(estagioSel!=null){
     const e=ESTAGIOS.find(x=>x.id===estagioSel);
-    lista.push({rot:'Selo: '+e.nome, limpa:()=>{estagioSel=null;}});
+    lista.push({rot:'Estágio: '+e.nome, limpa:()=>{estagioSel=null;}});
   }
   return lista;
 }
@@ -2158,17 +2146,17 @@ const ICO_MAPAU = ICO('<path d="M12 21s-7-5.3-7-11a7 7 0 0 1 14 0c0 5.7-7 11-7 1
 function montarInicio(){
   $('ihEstab').textContent = DADOS.length.toLocaleString('pt-BR');
   $('ihPartos').textContent = DADOS.reduce((s,d)=>s+d.tot,0).toLocaleString('pt-BR');
-  $('inicioGrade').innerHTML = EIXOS.map(e=>
-    `<button class="ih-item" data-e="${e.id}"><span class="ih-circ">${ICONES[e.id]||''}</span><span>${e.rot}</span></button>`).join('')
-    + `<button class="ih-item ih-mapa" id="ihMapaU"><span class="ih-circ">${ICO_MAPAU}</span><span>Mapa de unidades<br>est&aacute;gios do selo</span></button>`;
-  $('inicioGrade').querySelectorAll('.ih-item[data-e]').forEach(b=>b.onclick=()=>entrarPainel(b.dataset.e));
+  $('inicioGrade').innerHTML = PRINCIPAIS.map(p=>
+    `<button class="ih-item" data-m="${p.id}"><span class="ih-circ">${ICONES[p.id]||''}</span><span>${p.rot}</span></button>`).join('')
+    + `<button class="ih-item ih-mapa" id="ihMapaU"><span class="ih-circ">${ICO_MAPAU}</span><span>Mapa de unidades<br>est&aacute;gios de qualifica&ccedil;&atilde;o</span></button>`;
+  $('inicioGrade').querySelectorAll('.ih-item[data-m]').forEach(b=>b.onclick=()=>entrarPainel(b.dataset.m));
   $('ihMapaU').onclick = irMapaUnidades;
   $('trilhoNav').innerHTML = `<button class="home" title="Voltar ao início" aria-label="Voltar ao início">${ICO_HOME}</button>`+
-    EIXOS.map(e=>`<button data-e="${e.id}" title="${e.rot}" aria-label="${e.rot}">${ICONES[e.id]||''}</button>`).join('')
-    + `<button class="mapau" title="Mapa de unidades (selo)" aria-label="Mapa de unidades">${ICO_MAPAU}</button>`;
+    PRINCIPAIS.map(p=>`<button data-m="${p.id}" title="${p.rot}" aria-label="${p.rot}">${ICONES[p.id]||''}</button>`).join('')
+    + `<button class="mapau" title="Mapa de unidades (est&aacute;gios de qualifica&ccedil;&atilde;o)" aria-label="Mapa de unidades">${ICO_MAPAU}</button>`;
   $('trilhoNav').querySelector('.home').onclick = voltarInicio;
   $('trilhoNav').querySelector('.mapau').onclick = irMapaUnidades;
-  $('trilhoNav').querySelectorAll('button[data-e]').forEach(b=>b.onclick=()=>entrarPainel(b.dataset.e));
+  $('trilhoNav').querySelectorAll('button[data-m]').forEach(b=>b.onclick=()=>entrarPainel(b.dataset.m));
   atualizarTrilho();
 }
 // os gráficos são desenhados com a capa aberta; ao entrar no painel o conteúdo muda de largura
@@ -2185,13 +2173,12 @@ function irMapaUnidades(){
 }
 function atualizarTrilho(){
   const nav=$('trilhoNav'); if(!nav||!nav.childElementCount) return;
-  nav.querySelectorAll('button[data-e]').forEach(b=>b.classList.toggle('atual', b.dataset.e===eixoAtivo));
+  nav.querySelectorAll('button[data-m]').forEach(b=>b.classList.toggle('atual', b.dataset.m===grpDe(metricaAtiva)));
 }
-function entrarPainel(eixo){
+function entrarPainel(id){
   document.body.classList.remove('inicio');
   document.body.classList.add('com-trilho');
-  eixoAtivo = eixo;
-  metricaAtiva = METRICAS.find(m=>m.eixo===eixo).id;
+  metricaAtiva = id;
   renderMapa(); atualizarTrilho(); redimensionarCharts();
   const alvo = document.querySelector('.mapa-controles') || document.querySelector('.mapa-wrap');
   if(alvo) alvo.scrollIntoView({behavior:'auto', block:'start'});

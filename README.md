@@ -10,12 +10,12 @@ Painel interativo dos **543 estabelecimentos de saúde com mais de 1.000 partos 
 
 ## Funcionalidades
 
-- **Capa institucional** — Coordenação de Ações Nacionais e de Cooperação em Saúde da Mulher, da Criança e do Adolescente (IFF · Fiocruz · SUS) — com navegação por eixos temáticos.
+- **Capa institucional** — Coordenação de Ações Nacionais e de Cooperação em Saúde da Mulher, da Criança e do Adolescente (IFF · Fiocruz · SUS) — com navegação direta pelos indicadores, na ordem padrão.
 - **Mapa coroplético em três níveis territoriais** (UF, macrorregião de saúde e região de saúde), com navegação em cascata Brasil → Região → Estado, zoom animado e toque para filtrar todo o painel.
-- **Indicadores mapeáveis em 7 eixos** (visão geral, estrutura, cesárea, boas práticas, contracepção, violência sexual e SMCON), todos com 1 casa decimal e número absoluto (adequados/total).
+- **Indicadores mapeáveis na ordem padrão** — Unidade Neonatal completa, cesariana pelos grupos de Robson, parto vaginal assistido por enfermeira, AMIU, asfixia, oferta de LARC, atendimento de violência sexual, SMCON e alta qualificação — todos com 1 casa decimal e número absoluto (adequados/total).
 - **Cesárea pelos grupos de Robson (G1 a G4)**: estabelecimento adequado quando pelo menos **2 grupos** estão dentro da referência do grupo. O painel não exibe meta de taxa geral de cesariana.
-- **Selo de conformidade (≥5 de 9 indicadores)** em quatro estágios clicáveis — Com selo, Quase lá, No caminho e Início da jornada — com destaque para o que mais falta às unidades a um passo do selo.
-- **Mapa de unidades (Leaflet)**: cada estabelecimento é um ponto na cor do seu estágio do selo, com clusters, filtros por estado/macrorregião e popup-resumo da unidade.
+- **Estágios de qualificação (alta qualificação: ≥5 de 9 indicadores)** em quatro estágios clicáveis — Alta qualificação, Quase lá, No caminho e Início da jornada — com destaque para o que mais falta às unidades a um passo da alta qualificação.
+- **Mapa de unidades (Leaflet)**: cada estabelecimento é um ponto na cor do seu estágio de qualificação, com clusters, filtros por estado/macrorregião e popup-resumo da unidade.
 - **Matriz semáforo** território × indicador na ordem padrão, ordenável, com % de estabelecimentos adequados em quatro faixas de cor, guarda para n<5 e exportação em Excel.
 - **Lista de estabelecimentos** com CNES pesquisável (oculto na exibição), Município (UF) condensado, badges dos indicadores na ordem padrão, filtros rápidos, paginação e exportação em Excel.
 - **Exportações**: Excel e PDF da seleção, PNG do mapa e de cada gráfico (com título e contexto embutidos).
@@ -45,7 +45,7 @@ Todos os dados são públicos e agregados por estabelecimento; não há informa�
 
 **Matriz semáforo.** Cada célula é o % de estabelecimentos do território adequados no indicador, em quatro faixas: ≥75%, 50–74%, 25–49% e <25%. Territórios com menos de 5 unidades aparecem em tom atenuado (percentual instável); o `n` acompanha cada linha.
 
-**Estágios do selo.** O selo reconhece estabelecimentos com **5 ou mais dos 9 indicadores classificatórios** adequados (asfixia, enfermagem obstétrica, AMIU, Robson ≥2 grupos, contracepção, violência sexual, SMCON neonatal, SMCON obstétrico e unidade neonatal completa). Robson ≥2 grupos é **um dos 9 indicadores, não uma exigência à parte**. A "unidade neonatal completa" conta como adequada quando é "sim" **ou** "não se aplica". O selo exibido é o campo oficial da planilha (`nAdeq ≥ 5`).
+**Estágios de qualificação.** A **alta qualificação** reconhece estabelecimentos com **5 ou mais dos 9 indicadores classificatórios** adequados (Asfixia, Parto vaginal assistido por enfermeira, AMIU, Robson ≥2 grupos, Oferta de LARC, Atendimento de violência sexual, SMCON Neonatal, SMCON Obstétrico e Unidade Neonatal completa). Robson ≥2 grupos é **um dos 9 indicadores, não uma exigência à parte**. A "unidade neonatal completa" conta como adequada quando é "sim" **ou** "não se aplica". A classificação exibida é o campo oficial da planilha (ali denominado "selo de conformidade": `nAdeq ≥ 5`).
 
 **Critérios de adequação.** Os limiares que classificam cada indicador como "adequado" (ex.: asfixia ≤ 0,6%; enfermagem e AMIU ≥ 50%; contracepção com DIU+implante; violência sexual ≥ 2 atendimentos; faixas por grupo de Robson) são **institucionais**, definidos na planilha-base e alinhados às variáveis do SMCON (IFF/Fiocruz).
 
