@@ -15,7 +15,7 @@ A seleção dos indicadores que compõem o painel considerou, além de sua relev
 
 O painel reúne os **543 estabelecimentos de saúde com mais de 1.000 partos em 2024**, que responderam por **1.253.881 nascimentos**. Todos os agregados referem-se exclusivamente a essas unidades e não à totalidade dos partos do território; cada agregado exibe o número de estabelecimentos considerados.
 
-A **base de dados é única**: a planilha institucional derivada de SINASC, CNES, SIH-SUS e SMCON (extração de 01/07/2026). O painel apenas **agrega** a classificação de adequação já existente na planilha; a única derivação é a consolidação dos módulos do SMCON em um indicador na classificação por estágios (seção 5). Os parâmetros de adequação são institucionais e não constam em ato oficial publicado. O script de auditoria (`scripts/04_auditoria.py`) recalcula os números exibidos diretamente contra a planilha (37 verificações) e **deve terminar com 0 falhas antes de qualquer publicação**.
+A **base de dados é única**: a planilha institucional derivada de SINASC, CNES, SIH-SUS e SMCON (extração de 01/07/2026). O painel apenas **agrega** a classificação de adequação já existente na planilha; a única derivação é a consolidação dos módulos do SMCON em um indicador na classificação por estágios (seção 5). Os parâmetros de adequação são institucionais e não constam em ato oficial publicado. O script de auditoria (`scripts/04_auditoria.py`) recalcula os números exibidos diretamente contra a planilha; resultado atual: **37 verificações, 0 falhas** (execução de 28/08/2026).
 
 Os dados são públicos e agregados por estabelecimento; não há informação individual de pacientes.
 
@@ -176,4 +176,4 @@ Média do percentual de cesariana nos grupos (estabelecimentos com partos no gru
 
 ## 9. Auditoria
 
-O script `scripts/04_auditoria.py` recalcula os números do painel diretamente da planilha institucional (37 verificações, incluindo a conferência do campo classificatório oficial e da consolidação do SMCON) e **deve terminar com 0 falhas antes de qualquer publicação**.
+O script `scripts/04_auditoria.py` recalcula os números do painel diretamente da planilha institucional (incluindo a conferência do campo classificatório oficial e da consolidação do SMCON) e deve terminar com 0 falhas antes de qualquer publicação. **Resultado atual: 37 verificações, 0 falhas** (execução de 28/08/2026).

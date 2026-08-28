@@ -6,7 +6,7 @@ Painel interativo dos **543 estabelecimentos de saúde com mais de 1.000 partos 
 
 **Metodologia completa:** [METODOLOGIA.md](METODOLOGIA.md)
 
-> **Base de dados única:** a planilha institucional `ESTABELECIMENTOS_ACIMA_DE_1000_PARTOS_2024__INDICADORES` (derivada de SINASC, CNES, SIH-SUS e SMCON; extração de 01/07/2026). Todo número exibido no painel deriva dela e é conferido contra ela pelo script de auditoria (37 verificações; 0 falhas exigidas antes de publicar).
+> **Base de dados única:** a planilha institucional `ESTABELECIMENTOS_ACIMA_DE_1000_PARTOS_2024__INDICADORES` (derivada de SINASC, CNES, SIH-SUS e SMCON; extração de 01/07/2026). Todo número exibido no painel deriva dela e é conferido contra ela pelo script de auditoria (37 verificações, 0 falhas).
 
 ## Funcionalidades
 
