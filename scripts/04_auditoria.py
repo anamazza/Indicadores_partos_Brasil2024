@@ -27,8 +27,8 @@ chk("Partos totais", int(df['TOTAL'].sum()), sum(d['tot'] for d in D))
 chk("Cesarianas", int(ces), sum(d['ces'] for d in D))
 chk("Taxa cesariana %", ces/df['TOTAL'].sum()*100,
     sum(d['ces'] for d in D)/sum(d['tot'] for d in D)*100, 0.01)
-chk("Selo", int((df['CLASSIFICAÇÃO TOTAL \u22655 ROBSON 2 GRUPOS']=='ADEQUADO').sum()),
-    sum(d['selo'] for d in D))
+chk("Campo oficial \u22655 de 9 (planilha)", int((df['CLASSIFICAÇÃO TOTAL \u22655 ROBSON 2 GRUPOS']=='ADEQUADO').sum()),
+    sum(d['seloOf'] for d in D))
 chk("Enfermagem adequada", int((df['CLASSIFICAÇÃO PARTO ENF.']=='ADEQUADO').sum()),
     sum(1 for d in D if d['enfC']=='ADEQUADO'))
 chk("Asfixia inadequada", int((df['CLASSIFICAÇÃO ASFIXIA']=='INADEQUADO').sum()),
@@ -52,7 +52,7 @@ for g in [1,2,3,4]:
     chk(f"Ponderada G{g}", df[f'Nº CESAREANA G{g}'].sum()/df[f'TOTAL NV G{g}'].sum()*100,
         sum(d[f'cs{g}'] for d in D)/sum(d[f'nv{g}'] for d in D)*100, 0.01)
 
-# Estágios do selo
+# Estágios de desempenho: 8 indicadores (SMCON Neonatal e/ou Obstétrico conta uma vez)
 adeq = ((df['CLASSIFICAÇÃO ASFIXIA']=='ADEQUADO').astype(int)
     + (df['CLASSIFICAÇÃO PARTO ENF.']=='ADEQUADO').astype(int)
     + (df['CLASSIFICAÇÃO AMIU']=='ADEQUADO').astype(int)
@@ -62,15 +62,19 @@ adeq = ((df['CLASSIFICAÇÃO ASFIXIA']=='ADEQUADO').astype(int)
     + (df['SMCON NEO'].astype(str).str.strip()=='ok').astype(int)
     + (df['SMCON OBST'].astype(str).str.strip()=='ok').astype(int)
     + (df['UNIDADE NEONATAL COMPLETA'].isin(['SIM', 'NÃO SE APLICA'])).astype(int))
-selo = (df['CLASSIFICAÇÃO TOTAL \u22655 ROBSON 2 GRUPOS']=='ADEQUADO')
-chk("Soma nAdeq", int(adeq.sum()), sum(d['nAdeq'] for d in D))
-chk("Estágio Com selo", int(selo.sum()), sum(1 for d in D if d['selo']))
-chk("Estágio Quase lá", int(((~selo)&(adeq>=4)).sum()),
-    sum(1 for d in D if not d['selo'] and d['nAdeq']>=4))
-chk("Estágio No caminho", int(((~selo)&adeq.isin([2,3])).sum()),
-    sum(1 for d in D if not d['selo'] and d['nAdeq'] in (2,3)))
-chk("Estágio Início", int(((~selo)&(adeq<=1)).sum()),
-    sum(1 for d in D if not d['selo'] and d['nAdeq']<=1))
+both  = ((df['SMCON NEO'].astype(str).str.strip()=='ok')
+       & (df['SMCON OBST'].astype(str).str.strip()=='ok')).astype(int)
+adeq8 = adeq - both
+avanc = adeq8 >= 5
+chk("Soma nAdeq (9 flags)", int(adeq.sum()), sum(d['nAdeq'] for d in D))
+chk("Soma n8 (8 indicadores)", int(adeq8.sum()), sum(d['n8'] for d in D))
+chk("Estágio Avançando (\u22655 de 8)", int(avanc.sum()), sum(1 for d in D if d['selo']))
+chk("Estágio Quase lá", int(((~avanc)&(adeq8>=4)).sum()),
+    sum(1 for d in D if not d['selo'] and d['n8']>=4))
+chk("Estágio No caminho", int(((~avanc)&adeq8.isin([2,3])).sum()),
+    sum(1 for d in D if not d['selo'] and d['n8'] in (2,3)))
+chk("Estágio Início", int(((~avanc)&(adeq8<=1)).sum()),
+    sum(1 for d in D if not d['selo'] and d['n8']<=1))
 
 # Territorial e estrutura
 chk("Macros", df['CÓD MRS'].nunique(), len({d['mrs'] for d in D}))

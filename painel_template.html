@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Indicadores Obstétricos 2024 · Estabelecimentos com mais de 1.000 partos</title>
+<title>Indicadores da Atenção Obstétrica e Neonatal · Estabelecimentos com mais de 1.000 partos · 2024</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -49,8 +49,9 @@ body:not(.inicio) #inicioHero{display:none}
 body.inicio{overflow:hidden}
 .ih-inner{max-width:1080px;margin:auto;width:100%}
 .ih-inner .eyebrow{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.4)}
-.ih-inner h1{font-size:clamp(26px,4.6vw,42px);font-weight:800;line-height:1.12;max-width:760px}
+.ih-inner h1{font-size:clamp(23px,3.4vw,34px);font-weight:800;line-height:1.25;max-width:900px}
 .ih-inner h1 span{display:block;font-weight:500;font-size:.55em;opacity:.92;margin-top:8px}
+.ih-par{font-weight:500;font-size:14.5px;line-height:1.65;opacity:.94;margin-top:14px;max-width:880px}
 .ih-stats{display:flex;gap:28px;align-items:center;margin-top:26px;flex-wrap:wrap}
 .ih-stat b{font-family:'Archivo';font-size:clamp(32px,4.6vw,46px);font-weight:800;display:block;line-height:1;font-variant-numeric:tabular-nums}
 .ih-stat span{font-size:12.5px;opacity:.92;letter-spacing:.6px;text-transform:uppercase;font-weight:600}
@@ -219,7 +220,7 @@ td.num{text-align:right;font-variant-numeric:tabular-nums}
 .badge{display:inline-block;padding:2px 9px;border-radius:12px;font-size:10.5px;font-weight:700}
 .b-ok{background:#E3F4E8;color:var(--verde-profundo)}
 .b-ruim{background:#FBE9E7;color:var(--alerta)}
-.b-selo{background:var(--indigo);color:#fff;font-size:9px;letter-spacing:.2px;white-space:nowrap}
+.b-selo{background:#2166AC;color:#fff;white-space:nowrap}
 .contagem{font-size:12px;color:var(--texto-suave);margin:8px 2px}
 
 /* Mapa do Brasil */
@@ -326,7 +327,7 @@ body.sheet-aberta .sheet-scrim{opacity:1;pointer-events:auto}
   .ctrl-grupo .metricas .chip{flex-shrink:0}
 }
 
-/* Estágios de qualificação: rosca + barras */
+/* Estágios de desempenho: rosca + barras */
 .selo-grid{display:grid;grid-template-columns:230px 1fr;gap:24px;align-items:center}
 @media(max-width:640px){.selo-grid{grid-template-columns:1fr}}
 .selo-donut{position:relative;height:210px}
@@ -441,8 +442,8 @@ body.metodologia{overflow:hidden}
       <div style="font-size:13.5px;font-weight:600;letter-spacing:.4px;color:rgba(255,255,255,.92);text-transform:uppercase;line-height:1.5">Coordenação de Ações Nacionais e de Cooperação em Saúde<br>da Mulher, da Criança e do Adolescente</div>
       <img src="img/logos_institucionais_branco_semgov.png" alt="IFF · Fiocruz · SUS" style="width:min(400px,100%);height:auto">
     </div>
-    <div class="eyebrow">Painel de Indicadores &middot; Aten&ccedil;&atilde;o Obst&eacute;trica e Neonatal &middot; 2024</div>
-    <h1>Indicadores Obst&eacute;tricos e Neonatais<span>Estabelecimentos com mais de 1.000 partos no Brasil &middot; conceitos e aplica&ccedil;&otilde;es dos indicadores</span></h1>
+    <h1>Indicadores da Aten&ccedil;&atilde;o Obst&eacute;trica e Neonatal em Estabelecimentos com mais de 1.000 partos no Brasil</h1>
+    <p class="ih-par">Os indicadores foram selecionados considerando sua relev&acirc;ncia para o monitoramento da aten&ccedil;&atilde;o, a disponibilidade e qualidade dos dados nos sistemas de informa&ccedil;&atilde;o em sa&uacute;de, a facilidade e reprodutibilidade do c&aacute;lculo e a possibilidade de atualiza&ccedil;&atilde;o peri&oacute;dica e compara&ccedil;&atilde;o dos resultados.</p>
     <div class="ih-stats">
       <div class="ih-stat"><b id="ihEstab">&ndash;</b><span>estabelecimentos</span></div>
       <div class="ih-sep"></div>
@@ -471,9 +472,8 @@ body.metodologia{overflow:hidden}
       <div style="font-size:11.5px;font-weight:600;letter-spacing:.4px;color:rgba(255,255,255,.92);text-transform:uppercase;line-height:1.45">Coordenação de Ações Nacionais e de Cooperação em Saúde da Mulher, da Criança e do Adolescente</div>
       <img src="img/logos_institucionais_branco_semgov.png" alt="IFF · Fiocruz · SUS" style="width:min(320px,100%);height:auto">
     </div>
-    <span class="eyebrow">Painel de Indicadores · Atenção Obstétrica e Neonatal</span>
-    <h1>Estabelecimentos com mais de 1.000 partos no Brasil · <span>conceitos e aplicações dos indicadores</span></h1>
-    <div class="header-sub">543 estabelecimentos · 1,25 milhão de partos · indicadores sobre leitos da Unidade Neonatal, grupos de Robson, parto por enfermeira, AMIU, asfixia, contracepção, violência sexual e monitoramento de indicadores pelo SMCON</div>
+    <h1>Indicadores da Atenção Obstétrica e Neonatal <span>em Estabelecimentos com mais de 1.000 partos no Brasil</span></h1>
+    <div class="header-sub">543 estabelecimentos · 1,25 milhão de partos · indicadores sobre leitos da Unidade Neonatal, grupos de Robson, parto por enfermeira, uso de AMIU, asfixia neonatal, oferta de LARC, atendimento de violência sexual e monitoramento pelo SMCON</div>
   </div>
 </header>
 
@@ -595,11 +595,11 @@ body.metodologia{overflow:hidden}
     <div class="chart-box alto" style="height:440px"><canvas id="chTop"></canvas></div>
   </div>
 
-  <div class="secao-titulo"><h2>Estágios de qualificação</h2></div>
+  <div class="secao-titulo"><h2>Estágios de desempenho</h2></div>
   <div class="card">
-    <div class="card-head"><div><h3>Estágios de qualificação das unidades (alta qualificação: &ge;5 de 9 itens adequados)</h3>
-    <div class="sub">Onde a rede está na jornada até a alta qualificação · toque em um estágio para filtrar o painel</div></div>
-    <button class="png-mini" data-c="chSeloDonut" data-n="estagios_qualificacao">&#8681; PNG</button></div>
+    <div class="card-head"><div><h3>Estágios de desempenho das unidades (Avançando: &ge;5 de 8 itens adequados)</h3>
+    <div class="sub">Onde a rede está na jornada até o estágio Avançando · toque em um estágio para filtrar o painel</div></div>
+    <button class="png-mini" data-c="chSeloDonut" data-n="estagios_desempenho">&#8681; PNG</button></div>
     <div class="ctx-linha"></div>
     <div class="selo-grid">
       <div class="selo-donut">
@@ -610,20 +610,20 @@ body.metodologia{overflow:hidden}
     </div>
     <div id="seloInsight" style="margin-top:14px;padding:12px 14px;background:var(--mint-card);border:1.5px solid var(--borda);border-radius:10px;font-size:12.5px;line-height:1.55"></div>
     <div id="seloAvisoCes"></div>
-    <div style="margin-top:8px;font-size:11px;color:var(--texto-suave)">Alta qualificação = 5 ou mais dos 9 indicadores classificatórios adequados: Asfixia, Parto vaginal assistido por enfermeira, AMIU, Robson &ge;2 grupos, Oferta de LARC, Atendimento de violência sexual, SMCON Neonatal, SMCON Obstétrico e Unidade Neonatal completa. Robson &ge;2 grupos é um dos 9 indicadores, não uma exigência à parte; "unidade neonatal completa" conta como adequada quando é "sim" ou "não se aplica". A classificação é o campo oficial da planilha. Limiares institucionais de adequação: asfixia &le;0,6% (&ge;2.500g, sem anomalias); parto vaginal assistido por enfermeira &ge;50%; AMIU &ge;50%; oferta de LARC &ge;3 inserções de DIU/implante no ano; atendimento de violência sexual &ge;2 no ano; Robson por faixas de taxa por grupo, conforme planilha institucional.</div>
+    <div style="margin-top:8px;font-size:11px;color:var(--texto-suave)">Avançando = 5 ou mais dos 8 indicadores classificatórios adequados: Unidade Neonatal completa, Cesariana (Robson &ge;2 grupos), Parto vaginal assistido por enfermeira, Uso de AMIU, Asfixia Neonatal, Oferta de LARC, Atendimento de violência sexual e SMCON Neonatal e/ou Obstétrico. Robson &ge;2 grupos é um dos 8 indicadores, não uma exigência à parte; o SMCON conta uma única vez, por qualquer um dos módulos; "unidade neonatal completa" conta como adequada quando é "sim" ou "não se aplica". Classificação derivada do campo classificatório da planilha, com o SMCON consolidado em um indicador. Limiares institucionais de adequação: asfixia neonatal &le;0,6% (&ge;2.500g, sem anomalias); parto vaginal assistido por enfermeira &ge;50%; uso de AMIU &ge;50%; oferta de LARC &ge;3 inserções de DIU/implante no ano; atendimento de violência sexual &ge;2 no ano; Robson por faixas de taxa por grupo, conforme planilha institucional.</div>
   </div>
 
   <div class="secao-titulo" style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><h2>Mapa de unidades</h2><button class="acao btn-xlsx" id="mapuToggle" onclick="toggleMapaUnidades()">&#9654; Mostrar mapa</button></div>
   <div class="card" id="mapuCard" style="display:none">
-    <div class="card-head"><div><h3>Mapa de unidades &middot; est&aacute;gios de qualifica&ccedil;&atilde;o</h3>
-    <div class="sub">Cada ponto &eacute; um estabelecimento, na cor do seu est&aacute;gio de qualifica&ccedil;&atilde;o: Alta qualifica&ccedil;&atilde;o, Quase l&aacute;, No caminho e In&iacute;cio da jornada &middot; use "Colorir por" para ver qualquer um dos 9 indicadores classificat&oacute;rios &middot; respeita os filtros do painel</div></div>
+    <div class="card-head"><div><h3>Mapa de unidades &middot; est&aacute;gios de desempenho</h3>
+    <div class="sub">Cada ponto &eacute; um estabelecimento, na cor do seu est&aacute;gio de desempenho: Avan&ccedil;ando, Quase l&aacute;, No caminho e In&iacute;cio da jornada &middot; use "Colorir por" para ver qualquer um dos 8 indicadores classificat&oacute;rios &middot; respeita os filtros do painel</div></div>
     <button class="png-mini" onclick="exportarMapaUnidadesPNG()">&#8681; PNG</button></div>
     <div class="ctx-linha"></div>
     <div class="mapu-ctrl mapu-filtros"><label for="mapuUF">Estado:</label><select id="mapuUF" onchange="mapuSetUF(this.value)"><option value="">Todos</option></select><label for="mapuMacro">Macrorregi&atilde;o:</label><select id="mapuMacro" onchange="mapuSetMacro(this.value)"><option value="">Todas</option></select><button class="mapu-limpar" onclick="mapuLimparFiltros()">Limpar filtros</button></div>
-    <div class="mapu-ctrl"><label for="mapuMetrica">Colorir por:</label><select id="mapuMetrica" onchange="mudarMetricaMapa(this.value)"><option value="selo">Est&aacute;gio de qualifica&ccedil;&atilde;o</option><option value="neo">Unidade Neonatal completa</option><option value="rob">Robson &ge;2 grupos</option><option value="enf">Parto vaginal assistido por enfermeira</option><option value="amiu">AMIU</option><option value="asf">Asfixia</option><option value="larc">Oferta de LARC</option><option value="viol">Atendimento de viol&ecirc;ncia sexual</option><option value="smn">SMCON Neonatal</option><option value="smo">SMCON Obstétrico</option></select><span class="mapu-hint">Clique nos itens da legenda para mostrar/ocultar grupos</span></div>
+    <div class="mapu-ctrl"><label for="mapuMetrica">Colorir por:</label><select id="mapuMetrica" onchange="mudarMetricaMapa(this.value)"><option value="selo">Est&aacute;gio de desempenho</option><option value="neo">Unidade Neonatal completa</option><option value="rob">Robson &ge;2 grupos</option><option value="enf">Parto vaginal assistido por enfermeira</option><option value="amiu">Uso de AMIU</option><option value="asf">Asfixia Neonatal</option><option value="larc">Oferta de LARC</option><option value="viol">Atendimento de viol&ecirc;ncia sexual</option><option value="sm">SMCON Neonatal e/ou Obst&eacute;trico</option></select><span class="mapu-hint">Clique nos itens da legenda para mostrar/ocultar grupos</span></div>
     <div class="mapu-legenda" id="mapuLegenda"></div>
     <div id="mapaUnidades" style="height:540px;border-radius:12px;border:1.5px solid var(--borda);overflow:hidden;margin-top:4px"></div>
-    <div style="margin-top:8px;font-size:11px;color:var(--texto-suave)">Classifica&ccedil;&atilde;o pelo campo oficial da planilha: alta qualifica&ccedil;&atilde;o = &ge;5 dos 9 indicadores classificat&oacute;rios adequados ("n&atilde;o se aplica" em unidade neonatal conta como adequado). Coordenadas por CNES; duas unidades sem geo exata usam o centro do munic&iacute;pio.</div>
+    <div style="margin-top:8px;font-size:11px;color:var(--texto-suave)">Classifica&ccedil;&atilde;o derivada do campo oficial da planilha, com o SMCON consolidado em um indicador: Avan&ccedil;ando = &ge;5 dos 8 indicadores classificat&oacute;rios adequados ("n&atilde;o se aplica" em unidade neonatal conta como adequado). Coordenadas por CNES; duas unidades sem geo exata usam o centro do munic&iacute;pio.</div>
   </div>
 
   <div class="secao-titulo"><h2>Matriz semáforo</h2></div>
@@ -658,8 +658,8 @@ body.metodologia{overflow:hidden}
         <input id="tblBusca" type="text" placeholder="Nome, CNES ou município...">
       </div>
       <div class="campo" style="min-width:130px">
-        <label for="tblSelo">Qualifica&ccedil;&atilde;o</label>
-        <select id="tblSelo"><option value="">Todos</option><option value="1">Alta qualificação</option><option value="0">Demais estágios</option></select>
+        <label for="tblSelo">Desempenho</label>
+        <select id="tblSelo"><option value="">Todos</option><option value="1">Avançando</option><option value="0">Demais estágios</option></select>
       </div>
     </div>
     <div class="contagem" id="contagem"></div>
@@ -672,11 +672,11 @@ body.metodologia{overflow:hidden}
           <th data-k="neoFlag">Unidade Neonatal completa</th>
           <th data-k="rob2">Robson &ge;2 grupos</th>
           <th data-k="enf" class="num" title="% de partos vaginais do estabelecimento assistidos por enfermeira obstétrica/obstetriz · cor = adequação (verde: ≥50%)">Parto vaginal assistido por enfermeira</th>
-          <th data-k="amiu" class="num" title="% de AMIU do estabelecimento nos esvaziamentos uterinos · cor = adequação (verde: ≥50%)">AMIU</th>
-          <th data-k="asf" class="num" title="Adequação de asfixia: SIM quando o % de RN ≥2.500g sem anomalias com Apgar <7 no 5º min é ≤0,6% · passe o mouse na célula para ver o % da unidade">Asfixia</th>
+          <th data-k="amiu" class="num" title="% de AMIU do estabelecimento nos esvaziamentos uterinos · cor = adequação (verde: ≥50%)">Uso de AMIU</th>
+          <th data-k="asf" class="num" title="Adequação de asfixia: SIM quando o % de RN ≥2.500g sem anomalias com Apgar <7 no 5º min é ≤0,6% · passe o mouse na célula para ver o % da unidade">Asfixia Neonatal</th>
           <th data-k="contrOk" title="Oferta de LARC (DIU + implante) adequada">Oferta de LARC</th>
           <th data-k="viol">Atendimento de violência sexual</th>
-          <th data-k="selo">Alta qualifica&ccedil;&atilde;o</th>
+          <th data-k="selo">Avan&ccedil;ando</th>
         </tr>
       </thead>
       <tbody id="tbody"></tbody>
@@ -696,41 +696,23 @@ body.metodologia{overflow:hidden}
   </div>
   <div class="met-inner">
     <h1>Nota metodológica · fichas de qualificação dos indicadores</h1>
-    <div class="met-sub">Fontes: SINASC, CNES e SIH-SUS. Universo: estabelecimentos com mais de 1.000 partos em 2024 (543 unidades; 1.253.881 partos). Extração de 01/07/2026. Base institucional alinhada às variáveis do SMCON/IFF-Fiocruz. Os parâmetros de adequação são institucionais e não constam em ato oficial publicado.</div>
+    <p style="font-size:13.5px;line-height:1.7;margin:12px 0 8px;max-width:940px">A seleção dos indicadores que compõem o painel considerou, além de sua relevância para o monitoramento da qualidade e da organização da atenção materna e neonatal, a disponibilidade e a confiabilidade das informações nos sistemas de informação em saúde existentes. Foram priorizados indicadores passíveis de obtenção a partir de bases de dados de acesso regular, com variáveis padronizadas e cobertura adequada, bem como aqueles cujo cálculo pudesse ser realizado de forma objetiva, reprodutível e com menor complexidade operacional. Também foram considerados a possibilidade de atualização periódica, a comparabilidade dos resultados entre estabelecimentos e períodos e a viabilidade de interpretação pelos diferentes públicos envolvidos no monitoramento. Dessa forma, a composição do painel buscou conciliar a relevância dos indicadores com sua factibilidade de mensuração, permitindo um acompanhamento sistemático e sustentável dos aspectos selecionados.</p>
+    <div class="met-sub">Fontes: SINASC, CNES, SIH-SUS e SMCON. Universo: estabelecimentos com mais de 1.000 partos em 2024 (543 unidades; 1.253.881 partos). Extração de 01/07/2026. Os parâmetros de adequação são institucionais e não constam em ato oficial publicado.</div>
 
     <section>
-      <h2>Cesariana adequada — Robson &ge;2 grupos</h2>
-      <p><b>Conceituação:</b> proporção de estabelecimentos com pelo menos dois dos quatro grupos de Robson de menor risco (G1 a G4) com taxa de cesariana dentro da referência do grupo.</p>
-      <p><b>Método de cálculo:</b> estabelecimentos com &ge;2 grupos adequados ÷ estabelecimentos da seleção × 100. A adequação de cada grupo segue a classificação da base institucional (planilha), com metas por grupo (institucionais · ref. Manual de Robson, OMS/OPAS 2017): G1 &le;10% · G2 &le;35% · G3 &le;3% · G4 &le;15%.</p>
-      <p><b>Observação:</b> o painel não exibe meta de taxa geral de cesariana; a leitura recomendada é por grupos de Robson. "Robson &ge;2 grupos" é um dos 9 indicadores classificatórios da qualificação das unidades.</p>
-      <p><b>Fonte:</b> SINASC (DNV: variáveis obstétricas da classificação de Robson e via de nascimento); classificação por grupo da base institucional. Método: OMS — Robson Classification Manual (2017).</p>
+      <h2>Unidade Neonatal completa</h2>
+      <p><b>Conceituação:</b> disponibilidade das três tipologias de leitos para o cuidado neonatal progressivo — UTIN, UCINCo e UCINCa — conforme habilitações registradas no CNES (Portaria GM/MS nº 930/2012).</p>
+      <p><b>Parâmetro:</b> "sim" quando a unidade neonatal possui os três tipos de leitos; "não" quando falta pelo menos um deles; "não se aplica" quando a maternidade não possui unidade neonatal. Conta como adequada quando a resposta é "sim" ou "não se aplica" — condição das maternidades de risco habitual, que não constituem porta de entrada do recém-nascido grave; nesses casos, a retaguarda depende da regulação e do transporte neonatal.</p>
+      <p><b>Fonte:</b> CNES (leitos existentes de UTIN, UCINCo e UCINCa). Referências: Portaria GM/MS nº 930/2012; Portaria SAES/MS nº 2.902/2025.</p>
     </section>
 
     <section>
-      <h2>Asfixia neonatal — % de estabelecimentos adequados</h2>
-      <p><b>Conceituação:</b> a taxa de asfixia da unidade é a proporção de nascidos vivos com peso igual ou superior a 2.500g, sem anomalias congênitas, com índice de Apgar inferior a 7 no 5º minuto de vida. O Apgar baixo é utilizado como marcador de possível asfixia ao nascer, desfecho sensível à qualidade da vigilância do trabalho de parto e da reanimação neonatal.</p>
-      <p><b>Método de cálculo do indicador:</b> % de estabelecimentos com asfixia adequada = estabelecimentos com taxa ≤0,6% ÷ estabelecimentos da seleção × 100, exibido com o número absoluto (adequados/total). A taxa da unidade (nascidos ≥2.500g sem anomalias com Apgar 5' &lt;7 ÷ total × 100, SINASC) aparece na lista de estabelecimentos ao passar o mouse.</p>
-      <p><b>Parâmetro:</b> unidade adequada quando a taxa é igual ou inferior a 0,6% (limiar institucional).</p>
-      <p><b>Limitações:</b> em unidades com pequeno número de casos, a taxa apresenta oscilação aleatória importante. Taxa de 0,0% em unidade de grande volume sugere falha de registro do Apgar na Declaração de Nascido Vivo e deve ser objeto de verificação, não de comparação.</p>
-      <p><b>Fonte:</b> SINASC (DNV: Apgar no 5º minuto, peso ao nascer e anomalias congênitas).</p>
-    </section>
-
-    <section>
-      <h2>Parto vaginal assistido por enfermeira</h2>
-      <p><b>Conceituação:</b> proporção de partos vaginais assistidos por enfermeira obstétrica ou obstetriz, conforme o campo "profissional que assistiu o parto" da Declaração de Nascido Vivo. Expressa a adoção do modelo assistencial recomendado para a gestação de risco habitual (OMS, 2018; Diretrizes Nacionais de Assistência ao Parto Normal, Ministério da Saúde).</p>
-      <p><b>Método de cálculo:</b> partos vaginais assistidos por enfermagem obstétrica ÷ total de partos vaginais × 100 (SINASC).</p>
-      <p><b>Parâmetro:</b> adequado quando igual ou superior a 50%.</p>
-      <p><b>Limitações:</b> o campo apresenta subregistro conhecido. Valores nulos em unidades que dispõem de Centro de Parto Normal indicam falha de preenchimento da DNV, e não ausência da prática.</p>
-      <p><b>Fonte:</b> SINASC (DNV: campo "profissional que assistiu o parto"). Referências: OMS (2018); Diretrizes Nacionais de Assistência ao Parto Normal (Ministério da Saúde).</p>
-    </section>
-
-    <section>
-      <h2>AMIU — aspiração manual intrauterina</h2>
-      <p><b>Conceituação:</b> proporção dos esvaziamentos uterinos realizados pela técnica de aspiração manual intrauterina, recomendada pela norma técnica de Atenção Humanizada ao Abortamento (Ministério da Saúde) em substituição à curetagem.</p>
-      <p><b>Método de cálculo:</b> procedimentos de AMIU ÷ total de esvaziamentos uterinos (AMIU + curetagem) × 100, a partir dos procedimentos registrados no SIH-SUS.</p>
-      <p><b>Parâmetro:</b> adequado quando igual ou superior a 50%.</p>
-      <p><b>Limitações:</b> por se tratar de dado de produção faturada, o valor nulo não distingue a unidade que não realiza o procedimento daquela que o registra sob outro código ou que referencia os casos a outro serviço.</p>
-      <p><b>Fonte:</b> SIH-SUS (procedimentos de AMIU e curetagem). Referência: norma técnica de Atenção Humanizada ao Abortamento (Ministério da Saúde).</p>
+      <h2>Cesariana — Robson &ge;2 grupos</h2>
+      <p><b>Conceituação:</b> ter ao menos dois dos quatro grupos de Robson de menor risco (G1 a G4) com taxa de cesariana dentro da meta do grupo.</p>
+      <p><b>Método de cálculo:</b> número de grupos de Robson (G1 a G4) com taxa de cesariana dentro da meta estabelecida para cada grupo; grupos sem nascidos vivos são computados como não adequados.</p>
+      <p><b>Parâmetro:</b> "sim" (pelo menos 2 grupos dentro da meta) e "não" (menos de 2 grupos dentro da meta). As metas por grupo seguem as referências do Manual de Robson (OMS/OPAS, 2017): G1 ≤10% · G2 ≤35% · G3 ≤3% · G4 ≤15%.</p>
+      <p><b>Observação:</b> o painel não exibe meta de taxa geral de cesariana; a leitura recomendada é por grupos de Robson. "Robson ≥2 grupos" é um dos 8 indicadores classificatórios do desempenho das unidades.</p>
+      <p><b>Fonte:</b> SINASC (DNV: variáveis obstétricas da classificação de Robson e via de nascimento). Método: OMS — Robson Classification Manual (2017).</p>
     </section>
 
     <section>
@@ -738,15 +720,42 @@ body.metodologia{overflow:hidden}
       <p><b>Conceituação:</b> taxa de cesariana em grupos de gestantes de perfil obstétrico comparável, segundo a classificação de Robson (OMS, 2017). G1: nulíparas, feto único, cefálico, a termo, em trabalho de parto espontâneo. G2: nulíparas, feto único, cefálico, a termo, com indução ou cesariana anterior ao trabalho de parto. G3: multíparas sem cesariana prévia, feto único, cefálico, a termo, em trabalho de parto espontâneo. G4: multíparas sem cesariana prévia, com indução ou cesariana anterior ao trabalho de parto. A comparação dentro de cada grupo reduz o efeito das diferenças de perfil entre estabelecimentos.</p>
       <p><b>Método de cálculo:</b> cesarianas do grupo ÷ nascidos vivos do grupo × 100.</p>
       <p><b>Metas por grupo:</b> G1 &le;10% · G2 &le;35% · G3 &le;3% · G4 &le;15% — metas institucionais adotadas pela Coordenação, com base nas referências de interpretação do Manual de Robson (OMS/OPAS, 2017). Cada grupo é avaliado contra a sua meta; o estabelecimento é adequado com pelo menos 2 grupos dentro da meta. Para o G2, cuja referência é uma faixa (20–35%), adotou-se nesta primeira versão o limite superior (≤35%) para simplificar a leitura.</p>
-      <p><b>Parâmetro:</b> o indicador classificatório "Robson ≥2 grupos" considera adequado o estabelecimento com pelo menos dois dos quatro grupos dentro da meta; grupos sem nascidos vivos são computados como não adequados.</p>
       <p><b>Limitações:</b> o gráfico do painel apresenta a média das unidades da seleção, excluídas as que não registraram partos no grupo. A medida "% Cesariana Adeq. Robson G1–G4", exibida no mapa, é distinta: corresponde ao percentual de estabelecimentos classificados como adequados no grupo, com leitura inversa (quanto maior, melhor).</p>
       <p><b>Fonte:</b> SINASC (DNV: paridade, idade gestacional, apresentação, início do trabalho de parto e via de nascimento). Método: OMS — Robson Classification Manual (2017).</p>
     </section>
 
     <section>
+      <h2>Parto vaginal assistido por enfermeira</h2>
+      <p><b>Conceituação:</b> proporção de partos vaginais assistidos por enfermeira obstétrica ou obstetriz, conforme o campo "profissional que assistiu o parto" da Declaração de Nascido Vivo. Expressa a adoção do modelo assistencial recomendado para a gestação de risco habitual (OMS, 2018; Diretrizes Nacionais de Assistência ao Parto Normal, Ministério da Saúde).</p>
+      <p><b>Método de cálculo:</b> partos vaginais assistidos por enfermeira obstétrica ou obstetriz ÷ total de partos vaginais × 100 (SINASC).</p>
+      <p><b>Parâmetro:</b> adequado quando igual ou superior a 50%, conforme meta estabelecida pela equipe responsável pela elaboração do painel.</p>
+      <p><b>Limitações:</b> o campo apresenta subregistro conhecido, com possibilidade de preenchimento inadequado na DNV — o valor observado pode ser inferior à prática efetivamente realizada. Valores nulos em unidades que dispõem de Centro de Parto Normal indicam falha de preenchimento, e não ausência da prática.</p>
+      <p><b>Fonte:</b> SINASC (DNV: campo "profissional que assistiu o parto"). Referências: OMS (2018); Diretrizes Nacionais de Assistência ao Parto Normal (Ministério da Saúde).</p>
+    </section>
+
+    <section>
+      <h2>Uso de AMIU — aspiração manual intrauterina</h2>
+      <p><b>Conceituação:</b> proporção dos esvaziamentos uterinos realizados pela técnica de aspiração manual intrauterina, recomendada pela norma técnica de Atenção Humanizada ao Abortamento (Ministério da Saúde) em substituição à curetagem.</p>
+      <p><b>Método de cálculo:</b> procedimentos de AMIU ÷ total de esvaziamentos uterinos (AMIU + curetagem) × 100, a partir dos procedimentos registrados no SIH-SUS.</p>
+      <p><b>Parâmetro:</b> adequado quando igual ou superior a 50%, conforme meta estabelecida pela equipe responsável pela elaboração do painel.</p>
+      <p><b>Limitações:</b> por se tratar de dado de produção faturada, o valor nulo não distingue a unidade que não realiza o procedimento daquela que o registra sob outro código ou que referencia os casos a outro serviço.</p>
+      <p><b>Fonte:</b> SIH-SUS (procedimentos de AMIU e curetagem). Referência: norma técnica de Atenção Humanizada ao Abortamento (Ministério da Saúde).</p>
+    </section>
+
+    <section>
+      <h2>Asfixia Neonatal — % de estabelecimentos adequados</h2>
+      <p><b>Conceituação:</b> a taxa de asfixia da unidade é a proporção de nascidos vivos com peso igual ou superior a 2.500g, sem anomalias congênitas, com índice de Apgar inferior a 7 no 5º minuto de vida. O Apgar baixo é utilizado como marcador de possível asfixia ao nascer, desfecho sensível à qualidade da vigilância do trabalho de parto e da reanimação neonatal.</p>
+      <p><b>Método de cálculo do indicador:</b> % de estabelecimentos com asfixia adequada = estabelecimentos com taxa ≤0,6% ÷ estabelecimentos da seleção × 100, exibido com o número absoluto (adequados/total). A taxa da unidade (nascidos ≥2.500g sem anomalias com Apgar 5' &lt;7 ÷ total × 100, SINASC) aparece na lista de estabelecimentos ao passar o mouse.</p>
+      <p><b>Parâmetro:</b> unidade adequada quando a taxa é igual ou inferior a 0,6% — média do Brasil em 2024, adotada como referência.</p>
+      <p><b>Limitações:</b> em unidades com pequeno número de casos, a taxa apresenta oscilação aleatória importante. Taxa de 0,0% em unidade de grande volume sugere falha de registro do Apgar na Declaração de Nascido Vivo e deve ser objeto de verificação, não de comparação.</p>
+      <p><b>Fonte:</b> SINASC (DNV: Apgar no 5º minuto, peso ao nascer e anomalias congênitas).</p>
+    </section>
+
+    <section>
       <h2>Oferta de LARC — DIU e implante</h2>
       <p><b>Conceituação:</b> oferta de contraceptivos reversíveis de longa duração (DIU e implante subdérmico) no pós-parto e pós-abortamento, registrada no SIH-SUS, como marcador de planejamento reprodutivo na unidade.</p>
-      <p><b>Método de cálculo:</b> % de estabelecimentos com oferta de LARC (contracepção) adequada na base institucional (planilha), exibido com o número absoluto (adequados/total).</p>
+      <p><b>Método de cálculo:</b> número de registros de procedimentos de inserção de DIU ou implante nas AIH no ano.</p>
+      <p><b>Parâmetro:</b> pelo menos 3 registros desses procedimentos no ano, conforme meta estabelecida pela equipe responsável pela elaboração do painel.</p>
       <p><b>Limitações:</b> o parâmetro identifica a existência de serviço ativo (insumo, profissional habilitado e fluxo), não a suficiência da oferta frente ao volume de partos. A inserção pós-placentária nem sempre é faturada, o que pode subestimar o dado.</p>
       <p><b>Fonte:</b> SIH-SUS (procedimentos de inserção de DIU e implante subdérmico). Referência: Nota Técnica de ampliação do acesso ao DIU (Ministério da Saúde / IFF-Fiocruz).</p>
     </section>
@@ -754,47 +763,41 @@ body.metodologia{overflow:hidden}
     <section>
       <h2>Atendimento de violência sexual</h2>
       <p><b>Conceituação:</b> número de atendimentos a vítimas de violência sexual registrados pelo estabelecimento no ano (SIH-SUS).</p>
-      <p><b>Método de cálculo:</b> contagem anual de atendimentos. Classificação de adequação: dois ou mais atendimentos registrados.</p>
+      <p><b>Método de cálculo:</b> contagem anual de atendimentos registrados.</p>
+      <p><b>Parâmetro:</b> pelo menos dois atendimentos registrados no ano.</p>
       <p><b>Limitações:</b> o atendimento é obrigatório em todos os hospitais do SUS (Lei nº 12.845/2013); o que o indicador capta é o registro do atendimento e o papel de referência da unidade na rede. A ausência de registro não caracteriza recusa: a unidade pode encaminhar os casos ao serviço de referência do território.</p>
       <p><b>Fonte:</b> SIH-SUS (registros de atendimento a vítimas de violência sexual). Referência: Lei nº 12.845/2013.</p>
     </section>
 
     <section>
-      <h2>SMCON Neonatal e SMCON Obstétrico</h2>
-      <p><b>Conceituação:</b> adesão do estabelecimento aos módulos Neonatal e Obstétrico do Sistema de Monitoramento do Cuidado Obstétrico e Neonatal (SMCON/IFF-Fiocruz, estratégia Qualineo), de alimentação voluntária. Constituem dois indicadores classificatórios distintos.</p>
-      <p><b>Parâmetro:</b> adequado quando a unidade alimenta o módulo correspondente.</p>
+      <h2>SMCON Neonatal e/ou Obstétrico</h2>
+      <p><b>Conceituação:</b> adesão do estabelecimento aos módulos Neonatal e Obstétrico do Sistema de Monitoramento do Cuidado Obstétrico e Neonatal (SMCON/IFF-Fiocruz, estratégia Qualineo), de alimentação voluntária.</p>
+      <p><b>Parâmetro:</b> adesão a pelo menos um dos módulos do SMCON.</p>
       <p><b>Limitações:</b> o indicador expressa a incorporação do monitoramento à rotina da unidade, não o resultado assistencial.</p>
       <p><b>Fonte:</b> IFF/Fiocruz — SMCON (estratégia Qualineo), alimentado pelas próprias unidades.</p>
     </section>
 
     <section>
-      <h2>Unidade neonatal completa</h2>
-      <p><b>Conceituação:</b> disponibilidade da linha completa de cuidado ao recém-nascido de risco — UTIN, UCINCo e UCINCa — conforme habilitações registradas no CNES (Portaria GM/MS nº 930/2012).</p>
-      <p><b>Parâmetro:</b> adequado quando a resposta é "sim" ou "não se aplica". A condição "não se aplica" corresponde às maternidades de risco habitual, que não constituem porta de entrada do recém-nascido grave; nesses casos, a retaguarda depende da regulação e do transporte neonatal.</p>
-      <p><b>Fonte:</b> CNES (habilitações de UTIN, UCINCo e UCINCa). Referências: Portaria GM/MS nº 930/2012; Portaria SAES/MS nº 2.902/2025.</p>
-    </section>
-
-    <section>
-      <h2>Estágios de qualificação (alta qualificação: ≥5 de 9)</h2>
-      <p><b>Conceituação:</b> o estabelecimento alcança a alta qualificação quando ao menos 5 dos 9 indicadores classificatórios estão adequados: Asfixia, Parto vaginal assistido por enfermeira, AMIU, Robson ≥2 grupos, Oferta de LARC, Atendimento de violência sexual, SMCON Neonatal, SMCON Obstétrico e Unidade Neonatal completa. "Robson ≥2 grupos" integra os 9 indicadores, sem constituir exigência adicional. A classificação corresponde ao campo classificatório oficial da base (ali denominado "selo de conformidade").</p>
+      <h2>Estágios de desempenho (Avançando: ≥5 de 8)</h2>
+      <p><b>Conceituação:</b> o estabelecimento alcança o estágio Avançando quando ao menos 5 dos 8 indicadores classificatórios estão adequados: Unidade Neonatal completa, Cesariana (Robson ≥2 grupos), Parto vaginal assistido por enfermeira, Uso de AMIU, Asfixia Neonatal, Oferta de LARC, Atendimento de violência sexual e SMCON Neonatal e/ou Obstétrico. "Robson ≥2 grupos" integra os 8 indicadores, sem constituir exigência adicional; o SMCON conta uma única vez, por qualquer um dos módulos. Os demais estágios seguem o número de indicadores adequados: Quase lá (4), No caminho (2 a 3) e Início da jornada (0 a 1).</p>
       <p><b>Interpretação:</b> a classificação afere conformidade com itens de qualificação — estrutura, processo e registro — e não constitui, por si, medida de qualidade assistencial. A taxa de cesariana não integra a classificação. Unidades de maior porte e complexidade tendem a reunir mais itens por capacidade instalada e de registro; recomenda-se acompanhar a evolução de cada unidade no tempo, em vez de ordenar unidades de perfis distintos.</p>
-      <p><b>Fonte:</b> campo classificatório oficial da base institucional (planilha derivada de SINASC, CNES e SIH-SUS; extração de 01/07/2026).</p>
+      <p><b>Fonte:</b> derivada do campo classificatório da base institucional (ali denominado "selo de conformidade": ≥5 de 9 itens), com os módulos do SMCON consolidados em um único indicador (planilha derivada de SINASC, CNES, SIH-SUS e SMCON; extração de 01/07/2026).</p>
     </section>
 
     <section>
-      <h2>Mapa de unidades — estágios de qualificação</h2>
-      <p><b>Conceituação:</b> mapa de pontos em que cada estabelecimento é representado na cor do seu estágio de qualificação — Alta qualificação, Quase lá, No caminho e Início da jornada. O seletor "Colorir por" permite recolorir os pontos por qualquer um dos 9 indicadores classificatórios, em verde (adequado) × roxo (não adequado), par de cores seguro para daltonismo.</p>
+      <h2>Mapa de unidades — estágios de desempenho</h2>
+      <p><b>Conceituação:</b> mapa de pontos em que cada estabelecimento é representado na cor do seu estágio de desempenho — Avançando, Quase lá, No caminho e Início da jornada. O seletor "Colorir por" permite recolorir os pontos por qualquer um dos 8 indicadores classificatórios, em verde (adequado) × roxo (não adequado), par de cores seguro para daltonismo.</p>
       <p><b>Método de apresentação:</b> o tamanho de cada ponto é proporcional à raiz do total de partos da unidade. Pontos próximos são agrupados em círculos cuja composição de cores reflete as categorias dos estabelecimentos agrupados; a legenda permite mostrar ou ocultar cada categoria, e o mapa respeita os filtros do painel, além dos recortes por estado e macrorregião.</p>
-      <p><b>Ficha da unidade:</b> ao tocar em um ponto, exibem-se o estágio de qualificação com o número de indicadores adequados (n/9), o total de partos, a natureza jurídica e a gestão. A taxa de cesariana não é exibida, em coerência com a leitura por grupos de Robson.</p>
+      <p><b>Ficha da unidade:</b> ao tocar em um ponto, exibem-se o estágio de desempenho com o número de indicadores adequados (n/8), o total de partos, a natureza jurídica e a gestão. A taxa de cesariana não é exibida, em coerência com a leitura por grupos de Robson.</p>
       <p><b>Fonte:</b> coordenadas geocodificadas por CNES (duas unidades sem geolocalização exata utilizam o centro do município); categorias derivadas dos indicadores classificatórios da base institucional.</p>
     </section>
 
     <section>
       <h2>Agregações e apresentação</h2>
       <ul>
-        <li>Percentuais de adequação correspondem à proporção de estabelecimentos adequados, exibida com o número absoluto (adequados/total). % AMIU e a cesariana nos grupos de Robson, nos gráficos, utilizam a média das unidades da seleção.</li>
+        <li>Os percentuais de cada território selecionado correspondem ao % de estabelecimentos dentro da meta sobre o total de estabelecimentos, exibido com o número absoluto (adequados/total). % Uso de AMIU e a cesariana nos grupos de Robson, nos gráficos, utilizam a média das unidades da seleção.</li>
         <li>No mapa, todos os indicadores utilizam quintis dos territórios visíveis, em escala sequencial de verdes (mais escuro = maior adequação).</li>
-        <li>Na matriz semáforo, territórios com menos de 5 estabelecimentos são apresentados sem cor, dada a instabilidade do percentual.</li>
+        <li>Na matriz semáforo, territórios com menos de 5 estabelecimentos são apresentados em tom atenuado, dada a instabilidade do percentual.</li>
         <li>Todos os agregados referem-se exclusivamente às unidades com mais de 1.000 partos no ano, e não à totalidade dos partos do território.</li>
       </ul>
     </section>
@@ -803,8 +806,8 @@ body.metodologia{overflow:hidden}
 
 <footer>
   <div class="footer-inner">
-    <div class="marca">Indicadores Básicos para a Saúde no Brasil <span>·</span> Painel 2024</div>
-    <div>Fonte: SINASC / CNES / SIH-SUS · Estabelecimentos com &gt;1.000 partos em 2024 · Extração 01/07/2026</div>
+    <div class="marca">Indicadores da Atenção Obstétrica e Neonatal <span>·</span> Painel 2024</div>
+    <div>Fonte: SINASC / CNES / SIH-SUS / SMCON · Estabelecimentos com &gt;1.000 partos em 2024 · Extração 01/07/2026</div>
     <div style="width:100%;font-size:11px;opacity:.85;margin-top:6px;line-height:1.5">Os critérios de <b>adequação</b> de cada indicador são <b>institucionais</b> (derivados de SINASC/CNES/SIH-SUS e alinhados às variáveis do SMCON/IFF-Fiocruz). A adequação de cesariana é avaliada pelos <b>grupos de Robson (G1 a G4)</b>: estabelecimento adequado quando pelo menos <b>2 grupos</b> estão dentro da referência do grupo.</div>
   </div>
 </footer>
@@ -1004,7 +1007,7 @@ function renderRobson(){
   charts.chRobson=new Chart($('chRobson'),{
     type:'bar',
     data:{labels:['G1','G2','G3','G4'],
-      datasets:[{label:'Média % cesárea',data:vals,
+      datasets:[{label:'Média % cesariana',data:vals,
         backgroundColor:[C.lima,C.esmeralda,C.lima,C.esmeralda],borderRadius:6,maxBarThickness:56}]},
     options:{
       responsive:true,maintainAspectRatio:false,
@@ -1025,12 +1028,12 @@ function renderAdeq(){
     {r:'Unidade Neonatal completa', v:filtrado.filter(d=>d.flags&&d.flags[8]==='1').length},
     {r:'Cesariana adequada (Robson &ge;2 grupos)', v:filtrado.filter(d=>d.rob2).length},
     {r:'Parto vaginal assistido por enfermeira', v:filtrado.filter(d=>d.enfC==='ADEQUADO').length},
-    {r:'AMIU', v:filtrado.filter(d=>d.flags&&d.flags[2]==='1').length},
-    {r:'Asfixia', v:filtrado.filter(d=>d.asfC==='ADEQUADO').length},
+    {r:'Uso de AMIU', v:filtrado.filter(d=>d.flags&&d.flags[2]==='1').length},
+    {r:'Asfixia Neonatal', v:filtrado.filter(d=>d.asfC==='ADEQUADO').length},
     {r:'Oferta de LARC', v:filtrado.filter(d=>d.contrOk).length},
     {r:'Atendimento de violência sexual', v:filtrado.filter(d=>d.viol).length},
     {r:'SMCON Neonatal e/ou Obstétrico', v:filtrado.filter(d=>d.smN||d.smO).length},
-    {r:'Alta qualificação (&ge;5 de 9)', v:filtrado.filter(d=>d.selo).length}
+    {r:'Avançando (&ge;5 de 8)', v:filtrado.filter(d=>d.selo).length}
   ];
   const corAdeq=v=>v>=75?VERDES[4]:v>=50?VERDES[3]:v>=25?VERDES[2]:VERDES[1];
   charts.chAdeq=new Chart($('chAdeq'),{
@@ -1111,7 +1114,7 @@ function renderTabela(){
       <td title="% de asfixia da unidade: ${d.asf.toFixed(1)}% (adequado: ≤0,6%)">${bd(d.asfC==='ADEQUADO', d.asfC==='ADEQUADO'?'SIM':'NÃO')}</td>
       <td>${bd(!!d.contrOk, d.contrOk?'SIM':'NÃO')}</td>
       <td>${bd(!!d.viol, d.viol?'SIM':'NÃO')}</td>
-      <td>${d.selo?'<span class="badge b-selo">ALTA QUALIFICAÇÃO</span>':''}</td>
+      <td>${d.selo?'<span class="badge b-selo">AVANÇANDO</span>':''}</td>
     </tr>`).join('');
   const btn = $('btnMaisLinhas');
   if(btn){ btn.style.display = dados.length>tblLimite? 'inline-block':'none';
@@ -1129,10 +1132,10 @@ if($('btnTabelaXlsx')) $('btnTabelaXlsx').addEventListener('click',()=>{
     'Gest\u00e3o':d.gestao,'Natureza jur\u00eddica':d.nat,'Partos':d.tot,
     'Unidade Neonatal completa':d.neo,'Robson \u22652 grupos':d.rob2?'SIM':'N\u00c3O',
     '% Parto vaginal assistido por enfermeira':d.enf,'Classif. enfermagem':d.enfC,
-    '% AMIU':d.amiu,'% Asfixia':d.asf,'Classif. asfixia':d.asfC,
+    '% Uso de AMIU':d.amiu,'% Asfixia Neonatal':d.asf,'Classif. asfixia':d.asfC,
     'Contracep\u00e7\u00e3o adequada':d.contrOk?'SIM':'N\u00c3O','Atendimento de viol\u00eancia sexual':d.viol?'SIM':'N\u00c3O',
-    'Atendimentos de viol\u00eancia':d.violN,'% Ces\u00e1rea G1':d.g1,'% G2':d.g2,'% G3':d.g3,'% G4':d.g4,
-    'Indicadores adequados':d.nAdeq,'Alta qualifica\u00e7\u00e3o (\u22655 de 9)':d.selo?'SIM':''
+    'Atendimentos de viol\u00eancia':d.violN,'% Cesariana G1':d.g1,'% Cesariana G2':d.g2,'% Cesariana G3':d.g3,'% Cesariana G4':d.g4,
+    'Indicadores adequados':d.n8,'Avan\u00e7ando (\u22655 de 8)':d.selo?'SIM':''
   }));
   const ws=XLSX.utils.json_to_sheet(linhas);
   const wb=XLSX.utils.book_new();
@@ -1181,12 +1184,12 @@ const PRINCIPAIS = [
   {id:'neoP',     rot:'Unidade Neonatal completa'},
   {id:'rob2P',    rot:'Cesariana adequada (Robson \u22652 grupos)'},
   {id:'enf',      rot:'Parto vaginal assistido por enfermeira'},
-  {id:'amiuM',    rot:'AMIU'},
-  {id:'asfP',     rot:'Asfixia'},
+  {id:'amiuM',    rot:'Uso de AMIU'},
+  {id:'asfP',     rot:'Asfixia Neonatal'},
   {id:'contrP',   rot:'Oferta de LARC'},
   {id:'violP',    rot:'Atendimento de viol\u00eancia sexual'},
   {id:'smAlgumP', rot:'SMCON Neonatal e/ou Obst\u00e9trico'},
-  {id:'selo',     rot:'Alta qualifica\u00e7\u00e3o'}
+  {id:'selo',     rot:'Avan\u00e7ando'}
 ];
 const pctF = v=>v.toFixed(1)+'%';
 const pct0 = v=>v.toFixed(0)+'%';
@@ -1199,13 +1202,12 @@ const METRICAS = [
   {id:'g3A',     grp:'rob2P',   rot:'% Cesariana Adeq. Robson G3', leg:'Estab. adequados no grupo 3 de Robson (%)',  fmtV:pctF, abs:a=>[a.g3ok,a.estab]},
   {id:'g4A',     grp:'rob2P',   rot:'% Cesariana Adeq. Robson G4', leg:'Estab. adequados no grupo 4 de Robson (%)',  fmtV:pctF, abs:a=>[a.g4ok,a.estab]},
   {id:'enf',     grp:'enf',     rot:'% Parto vaginal assistido por enfermeira', leg:'Estab. com parto vaginal assistido por enfermeira adequado (%)', fmtV:pctF, abs:a=>[a.enfOk,a.estab]},
-  {id:'amiuM',   grp:'amiuM',   rot:'% AMIU',             leg:'Média do % de AMIU entre os estab.',         fmtV:pctF},
-  {id:'asfP',    grp:'asfP',    rot:'% Asfixia',          leg:'Estab. com asfixia adequada – Apgar <7 no 5º min ≤0,6% (%)', fmtV:pctF, abs:a=>[a.asfOk,a.estab]},
+  {id:'amiuM',   grp:'amiuM',   rot:'% Uso de AMIU',      leg:'Média do % de uso de AMIU entre os estab.', fmtV:pctF},
+  {id:'asfP',    grp:'asfP',    rot:'% Asfixia Neonatal', leg:'Estab. com asfixia adequada – Apgar <7 no 5º min ≤0,6% (%)', fmtV:pctF, abs:a=>[a.asfOk,a.estab]},
   {id:'contrP',  grp:'contrP',  rot:'% Oferta de LARC', leg:'Estab. com oferta de LARC adequada – DIU+implante (%)', fmtV:pctF, abs:a=>[a.contrOkN,a.estab]},
   {id:'violP',   grp:'violP',   rot:'% Atendimento de violência sexual', leg:'Estab. que atendem violência sexual (%)', fmtV:pctF, abs:a=>[a.violSim,a.estab]},
-  {id:'violN',   grp:'violP',   rot:'Atendimentos de violência sexual', leg:'Atendimentos a vítimas de violência sexual', fmtV:intF},
   {id:'smAlgumP',grp:'smAlgumP',rot:'% SMCON Neonatal e/ou Obstétrico', leg:'Estab. com SMCON Neonatal ou Obstétrico (%)', fmtV:pctF, abs:a=>[a.smAlgum,a.estab]},
-  {id:'selo',    grp:'selo',    rot:'% Alta qualificação', leg:'Estab. em alta qualificação – ≥5 de 9 indicadores (%)', fmtV:pctF, abs:a=>[a.selo,a.estab]},
+  {id:'selo',    grp:'selo',    rot:'% Avançando',        leg:'Estab. no estágio Avançando – ≥5 de 8 indicadores (%)', fmtV:pctF, abs:a=>[a.selo,a.estab]},
   {id:'estab',   grp:'selo',    rot:'Estabelecimentos',   leg:'Estabelecimentos >1.000 partos',             fmtV:intF},
   {id:'partos',  grp:'selo',    rot:'Partos',             leg:'Partos em 2024',                             fmtV:intF}
 ];
@@ -1702,16 +1704,16 @@ document.addEventListener('click', e=>{
   if(b) baixarGrafico(b.dataset.c, b.dataset.n);
 });
 let estagioSel = null;
-// cores monot\u00f4nicas com o progresso: quanto mais perto da alta qualificação, mais "positiva" a cor
+// cores monot\u00f4nicas com o progresso: quanto mais perto do estágio Avançando, mais "positiva" a cor
 const ESTAGIOS = [
-  {id:'selo',     nome:'Alta qualificação', det:'5 ou mais indicadores', cor:'#0A213D',
+  {id:'selo',     nome:'Avançando',       det:'5 ou mais indicadores', cor:'#2166AC',
     pred:d=>d.selo===1},
   {id:'quase',   nome:'Quase l\u00e1',   det:'4 indicadores adequados', cor:'#279261',
-    pred:d=>!d.selo && d.nAdeq>=4},
+    pred:d=>!d.selo && d.n8>=4},
   {id:'caminho', nome:'No caminho',      det:'2 a 3 indicadores', cor:'#D68910',
-    pred:d=>!d.selo && (d.nAdeq===2||d.nAdeq===3)},
+    pred:d=>!d.selo && (d.n8===2||d.n8===3)},
   {id:'inicio',  nome:'In\u00edcio da jornada', det:'0 a 1 indicador', cor:'#C0392B',
-    pred:d=>!d.selo && d.nAdeq<=1}
+    pred:d=>!d.selo && d.n8<=1}
 ];
 function selecionarEstagio(id){
   estagioSel = (estagioSel===id)? null : id;
@@ -1752,7 +1754,7 @@ function renderSelo(){
   $('seloPct').textContent = base.length? Math.round(nSel/total*100)+'%' : '\u2014';
   $('seloPct').style.color = eSel.cor;
   $('seloLeg').innerHTML = fmt(nSel)+' de '+fmt(base.length)+'<br>'+
-    (estagioSel && estagioSel!=='selo' ? eSel.nome.toLowerCase() : 'em alta qualificação');
+    (estagioSel && estagioSel!=='selo' ? eSel.nome.toLowerCase() : 'avançando');
 
   // estágios em barras horizontais nomeadas
   const max = Math.max(...contagens,1);
@@ -1775,10 +1777,14 @@ function renderSelo(){
   const alvo = (estagioSel && estagioSel!=='selo') ? ESTAGIOS.find(e=>e.id===estagioSel) : ESTAGIOS[1];
   const grupo = base.filter(alvo.pred);
   if(grupo.length){
-    const faltas = FLAG_NOMES.map((n,i)=>({n, f:grupo.filter(d=>d.flags[i]==='0').length}))
+    // 8 indicadores: os módulos do SMCON (posições 6 e 7 das flags) contam como um item
+    const itens8 = FLAG_NOMES.map((n,i)=>({n, falta:d=>d.flags[i]==='0'}))
+      .filter((x,i)=>i!==6&&i!==7)
+      .concat([{n:'SMCON Neonatal e/ou Obstétrico', falta:d=>d.flags[6]==='0'&&d.flags[7]==='0'}]);
+    const faltas = itens8.map(x=>({n:x.n, f:grupo.filter(x.falta).length}))
       .sort((a,b)=>b.f-a.f).slice(0,3);
     const abertura = alvo.id==='quase'
-      ? `<b>${fmt(grupo.length)} unidade${grupo.length>1?'s':''} a um indicador da alta qualificação.</b>`
+      ? `<b>${fmt(grupo.length)} unidade${grupo.length>1?'s':''} a um indicador do estágio Avançando.</b>`
       : `<b>Est\u00e1gio "${alvo.nome}": ${fmt(grupo.length)} unidade${grupo.length>1?'s':''} (${alvo.det}).</b>`;
     $('seloInsight').innerHTML = abertura+
       ` O que mais falta entre elas: `+faltas.map(x=>`${x.n} (${x.f})`).join(', ')+'.'+
@@ -1794,13 +1800,12 @@ const MATRIZ_COLS = [
   {k:'neoAdqP',rot:'Unidade Neonatal completa'},
   {k:'rob2P', rot:'Robson \u22652 grupos'},
   {k:'enf',   rot:'Parto vaginal assistido por enfermeira'},
-  {k:'amiuA', rot:'AMIU'},
-  {k:'asfP',  rot:'Asfixia'},
+  {k:'amiuA', rot:'Uso de AMIU'},
+  {k:'asfP',  rot:'Asfixia Neonatal'},
   {k:'contrP',rot:'Oferta de LARC'},
   {k:'violP', rot:'Atendimento de viol\u00eancia sexual'},
-  {k:'smnP',  rot:'SMCON Neonatal'},
-  {k:'smoP',  rot:'SMCON Obstétrico'},
-  {k:'seloP', rot:'Alta qualifica\u00e7\u00e3o'}
+  {k:'smAlgumP', rot:'SMCON Neonatal e/ou Obstétrico'},
+  {k:'seloP', rot:'Avan\u00e7ando'}
 ];
 let matrizOrd = {k:'seloP', asc:false};
 
@@ -1833,7 +1838,7 @@ function dadosMatriz(){
     const p=(n)=>a.estab? n/a.estab*100 : null;
     return {id:t.id, nome:nivelAtivo==='uf'?(NOME_UF[t.id]||t.nome):t.nome, n:a.estab,
       asfP:a.asfP, enf:a.enf, amiuA:p(e.amiuA), rob2P:a.rob2P, contrP:a.contrP,
-      violP:a.violP, smnP:a.smnP, smoP:a.smoP, neoAdqP:a.neoAdqP, seloP:a.seloP};
+      violP:a.violP, smAlgumP:a.smAlgumP, neoAdqP:a.neoAdqP, seloP:a.seloP};
   }).filter(Boolean);
 }
 
@@ -1895,7 +1900,7 @@ let _mapu=null, _mapuCluster=null, _mapuAberto=false;
 // verde × roxo: par distinguível por daltônicos (verde × vermelho não é)
 const _MV='#279261', _MR='#7B3294', _MA='#D68910', _ML='#E67E22';
 const MAPU_METRICAS=[
-  {id:'selo',nome:'Estágio de qualificação',classe:function(d){
+  {id:'selo',nome:'Estágio de desempenho',classe:function(d){
     for(var i=0;i<ESTAGIOS.length;i++){ var e=ESTAGIOS[i];
       if(e.pred(d)) return {k:(i+1)+'_'+e.id, rot:e.nome, cor:e.cor}; }
     return {k:'9_outros', rot:'Sem classificação', cor:'#9AA8A0'};
@@ -1903,12 +1908,11 @@ const MAPU_METRICAS=[
   {id:'neo',nome:'Unidade Neonatal completa',classe:function(d){return (d.flags&&d.flags[8]==='1')?{k:'ad',rot:'Adequado',cor:_MV}:{k:'in',rot:'Não adequado',cor:_MR};}},
   {id:'rob',nome:'Robson ≥2 grupos',classe:function(d){return d.rob2==1?{k:'ad',rot:'Adequado',cor:_MV}:{k:'in',rot:'Não adequado',cor:_MR};}},
   {id:'enf',nome:'Parto vaginal assistido por enfermeira',classe:function(d){return d.enfC==='ADEQUADO'?{k:'ad',rot:'Adequado',cor:_MV}:{k:'in',rot:'Não adequado',cor:_MR};}},
-  {id:'amiu',nome:'AMIU',classe:function(d){return (d.flags&&d.flags[2]==='1')?{k:'ad',rot:'Adequado',cor:_MV}:{k:'in',rot:'Não adequado',cor:_MR};}},
-  {id:'asf',nome:'Asfixia',classe:function(d){return d.asfC==='ADEQUADO'?{k:'ad',rot:'Adequado',cor:_MV}:{k:'in',rot:'Não adequado',cor:_MR};}},
+  {id:'amiu',nome:'Uso de AMIU',classe:function(d){return (d.flags&&d.flags[2]==='1')?{k:'ad',rot:'Adequado',cor:_MV}:{k:'in',rot:'Não adequado',cor:_MR};}},
+  {id:'asf',nome:'Asfixia Neonatal',classe:function(d){return d.asfC==='ADEQUADO'?{k:'ad',rot:'Adequado',cor:_MV}:{k:'in',rot:'Não adequado',cor:_MR};}},
   {id:'larc',nome:'Oferta de LARC',classe:function(d){return d.contrOk?{k:'ad',rot:'Adequado',cor:_MV}:{k:'in',rot:'Não adequado',cor:_MR};}},
   {id:'viol',nome:'Atendimento de violência sexual',classe:function(d){return d.viol?{k:'ad',rot:'Adequado',cor:_MV}:{k:'in',rot:'Não adequado',cor:_MR};}},
-  {id:'smn',nome:'SMCON Neonatal',classe:function(d){return d.smN?{k:'ad',rot:'Adequado',cor:_MV}:{k:'in',rot:'Não adequado',cor:_MR};}},
-  {id:'smo',nome:'SMCON Obstétrico',classe:function(d){return d.smO?{k:'ad',rot:'Adequado',cor:_MV}:{k:'in',rot:'Não adequado',cor:_MR};}}
+  {id:'sm',nome:'SMCON Neonatal e/ou Obstétrico',classe:function(d){return (d.smN||d.smO)?{k:'ad',rot:'Adequado',cor:_MV}:{k:'in',rot:'Não adequado',cor:_MR};}}
 ];
 let _mapuMetrica='selo';
 let _mapuUF='', _mapuMacro='';
@@ -1974,7 +1978,7 @@ function renderMapaUnidades(fit){
     var pop='<div style="font-family:Inter,sans-serif;min-width:210px;max-width:260px">'+
       '<div style="font-weight:700;color:#1D3229;font-size:13px;margin-bottom:2px">'+nome+'</div>'+
       '<div style="font-size:11px;color:#4E6A5C;margin-bottom:6px">'+d.mun+' &middot; '+d.uf+'</div>'+
-      '<div style="display:inline-block;font-size:11px;font-weight:700;color:#fff;background:'+seloCor+';padding:2px 8px;border-radius:20px;margin-bottom:7px">'+seloTxt+' &middot; '+d.nAdeq+'/9 adequados</div>'+
+      '<div style="display:inline-block;font-size:11px;font-weight:700;color:#fff;background:'+seloCor+';padding:2px 8px;border-radius:20px;margin-bottom:7px">'+seloTxt+' &middot; '+d.n8+'/8 adequados</div>'+
       '<div style="font-size:11.5px">'+
       '<div class="mapu-prow"><span>Partos (total)</span><b>'+d.tot.toLocaleString('pt-BR')+'</b></div>'+
       '<div class="mapu-prow"><span>Natureza</span><b>'+d.nat+'</b></div>'+
@@ -2029,13 +2033,13 @@ function exportarExcel(){
     'Região':d.reg,'UF':d.uf,'Município':d.mun,'Estabelecimento':d.est,'Gestão':d.gestao,
     'Natureza jurídica':d.nat,'HGPAR':d.hgpar?'SIM':'NÃO','Unidade Neonatal completa':d.neo,
     'Partos totais':d.tot,'Cesarianas':d.ces,'Partos normais':d.norm,'Partos em CPN':d.cpn,
-    '% Cesariana':d.txces,'% Asfixia':d.asf,'Classif. asfixia':d.asfC,
-    '% Parto vaginal assistido por enfermeira':d.enf,'Classif. enfermagem':d.enfC,'% AMIU':d.amiu,
-    '% Cesárea G1':d.g1,'% Cesárea G2':d.g2,'% Cesárea G3':d.g3,'% Cesárea G4':d.g4,
+    '% Cesariana':d.txces,'% Asfixia Neonatal':d.asf,'Classif. asfixia':d.asfC,
+    '% Parto vaginal assistido por enfermeira':d.enf,'Classif. enfermagem':d.enfC,'% Uso de AMIU':d.amiu,
+    '% Cesariana G1':d.g1,'% Cesariana G2':d.g2,'% Cesariana G3':d.g3,'% Cesariana G4':d.g4,
     'Grupos Robson adequados':d.robAd,'Robson ≥2 grupos':d.rob2?'SIM':'NÃO',
     'DIU':d.diu,'Implante':d.imp,'LARC total':d.larc,'Oferta de LARC':d.contrOk?'SIM':'NÃO',
     'Atendimento de violência sexual':d.viol?'SIM':'','Atendimentos de violência':d.violN,
-    'Indicadores adequados':d.nAdeq,'Alta qualificação (≥5 de 9)':d.selo?'SIM':''
+    'Indicadores adequados':d.n8,'Avançando (≥5 de 8)':d.selo?'SIM':''
   }));
   const ws=XLSX.utils.json_to_sheet(linhas);
   const wb=XLSX.utils.book_new();
@@ -2048,7 +2052,7 @@ function exportarPDF(){
   const doc=new jsPDF({orientation:'landscape',unit:'mm',format:'a4'});
   doc.setFillColor(14,122,86); doc.rect(0,0,297,22,'F');
   doc.setTextColor(255,255,255); doc.setFontSize(13); doc.setFont('helvetica','bold');
-  doc.text('Indicadores Básicos para a Saúde no Brasil · Estabelecimentos >1.000 partos · 2024',10,10);
+  doc.text('Indicadores da Atenção Obstétrica e Neonatal · Estabelecimentos >1.000 partos · 2024',10,10);
   doc.setFontSize(9); doc.setFont('helvetica','normal');
   const reg=$('fReg').value||'Todas', uf=$('fUF').value||'Todas', mun=$('fMun').value||'Todos';
   doc.text(`Seleção: Região ${reg} · UF ${uf} · Município ${mun} · ${filtrado.length} estabelecimentos`,10,17);
@@ -2064,7 +2068,7 @@ function exportarPDF(){
   doc.autoTable({
     startY:26,
     // ">=" no lugar de "≥": a fonte padrao do jsPDF nao possui o caractere e sobrepoe as colunas
-    head:[['Estabelecimento','Município (UF)','Partos','Unidade Neonatal completa','Robson >=2 grupos','Parto vaginal assistido por enfermeira','AMIU','Asfixia','Oferta de LARC','Atendimento de violência sexual','Alta qualificação']],
+    head:[['Estabelecimento','Município (UF)','Partos','Unidade Neonatal completa','Robson >=2 grupos','Parto vaginal assistido por enfermeira','Uso de AMIU','Asfixia Neonatal','Oferta de LARC','Atendimento de violência sexual','Avançando']],
     body:corpo,
     styles:{fontSize:6.8,cellPadding:1.4,overflow:'linebreak'},
     headStyles:{fillColor:[14,122,86],fontSize:7,fontStyle:'bold'},
@@ -2077,7 +2081,7 @@ function exportarPDF(){
   const pgs=doc.internal.getNumberOfPages();
   for(let i=1;i<=pgs;i++){
     doc.setPage(i); doc.setFontSize(7); doc.setTextColor(120);
-    doc.text(`Fonte: SINASC/CNES · Extração 01/07/2026 · Página ${i}/${pgs}`,10,203);
+    doc.text(`Fonte: SINASC/CNES/SIH-SUS/SMCON · Extração 01/07/2026 · Página ${i}/${pgs}`,10,203);
   }
   doc.save('indicadores_partos_2024.pdf');
 }
@@ -2148,12 +2152,12 @@ function montarInicio(){
   $('ihPartos').textContent = DADOS.reduce((s,d)=>s+d.tot,0).toLocaleString('pt-BR');
   $('inicioGrade').innerHTML = PRINCIPAIS.map(p=>
     `<button class="ih-item" data-m="${p.id}"><span class="ih-circ">${ICONES[p.id]||''}</span><span>${p.rot}</span></button>`).join('')
-    + `<button class="ih-item ih-mapa" id="ihMapaU"><span class="ih-circ">${ICO_MAPAU}</span><span>Mapa de unidades<br>est&aacute;gios de qualifica&ccedil;&atilde;o</span></button>`;
+    + `<button class="ih-item ih-mapa" id="ihMapaU"><span class="ih-circ">${ICO_MAPAU}</span><span>Mapa de unidades<br>est&aacute;gios de desempenho</span></button>`;
   $('inicioGrade').querySelectorAll('.ih-item[data-m]').forEach(b=>b.onclick=()=>entrarPainel(b.dataset.m));
   $('ihMapaU').onclick = irMapaUnidades;
   $('trilhoNav').innerHTML = `<button class="home" title="Voltar ao início" aria-label="Voltar ao início">${ICO_HOME}</button>`+
     PRINCIPAIS.map(p=>`<button data-m="${p.id}" title="${p.rot}" aria-label="${p.rot}">${ICONES[p.id]||''}</button>`).join('')
-    + `<button class="mapau" title="Mapa de unidades (est&aacute;gios de qualifica&ccedil;&atilde;o)" aria-label="Mapa de unidades">${ICO_MAPAU}</button>`;
+    + `<button class="mapau" title="Mapa de unidades (est&aacute;gios de desempenho)" aria-label="Mapa de unidades">${ICO_MAPAU}</button>`;
   $('trilhoNav').querySelector('.home').onclick = voltarInicio;
   $('trilhoNav').querySelector('.mapau').onclick = irMapaUnidades;
   $('trilhoNav').querySelectorAll('button[data-m]').forEach(b=>b.onclick=()=>entrarPainel(b.dataset.m));
