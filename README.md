@@ -5,7 +5,7 @@ Painel interativo dos estabelecimentos de saúde com **mais de 1.000 partos no a
 | Ano | Universo | Situação |
 |---|---|---|
 | **2024** | 543 estabelecimentos · 1.253.881 partos | planilha institucional de 01/07/2026 (dados finais) |
-| **2025** | 555 estabelecimentos · 1.272.466 partos | **preliminar** — recalculado dos microdados em 04/11/2026 (SINASC preliminar de 31/08/2026; SIH sujeito a acréscimos); ainda sem SMCON e sem atendimento de violência sexual (fonte fora do SIH), por isso **sem estágios de desempenho** |
+| **2025** | 555 estabelecimentos · 1.272.466 partos | **preliminar** — recalculado dos microdados em 04/11/2026 (SINASC preliminar de 31/08/2026; SIH sujeito a acréscimos); ainda sem atendimento de violência sexual (fonte fora do SIH), por isso **sem estágios de desempenho**; SMCON = lista de 2024 até a atualização do IFF |
 
 A ficha de cada unidade (mapa de unidades e lista) mostra a variação de partos e de indicadores adequados entre os anos.
 
