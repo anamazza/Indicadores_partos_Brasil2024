@@ -1,0 +1,46 @@
+name: SIA - atendimento a vítima de violência sexual
+
+# Baixa os arquivos PA do SIA/SUS (FTP do DATASUS) na nuvem, em 7 grupos de UF em paralelo,
+# e tabula os procedimentos 0301040052 e 0301040060 por CNES (scripts/extracao/sia_violencia.py).
+# Resultado: artefatos sia-<grupo> com um JSON por UF, para extracao/saida/sia_pa_<ano>/.
+on:
+  workflow_dispatch:
+    inputs:
+      ini:
+        description: "competência inicial (aamm)"
+        default: "2501"
+      fim:
+        description: "competência final (aamm)"
+        default: "2512"
+
+jobs:
+  tabular:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    strategy:
+      fail-fast: false
+      matrix:
+        grupo:
+          - "SP"
+          - "MG ES"
+          - "RJ DF"
+          - "PR SC MS"
+          - "RS BA MT"
+          - "PE CE GO PB"
+          - "MA PA AM PI RN RO SE AL TO AP RR AC"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install datasus-dbc
+      - name: Baixar e tabular
+        env:
+          APAGAR_DBC: "1"
+        run: |
+          python scripts/extracao/sia_violencia.py /tmp/pa "${{ inputs.ini }}" "${{ inputs.fim }}" saida_sia ${{ matrix.grupo }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sia-${{ strategy.job-index }}
+          path: saida_sia/*.json
+          if-no-files-found: error

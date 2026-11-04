@@ -10,12 +10,12 @@ Uso: python sia_violencia.py <pasta_pa> <aamm_ini> <aamm_fim> <pasta_saida> [UF 
 """
 import collections, ftplib, json, os, sys, time
 
-ESTEIRA = r"C:\Users\anapa\OneDrive\Documentos\Projeto Apresentações Internação\Extracao_SIH"
-sys.path.insert(0, ESTEIRA)
-import datasus_dbc                       # noqa: E402
-from dbf_rapido import registros_bytes   # noqa: E402
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))   # dbf_rapido.py ao lado (cópia da esteira)
+import datasus_dbc                       # noqa: E402  (pip install datasus-dbc)
+from dbf_rapido import registros         # noqa: E402  (leitura em fluxo do .dbf em disco: arquivos PA chegam a 2 GB)
 
 pasta, aamm_ini, aamm_fim, out = sys.argv[1:5]
+APAGAR = os.environ.get("APAGAR_DBC") == "1"      # na nuvem: apaga cada .dbc depois de tabulado (disco limitado)
 UFS = [u.upper() for u in sys.argv[5:]] or ["AC", "RR", "AP", "TO", "SE", "AL", "RN", "PI", "DF", "MS", "MT", "PB", "ES",
                                              "MA", "GO", "RO", "AM", "CE", "SC", "PA", "RS", "BA", "PR", "RJ", "MG", "PE", "SP"]
 os.makedirs(pasta, exist_ok=True); os.makedirs(out, exist_ok=True)
@@ -71,8 +71,9 @@ for uf in UFS:
             print(f"  {uf}{aamm}: não publicado", flush=True); continue
         for arq in partes:
             caminho = baixa(arq); arquivos.append(arq)
-            dados = datasus_dbc.decompress_bytes(open(caminho, "rb").read())
-            for r in registros_bytes(dados, CAMPOS):
+            dbf = caminho[:-4] + ".dbf"
+            datasus_dbc.decompress(caminho, dbf)
+            for r in registros(dbf, CAMPOS):
                 n += 1
                 if r["PA_PROC_ID"] not in PROCS:
                     continue
@@ -82,6 +83,9 @@ for uf in UFS:
                 for k in (f"{p}|m{r['PA_MVM'][:4]}", f"{p}|c{r['PA_CMP'][:4]}"):
                     c[k + "|apr"] += apr; c[k + "|pro"] += pro; c[k + "|lin"] += 1
             print(f"  {arq}: {os.path.getsize(caminho)/1e6:.0f} MB, {n:,} registros acumulados ({time.time()-t0:.0f}s)", flush=True)
+            os.remove(dbf)
+            if APAGAR:
+                os.remove(caminho)
     json.dump({"uf": uf, "arquivos": arquivos, "registros": n, "estabelecimentos": {c: dict(v) for c, v in cont.items()}},
               open(destino, "w", encoding="utf-8"), ensure_ascii=False)
     print(f"=== {uf}: {len(cont)} CNES com os procedimentos -> {destino} ({time.time()-t0:.0f}s)", flush=True)
