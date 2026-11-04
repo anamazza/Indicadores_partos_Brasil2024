@@ -61,7 +61,7 @@ jobs:
           import glob
           for f in glob.glob("extracao/saida/sia_pa_2025/*.json"):
               sia.update(json.load(open(f, encoding="utf-8"))["estabelecimentos"])
-          ufs = len(glob.glob("extracao/saida/sia_pa_2025/*.json"))
+          ufs = len({json.load(open(f, encoding="utf-8"))["uf"] for f in glob.glob("extracao/saida/sia_pa_2025/*.json")})  # SP vem em 4 partes
           viol = sum(1 for d in d25 if d["viol"]); selo = sum(1 for d in d25 if d["selo"])
           erros = []
           if ufs != 27: erros.append(f"SIA: {ufs} UFs tabuladas (esperado 27)")

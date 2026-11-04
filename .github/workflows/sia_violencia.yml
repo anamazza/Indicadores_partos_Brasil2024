@@ -13,9 +13,13 @@ on:
       fim:
         description: "competência final (aamm)"
         default: "2512"
+      apenas:
+        description: "só estes grupos da matriz (separados por vírgula, ex.: SP|2501|2503,RS BA MT||); vazio = todos"
+        default: ""
 
 jobs:
   tabular:
+    if: ${{ inputs.apenas == '' || contains(inputs.apenas, matrix.grupo) }}
     runs-on: ubuntu-latest
     timeout-minutes: 330
     strategy:
