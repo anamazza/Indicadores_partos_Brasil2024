@@ -5,7 +5,7 @@ Painel interativo dos estabelecimentos de saúde com **mais de 1.000 partos no a
 | Ano | Universo | Situação |
 |---|---|---|
 | **2024** | 543 estabelecimentos · 1.253.881 partos | planilha institucional de 01/07/2026 (dados finais) |
-| **2025** | 555 estabelecimentos · 1.272.466 partos | **preliminar** — recalculado dos microdados em 04/11/2026 (SINASC preliminar de 31/08/2026; SIH sujeito a acréscimos); ainda sem atendimento de violência sexual (fonte fora do SIH), por isso **sem estágios de desempenho**; SMCON = lista de 2024 até a atualização do IFF |
+| **2025** | 555 estabelecimentos · 1.272.466 partos | **preliminar** — recalculado dos microdados em 04/11/2026 (SINASC preliminar de 31/08/2026; SIH sujeito a acréscimos); atendimento de violência sexual tabulado do SIA/SUS (produção ambulatorial, 27 UFs); estágios de desempenho calculados; SMCON = lista de 2024 até a atualização do IFF |
 
 A ficha de cada unidade (mapa de unidades e lista) mostra a variação de partos e de indicadores adequados entre os anos.
 
@@ -13,7 +13,7 @@ A ficha de cada unidade (mapa de unidades e lista) mostra a variação de partos
 
 **Metodologia completa:** [METODOLOGIA.md](METODOLOGIA.md)
 
-> **Base de dados por ano:** uma planilha no formato `ESTABELECIMENTOS_ACIMA_DE_1000_PARTOS_<ano>__INDICADORES` (derivada de SINASC, CNES, SIH-SUS e SMCON). 2024 é a planilha institucional de 01/07/2026; 2025 foi montada pelos scripts de `scripts/extracao/` com as regras que reproduzem a planilha de 2024 CNES a CNES (97,9% das 23.349 células; violência sexual não reproduzida — ver [relatorios/reproducao_2024.md](relatorios/reproducao_2024.md)). Todo número exibido deriva da planilha do ano e é conferido contra ela pelo script de auditoria (2024: 41 verificações, 0 falhas; 2025: 31, 0 falhas).
+> **Base de dados por ano:** uma planilha no formato `ESTABELECIMENTOS_ACIMA_DE_1000_PARTOS_<ano>__INDICADORES` (derivada de SINASC, CNES, SIH-SUS e SMCON). 2024 é a planilha institucional de 01/07/2026; 2025 foi montada pelos scripts de `scripts/extracao/` com as regras que reproduzem a planilha de 2024 CNES a CNES (97,9% das 23.349 células; a coluna de violência sexual de 2024 não é reproduzida pelo SIA/SUS — ver [relatorios/reproducao_2024.md](relatorios/reproducao_2024.md)). Todo número exibido deriva da planilha do ano e é conferido contra ela pelo script de auditoria (2024: 41 verificações, 0 falhas; 2025: 41, 0 falhas).
 
 ## Funcionalidades
 
@@ -44,7 +44,7 @@ Todos os dados são públicos e agregados por estabelecimento; não há informa�
 
 **Cobertura parcial (importante).** O painel inclui apenas estabelecimentos com mais de 1.000 partos no ano selecionado. Agregados territoriais refletem somente essas unidades, não a totalidade dos partos do território. Todo agregado exibe o número de estabelecimentos considerados.
 
-**2025 é preliminar.** O SINASC 2025 é a versão preliminar de 31/08/2026 e o SIH recebe reapresentações; os números mudam a cada extração. Os indicadores sem fonte recebida (SMCON; atendimento de violência sexual, que não consta do SIH) aparecem como "—" e os estágios de desempenho não são calculados até que todos os 8 indicadores existam. Os partos e o AMIU de 2025 são as AIH com **data de internação em 2025** (regra do dicionário da coordenação; a planilha de 2024 usou a competência 2025 — ver o relatório de reprodução). A comparação com a planilha 2025 enviada pela coordenação está em [relatorios/comparacao_2025_tatiana.md](relatorios/comparacao_2025_tatiana.md).
+**2025 é preliminar.** O SINASC 2025 é a versão preliminar de 31/08/2026 e o SIH recebe reapresentações; os números mudam a cada extração. O atendimento de violência sexual de 2025 vem do **SIA/SUS** (produção ambulatorial: procedimentos 0301040052 e 0301040060, quantidade aprovada por estabelecimento executante, competência de realização 2025 — o atendimento é hospitalar, mas o faturamento é ambulatorial); com ele, os **estágios de desempenho de 2025 estão calculados**. Indicadores sem fonte em um ano apareceriam como "—" e suspenderiam os estágios. **Atenção:** a coluna de violência sexual da planilha 2024 não é reproduzida por esses dois procedimentos (em 11 UFs ela supera o total do SIA do estado), portanto a evolução 2024 → 2025 desse indicador e dos estágios deve ser lida com cautela até a coordenação confirmar a fonte usada em 2024 (ver METODOLOGIA 4.7). Os partos e o AMIU de 2025 são as AIH com **data de internação em 2025** (regra do dicionário da coordenação; a planilha de 2024 usou a competência 2025 — ver o relatório de reprodução). A comparação com a planilha 2025 enviada pela coordenação está em [relatorios/comparacao_2025_tatiana.md](relatorios/comparacao_2025_tatiana.md).
 
 **Estatística de agregação.** Percentuais de adequação = proporção de estabelecimentos adequados, sempre com o número absoluto (adequados/total) — inclusive a asfixia neonatal (% de estabelecimentos com taxa ≤0,6%). % Uso de AMIU e a cesariana nos grupos de Robson usam a **média** das unidades da seleção (excluídas, no caso de Robson, as sem partos no grupo). O painel **não usa mediana**.
 

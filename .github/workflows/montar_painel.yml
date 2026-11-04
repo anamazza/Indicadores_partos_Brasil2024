@@ -69,7 +69,7 @@ jobs:
           if not (540 <= len(d25) <= 570): erros.append(f"2025 com {len(d25)} unidades")
           if cfg["2025"].get("semEstagios"): erros.append("2025 ainda sem estágios")
           if cfg["2025"].get("indisponiveis"): erros.append(f"indisponíveis em 2025: {cfg['2025']['indisponiveis']}")
-          if viol < 150: erros.append(f"só {viol} unidades com violência sexual adequada em 2025 (2024: 225)")
+          if viol < 100: erros.append(f"só {viol} unidades com violência sexual adequada em 2025 (2024: 225)")  # 2024 usou outra fonte (ver METODOLOGIA 4.7); SIA conferido no TabNet dá ~139
           resumo = (f"2025: {len(d25)} unidades, {sum(d['tot'] for d in d25):,} partos; violência sexual adequada em {viol}; "
                     f"Avançando {selo}; SIA tabulado em {ufs} UFs ({sum(d['violN'] for d in d25):,} atendimentos).")
           open("conferencia.txt", "w", encoding="utf-8").write(resumo + ("\nERROS: " + "; ".join(erros) if erros else "\nConferência OK"))

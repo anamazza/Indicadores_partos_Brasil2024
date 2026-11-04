@@ -4,10 +4,8 @@
  "partos": 1272466,
  "extracao": "04/11/2026",
  "preliminar": true,
- "indisponiveis": [
-  "viol"
- ],
- "semEstagios": true,
+ "indisponiveis": [],
+ "semEstagios": false,
  "nota": "",
  "planilha": "PLANILHA_2025_prelim_internacao.xlsx"
 }

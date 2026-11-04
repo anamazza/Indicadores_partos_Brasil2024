@@ -15,7 +15,7 @@ A seleção dos indicadores que compõem o painel considerou, além de sua relev
 
 O painel reúne os **543 estabelecimentos de saúde com mais de 1.000 partos em 2024**, que responderam por **1.253.881 nascimentos**. Todos os agregados referem-se exclusivamente a essas unidades e não à totalidade dos partos do território; cada agregado exibe o número de estabelecimentos considerados.
 
-A **base de dados de cada ano é uma planilha** no mesmo formato, derivada de SINASC, CNES, SIH-SUS e SMCON. A de 2024 é a planilha institucional (extração de 01/07/2026). A de 2025 foi **recalculada a partir dos microdados públicos** pelos scripts de `scripts/extracao/`, com as regras que reproduzem a planilha de 2024 CNES a CNES (97,9% de 23.349 células; `relatorios/reproducao_2024.md`), e é **preliminar**: SINASC 2025 na versão preliminar de 31/08/2026, SIH sujeito a reapresentações, e sem a fonte de atendimento de violência sexual (que não consta do SIH) — indicador que o painel marca como "sem fonte" e que impede o cálculo dos estágios de desempenho de 2025; o SMCON de 2025 usa a lista de adesão de 2024 até a atualização do IFF. A oferta de LARC de 2025 vem dos atos profissionais da AIH (inserção de DIU 0301040141 e de implante 0301040176). O painel apenas **agrega** a classificação de adequação já existente na planilha; a única derivação é a consolidação dos módulos do SMCON em um indicador na classificação por estágios (seção 5). Os parâmetros de adequação são institucionais e não constam em ato oficial publicado. O script de auditoria (`scripts/04_auditoria.py`) recalcula os números exibidos diretamente contra a planilha do ano; resultado atual: **2024 — 41 verificações, 0 falhas; 2025 — 28 verificações, 0 falhas** (execução de 03/11/2026).
+A **base de dados de cada ano é uma planilha** no mesmo formato, derivada de SINASC, CNES, SIH-SUS e SMCON. A de 2024 é a planilha institucional (extração de 01/07/2026). A de 2025 foi **recalculada a partir dos microdados públicos** pelos scripts de `scripts/extracao/`, com as regras que reproduzem a planilha de 2024 CNES a CNES (97,9% de 23.349 células; `relatorios/reproducao_2024.md`), e é **preliminar**: SINASC 2025 na versão preliminar de 31/08/2026, SIH sujeito a reapresentações; o atendimento de violência sexual vem do SIA/SUS (seção 4.7) e os estágios de desempenho de 2025 estão calculados; o SMCON de 2025 usa a lista de adesão de 2024 até a atualização do IFF. A oferta de LARC de 2025 vem dos atos profissionais da AIH (inserção de DIU 0301040141 e de implante 0301040176). O painel apenas **agrega** a classificação de adequação já existente na planilha; a única derivação é a consolidação dos módulos do SMCON em um indicador na classificação por estágios (seção 5). Os parâmetros de adequação são institucionais e não constam em ato oficial publicado. O script de auditoria (`scripts/04_auditoria.py`) recalcula os números exibidos diretamente contra a planilha do ano; resultado atual: **2024 — 41 verificações, 0 falhas; 2025 — 41 verificações, 0 falhas** (execução de 04/11/2026).
 
 **Universo de 2025.** Estabelecimentos com mais de 1.000 partos nas AIH do SIH com **data de internação em 2025** (competências 01/2025 a 08/2026) — a regra de ano de referência aprovada pela Coordenação no dicionário de indicadores (09/09/2026) e a usada na planilha 2025 da Coordenação. A planilha de 2024 contou as AIH pela competência de processamento 2025 (relatório de reprodução, achado 1). A comparação coluna a coluna com a planilha 2025 da Coordenação está em `relatorios/comparacao_2025_tatiana.md`: partos, AMIU, enfermagem, HGPAR, gestão e natureza coincidem; divergem Robson (a planilha da Coordenação não traz grupos de Robson), DIU/implante (sem São Paulo) e o denominador da asfixia — o painel mantém, nesses pontos, as regras da planilha de 2024.
 
@@ -105,10 +105,12 @@ As metas por grupo são **institucionais**, adotadas pela Coordenação com base
 ### 4.7 Atendimento de violência sexual
 
 **Conceituação:** número de atendimentos a vítimas de violência sexual registrados pelo estabelecimento no ano.
-**Método de cálculo:** contagem anual de atendimentos registrados.
+**Método de cálculo:** soma da quantidade aprovada dos procedimentos 0301040052 (atendimento multiprofissional para atenção às pessoas em situação de violência sexual) e 0301040060 (coleta de vestígios de violência sexual) no ano, por estabelecimento executante.
 **Parâmetro:** pelo menos dois atendimentos registrados no ano.
 **Limitações:** o atendimento é obrigatório em todos os hospitais do SUS (Lei nº 12.845/2013); o que o indicador capta é o registro do atendimento e o papel de referência da unidade na rede. A ausência de registro não caracteriza recusa: a unidade pode encaminhar os casos ao serviço de referência do território.
-*Fonte:* SIH-SUS (registros de atendimento a vítimas de violência sexual). Referência: Lei nº 12.845/2013.
+*Fonte:* SIA/SUS — produção ambulatorial (arquivos PA), procedimentos 0301040052 e 0301040060; o atendimento ocorre no hospital, mas o faturamento é ambulatorial. Em 2025, competência de realização 2025, tabulada dos microdados em 04/11/2026 (conferida com o TabNet/DATASUS: totais por UF idênticos). Referência: Lei nº 12.845/2013.
+
+> **Atenção à comparabilidade com 2024.** A coluna de violência sexual da planilha institucional de 2024 **não é reproduzida** pela soma desses dois procedimentos no SIA/SUS: em 11 UFs o valor da planilha supera o total do SIA de todo o estado em 2024 (SP 2.831 × 1.452; PE 7.426 × 4.976; PR 5.990 × 4.381; MT 7 × 0), e as AIH (atos profissionais e CID de violência sexual) tampouco explicam a diferença. A planilha de 2024 usou, portanto, outra fonte ou outros códigos, a confirmar com a coordenação; até lá, a série 2024 → 2025 deste indicador (e, por consequência, dos estágios de desempenho) deve ser lida com cautela.
 
 ### 4.8 SMCON Neonatal e/ou Obstétrico
 
@@ -126,12 +128,12 @@ A classificação por estágios acompanha o número de **indicadores classificat
 - O **SMCON conta uma única vez**, por adesão a qualquer um dos módulos.
 - A classificação deriva do campo classificatório oficial da planilha (ali denominado "selo de conformidade": ≥5 de 9 itens), **com os módulos do SMCON consolidados em um único indicador**.
 
-| Estágio | Critério | Brasil 2024 |
-|---|---|---|
-| Avançando | 5 ou mais indicadores adequados | 108 (19,9%) |
-| Quase lá | 4 indicadores adequados | 140 (25,8%) |
-| No caminho | 2 a 3 indicadores adequados | 232 (42,7%) |
-| Início da jornada | 0 a 1 indicador adequado | 63 (11,6%) |
+| Estágio | Critério | Brasil 2024 | Brasil 2025 (preliminar) |
+|---|---|---|---|
+| Avançando | 5 ou mais indicadores adequados | 108 (19,9%) | 94 (16,9%) |
+| Quase lá | 4 indicadores adequados | 140 (25,8%) | 108 (19,5%) |
+| No caminho | 2 a 3 indicadores adequados | 232 (42,7%) | 275 (49,5%) |
+| Início da jornada | 0 a 1 indicador adequado | 63 (11,6%) | 78 (14,1%) |
 
 A classificação afere conformidade com itens de qualificação — estrutura, processo e registro — e não constitui, por si, medida de qualidade assistencial. A taxa de cesariana não integra a classificação. Unidades de maior porte e complexidade tendem a reunir mais itens por capacidade instalada e de registro; recomenda-se acompanhar a evolução de cada unidade no tempo, em vez de ordenar unidades de perfis distintos.
 
@@ -156,14 +158,14 @@ Média do percentual de cesariana nos grupos (estabelecimentos com partos no gru
 | Indicador | Nacional 2025 | Indicador | Nacional 2025 |
 |---|---|---|---|
 | % Cesariana adequada (≥2 grupos) | 55,0% (305/555) | % Oferta de LARC | 35,9% (199/555) |
-| % Adeq. Robson G1 | 39,6% (220/555) | % Atendimento de violência sexual | sem fonte |
-| % Adeq. Robson G2 | 46,7% (259/555) | % SMCON Neonatal e/ou Obstétrico | sem fonte |
+| % Adeq. Robson G1 | 39,6% (220/555) | % Atendimento de violência sexual | 25,0% (139/555) |
+| % Adeq. Robson G2 | 46,7% (259/555) | % SMCON Neonatal e/ou Obstétrico | 21,6% (120/555) |
 | % Adeq. Robson G3 | 40,5% (225/555) | % Unidade Neonatal completa | 43,4% (241/555) |
 | % Adeq. Robson G4 | 45,9% (255/555) | % Uso de AMIU (média das unidades) | 14,3% |
-| % Parto vaginal assistido por enfermeira | 31,2% (173/555) | % Avançando (≥5 de 8) | não calculado |
+| % Parto vaginal assistido por enfermeira | 31,2% (173/555) | % Avançando (≥5 de 8) | 16,9% (94/555) |
 | % Asfixia Neonatal | 69,7% (387/555) | | |
 
-Média do percentual de cesariana nos grupos: G1 36,7% · G2 67,7% · G3 18,3% · G4 51,1%. Valores preliminares: SINASC de 31/08/2026 e SIH com AIH de internação em 2025 recebidas até a competência 08/2026; serão revistos quando as fontes pendentes chegarem e o recorte de ano do SIH for confirmado.
+Média do percentual de cesariana nos grupos: G1 36,7% · G2 67,7% · G3 18,3% · G4 51,1%. Valores preliminares: SINASC de 31/08/2026 e SIH com AIH de internação em 2025 recebidas até a competência 08/2026; serão revistos a cada nova extração e quando o recorte de ano do SIH for confirmado pela coordenação. Violência sexual: SIA/SUS, competência de realização 2025 (31.981 atendimentos aprovados nas 555 unidades); SMCON: lista de adesão de 2024.
 
 ## 7. Natureza dos parâmetros
 
@@ -195,6 +197,6 @@ Média do percentual de cesariana nos grupos: G1 36,7% · G2 67,7% · G3 18,3% �
 
 ## 9. Auditoria
 
-O script `scripts/04_auditoria.py <planilha> <ano>` recalcula os números do painel diretamente da planilha do ano (incluindo a conferência do campo classificatório oficial e da consolidação do SMCON) e deve terminar com 0 falhas antes de qualquer publicação. **Resultado atual: 2024 — 41 verificações, 0 falhas; 2025 — 31 verificações, 0 falhas** (execução de 04/11/2026; em 2025 as verificações de violência sexual, SMCON e estágios ficam suspensas por falta de fonte).
+O script `scripts/04_auditoria.py <planilha> <ano>` recalcula os números do painel diretamente da planilha do ano (incluindo a conferência do campo classificatório oficial e da consolidação do SMCON) e deve terminar com 0 falhas antes de qualquer publicação. **Resultado atual: 2024 — 41 verificações, 0 falhas; 2025 — 41 verificações, 0 falhas** (execução de 04/11/2026).
 
 A reprodução da planilha de 2024 a partir dos microdados (`scripts/extracao/reproducao_2024.py`) está documentada em `relatorios/reproducao_2024.md`, com as regras efetivas de cada coluna, as diferenças CNES a CNES e as questões em aberto para a Coordenação.
