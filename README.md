@@ -1,12 +1,19 @@
 # Indicadores da Atenção Obstétrica e Neonatal em Estabelecimentos com mais de 1.000 partos no Brasil — 2024
 
-Painel interativo dos **543 estabelecimentos de saúde com mais de 1.000 partos em 2024** no Brasil, cobrindo **1.253.881 nascimentos** e os indicadores da atenção obstétrica e neonatal.
+Painel interativo dos estabelecimentos de saúde com **mais de 1.000 partos no ano** no Brasil e os indicadores da atenção obstétrica e neonatal, com **seletor de ano de referência**:
+
+| Ano | Universo | Situação |
+|---|---|---|
+| **2024** | 543 estabelecimentos · 1.253.881 partos | planilha institucional de 01/07/2026 (dados finais) |
+| **2025** | 556 estabelecimentos · 1.272.738 partos | **preliminar** — recalculado dos microdados em 04/11/2026 (SINASC preliminar de 31/08/2026; SIH sujeito a acréscimos); ainda sem SMCON e sem atendimento de violência sexual (fonte fora do SIH), por isso **sem estágios de desempenho** |
+
+A ficha de cada unidade (mapa de unidades e lista) mostra a variação de partos e de indicadores adequados entre os anos.
 
 **Painel publicado:** https://anamazza.github.io/Indicadores_partos_Brasil2024/
 
 **Metodologia completa:** [METODOLOGIA.md](METODOLOGIA.md)
 
-> **Base de dados única:** a planilha institucional `ESTABELECIMENTOS_ACIMA_DE_1000_PARTOS_2024__INDICADORES` (derivada de SINASC, CNES, SIH-SUS e SMCON; extração de 01/07/2026). Todo número exibido no painel deriva dela e é conferido contra ela pelo script de auditoria (37 verificações, 0 falhas).
+> **Base de dados por ano:** uma planilha no formato `ESTABELECIMENTOS_ACIMA_DE_1000_PARTOS_<ano>__INDICADORES` (derivada de SINASC, CNES, SIH-SUS e SMCON). 2024 é a planilha institucional de 01/07/2026; 2025 foi montada pelos scripts de `scripts/extracao/` com as regras que reproduzem a planilha de 2024 CNES a CNES (97,9% das 23.349 células; violência sexual não reproduzida — ver [relatorios/reproducao_2024.md](relatorios/reproducao_2024.md)). Todo número exibido deriva da planilha do ano e é conferido contra ela pelo script de auditoria (2024: 41 verificações, 0 falhas; 2025: 31, 0 falhas).
 
 ## Funcionalidades
 
@@ -35,11 +42,13 @@ Todos os dados são públicos e agregados por estabelecimento; não há informa�
 
 ## Notas metodológicas
 
-**Cobertura parcial (importante).** O painel inclui apenas estabelecimentos com mais de 1.000 partos em 2024. Agregados territoriais refletem somente essas unidades, não a totalidade dos partos do território. Todo agregado exibe o número de estabelecimentos considerados.
+**Cobertura parcial (importante).** O painel inclui apenas estabelecimentos com mais de 1.000 partos no ano selecionado. Agregados territoriais refletem somente essas unidades, não a totalidade dos partos do território. Todo agregado exibe o número de estabelecimentos considerados.
+
+**2025 é preliminar.** O SINASC 2025 é a versão preliminar de 31/08/2026 e o SIH recebe reapresentações; os números mudam a cada extração. Os indicadores sem fonte recebida (SMCON; atendimento de violência sexual, que não consta do SIH) aparecem como "—" e os estágios de desempenho não são calculados até que todos os 8 indicadores existam. Os partos, o AMIU e as inserções de DIU/implante de 2025 são as AIH com **data de saída em 2025** (o recorte de ano da planilha de 2024 está em discussão com a coordenação — ver o relatório de reprodução).
 
 **Estatística de agregação.** Percentuais de adequação = proporção de estabelecimentos adequados, sempre com o número absoluto (adequados/total) — inclusive a asfixia neonatal (% de estabelecimentos com taxa ≤0,6%). % Uso de AMIU e a cesariana nos grupos de Robson usam a **média** das unidades da seleção (excluídas, no caso de Robson, as sem partos no grupo). O painel **não usa mediana**.
 
-**Cesariana.** A leitura é pelos **grupos de Robson (G1 a G4)** — cada grupo tem a sua própria meta institucional (ref. Manual de Robson, OMS/OPAS 2017: G1 ≤10% · G2 ≤35% · G3 ≤3% · G4 ≤15%); estabelecimento adequado = **≥2 grupos** dentro da meta. Não há meta de taxa geral de cesariana no painel.
+**Cesariana.** A leitura é pelos **grupos de Robson (G1 a G4)** — cada grupo tem a sua própria faixa de adequação; estabelecimento adequado = **≥2 grupos** dentro da faixa. A reprodução da planilha de 2024 mostrou que a classificação por grupo usa **intervalos** (G1 1–30% · G2 até 67% · G3 1–12% · G4 até 47%; 0% nunca é adequado), e não as metas 10/35/3/15 citadas anteriormente — os limites estão em confirmação com a coordenação. Não há meta de taxa geral de cesariana no painel.
 
 **Classes do mapa.** Todos os indicadores mapeados são percentuais de adequação ("mais é melhor"). Quintis sobre os territórios visíveis no nível selecionado; escala sequencial de verdes, segura para daltonismo; faixas repetidas são colapsadas na legenda. Territórios sem estabelecimento elegível aparecem em cinza.
 
@@ -57,31 +66,60 @@ Todos os dados são públicos e agregados por estabelecimento; não há informa�
 index.html               Painel final autossuficiente (publicado no GitHub Pages)
 painel_template.html     Código-fonte do painel, sem dados embutidos
 METODOLOGIA.md           Metodologia dos indicadores
+ATUALIZACAO_2025.md      Briefing da atualização 2025
+relatorios/
+  reproducao_2024.md     Reprodução da planilha 2024 a partir dos microdados (regras efetivas, diferenças, questões)
+planilhas/
+  ESTABELECIMENTOS_ACIMA_DE_1000_PARTOS_2024__INDICADORES_01072026.xlsx   planilha institucional de 2024
+  PLANILHA_2024_recalculada.xlsx    2024 recalculada dos microdados (rastreabilidade)
+  PLANILHA_2025_prelim_saida.xlsx   2025 preliminar (partos e AMIU pela data de saída 2025)
 img/
   logos_institucionais_branco_semgov.png   Faixa IFF · Fiocruz · SUS
 dados/
-  dados.json             543 estabelecimentos com todos os campos usados
+  dados_<ano>.json       Estabelecimentos do ano com todos os campos usados
+  ano_<ano>.json         Configuração do ano: universo, extração, preliminar, indicadores sem fonte
   geo_multi.json         Geometria dos 3 níveis territoriais (paths SVG)
   flags_nomes.json       Nomes das 9 flags da base (o painel consolida o SMCON em 1 — 8 indicadores)
 scripts/
-  01_preparar_dados.py   Planilha .xlsx → dados/dados.json
+  01_preparar_dados.py   Planilha .xlsx + ano → dados/dados_<ano>.json e dados/ano_<ano>.json
   02_gerar_geometria.py  Shapefiles/GeoJSON → dados/geo_multi.json
-  03_montar_painel.py    Template + JSONs → index.html
-  04_auditoria.py        Confere os números do painel contra a planilha
+  03_montar_painel.py    Template + todos os anos → index.html
+  04_auditoria.py        Confere os números do painel contra a planilha do ano
+  extracao/              Recalcula a planilha a partir dos microdados (SINASC, SIH-RD/SP, CNES):
+    sinasc_indicadores.py, sih_partos.py, sih_sp_atos.py, cnes_leitos_neo.py, cnes_habilitacoes.py,
+    regras.py (regras que reproduzem a planilha), montar_planilha.py (gera a planilha do ano),
+    reproducao_2024.py (relatório de reprodução)
+extracao/                Listas de CNES e agregados intermediários (saida/); cache/ e varreduras grandes ficam fora do git
 publicar_no_github.sh    Publica as alterações locais neste repositório
 ```
 
-## Como atualizar com uma nova planilha
+## Como atualizar
+
+**Com uma planilha recebida da coordenação** (mesmo formato de 57 colunas):
 
 ```bash
 pip install pandas openpyxl pyshp shapely
 
-python scripts/01_preparar_dados.py NOVA_PLANILHA.xlsx
-python scripts/04_auditoria.py     NOVA_PLANILHA.xlsx   # precisa terminar com 0 falhas
-python scripts/03_montar_painel.py                       # gera o index.html
+python scripts/01_preparar_dados.py planilhas/PLANILHA_2025.xlsx 2025 --extracao dd/mm/aaaa [--preliminar]
+python scripts/04_auditoria.py     planilhas/PLANILHA_2025.xlsx 2025   # precisa terminar com 0 falhas
+python scripts/03_montar_painel.py                                      # gera o index.html com todos os anos
 ```
 
-O `painel_template.html` regenera o painel publicado byte a byte (roundtrip verificado). O `02_gerar_geometria.py` só precisa ser reexecutado se a malha territorial mudar.
+Colunas inteiramente vazias (ex.: SMCON ainda não recebido) são tratadas como indicador sem fonte no ano: o painel mostra "—" e não calcula estágios.
+
+**Recalculando a planilha dos microdados** (máquina com a esteira `Extracao_SIH`/`Extracao_SINASC`; caminhos em `scripts/extracao/*.py`):
+
+```bash
+python scripts/extracao/sinasc_indicadores.py 2025 SINASC_2025_csv.zip extracao/saida/sinasc_2025.json
+python scripts/extracao/sih_partos.py <pasta_RD> 2401 2608 extracao/cnes_referencia_2024.txt extracao/saida/sih_rd
+python scripts/extracao/cnes_leitos_neo.py <pasta_LT> 2401 2609 extracao/saida/cnes_leitos_2401_2609.json
+python scripts/extracao/cnes_habilitacoes.py extracao/cnes_candidatos_2025.txt extracao/saida/cnes_fichas.json
+python scripts/extracao/montar_planilha.py --ano 2025 --sinasc sinasc_2025.json --partos s2025 --amiu s2025 --cnes 2609 \
+       --referencia planilhas/ESTABELECIMENTOS_ACIMA_DE_1000_PARTOS_2024__INDICADORES_01072026.xlsx \
+       --saida planilhas/PLANILHA_2025_prelim_saida.xlsx [--smcon smcon_2025.csv]
+```
+
+O `painel_template.html` regenera o painel publicado (roundtrip verificado). O `02_gerar_geometria.py` só precisa ser reexecutado se a malha territorial mudar.
 
 ## Tecnologias
 

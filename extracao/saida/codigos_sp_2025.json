@@ -1,0 +1,5 @@
+{
+  "_nota": "Mesmos atos de codigos_sp.json, contados pelo ano da data de saída da AIH (s2025), o recorte usado para os partos de 2025.",
+  "DIU": {"codigos": ["0301040141"], "atrib": "s2025", "descricao": "03.01.04.014-1 Inserção de DIU"},
+  "IMPLANTE ": {"codigos": ["0301040176"], "atrib": "s2025", "descricao": "03.01.04.017-6 Inserção do implante subdérmico liberador de etonogestrel"}
+}

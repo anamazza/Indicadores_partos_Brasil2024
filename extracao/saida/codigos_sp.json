@@ -1,0 +1,5 @@
+{
+  "_nota": "Atos profissionais da AIH (SIH-SP, SP_ATOPROF) que reproduzem as colunas da planilha 2024; atribuição de ano 'c2025' = competência 2025 (a mesma dos partos). Violência sexual não corresponde a nenhum ato do SIH-SP (fonte provável: SIA/BPA).",
+  "DIU": {"codigos": ["0301040141"], "atrib": "c2025", "descricao": "03.01.04.014-1 Inserção de DIU"},
+  "IMPLANTE ": {"codigos": ["0301040176"], "atrib": "c2025", "descricao": "03.01.04.017-6 Inserção do implante subdérmico liberador de etonogestrel"}
+}

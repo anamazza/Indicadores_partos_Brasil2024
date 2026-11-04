@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Indicadores da Atenção Obstétrica e Neonatal · Estabelecimentos com mais de 1.000 partos · 2024</title>
+<title>Indicadores da Atenção Obstétrica e Neonatal · Estabelecimentos com mais de 1.000 partos</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -109,6 +109,17 @@ header::after{
 header h1{font-size:clamp(19px,2.6vw,26px);font-weight:800;line-height:1.25;max-width:1000px}
 header h1 span{font-weight:500;opacity:.92}
 .header-sub{margin-top:8px;font-size:12px;opacity:.92;max-width:900px}
+.ano-sel{display:inline-flex;gap:4px;padding:3px;border-radius:22px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35)}
+.ano-sel button{border:0;background:transparent;color:#fff;font:700 12px 'Inter',sans-serif;padding:5px 12px;border-radius:18px;cursor:pointer;opacity:.85;white-space:nowrap}
+.ano-sel button:hover{opacity:1}
+.ano-sel button.ativo{background:var(--branco);color:var(--verde-fiocruz);opacity:1}
+.ano-sel button small{font-weight:600;opacity:.8;margin-left:4px}
+.fonte-tag .ano-sel{background:rgba(14,122,86,.08);border-color:rgba(14,122,86,.25)}
+.fonte-tag .ano-sel button{color:var(--verde-fiocruz)}
+.fonte-tag .ano-sel button.ativo{background:var(--verde-fiocruz);color:#fff}
+.aviso-ano{margin:0 0 14px;padding:10px 14px;border-radius:10px;background:#FFF6E5;border:1.5px solid #F1C27A;color:#7A4B00;font-size:12.5px;line-height:1.5}
+.aviso-ano b{color:#5C3700}
+.indisp{display:inline-block;padding:2px 8px;border-radius:12px;background:#EEF2EF;color:#6B7F74;font-size:10.5px;font-weight:600}
 .fonte-tag{position:absolute;right:0;top:0;background:var(--branco);color:var(--verde-fiocruz);
   font-family:'Archivo';font-weight:800;font-size:13px;padding:8px 16px;border-radius:0 0 0 14px}
 
@@ -447,8 +458,9 @@ body.metodologia{overflow:hidden}
     <div class="ih-stats">
       <div class="ih-stat"><b id="ihEstab">&ndash;</b><span>estabelecimentos</span></div>
       <div class="ih-sep"></div>
-      <div class="ih-stat"><b id="ihPartos">&ndash;</b><span>partos em 2024</span></div>
+      <div class="ih-stat"><b id="ihPartos">&ndash;</b><span>partos em <span class="ano-ref">2024</span></span></div>
     </div>
+    <div style="margin:14px 0 4px;display:flex;align-items:center;gap:12px;flex-wrap:wrap"><span style="font-size:12px;font-weight:600;opacity:.9">Ano de refer&ecirc;ncia</span><div class="ano-sel" id="anoSelHero"></div></div>
     <div class="ih-escolha">Escolha um indicador para come&ccedil;ar</div>
     <div class="ih-grade" id="inicioGrade"></div>
   </div>
@@ -467,13 +479,13 @@ body.metodologia{overflow:hidden}
     </g>
   </svg>
   <div class="header-inner">
-    <div class="fonte-tag">2024</div>
+    <div class="fonte-tag"><div class="ano-sel" id="anoSel"></div></div>
     <div style="display:flex;align-items:center;justify-content:space-between;gap:10px 24px;flex-wrap:wrap;margin-bottom:8px;padding-right:76px">
       <div style="font-size:11.5px;font-weight:600;letter-spacing:.4px;color:rgba(255,255,255,.92);text-transform:uppercase;line-height:1.45">Coordenação de Ações Nacionais e de Cooperação em Saúde da Mulher, da Criança e do Adolescente</div>
       <img src="img/logos_institucionais_branco_semgov.png" alt="IFF · Fiocruz · SUS" style="width:min(320px,100%);height:auto">
     </div>
     <h1>Indicadores da Atenção Obstétrica e Neonatal <span>em Estabelecimentos com mais de 1.000 partos no Brasil</span></h1>
-    <div class="header-sub">543 estabelecimentos · 1,25 milhão de partos · indicadores sobre leitos da Unidade Neonatal, grupos de Robson, parto por enfermeira, uso de AMIU, asfixia neonatal, oferta de LARC, atendimento de violência sexual e monitoramento pelo SMCON</div>
+    <div class="header-sub"><span id="headerSub">543 estabelecimentos · 1,25 milhão de partos</span> · indicadores sobre leitos da Unidade Neonatal, grupos de Robson, parto por enfermeira, uso de AMIU, asfixia neonatal, oferta de LARC, atendimento de violência sexual e monitoramento pelo SMCON</div>
   </div>
 </header>
 
@@ -514,6 +526,7 @@ body.metodologia{overflow:hidden}
   </div>
 
   <div class="kpis" id="kpis"></div>
+  <div class="aviso-ano" id="anoAviso" style="display:none"></div>
 
   <div class="secao-titulo"><h2>Panorama nacional</h2></div>
   <div class="card">
@@ -697,7 +710,7 @@ body.metodologia{overflow:hidden}
   <div class="met-inner">
     <h1>Nota metodológica · fichas de qualificação dos indicadores</h1>
     <p style="font-size:13.5px;line-height:1.7;margin:12px 0 8px;max-width:940px">A seleção dos indicadores que compõem o painel considerou, além de sua relevância para o monitoramento da qualidade e da organização da atenção materna e neonatal, a disponibilidade e a confiabilidade das informações nos sistemas de informação em saúde existentes. Foram priorizados indicadores passíveis de obtenção a partir de bases de dados de acesso regular, com variáveis padronizadas e cobertura adequada, bem como aqueles cujo cálculo pudesse ser realizado de forma objetiva, reprodutível e com menor complexidade operacional. Também foram considerados a possibilidade de atualização periódica, a comparabilidade dos resultados entre estabelecimentos e períodos e a viabilidade de interpretação pelos diferentes públicos envolvidos no monitoramento. Dessa forma, a composição do painel buscou conciliar a relevância dos indicadores com sua factibilidade de mensuração, permitindo um acompanhamento sistemático e sustentável dos aspectos selecionados.</p>
-    <div class="met-sub">Fontes: SINASC, CNES, SIH-SUS e SMCON. Universo: estabelecimentos com mais de 1.000 partos em 2024 (543 unidades; 1.253.881 partos). Extração de 01/07/2026. Os parâmetros de adequação são institucionais e não constam em ato oficial publicado.</div>
+    <div class="met-sub">Fontes: SINASC, CNES, SIH-SUS e SMCON. <span id="metUniverso">Universo: estabelecimentos com mais de 1.000 partos em 2024 (543 unidades; 1.253.881 partos). Extração de 01/07/2026.</span> Os parâmetros de adequação são institucionais e não constam em ato oficial publicado.</div>
 
     <section>
       <h2>Unidade Neonatal completa</h2>
@@ -720,6 +733,7 @@ body.metodologia{overflow:hidden}
       <p><b>Conceituação:</b> taxa de cesariana em grupos de gestantes de perfil obstétrico comparável, segundo a classificação de Robson (OMS, 2017). G1: nulíparas, feto único, cefálico, a termo, em trabalho de parto espontâneo. G2: nulíparas, feto único, cefálico, a termo, com indução ou cesariana anterior ao trabalho de parto. G3: multíparas sem cesariana prévia, feto único, cefálico, a termo, em trabalho de parto espontâneo. G4: multíparas sem cesariana prévia, com indução ou cesariana anterior ao trabalho de parto. A comparação dentro de cada grupo reduz o efeito das diferenças de perfil entre estabelecimentos.</p>
       <p><b>Método de cálculo:</b> cesarianas do grupo ÷ nascidos vivos do grupo × 100.</p>
       <p><b>Metas por grupo:</b> G1 &le;10% · G2 &le;35% · G3 &le;3% · G4 &le;15% — metas institucionais adotadas pela Coordenação, com base nas referências de interpretação do Manual de Robson (OMS/OPAS, 2017). Cada grupo é avaliado contra a sua meta; o estabelecimento é adequado com pelo menos 2 grupos dentro da meta. Para o G2, cuja referência é uma faixa (20–35%), adotou-se nesta primeira versão o limite superior (≤35%) para simplificar a leitura.</p>
+      <p><b>Nota da reprodução (03/11/2026):</b> a classificação por grupo registrada na planilha de 2024 corresponde a <b>intervalos</b> de taxa de cesariana — G1 de 1% a 30%, G2 até 67%, G3 de 1% a 12%, G4 até 47% (0% nunca é adequado) — e não às metas acima; os limites estão em confirmação com a Coordenação. O recálculo de 2025 aplica os intervalos observados, para manter a comparabilidade com 2024.</p>
       <p><b>Limitações:</b> o gráfico do painel apresenta a média das unidades da seleção, excluídas as que não registraram partos no grupo. A medida "% Cesariana Adeq. Robson G1–G4", exibida no mapa, é distinta: corresponde ao percentual de estabelecimentos classificados como adequados no grupo, com leitura inversa (quanto maior, melhor).</p>
       <p><b>Fonte:</b> SINASC (DNV: paridade, idade gestacional, apresentação, início do trabalho de parto e via de nascimento). Método: OMS — Robson Classification Manual (2017).</p>
     </section>
@@ -748,6 +762,7 @@ body.metodologia{overflow:hidden}
       <p><b>Método de cálculo do indicador:</b> % de estabelecimentos com asfixia adequada = estabelecimentos com taxa ≤0,6% ÷ estabelecimentos da seleção × 100, exibido com o número absoluto (adequados/total). A taxa da unidade (nascidos ≥2.500g sem anomalias com Apgar 5' &lt;7 ÷ total × 100, SINASC) aparece na lista de estabelecimentos ao passar o mouse.</p>
       <p><b>Parâmetro:</b> unidade adequada quando a taxa é igual ou inferior a 0,6% — média do Brasil em 2024, adotada como referência.</p>
       <p><b>Limitações:</b> em unidades com pequeno número de casos, a taxa apresenta oscilação aleatória importante. Taxa de 0,0% em unidade de grande volume sugere falha de registro do Apgar na Declaração de Nascido Vivo e deve ser objeto de verificação, não de comparação.</p>
+      <p><b>Cálculo efetivo (reprodução da planilha de 2024):</b> numerador = nascidos vivos com Apgar 5' &lt;7, peso &ge;2.500 g e anomalia congênita "não"; denominador = todos os nascidos vivos da unidade no ano.</p>
       <p><b>Fonte:</b> SINASC (DNV: Apgar no 5º minuto, peso ao nascer e anomalias congênitas).</p>
     </section>
 
@@ -806,8 +821,8 @@ body.metodologia{overflow:hidden}
 
 <footer>
   <div class="footer-inner">
-    <div class="marca">Indicadores da Atenção Obstétrica e Neonatal <span>·</span> Painel 2024</div>
-    <div>Fonte: SINASC / CNES / SIH-SUS / SMCON · Estabelecimentos com &gt;1.000 partos em 2024 · Extração 01/07/2026</div>
+    <div class="marca">Indicadores da Atenção Obstétrica e Neonatal <span>·</span> Painel <span class="ano-rot">2024</span></div>
+    <div>Fonte: SINASC / CNES / SIH-SUS / SMCON · Estabelecimentos com &gt;1.000 partos em <span class="ano-ref">2024</span> · Extração <span class="ano-extracao">01/07/2026</span></div>
     <div style="width:100%;font-size:11px;opacity:.85;margin-top:6px;line-height:1.5">Os critérios de <b>adequação</b> de cada indicador são <b>institucionais</b> (derivados de SINASC/CNES/SIH-SUS e alinhados às variáveis do SMCON/IFF-Fiocruz). A adequação de cesariana é avaliada pelos <b>grupos de Robson (G1 a G4)</b>: estabelecimento adequado quando pelo menos <b>2 grupos</b> estão dentro da referência do grupo.</div>
   </div>
 </footer>
@@ -828,7 +843,19 @@ body.metodologia{overflow:hidden}
 </div>
 
 <script>
-const DADOS = /*__DADOS__*/[];
+// um conjunto de dados por ano ({"2024":[...], "2025":[...]}) e a configuração de cada ano
+// (universo, extração, caráter preliminar, indicadores sem fonte naquele ano)
+const DADOS_ANOS = /*__DADOS_ANOS__*/{};
+const ANO_CFG = /*__ANO_CFG__*/{};
+const ANOS = Object.keys(DADOS_ANOS).sort();
+// ano exibido ao abrir: o mais recente que não seja preliminar (senão, o mais recente)
+let ANO = ANOS.filter(a=>!(ANO_CFG[a]||{}).preliminar).pop() || ANOS[ANOS.length-1];
+let DADOS = DADOS_ANOS[ANO];
+const cfgAno = ()=>ANO_CFG[ANO]||{};
+// indicador disponível no ano? chaves: neo, rob, enf, amiu, asf, larc, viol, sm, selo (estágios)
+const disp = k => !k || (!(cfgAno().indisponiveis||[]).includes(k) && !(k==='selo' && cfgAno().semEstagios));
+const rotAno = ()=>ANO+(cfgAno().preliminar?' (preliminar)':'');
+const IND_NOME = {larc:'Oferta de LARC', viol:'Atendimento de violência sexual', sm:'SMCON Neonatal e/ou Obstétrico', selo:'Estágios de desempenho'};
 Chart.register(ChartDataLabels);
 Chart.defaults.font.family = "'Inter',sans-serif";
 Chart.defaults.color = '#4E6A5C';
@@ -838,8 +865,11 @@ const C = {
   indigo:'#0A213D', mint:'#EDF6EF', alerta:'#C0392B', ambar:'#D68910'
 };
 
-DADOS.forEach(d=>{ d.txces = d.tot>0 ? +(d.ces/d.tot*100).toFixed(1) : 0;
-  d.neoFlag = (d.flags && d.flags[8]==='1') ? 1 : 0; });
+function derivarBase(){
+  DADOS.forEach(d=>{ d.txces = d.tot>0 ? +(d.ces/d.tot*100).toFixed(1) : 0;
+    d.neoFlag = (d.flags && d.flags[8]==='1') ? 1 : 0; });
+}
+derivarBase();
 
 const $ = id=>document.getElementById(id);
 let filtrado = DADOS.slice();
@@ -872,15 +902,19 @@ function initNatSel(){
     if(ch.checked) natSel.add(ch.value); else natSel.delete(ch.value);
     atualizarNatSel(); aplicar();
   }));
-  $('fNatBtn').addEventListener('click',e=>{ e.stopPropagation(); $('fNat').classList.toggle('aberto'); });
-  document.addEventListener('click',e=>{ if(!$('fNat').contains(e.target)) $('fNat').classList.remove('aberto'); });
-  document.addEventListener('keydown',e=>{ if(e.key==='Escape') $('fNat').classList.remove('aberto'); });
 }
-function initFiltros(){
+// valores dos filtros (refeitos ao trocar o ano); os ouvintes são ligados uma única vez em initFiltros
+function initFiltrosValores(){
   popularSelect('fReg',[...new Set(DADOS.map(d=>d.reg))],undefined,ordenarRegioes);
   popularSelect('fUF',[...new Set(DADOS.map(d=>d.uf))]);
   popularSelect('fMun',[...new Set(DADOS.map(d=>d.mun))]);
   initNatSel();
+}
+function initFiltros(){
+  initFiltrosValores();
+  $('fNatBtn').addEventListener('click',e=>{ e.stopPropagation(); $('fNat').classList.toggle('aberto'); });
+  document.addEventListener('click',e=>{ if(!$('fNat').contains(e.target)) $('fNat').classList.remove('aberto'); });
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape') $('fNat').classList.remove('aberto'); });
   ['fReg','fUF','fMun'].forEach(id=>$(id).addEventListener('change',()=>{encadear(id);aplicar();}));
   $('fBusca').addEventListener('input',aplicar);
 }
@@ -930,7 +964,7 @@ function renderKPIs(){
   const tot=filtrado.reduce((s,d)=>s+d.tot,0);
   const kpis=[
     {v:fmt(filtrado.length), r:'Estabelecimentos', c:''},
-    {v:fmt(tot), r:'Partos em 2024', c:''}
+    {v:fmt(tot), r:'Partos em '+ANO, c:''}
   ];
   $('kpis').innerHTML = kpis.map(k=>
     `<div class="kpi ${k.c}"><div class="valor">${k.v}</div><div class="rotulo">${k.r}</div></div>`).join('')
@@ -1025,16 +1059,16 @@ function renderAdeq(){
   const n=filtrado.length||1;
   // ordem padrão dos indicadores (mesma sequência em todo o painel)
   const itens=[
-    {r:'Unidade Neonatal completa', v:filtrado.filter(d=>d.flags&&d.flags[8]==='1').length},
-    {r:'Cesariana adequada (Robson &ge;2 grupos)', v:filtrado.filter(d=>d.rob2).length},
-    {r:'Parto vaginal assistido por enfermeira', v:filtrado.filter(d=>d.enfC==='ADEQUADO').length},
-    {r:'Uso de AMIU', v:filtrado.filter(d=>d.flags&&d.flags[2]==='1').length},
-    {r:'Asfixia Neonatal', v:filtrado.filter(d=>d.asfC==='ADEQUADO').length},
-    {r:'Oferta de LARC', v:filtrado.filter(d=>d.contrOk).length},
-    {r:'Atendimento de violência sexual', v:filtrado.filter(d=>d.viol).length},
-    {r:'SMCON Neonatal e/ou Obstétrico', v:filtrado.filter(d=>d.smN||d.smO).length},
-    {r:'Avançando (&ge;5 de 8)', v:filtrado.filter(d=>d.selo).length}
-  ];
+    {r:'Unidade Neonatal completa', v:filtrado.filter(d=>d.flags&&d.flags[8]==='1').length, ind:'neo'},
+    {r:'Cesariana adequada (Robson &ge;2 grupos)', v:filtrado.filter(d=>d.rob2).length, ind:'rob'},
+    {r:'Parto vaginal assistido por enfermeira', v:filtrado.filter(d=>d.enfC==='ADEQUADO').length, ind:'enf'},
+    {r:'Uso de AMIU', v:filtrado.filter(d=>d.flags&&d.flags[2]==='1').length, ind:'amiu'},
+    {r:'Asfixia Neonatal', v:filtrado.filter(d=>d.asfC==='ADEQUADO').length, ind:'asf'},
+    {r:'Oferta de LARC', v:filtrado.filter(d=>d.contrOk).length, ind:'larc'},
+    {r:'Atendimento de violência sexual', v:filtrado.filter(d=>d.viol).length, ind:'viol'},
+    {r:'SMCON Neonatal e/ou Obstétrico', v:filtrado.filter(d=>d.smN||d.smO).length, ind:'sm'},
+    {r:'Avançando (&ge;5 de 8)', v:filtrado.filter(d=>d.selo).length, ind:'selo'}
+  ].filter(i=>disp(i.ind));   // indicadores sem fonte no ano ficam fora do gráfico
   const corAdeq=v=>v>=75?VERDES[4]:v>=50?VERDES[3]:v>=25?VERDES[2]:VERDES[1];
   charts.chAdeq=new Chart($('chAdeq'),{
     type:'bar',
@@ -1102,9 +1136,10 @@ function renderTabela(){
       'Mostrando '+visiveis.length+' de '+dados.length+' estabelecimentos' :
       dados.length+' estabelecimento'+(dados.length===1?'':'s'))+terrTxt;
   const bd=(ok,txt)=>`<span class="badge ${ok?'b-ok':'b-ruim'}">${txt}</span>`;
+  const nd='<span class="indisp" title="Sem fonte neste ano">—</span>';
   $('tbody').innerHTML = visiveis.map(d=>`
     <tr>
-      <td title="${d.est}">${d.est.replace(/^\d+\s*-\s*/,'')}</td>
+      <td title="${d.est}${comparativoTexto(d)}">${d.est.replace(/^\d+\s*-\s*/,'')}</td>
       <td>${d.mun} (${SIGLA[d.uf]||d.uf})</td>
       <td class="num">${fmt(d.tot)}</td>
       <td>${bd(d.flags&&d.flags[8]==='1', d.neo==='SIM'?'SIM':(d.flags&&d.flags[8]==='1'?'N/A':'NÃO'))}</td>
@@ -1112,9 +1147,9 @@ function renderTabela(){
       <td class="num">${bd(d.enfC==='ADEQUADO', d.enf.toFixed(1)+'%')}</td>
       <td class="num">${bd(d.flags&&d.flags[2]==='1', d.amiu.toFixed(1)+'%')}</td>
       <td title="% de asfixia da unidade: ${d.asf.toFixed(1)}% (adequado: ≤0,6%)">${bd(d.asfC==='ADEQUADO', d.asfC==='ADEQUADO'?'SIM':'NÃO')}</td>
-      <td>${bd(!!d.contrOk, d.contrOk?'SIM':'NÃO')}</td>
-      <td>${bd(!!d.viol, d.viol?'SIM':'NÃO')}</td>
-      <td>${d.selo?'<span class="badge b-selo">AVANÇANDO</span>':''}</td>
+      <td>${disp('larc')? bd(!!d.contrOk, d.contrOk?'SIM':'NÃO') : nd}</td>
+      <td>${disp('viol')? bd(!!d.viol, d.viol?'SIM':'NÃO') : nd}</td>
+      <td>${disp('selo')? (d.selo?'<span class="badge b-selo">AVANÇANDO</span>':'') : nd}</td>
     </tr>`).join('');
   const btn = $('btnMaisLinhas');
   if(btn){ btn.style.display = dados.length>tblLimite? 'inline-block':'none';
@@ -1195,23 +1230,25 @@ const pctF = v=>v.toFixed(1)+'%';
 const pct0 = v=>v.toFixed(0)+'%';
 const intF = v=>Math.round(v).toLocaleString('pt-BR');
 const METRICAS = [
-  {id:'neoP',    grp:'neoP',    rot:'% Unidade Neonatal completa', leg:'Estab. com unidade neonatal completa (%)', fmtV:pctF, abs:a=>[a.neoSim,a.estab]},
-  {id:'rob2P',   grp:'rob2P',   rot:'% Cesariana adequada (≥2 grupos)', leg:'Estab. com pelo menos 2 grupos de Robson adequados (%)', fmtV:pctF, abs:a=>[a.rob2ok,a.estab]},
-  {id:'g1A',     grp:'rob2P',   rot:'% Cesariana Adeq. Robson G1', leg:'Estab. adequados no grupo 1 de Robson (%)',  fmtV:pctF, abs:a=>[a.g1ok,a.estab]},
-  {id:'g2A',     grp:'rob2P',   rot:'% Cesariana Adeq. Robson G2', leg:'Estab. adequados no grupo 2 de Robson (%)',  fmtV:pctF, abs:a=>[a.g2ok,a.estab]},
-  {id:'g3A',     grp:'rob2P',   rot:'% Cesariana Adeq. Robson G3', leg:'Estab. adequados no grupo 3 de Robson (%)',  fmtV:pctF, abs:a=>[a.g3ok,a.estab]},
-  {id:'g4A',     grp:'rob2P',   rot:'% Cesariana Adeq. Robson G4', leg:'Estab. adequados no grupo 4 de Robson (%)',  fmtV:pctF, abs:a=>[a.g4ok,a.estab]},
-  {id:'enf',     grp:'enf',     rot:'% Parto vaginal assistido por enfermeira', leg:'Estab. com parto vaginal assistido por enfermeira adequado (%)', fmtV:pctF, abs:a=>[a.enfOk,a.estab]},
-  {id:'amiuM',   grp:'amiuM',   rot:'% Uso de AMIU',      leg:'Média do % de uso de AMIU entre os estab.', fmtV:pctF},
-  {id:'asfP',    grp:'asfP',    rot:'% Asfixia Neonatal', leg:'Estab. com asfixia adequada – Apgar <7 no 5º min ≤0,6% (%)', fmtV:pctF, abs:a=>[a.asfOk,a.estab]},
-  {id:'contrP',  grp:'contrP',  rot:'% Oferta de LARC', leg:'Estab. com oferta de LARC adequada – DIU+implante (%)', fmtV:pctF, abs:a=>[a.contrOkN,a.estab]},
-  {id:'violP',   grp:'violP',   rot:'% Atendimento de violência sexual', leg:'Estab. que atendem violência sexual (%)', fmtV:pctF, abs:a=>[a.violSim,a.estab]},
-  {id:'smAlgumP',grp:'smAlgumP',rot:'% SMCON Neonatal e/ou Obstétrico', leg:'Estab. com SMCON Neonatal ou Obstétrico (%)', fmtV:pctF, abs:a=>[a.smAlgum,a.estab]},
-  {id:'selo',    grp:'selo',    rot:'% Avançando',        leg:'Estab. no estágio Avançando – ≥5 de 8 indicadores (%)', fmtV:pctF, abs:a=>[a.selo,a.estab]},
+  {id:'neoP',    grp:'neoP',    ind:'neo', rot:'% Unidade Neonatal completa', leg:'Estab. com unidade neonatal completa (%)', fmtV:pctF, abs:a=>[a.neoSim,a.estab]},
+  {id:'rob2P',   grp:'rob2P',   ind:'rob', rot:'% Cesariana adequada (≥2 grupos)', leg:'Estab. com pelo menos 2 grupos de Robson adequados (%)', fmtV:pctF, abs:a=>[a.rob2ok,a.estab]},
+  {id:'g1A',     grp:'rob2P',   ind:'rob', rot:'% Cesariana Adeq. Robson G1', leg:'Estab. adequados no grupo 1 de Robson (%)',  fmtV:pctF, abs:a=>[a.g1ok,a.estab]},
+  {id:'g2A',     grp:'rob2P',   ind:'rob', rot:'% Cesariana Adeq. Robson G2', leg:'Estab. adequados no grupo 2 de Robson (%)',  fmtV:pctF, abs:a=>[a.g2ok,a.estab]},
+  {id:'g3A',     grp:'rob2P',   ind:'rob', rot:'% Cesariana Adeq. Robson G3', leg:'Estab. adequados no grupo 3 de Robson (%)',  fmtV:pctF, abs:a=>[a.g3ok,a.estab]},
+  {id:'g4A',     grp:'rob2P',   ind:'rob', rot:'% Cesariana Adeq. Robson G4', leg:'Estab. adequados no grupo 4 de Robson (%)',  fmtV:pctF, abs:a=>[a.g4ok,a.estab]},
+  {id:'enf',     grp:'enf',     ind:'enf', rot:'% Parto vaginal assistido por enfermeira', leg:'Estab. com parto vaginal assistido por enfermeira adequado (%)', fmtV:pctF, abs:a=>[a.enfOk,a.estab]},
+  {id:'amiuM',   grp:'amiuM',   ind:'amiu', rot:'% Uso de AMIU',      leg:'Média do % de uso de AMIU entre os estab.', fmtV:pctF},
+  {id:'asfP',    grp:'asfP',    ind:'asf', rot:'% Asfixia Neonatal', leg:'Estab. com asfixia adequada – Apgar <7 no 5º min ≤0,6% (%)', fmtV:pctF, abs:a=>[a.asfOk,a.estab]},
+  {id:'contrP',  grp:'contrP',  ind:'larc', rot:'% Oferta de LARC', leg:'Estab. com oferta de LARC adequada – DIU+implante (%)', fmtV:pctF, abs:a=>[a.contrOkN,a.estab]},
+  {id:'violP',   grp:'violP',   ind:'viol', rot:'% Atendimento de violência sexual', leg:'Estab. que atendem violência sexual (%)', fmtV:pctF, abs:a=>[a.violSim,a.estab]},
+  {id:'smAlgumP',grp:'smAlgumP',ind:'sm', rot:'% SMCON Neonatal e/ou Obstétrico', leg:'Estab. com SMCON Neonatal ou Obstétrico (%)', fmtV:pctF, abs:a=>[a.smAlgum,a.estab]},
+  {id:'selo',    grp:'selo',    ind:'selo', rot:'% Avançando',        leg:'Estab. no estágio Avançando – ≥5 de 8 indicadores (%)', fmtV:pctF, abs:a=>[a.selo,a.estab]},
   {id:'estab',   grp:'selo',    rot:'Estabelecimentos',   leg:'Estabelecimentos >1.000 partos',             fmtV:intF},
   {id:'partos',  grp:'selo',    rot:'Partos',             leg:'Partos em 2024',                             fmtV:intF}
 ];
 const grpDe = id => (METRICAS.find(m=>m.id===id)||{}).grp || id;
+const indDe = id => (METRICAS.find(m=>m.id===id)||{}).ind;   // indicador classificatório de uma métrica
+const metricasDisp = ()=>METRICAS.filter(m=>disp(m.ind));
 let metricaAtiva = 'neoP';
 const NIVEIS = [
   {id:'uf',    rot:'UF',                 chave:d=>SIGLA[d.uf],  nomeDe:t=>NOME_UF[t.id]||t.nome, raioFallback:30},
@@ -1230,7 +1267,11 @@ function mediaArr(arr){
 
 // UFs por região do país (para o zoom)
 const REG_UFS = {};
-DADOS.forEach(d=>{ const s=SIGLA[d.uf]; if(s){(REG_UFS[d.reg]=REG_UFS[d.reg]||new Set()).add(s);} });
+function calcRegUfs(){
+  Object.keys(REG_UFS).forEach(k=>delete REG_UFS[k]);
+  DADOS.forEach(d=>{ const s=SIGLA[d.uf]; if(s){(REG_UFS[d.reg]=REG_UFS[d.reg]||new Set()).add(s);} });
+}
+calcRegUfs();
 
 function novoAcum(){return {tot:0,ces:0,estab:0,selo:0,enfOk:0,larc:0,diu:0,imp:0,cpn:0,
   nv1:0,cs1:0,nv3:0,cs3:0,asfOk:0,neoSim:0,hgpar:0,smN:0,smO:0,cpnEst:0,violSim:0,violN:0,amiuV:[],asfV:[],g1ok:0,g2ok:0,g3ok:0,g4ok:0,rob2ok:0,neoAdq:0,contrOkN:0,smAlgum:0};}
@@ -1250,7 +1291,7 @@ function acumular(a,d){
   if(d.contrOk) a.contrOkN++;
   if(d.cpn>0) a.cpnEst++;
   if(d.viol) a.violSim++;
-  a.violN+=d.violN; a.larc+=d.larc; a.diu+=d.diu; a.imp+=d.imp; a.cpn+=d.cpn;
+  a.violN+=d.violN||0; a.larc+=d.larc||0; a.diu+=d.diu||0; a.imp+=d.imp||0; a.cpn+=d.cpn;
   a.nv1+=d.nv1; a.cs1+=d.cs1; a.nv3+=d.nv3; a.cs3+=d.cs3;
   a.amiuV.push(d.amiu); a.asfV.push(d.asf);
 }
@@ -1407,7 +1448,7 @@ function renderMapa(){
 
   // sincronizar listas suspensas em cascata (Brasil -> Região -> Estado) e nível
   sincronizarSelectsMapa();
-  $('metricas').innerHTML = METRICAS.map(m=>
+  $('metricas').innerHTML = metricasDisp().map(m=>
     `<button class="chip ${m.id===metricaAtiva?'ativo':''}" data-m="${m.id}">${m.rot}</button>`).join('');
   $('metricas').querySelectorAll('.chip').forEach(c=>c.onclick=()=>{metricaAtiva=c.dataset.m; renderMapa();});
   if(typeof atualizarTrilho==='function') atualizarTrilho();
@@ -1531,7 +1572,7 @@ function renderMapa(){
         `<div class="tt-linha"><span>${met.rot}</span><b class="tt-metrica">${v!=null?met.fmtV(v):'\u2014'}</b></div>`+
         (a&&met.abs&&v!=null? (x=>`<div class="tt-linha"><span>Adequados</span><b>${fmt(x[0])} de ${fmt(x[1])}</b></div>`)(met.abs(a)) : '')+
         (a? `<div class="tt-linha"><span>Estabelecimentos</span><b>${fmt(a.estab)}</b></div>`+
-            `<div class="tt-linha"><span>Partos 2024</span><b>${fmt(a.tot)}</b></div>`
+            `<div class="tt-linha"><span>Partos ${ANO}</span><b>${fmt(a.tot)}</b></div>`
           : `<div class="tt-linha"><span>Sem estabelecimento &gt;1.000 partos</span></div>`)+
         `<div class="tt-dica">Clique para filtrar o painel</div>`;
       const margem=14, larg=250;
@@ -1587,6 +1628,7 @@ function cartaoResumo(titulo, a, rodape){
     + `<div class="linha"><span>Partos</span><b>${fmt(a.tot)}</b></div>`;
   PRINCIPAIS.forEach(p=>{
     const m = METRICAS.find(x=>x.id===p.id);
+    if(!disp(m.ind)) return;              // sem fonte no ano
     const v = valorMetrica(a, m.id);
     const abs = (m.abs && v!=null) ? (x=>`<small style="color:var(--texto-suave);font-weight:600"> (${fmt(x[0])}/${fmt(x[1])})</small>`)(m.abs(a)) : '';
     linhas += `<div class="linha"><span>${m.rot}</span><b>${v!=null? m.fmtV(v) : '\u2014'}${abs}</b></div>`;
@@ -1639,7 +1681,7 @@ function exportarMapaPNG(){
     const cx=cv.getContext('2d'); cx.fillStyle='#fff'; cx.fillRect(0,0,cv.width,cv.height);
     cx.drawImage(img,0,0,cv.width,cv.height);
     const a=document.createElement('a'); a.href=cv.toDataURL('image/png');
-    a.download='mapa_'+metricaAtiva+'_2024.png'; a.click();
+    a.download='mapa_'+metricaAtiva+'_'+ANO+'.png'; a.click();
   };
   img.src='data:image/svg+xml;base64,'+btoa(unescape(encodeURIComponent(xml)));
 }
@@ -1692,7 +1734,7 @@ function baixarGrafico(canvasId, nomeArq){
   cx.fillStyle = '#0A5C42'; cx.font = `700 ${15*esc}px Archivo, sans-serif`;
   cx.fillText(titulo, mLat*esc, 30*esc);
   cx.fillStyle = '#0A213D'; cx.font = `600 ${11*esc}px Inter, sans-serif`;
-  cx.fillText('Sele\u00e7\u00e3o: '+contextoSelecao()+' \u00b7 2024', mLat*esc, 48*esc);
+  cx.fillText('Sele\u00e7\u00e3o: '+contextoSelecao()+' \u00b7 '+rotAno(), mLat*esc, 48*esc);
   cx.drawImage(src, mLat*esc, mTop*esc, cv.width-mLat*2*esc, cv.height-(mTop+mBot)*esc);
   const a=document.createElement('a');
   a.href=cv.toDataURL('image/png');
@@ -1721,6 +1763,13 @@ function selecionarEstagio(id){
 }
 function renderSelo(){
   destruir('chSeloDonut');
+  if(!disp('selo')){   // ano sem todos os 8 indicadores: não há estágio de desempenho
+    const falt=(cfgAno().indisponiveis||[]).map(k=>IND_NOME[k]||k).join(', ');
+    $('seloPct').textContent='—'; $('seloLeg').innerHTML='sem estágios<br>em '+ANO;
+    $('seloEstagios').innerHTML=`<div class="aviso-ano" style="margin:0"><b>Estágios de desempenho não calculados para ${rotAno()}.</b> Ainda sem fonte neste ano: ${falt}. A classificação exige os 8 indicadores; será publicada quando as fontes forem recebidas.</div>`;
+    $('seloInsight').innerHTML=''; $('seloAvisoCes').innerHTML='';
+    return;
+  }
   // base: filtros vigentes exceto o próprio estágio
   const salvo = estagioSel; estagioSel = null;
   const reg=$('fReg').value, uf=$('fUF').value, mun=$('fMun').value,
@@ -1796,18 +1845,21 @@ function renderSelo(){
 }
 
 /* ===== Matriz semáforo território x indicador ===== */
-const MATRIZ_COLS = [
-  {k:'neoAdqP',rot:'Unidade Neonatal completa'},
-  {k:'rob2P', rot:'Robson \u22652 grupos'},
-  {k:'enf',   rot:'Parto vaginal assistido por enfermeira'},
-  {k:'amiuA', rot:'Uso de AMIU'},
-  {k:'asfP',  rot:'Asfixia Neonatal'},
-  {k:'contrP',rot:'Oferta de LARC'},
-  {k:'violP', rot:'Atendimento de viol\u00eancia sexual'},
-  {k:'smAlgumP', rot:'SMCON Neonatal e/ou Obstétrico'},
-  {k:'seloP', rot:'Avan\u00e7ando'}
+const COLS_MATRIZ_TODAS = [
+  {k:'neoAdqP',rot:'Unidade Neonatal completa', ind:'neo'},
+  {k:'rob2P', rot:'Robson \u22652 grupos', ind:'rob'},
+  {k:'enf',   rot:'Parto vaginal assistido por enfermeira', ind:'enf'},
+  {k:'amiuA', rot:'Uso de AMIU', ind:'amiu'},
+  {k:'asfP',  rot:'Asfixia Neonatal', ind:'asf'},
+  {k:'contrP',rot:'Oferta de LARC', ind:'larc'},
+  {k:'violP', rot:'Atendimento de viol\u00eancia sexual', ind:'viol'},
+  {k:'smAlgumP', rot:'SMCON Neonatal e/ou Obstétrico', ind:'sm'},
+  {k:'seloP', rot:'Avan\u00e7ando', ind:'selo'}
 ];
+const matrizCols = ()=>COLS_MATRIZ_TODAS.filter(c=>disp(c.ind));   // colunas com fonte no ano
 let matrizOrd = {k:'seloP', asc:false};
+// se a coluna de ordenação não tem fonte no ano, ordena pela primeira disponível
+function ajustarOrdemMatriz(){ if(!matrizCols().some(c=>c.k===matrizOrd.k) && matrizOrd.k!=='nome' && matrizOrd.k!=='n') matrizOrd={k:matrizCols()[0].k, asc:false}; }
 
 function territoriosEscopo(){
   const nomeUF=$('fUF').value, reg=$('fReg').value;
@@ -1850,6 +1902,7 @@ function celSem(v, n){
   return `<span class="cel ${c}">${v.toFixed(0)}%</span>`;
 }
 function renderMatriz(){
+  ajustarOrdemMatriz();
   const linhas = dadosMatriz().sort((a,b)=>{
     const k=matrizOrd.k;
     if(k==='nome') return matrizOrd.asc? a.nome.localeCompare(b.nome,'pt'): b.nome.localeCompare(a.nome,'pt');
@@ -1859,10 +1912,10 @@ function renderMatriz(){
   });
   const nv = nivelDef();
   const cab = `<tr><th data-k="nome">${nv.rot}</th><th data-k="n">n</th>`+
-    MATRIZ_COLS.map(c=>`<th data-k="${c.k}">${c.rot}</th>`).join('')+'</tr>';
+    matrizCols().map(c=>`<th data-k="${c.k}">${c.rot}</th>`).join('')+'</tr>';
   const corpo = linhas.map(l=>
     `<tr><td class="terr" data-id="${l.id}" title="${l.nome}">${l.nome}</td><td class="n">${l.n}</td>`+
-    MATRIZ_COLS.map(c=>`<td>${celSem(l[c.k], l.n)}</td>`).join('')+'</tr>').join('');
+    matrizCols().map(c=>`<td>${celSem(l[c.k], l.n)}</td>`).join('')+'</tr>').join('');
   $('matrizWrap').innerHTML = `<table class="matriz"><thead>${cab}</thead><tbody>${corpo}</tbody></table>`;
   $('matrizWrap').querySelectorAll('th').forEach(th=>th.onclick=()=>{
     const k=th.dataset.k;
@@ -1884,10 +1937,10 @@ function renderMatriz(){
 $('btnMatrizXlsx').addEventListener('click', ()=>{
   const nv = nivelDef();
   const linhas = dadosMatriz();
-  const aoa = [[nv.rot,'Estabelecimentos', ...MATRIZ_COLS.map(c=>c.rot.replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim().replace(/\u2265/g,'>='))]];
-  linhas.forEach(l=>aoa.push([l.nome, l.n, ...MATRIZ_COLS.map(c=>l[c.k]!=null?+l[c.k].toFixed(1):null)]));
+  const aoa = [[nv.rot,'Estabelecimentos', ...matrizCols().map(c=>c.rot.replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim().replace(/\u2265/g,'>='))]];
+  linhas.forEach(l=>aoa.push([l.nome, l.n, ...matrizCols().map(c=>l[c.k]!=null?+l[c.k].toFixed(1):null)]));
   aoa.push([]);
-  aoa.push(['Sele\u00e7\u00e3o: '+contextoSelecao()+' \u00b7 % de estabelecimentos adequados \u00b7 apenas unidades >1.000 partos \u00b7 2024']);
+  aoa.push(['Sele\u00e7\u00e3o: '+contextoSelecao()+' \u00b7 % de estabelecimentos adequados \u00b7 apenas unidades >1.000 partos \u00b7 '+rotAno()]);
   const ws = XLSX.utils.aoa_to_sheet(aoa);
   const wb = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(wb, ws, 'Matriz sem\u00e1foro');
@@ -1900,21 +1953,47 @@ let _mapu=null, _mapuCluster=null, _mapuAberto=false;
 // verde × roxo: par distinguível por daltônicos (verde × vermelho não é)
 const _MV='#279261', _MR='#7B3294', _MA='#D68910', _ML='#E67E22';
 const MAPU_METRICAS=[
-  {id:'selo',nome:'Estágio de desempenho',classe:function(d){
+  {id:'selo',ind:'selo',nome:'Estágio de desempenho',classe:function(d){
     for(var i=0;i<ESTAGIOS.length;i++){ var e=ESTAGIOS[i];
       if(e.pred(d)) return {k:(i+1)+'_'+e.id, rot:e.nome, cor:e.cor}; }
     return {k:'9_outros', rot:'Sem classificação', cor:'#9AA8A0'};
   }},
-  {id:'neo',nome:'Unidade Neonatal completa',classe:function(d){return (d.flags&&d.flags[8]==='1')?{k:'ad',rot:'Adequado',cor:_MV}:{k:'in',rot:'Não adequado',cor:_MR};}},
-  {id:'rob',nome:'Robson ≥2 grupos',classe:function(d){return d.rob2==1?{k:'ad',rot:'Adequado',cor:_MV}:{k:'in',rot:'Não adequado',cor:_MR};}},
-  {id:'enf',nome:'Parto vaginal assistido por enfermeira',classe:function(d){return d.enfC==='ADEQUADO'?{k:'ad',rot:'Adequado',cor:_MV}:{k:'in',rot:'Não adequado',cor:_MR};}},
-  {id:'amiu',nome:'Uso de AMIU',classe:function(d){return (d.flags&&d.flags[2]==='1')?{k:'ad',rot:'Adequado',cor:_MV}:{k:'in',rot:'Não adequado',cor:_MR};}},
-  {id:'asf',nome:'Asfixia Neonatal',classe:function(d){return d.asfC==='ADEQUADO'?{k:'ad',rot:'Adequado',cor:_MV}:{k:'in',rot:'Não adequado',cor:_MR};}},
-  {id:'larc',nome:'Oferta de LARC',classe:function(d){return d.contrOk?{k:'ad',rot:'Adequado',cor:_MV}:{k:'in',rot:'Não adequado',cor:_MR};}},
-  {id:'viol',nome:'Atendimento de violência sexual',classe:function(d){return d.viol?{k:'ad',rot:'Adequado',cor:_MV}:{k:'in',rot:'Não adequado',cor:_MR};}},
-  {id:'sm',nome:'SMCON Neonatal e/ou Obstétrico',classe:function(d){return (d.smN||d.smO)?{k:'ad',rot:'Adequado',cor:_MV}:{k:'in',rot:'Não adequado',cor:_MR};}}
+  {id:'neo',ind:'neo',nome:'Unidade Neonatal completa',classe:function(d){return (d.flags&&d.flags[8]==='1')?{k:'ad',rot:'Adequado',cor:_MV}:{k:'in',rot:'Não adequado',cor:_MR};}},
+  {id:'rob',ind:'rob',nome:'Robson ≥2 grupos',classe:function(d){return d.rob2==1?{k:'ad',rot:'Adequado',cor:_MV}:{k:'in',rot:'Não adequado',cor:_MR};}},
+  {id:'enf',ind:'enf',nome:'Parto vaginal assistido por enfermeira',classe:function(d){return d.enfC==='ADEQUADO'?{k:'ad',rot:'Adequado',cor:_MV}:{k:'in',rot:'Não adequado',cor:_MR};}},
+  {id:'amiu',ind:'amiu',nome:'Uso de AMIU',classe:function(d){return (d.flags&&d.flags[2]==='1')?{k:'ad',rot:'Adequado',cor:_MV}:{k:'in',rot:'Não adequado',cor:_MR};}},
+  {id:'asf',ind:'asf',nome:'Asfixia Neonatal',classe:function(d){return d.asfC==='ADEQUADO'?{k:'ad',rot:'Adequado',cor:_MV}:{k:'in',rot:'Não adequado',cor:_MR};}},
+  {id:'larc',ind:'larc',nome:'Oferta de LARC',classe:function(d){return d.contrOk?{k:'ad',rot:'Adequado',cor:_MV}:{k:'in',rot:'Não adequado',cor:_MR};}},
+  {id:'viol',ind:'viol',nome:'Atendimento de violência sexual',classe:function(d){return d.viol?{k:'ad',rot:'Adequado',cor:_MV}:{k:'in',rot:'Não adequado',cor:_MR};}},
+  {id:'sm',ind:'sm',nome:'SMCON Neonatal e/ou Obstétrico',classe:function(d){return (d.smN||d.smO)?{k:'ad',rot:'Adequado',cor:_MV}:{k:'in',rot:'Não adequado',cor:_MR};}}
 ];
 let _mapuMetrica='selo';
+// opções de "Colorir por" com fonte no ano; se a atual ficou sem fonte, volta para a unidade neonatal
+function popularMetricaMapa(){
+  var sel=document.getElementById('mapuMetrica'); if(!sel) return;
+  if(!disp((MAPU_METRICAS.find(function(m){return m.id===_mapuMetrica;})||{}).ind)) _mapuMetrica='neo';
+  sel.innerHTML=MAPU_METRICAS.filter(function(m){return disp(m.ind);}).map(function(m){
+    return '<option value="'+m.id+'"'+(m.id===_mapuMetrica?' selected':'')+'>'+m.nome+'</option>';}).join('');
+}
+// comparação da unidade com os outros anos do painel (mesmo CNES)
+function comparativoLinhas(d){
+  var c=cnesDe(d), out=[];
+  ANOS.forEach(function(a){ if(a===ANO) return;
+    var o=(DADOS_ANOS[a]||[]).find(function(x){return cnesDe(x)===c;});
+    var cfg=ANO_CFG[a]||{};
+    if(!o){ out.push({ano:a, txt:'fora do universo (≤1.000 partos)'}); return; }
+    // variação sempre do ano anterior para o posterior
+    var depois=a>ANO, de=depois?ANO:a, para=depois?a:ANO;
+    var dif=depois?(o.tot-d.tot):(d.tot-o.tot), sinal=dif>0?'+':'';
+    var n8de=depois?d.n8:o.n8, n8para=depois?o.n8:d.n8;
+    var est=(o.n8!=null&&d.n8!=null)? (' · adequados '+n8de+'/8 → '+n8para+'/8') : '';
+    out.push({ano:a, txt:o.tot.toLocaleString('pt-BR')+' partos ('+sinal+dif.toLocaleString('pt-BR')+' de '+de+' para '+para+')'+est+(cfg.preliminar?' · preliminar':'')});
+  });
+  return out;
+}
+function comparativoTexto(d){
+  var l=comparativoLinhas(d); return l.length? '\n'+l.map(function(x){return x.ano+': '+x.txt;}).join('\n') : '';
+}
 let _mapuUF='', _mapuMacro='';
 function popularUFMapa(){
   var sel=document.getElementById('mapuUF'); if(!sel||sel.getAttribute('data-pronto')) return;
@@ -1973,14 +2052,15 @@ function renderMapaUnidades(fit){
     plot++;
     var nome=d.est.replace(/^\d+\s*-\s*/,'');
     var dia=raioVol(d.tot);
-    var estagio=ESTAGIOS.find(function(e){return e.pred(d);});
-    var seloTxt=estagio?estagio.nome:'—', seloCor=estagio?estagio.cor:'#9AA8A0';
+    var estagio=disp('selo')?ESTAGIOS.find(function(e){return e.pred(d);}):null;
+    var seloTxt=estagio?(estagio.nome+' &middot; '+d.n8+'/8 adequados'):('Sem estágio em '+ANO), seloCor=estagio?estagio.cor:'#9AA8A0';
+    var comp=comparativoLinhas(d).map(function(x){return '<div class="mapu-prow"><span>'+x.ano+'</span><b style="font-weight:600">'+x.txt+'</b></div>';}).join('');
     var pop='<div style="font-family:Inter,sans-serif;min-width:210px;max-width:260px">'+
       '<div style="font-weight:700;color:#1D3229;font-size:13px;margin-bottom:2px">'+nome+'</div>'+
       '<div style="font-size:11px;color:#4E6A5C;margin-bottom:6px">'+d.mun+' &middot; '+d.uf+'</div>'+
-      '<div style="display:inline-block;font-size:11px;font-weight:700;color:#fff;background:'+seloCor+';padding:2px 8px;border-radius:20px;margin-bottom:7px">'+seloTxt+' &middot; '+d.n8+'/8 adequados</div>'+
+      '<div style="display:inline-block;font-size:11px;font-weight:700;color:#fff;background:'+seloCor+';padding:2px 8px;border-radius:20px;margin-bottom:7px">'+seloTxt+'</div>'+
       '<div style="font-size:11.5px">'+
-      '<div class="mapu-prow"><span>Partos (total)</span><b>'+d.tot.toLocaleString('pt-BR')+'</b></div>'+
+      '<div class="mapu-prow"><span>Partos '+ANO+'</span><b>'+d.tot.toLocaleString('pt-BR')+'</b></div>'+comp+
       '<div class="mapu-prow"><span>Natureza</span><b>'+d.nat+'</b></div>'+
       '<div class="mapu-prow"><span>Gest&atilde;o</span><b>'+d.gestao+'</b></div>'+
       '</div></div>';
@@ -2007,7 +2087,7 @@ function toggleMapaUnidades(){
   var card=document.getElementById('mapuCard'), btn=document.getElementById('mapuToggle');
   card.style.display=_mapuAberto?'block':'none';
   btn.innerHTML=_mapuAberto?'&#9660; Ocultar mapa':'&#9654; Mostrar mapa';
-  if(_mapuAberto){ popularUFMapa(); popularMacroMapa(); renderMapaUnidades(true); setTimeout(function(){if(_mapu)_mapu.invalidateSize();},120); }
+  if(_mapuAberto){ popularUFMapa(); popularMacroMapa(); popularMetricaMapa(); renderMapaUnidades(true); setTimeout(function(){if(_mapu)_mapu.invalidateSize();},120); }
 }
 function exportarMapaUnidadesPNG(){ alert('Para exportar o mapa, use a captura de tela do navegador.'); }
 
@@ -2043,8 +2123,8 @@ function exportarExcel(){
   }));
   const ws=XLSX.utils.json_to_sheet(linhas);
   const wb=XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb,ws,'Indicadores 2024');
-  XLSX.writeFile(wb,'indicadores_partos_2024.xlsx');
+  XLSX.utils.book_append_sheet(wb,ws,'Indicadores '+ANO);
+  XLSX.writeFile(wb,'indicadores_partos_'+ANO+'.xlsx');
 }
 
 function exportarPDF(){
@@ -2052,7 +2132,7 @@ function exportarPDF(){
   const doc=new jsPDF({orientation:'landscape',unit:'mm',format:'a4'});
   doc.setFillColor(14,122,86); doc.rect(0,0,297,22,'F');
   doc.setTextColor(255,255,255); doc.setFontSize(13); doc.setFont('helvetica','bold');
-  doc.text('Indicadores da Atenção Obstétrica e Neonatal · Estabelecimentos >1.000 partos · 2024',10,10);
+  doc.text('Indicadores da Atenção Obstétrica e Neonatal · Estabelecimentos >1.000 partos · '+rotAno(),10,10);
   doc.setFontSize(9); doc.setFont('helvetica','normal');
   const reg=$('fReg').value||'Todas', uf=$('fUF').value||'Todas', mun=$('fMun').value||'Todos';
   doc.text(`Seleção: Região ${reg} · UF ${uf} · Município ${mun} · ${filtrado.length} estabelecimentos`,10,17);
@@ -2081,9 +2161,9 @@ function exportarPDF(){
   const pgs=doc.internal.getNumberOfPages();
   for(let i=1;i<=pgs;i++){
     doc.setPage(i); doc.setFontSize(7); doc.setTextColor(120);
-    doc.text(`Fonte: SINASC/CNES/SIH-SUS/SMCON · Extração 01/07/2026 · Página ${i}/${pgs}`,10,203);
+    doc.text(`Fonte: SINASC/CNES/SIH-SUS/SMCON · Extração ${cfgAno().extracao||''} · Página ${i}/${pgs}`,10,203);
   }
-  doc.save('indicadores_partos_2024.pdf');
+  doc.save('indicadores_partos_'+ANO+'.pdf');
 }
 
 
@@ -2140,8 +2220,53 @@ function renderResumo(){
 }
 
 
+/* ===== Ano de referência: seletor, textos e troca ===== */
+function renderSeletorAno(){
+  const html = ANOS.map(a=>{const c=ANO_CFG[a]||{};
+    return `<button type="button" class="${a===ANO?'ativo':''}" data-ano="${a}" title="${c.preliminar?'Dados preliminares':'Ano de referência'}">${a}${c.preliminar?'<small>preliminar</small>':''}</button>`;}).join('');
+  ['anoSel','anoSelHero'].forEach(id=>{ const el=$(id); if(!el) return; el.innerHTML=html;
+    el.querySelectorAll('button').forEach(b=>b.onclick=()=>trocarAno(b.dataset.ano)); });
+}
+function aplicarTextosAno(){
+  const c=cfgAno(), n=DADOS.length, partos=DADOS.reduce((s,d)=>s+d.tot,0);
+  document.querySelectorAll('.ano-ref').forEach(e=>e.textContent=ANO);
+  document.querySelectorAll('.ano-rot').forEach(e=>e.textContent=rotAno());
+  document.querySelectorAll('.ano-extracao').forEach(e=>e.textContent=c.extracao||'—');
+  document.title='Indicadores da Atenção Obstétrica e Neonatal · Estabelecimentos com mais de 1.000 partos · '+ANO;
+  if($('headerSub')) $('headerSub').textContent=fmt(n)+' estabelecimentos · '+fmt(partos)+' partos em '+rotAno();
+  if($('metUniverso')) $('metUniverso').textContent='Universo: estabelecimentos com mais de 1.000 partos em '+ANO+' ('+fmt(n)+' unidades; '+fmt(partos)+' partos). Extração de '+(c.extracao||'—')+'.'+(c.preliminar?' Dados preliminares.':'');
+  const met=METRICAS.find(m=>m.id==='partos'); if(met) met.leg='Partos em '+ANO;
+  const av=$('anoAviso');
+  if(av){
+    const falt=(c.indisponiveis||[]).map(k=>IND_NOME[k]||k);
+    let txt='';
+    if(c.preliminar) txt+='<b>'+ANO+' · dados preliminares.</b> SINASC em versão preliminar e SIH sujeito a acréscimos. ';
+    if(falt.length) txt+='Sem fonte neste ano: <b>'+falt.join(', ')+'</b>'+(c.semEstagios?' — por isso os estágios de desempenho não são calculados para '+ANO:'')+'. ';
+    if(c.nota) txt+=c.nota;
+    av.innerHTML=txt; av.style.display=txt?'block':'none';
+  }
+  renderSeletorAno();
+}
+function trocarAno(ano){
+  if(!DADOS_ANOS[ano] || ano===ANO) return;
+  ANO=ano; DADOS=DADOS_ANOS[ano];
+  derivarBase(); calcRegUfs();
+  terrSel=null; estagioSel=null; natSel.clear(); atualizarNatSel();
+  ['fReg','fUF','fMun'].forEach(id=>{ if($(id)) $(id).value=''; }); if($('fBusca')) $('fBusca').value='';
+  if($('tblSelo')) $('tblSelo').value='';
+  initFiltrosValores();
+  if(!disp(indDe(metricaAtiva))) metricaAtiva='neoP';
+  ajustarOrdemMatriz();
+  const u=document.getElementById('mapuUF'); if(u){ u.removeAttribute('data-pronto'); _mapuUF=''; _mapuMacro=''; }
+  if(_mapuAberto){ popularUFMapa(); popularMacroMapa(); }
+  popularMetricaMapa(); _mapuOcultos.clear();
+  aplicarTextosAno(); montarInicio(); aplicar();
+}
+
 posicionarFiltros();
 initFiltros();
+aplicarTextosAno();
+popularMetricaMapa();
 render();
 
 // ===== Tela de início + trilho flutuante (estilo ANP) =====
@@ -2150,13 +2275,14 @@ const ICO_MAPAU = ICO('<path d="M12 21s-7-5.3-7-11a7 7 0 0 1 14 0c0 5.7-7 11-7 1
 function montarInicio(){
   $('ihEstab').textContent = DADOS.length.toLocaleString('pt-BR');
   $('ihPartos').textContent = DADOS.reduce((s,d)=>s+d.tot,0).toLocaleString('pt-BR');
-  $('inicioGrade').innerHTML = PRINCIPAIS.map(p=>
+  const principais = PRINCIPAIS.filter(p=>disp(indDe(p.id)));   // só indicadores com fonte no ano
+  $('inicioGrade').innerHTML = principais.map(p=>
     `<button class="ih-item" data-m="${p.id}"><span class="ih-circ">${ICONES[p.id]||''}</span><span>${p.rot}</span></button>`).join('')
-    + `<button class="ih-item ih-mapa" id="ihMapaU"><span class="ih-circ">${ICO_MAPAU}</span><span>Mapa de unidades<br>est&aacute;gios de desempenho</span></button>`;
+    + `<button class="ih-item ih-mapa" id="ihMapaU"><span class="ih-circ">${ICO_MAPAU}</span><span>Mapa de unidades<br>${disp('selo')?'est&aacute;gios de desempenho':'indicadores por unidade'}</span></button>`;
   $('inicioGrade').querySelectorAll('.ih-item[data-m]').forEach(b=>b.onclick=()=>entrarPainel(b.dataset.m));
   $('ihMapaU').onclick = irMapaUnidades;
   $('trilhoNav').innerHTML = `<button class="home" title="Voltar ao início" aria-label="Voltar ao início">${ICO_HOME}</button>`+
-    PRINCIPAIS.map(p=>`<button data-m="${p.id}" title="${p.rot}" aria-label="${p.rot}">${ICONES[p.id]||''}</button>`).join('')
+    principais.map(p=>`<button data-m="${p.id}" title="${p.rot}" aria-label="${p.rot}">${ICONES[p.id]||''}</button>`).join('')
     + `<button class="mapau" title="Mapa de unidades (est&aacute;gios de desempenho)" aria-label="Mapa de unidades">${ICO_MAPAU}</button>`;
   $('trilhoNav').querySelector('.home').onclick = voltarInicio;
   $('trilhoNav').querySelector('.mapau').onclick = irMapaUnidades;
