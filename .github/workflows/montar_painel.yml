@@ -16,6 +16,7 @@ on:
 permissions:
   contents: write
   actions: read
+  issues: write
 
 jobs:
   montar:
@@ -45,8 +46,35 @@ jobs:
             --sp extracao/saida/codigos_sp_2025.json --smcon extracao/smcon_2024.csv --sia extracao/saida/sia_pa_2025 \
             --saida planilhas/PLANILHA_2025_prelim_internacao.xlsx
           python scripts/01_preparar_dados.py planilhas/PLANILHA_2025_prelim_internacao.xlsx 2025 --preliminar --extracao "$(date +%d/%m/%Y)"
-          python scripts/04_auditoria.py planilhas/PLANILHA_2025_prelim_internacao.xlsx 2025
+          python scripts/04_auditoria.py planilhas/PLANILHA_2025_prelim_internacao.xlsx 2025 | tee auditoria_2025.txt
           python scripts/03_montar_painel.py
+      - name: Conferência do painel montado
+        run: |
+          python - <<'EOF'
+          import json, re, sys
+          h = open("index.html", encoding="utf-8").read()
+          anos = json.loads(re.search(r"const DADOS_ANOS = (\{.*?\});\nconst ANO_CFG", h, re.S).group(1))
+          cfg = json.loads(re.search(r"const ANO_CFG = (\{.*?\});\n", h).group(1))
+          d25, d24 = anos["2025"], anos["2024"]
+          sia = {}
+          import glob
+          for f in glob.glob("extracao/saida/sia_pa_2025/*.json"):
+              sia.update(json.load(open(f, encoding="utf-8"))["estabelecimentos"])
+          ufs = len(glob.glob("extracao/saida/sia_pa_2025/*.json"))
+          viol = sum(1 for d in d25 if d["viol"]); selo = sum(1 for d in d25 if d["selo"])
+          erros = []
+          if ufs != 27: erros.append(f"SIA: {ufs} UFs tabuladas (esperado 27)")
+          if len(d24) != 543: erros.append(f"2024 com {len(d24)} unidades")
+          if not (540 <= len(d25) <= 570): erros.append(f"2025 com {len(d25)} unidades")
+          if cfg["2025"].get("semEstagios"): erros.append("2025 ainda sem estágios")
+          if cfg["2025"].get("indisponiveis"): erros.append(f"indisponíveis em 2025: {cfg['2025']['indisponiveis']}")
+          if viol < 150: erros.append(f"só {viol} unidades com violência sexual adequada em 2025 (2024: 225)")
+          resumo = (f"2025: {len(d25)} unidades, {sum(d['tot'] for d in d25):,} partos; violência sexual adequada em {viol}; "
+                    f"Avançando {selo}; SIA tabulado em {ufs} UFs ({sum(d['violN'] for d in d25):,} atendimentos).")
+          open("conferencia.txt", "w", encoding="utf-8").write(resumo + ("\nERROS: " + "; ".join(erros) if erros else "\nConferência OK"))
+          print(resumo); print("ERROS:", erros) if erros else print("Conferência OK")
+          sys.exit(1 if erros else 0)
+          EOF
       - name: Commit e push
         run: |
           git config user.name "github-actions[bot]"
@@ -54,3 +82,20 @@ jobs:
           git add index.html dados planilhas extracao/saida/sia_pa_2025
           git commit -m "2025 com atendimento a vítima de violência sexual (SIA) tabulado na nuvem; estágios de desempenho de 2025 calculados" || echo "nada a commitar"
           git push
+      - name: Avisar (issue no repositório → e-mail do GitHub)
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ "${{ job.status }}" = "success" ]; then
+            TIT="Painel 2025 publicado com violência sexual e estágios de desempenho"
+          else
+            TIT="FALHOU a montagem do painel 2025 na nuvem"
+          fi
+          {
+            echo "Execução: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+            echo; echo "## Auditoria"; cat auditoria_2025.txt 2>/dev/null || echo "(não rodou)"
+            echo; echo "## Conferência"; cat conferencia.txt 2>/dev/null || echo "(não rodou)"
+            echo; echo "Painel: https://anamazza.github.io/Indicadores_partos_Brasil2024/ (o GitHub Pages republica 1–2 min após o commit)."
+          } > corpo.md
+          gh issue create --title "$TIT" --body-file corpo.md
