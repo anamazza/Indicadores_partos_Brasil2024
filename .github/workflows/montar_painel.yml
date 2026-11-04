@@ -1,0 +1,56 @@
+name: Montar painel 2025 (após SIA)
+
+# Dispara quando o workflow "SIA - atendimento a vítima de violência sexual" termina com sucesso:
+# baixa os artefatos (JSON por UF), monta a planilha 2025, prepara, audita, remonta o index.html
+# e faz o commit na main (o GitHub Pages republica em seguida).
+on:
+  workflow_run:
+    workflows: ["SIA - atendimento a vítima de violência sexual"]
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: "id da execução do workflow SIA cujos artefatos usar"
+        required: true
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  montar:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pandas openpyxl
+      - name: Baixar artefatos do SIA
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          RUN_ID="${{ github.event.inputs.run_id || github.event.workflow_run.id }}"
+          mkdir -p extracao/saida/sia_pa_2025
+          gh run download "$RUN_ID" -D /tmp/sia --pattern 'sia-*'
+          find /tmp/sia -name '*.json' -exec mv {} extracao/saida/sia_pa_2025/ \;
+          ls extracao/saida/sia_pa_2025 | wc -l
+      - name: Montar planilha 2025, preparar, auditar e remontar o painel
+        run: |
+          python scripts/extracao/montar_planilha.py --ano 2025 --sinasc sinasc_2025.json --partos i2025 --amiu i2025 --cnes 2609 \
+            --referencia planilhas/ESTABELECIMENTOS_ACIMA_DE_1000_PARTOS_2024__INDICADORES_01072026.xlsx \
+            --sp extracao/saida/codigos_sp_2025.json --smcon extracao/smcon_2024.csv --sia extracao/saida/sia_pa_2025 \
+            --saida planilhas/PLANILHA_2025_prelim_internacao.xlsx
+          python scripts/01_preparar_dados.py planilhas/PLANILHA_2025_prelim_internacao.xlsx 2025 --preliminar --extracao "$(date +%d/%m/%Y)"
+          python scripts/04_auditoria.py planilhas/PLANILHA_2025_prelim_internacao.xlsx 2025
+          python scripts/03_montar_painel.py
+      - name: Commit e push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add index.html dados planilhas extracao/saida/sia_pa_2025
+          git commit -m "2025 com atendimento a vítima de violência sexual (SIA) tabulado na nuvem; estágios de desempenho de 2025 calculados" || echo "nada a commitar"
+          git push

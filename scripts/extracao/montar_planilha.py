@@ -21,7 +21,7 @@ import regras as R
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 SAIDA = os.path.join(RAIZ, "extracao", "saida")
-TERR = r"C:\Users\anapa\OneDrive\Documentos\Pojeto Apresentações NV_2026\Extracao_SINASC"
+TERR = os.path.join(RAIZ, "extracao", "territorio")       # base territorial do DATASUS (jun/2026), copiada da Extracao_SINASC
 
 ap = argparse.ArgumentParser()
 ap.add_argument("--ano", required=True); ap.add_argument("--sinasc", required=True)
@@ -29,6 +29,8 @@ ap.add_argument("--partos", required=True); ap.add_argument("--amiu", required=T
 ap.add_argument("--saida", required=True); ap.add_argument("--universo", type=int, default=1000); ap.add_argument("--lista")
 ap.add_argument("--referencia"); ap.add_argument("--smcon"); ap.add_argument("--sp"); ap.add_argument("--hgpar-comp", default="999999")
 ap.add_argument("--smcon-da-referencia", action="store_true", help="copia SMCON NEO/OBST da planilha de referência (só para recalcular o mesmo ano)")
+ap.add_argument("--sia", help="pasta com os JSON por UF de sia_violencia.py (atendimento a vítima de violência sexual)")
+ap.add_argument("--sia-atrib", default="c2025", help="atribuição de ano no SIA: c<ano> = competência de realização (PA_CMP), m<ano> = movimento (PA_MVM)")
 a = ap.parse_args()
 
 COLUNAS = ["REGIÃO DO PAÍS", "UF", "CÓD MRS", "MACRORREGIÃO DE SAÚDE", "CÓD RS", "REGIÃO DE SAÚDE", "COD MUN", "MUNICÍPIO", "CNES",
@@ -51,6 +53,8 @@ F = json.load(open(os.path.join(SAIDA, "cnes_fichas.json"), encoding="utf-8"))
 SP = CSP = None
 if a.sp:
     CSP = json.load(open(a.sp, encoding="utf-8")); SP = R.carregar_uf_json(os.path.join(SAIDA, "sih_sp"), "linhas")
+SIA = R.carregar_uf_json(a.sia, "estabelecimentos") if a.sia else None
+VIOL_PROCS = ("0301040052", "0301040060")       # SIA/PA, quantidade aprovada (coordenação, 04/11/2026)
 SM = {}
 if a.smcon:
     for _, r in pd.read_csv(a.smcon, sep=";", dtype=str).iterrows():
@@ -137,6 +141,8 @@ for c in universo:
     for col in COLS_SP:
         spec = (CSP or {}).get(col)
         rec[col] = sum(SP.get(c, {}).get(f"{code}|{spec['atrib']}", 0) for code in spec["codigos"]) if spec else None
+    if SIA is not None:
+        rec["Nº DE ATENDIMENTOS A VÍTIMA DE VIOLÊNCIA SEXUAL"] = sum(SIA.get(c, {}).get(f"{p}|{a.sia_atrib}|apr", 0) for p in VIOL_PROCS)
     neo, obst = SM.get(c, (False, False))
     R.classificar(rec, neo, obst)
     # colunas sem fonte: valor e classificação em branco; sem todas as fontes não há campo oficial (≥5 de 9)

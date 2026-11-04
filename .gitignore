@@ -15,5 +15,4 @@ Parecer_Banca_Especialistas.md
 
 # intermediários pesados da extração (regeráveis pelos scripts de scripts/extracao/)
 extracao/cache/
-extracao/saida/sih_rd/
-extracao/saida/sih_sp/
+extracao/saida/sih_sp_i/
