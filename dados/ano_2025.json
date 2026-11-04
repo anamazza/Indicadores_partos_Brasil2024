@@ -1,7 +1,7 @@
 {
  "ano": "2025",
- "n": 556,
- "partos": 1272738,
+ "n": 555,
+ "partos": 1272466,
  "extracao": "04/11/2026",
  "preliminar": true,
  "indisponiveis": [
@@ -10,5 +10,5 @@
  ],
  "semEstagios": true,
  "nota": "",
- "planilha": "PLANILHA_2025_prelim_saida.xlsx"
+ "planilha": "PLANILHA_2025_prelim_internacao.xlsx"
 }

@@ -5,7 +5,7 @@ Painel interativo dos estabelecimentos de saúde com **mais de 1.000 partos no a
 | Ano | Universo | Situação |
 |---|---|---|
 | **2024** | 543 estabelecimentos · 1.253.881 partos | planilha institucional de 01/07/2026 (dados finais) |
-| **2025** | 556 estabelecimentos · 1.272.738 partos | **preliminar** — recalculado dos microdados em 04/11/2026 (SINASC preliminar de 31/08/2026; SIH sujeito a acréscimos); ainda sem SMCON e sem atendimento de violência sexual (fonte fora do SIH), por isso **sem estágios de desempenho** |
+| **2025** | 555 estabelecimentos · 1.272.466 partos | **preliminar** — recalculado dos microdados em 04/11/2026 (SINASC preliminar de 31/08/2026; SIH sujeito a acréscimos); ainda sem SMCON e sem atendimento de violência sexual (fonte fora do SIH), por isso **sem estágios de desempenho** |
 
 A ficha de cada unidade (mapa de unidades e lista) mostra a variação de partos e de indicadores adequados entre os anos.
 
@@ -44,7 +44,7 @@ Todos os dados são públicos e agregados por estabelecimento; não há informa�
 
 **Cobertura parcial (importante).** O painel inclui apenas estabelecimentos com mais de 1.000 partos no ano selecionado. Agregados territoriais refletem somente essas unidades, não a totalidade dos partos do território. Todo agregado exibe o número de estabelecimentos considerados.
 
-**2025 é preliminar.** O SINASC 2025 é a versão preliminar de 31/08/2026 e o SIH recebe reapresentações; os números mudam a cada extração. Os indicadores sem fonte recebida (SMCON; atendimento de violência sexual, que não consta do SIH) aparecem como "—" e os estágios de desempenho não são calculados até que todos os 8 indicadores existam. Os partos, o AMIU e as inserções de DIU/implante de 2025 são as AIH com **data de saída em 2025** (o recorte de ano da planilha de 2024 está em discussão com a coordenação — ver o relatório de reprodução).
+**2025 é preliminar.** O SINASC 2025 é a versão preliminar de 31/08/2026 e o SIH recebe reapresentações; os números mudam a cada extração. Os indicadores sem fonte recebida (SMCON; atendimento de violência sexual, que não consta do SIH) aparecem como "—" e os estágios de desempenho não são calculados até que todos os 8 indicadores existam. Os partos e o AMIU de 2025 são as AIH com **data de internação em 2025** (regra do dicionário da coordenação; a planilha de 2024 usou a competência 2025 — ver o relatório de reprodução). A comparação com a planilha 2025 enviada pela coordenação está em [relatorios/comparacao_2025_tatiana.md](relatorios/comparacao_2025_tatiana.md).
 
 **Estatística de agregação.** Percentuais de adequação = proporção de estabelecimentos adequados, sempre com o número absoluto (adequados/total) — inclusive a asfixia neonatal (% de estabelecimentos com taxa ≤0,6%). % Uso de AMIU e a cesariana nos grupos de Robson usam a **média** das unidades da seleção (excluídas, no caso de Robson, as sem partos no grupo). O painel **não usa mediana**.
 
@@ -72,7 +72,9 @@ relatorios/
 planilhas/
   ESTABELECIMENTOS_ACIMA_DE_1000_PARTOS_2024__INDICADORES_01072026.xlsx   planilha institucional de 2024
   PLANILHA_2024_recalculada.xlsx    2024 recalculada dos microdados (rastreabilidade)
-  PLANILHA_2025_prelim_saida.xlsx   2025 preliminar (partos e AMIU pela data de saída 2025)
+  PLANILHA_2025_prelim_internacao.xlsx   2025 preliminar (partos e AMIU pela data de internação 2025) — base do painel
+  PLANILHA_2025_prelim_saida.xlsx        variante pela data de saída 2025
+  reproducao_2024.md / comparacao_2025_tatiana.md (em relatorios/)
 img/
   logos_institucionais_branco_semgov.png   Faixa IFF · Fiocruz · SUS
 dados/
@@ -114,9 +116,9 @@ python scripts/extracao/sinasc_indicadores.py 2025 SINASC_2025_csv.zip extracao/
 python scripts/extracao/sih_partos.py <pasta_RD> 2401 2608 extracao/cnes_referencia_2024.txt extracao/saida/sih_rd
 python scripts/extracao/cnes_leitos_neo.py <pasta_LT> 2401 2609 extracao/saida/cnes_leitos_2401_2609.json
 python scripts/extracao/cnes_habilitacoes.py extracao/cnes_candidatos_2025.txt extracao/saida/cnes_fichas.json
-python scripts/extracao/montar_planilha.py --ano 2025 --sinasc sinasc_2025.json --partos s2025 --amiu s2025 --cnes 2609 \
+python scripts/extracao/montar_planilha.py --ano 2025 --sinasc sinasc_2025.json --partos i2025 --amiu i2025 --cnes 2609 \
        --referencia planilhas/ESTABELECIMENTOS_ACIMA_DE_1000_PARTOS_2024__INDICADORES_01072026.xlsx \
-       --saida planilhas/PLANILHA_2025_prelim_saida.xlsx [--smcon smcon_2025.csv]
+       --sp extracao/saida/codigos_sp_2025.json --saida planilhas/PLANILHA_2025_prelim_internacao.xlsx [--smcon smcon_2025.csv]
 ```
 
 O `painel_template.html` regenera o painel publicado (roundtrip verificado). O `02_gerar_geometria.py` só precisa ser reexecutado se a malha territorial mudar.

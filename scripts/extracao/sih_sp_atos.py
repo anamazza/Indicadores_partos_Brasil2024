@@ -18,7 +18,7 @@ pasta, aamm_ini, aamm_fim, arq_cnes, out = sys.argv[1:6]
 UFS = [u.upper() for u in sys.argv[6:]]
 os.makedirs(out, exist_ok=True)
 REF = {l.strip().zfill(7) for l in open(arq_cnes, encoding="utf-8") if l.strip()}
-CAMPOS = ("SP_CNES", "SP_NAIH", "SP_ATOPROF", "SP_QTD_ATO", "SP_AA", "SP_DTSAIDA")
+CAMPOS = ("SP_CNES", "SP_NAIH", "SP_ATOPROF", "SP_QTD_ATO", "SP_AA", "SP_DTSAIDA", "SP_DTINTER")
 
 arqs = sorted(a for a in os.listdir(pasta) if a.startswith("SP") and a.endswith(".dbc") and aamm_ini <= a[4:8] <= aamm_fim)
 ufs = sorted({a[2:4] for a in arqs})
@@ -41,7 +41,7 @@ for uf in ufs:
                 continue
             p = r["SP_ATOPROF"].zfill(10)
             q = int(r["SP_QTD_ATO"]) if r["SP_QTD_ATO"].isdigit() else 1
-            for k in (f"{p}|c{r['SP_AA']}", f"{p}|s{r['SP_DTSAIDA'][:4]}"):
+            for k in (f"{p}|c{r['SP_AA']}", f"{p}|s{r['SP_DTSAIDA'][:4]}", f"{p}|i{r['SP_DTINTER'][:4]}"):
                 lin[cnes][k] += 1; qtd[cnes][k] += q; aih[cnes][k].add(r["SP_NAIH"])
         if i % 6 == 0 or i == len(lista):
             print(f"  {uf} {i}/{len(lista)} arquivos, {n:,} linhas ({time.time()-t0:.0f}s)", flush=True)

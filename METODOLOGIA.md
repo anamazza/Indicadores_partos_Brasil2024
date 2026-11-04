@@ -4,7 +4,7 @@
 Instituto Nacional de Saúde da Mulher, da Criança e do Adolescente Fernando Figueira (IFF/Fiocruz) · SUS
 
 **Indicadores da Atenção Obstétrica e Neonatal em Estabelecimentos com mais de 1.000 partos no Brasil — 2024 e 2025 (preliminar)**
-2024: 543 unidades · 1.253.881 partos (extração de 01/07/2026) · 2025: 556 unidades · 1.272.738 partos (preliminar; recálculo de 03/11/2026)
+2024: 543 unidades · 1.253.881 partos (extração de 01/07/2026) · 2025: 555 unidades · 1.272.466 partos (preliminar; recálculo de 04/11/2026)
 Fonte dos dados: SINASC, CNES, SIH-SUS e SMCON · Documento revisado em 03/11/2026
 
 ---
@@ -17,7 +17,7 @@ O painel reúne os **543 estabelecimentos de saúde com mais de 1.000 partos em 
 
 A **base de dados de cada ano é uma planilha** no mesmo formato, derivada de SINASC, CNES, SIH-SUS e SMCON. A de 2024 é a planilha institucional (extração de 01/07/2026). A de 2025 foi **recalculada a partir dos microdados públicos** pelos scripts de `scripts/extracao/`, com as regras que reproduzem a planilha de 2024 CNES a CNES (97,9% de 23.349 células; `relatorios/reproducao_2024.md`), e é **preliminar**: SINASC 2025 na versão preliminar de 31/08/2026, SIH sujeito a reapresentações, e sem as fontes de SMCON e de atendimento de violência sexual (que não consta do SIH) — indicadores que o painel marca como "sem fonte" e que impedem o cálculo dos estágios de desempenho de 2025. A oferta de LARC de 2025 vem dos atos profissionais da AIH (inserção de DIU 0301040141 e de implante 0301040176). O painel apenas **agrega** a classificação de adequação já existente na planilha; a única derivação é a consolidação dos módulos do SMCON em um indicador na classificação por estágios (seção 5). Os parâmetros de adequação são institucionais e não constam em ato oficial publicado. O script de auditoria (`scripts/04_auditoria.py`) recalcula os números exibidos diretamente contra a planilha do ano; resultado atual: **2024 — 41 verificações, 0 falhas; 2025 — 28 verificações, 0 falhas** (execução de 03/11/2026).
 
-**Universo de 2025.** Estabelecimentos com mais de 1.000 partos nas AIH do SIH com **data de saída em 2025** (competências 01/2025 a 08/2026). A planilha de 2024 contou as AIH pela competência de processamento 2025 — recorte em discussão com a coordenação (relatório de reprodução, achado 1); quando a decisão for tomada, a planilha de 2025 é regerada com `montar_planilha.py --partos <recorte>`.
+**Universo de 2025.** Estabelecimentos com mais de 1.000 partos nas AIH do SIH com **data de internação em 2025** (competências 01/2025 a 08/2026) — a regra de ano de referência aprovada pela Coordenação no dicionário de indicadores (09/09/2026) e a usada na planilha 2025 da Coordenação. A planilha de 2024 contou as AIH pela competência de processamento 2025 (relatório de reprodução, achado 1). A comparação coluna a coluna com a planilha 2025 da Coordenação está em `relatorios/comparacao_2025_tatiana.md`: partos, AMIU, enfermagem, HGPAR, gestão e natureza coincidem; divergem Robson (a planilha da Coordenação não traz grupos de Robson), DIU/implante (sem São Paulo) e o denominador da asfixia — o painel mantém, nesses pontos, as regras da planilha de 2024.
 
 Os dados são públicos e agregados por estabelecimento; não há informação individual de pacientes.
 
@@ -151,19 +151,19 @@ Valores agregados dos 543 estabelecimentos, para conferência.
 
 Média do percentual de cesariana nos grupos (estabelecimentos com partos no grupo): G1 36,1% · G2 66,3% · G3 18,5% · G4 49,1%.
 
-### 6.1 Resultados preliminares de 2025 (556 estabelecimentos; recálculo de 04/11/2026)
+### 6.1 Resultados preliminares de 2025 (555 estabelecimentos; recálculo de 04/11/2026)
 
 | Indicador | Nacional 2025 | Indicador | Nacional 2025 |
 |---|---|---|---|
-| % Cesariana adequada (≥2 grupos) | 55,0% (306/556) | % Oferta de LARC | 35,8% (199/556) |
-| % Adeq. Robson G1 | 39,4% (219/556) | % Atendimento de violência sexual | sem fonte |
-| % Adeq. Robson G2 | 46,9% (261/556) | % SMCON Neonatal e/ou Obstétrico | sem fonte |
-| % Adeq. Robson G3 | 40,3% (224/556) | % Unidade Neonatal completa | 43,3% (241/556) |
-| % Adeq. Robson G4 | 46,2% (257/556) | % Uso de AMIU (média das unidades) | 14,3% |
-| % Parto vaginal assistido por enfermeira | 31,3% (174/556) | % Avançando (≥5 de 8) | não calculado |
-| % Asfixia Neonatal | 69,8% (388/556) | | |
+| % Cesariana adequada (≥2 grupos) | 55,0% (305/555) | % Oferta de LARC | 35,9% (199/555) |
+| % Adeq. Robson G1 | 39,6% (220/555) | % Atendimento de violência sexual | sem fonte |
+| % Adeq. Robson G2 | 46,7% (259/555) | % SMCON Neonatal e/ou Obstétrico | sem fonte |
+| % Adeq. Robson G3 | 40,5% (225/555) | % Unidade Neonatal completa | 43,4% (241/555) |
+| % Adeq. Robson G4 | 45,9% (255/555) | % Uso de AMIU (média das unidades) | 14,3% |
+| % Parto vaginal assistido por enfermeira | 31,2% (173/555) | % Avançando (≥5 de 8) | não calculado |
+| % Asfixia Neonatal | 69,7% (387/555) | | |
 
-Média do percentual de cesariana nos grupos: G1 36,8% · G2 67,7% · G3 18,4% · G4 51,0%. Valores preliminares: SINASC de 31/08/2026 e SIH com AIH de saída em 2025 recebidas até a competência 08/2026; serão revistos quando as fontes pendentes chegarem e o recorte de ano do SIH for confirmado.
+Média do percentual de cesariana nos grupos: G1 36,7% · G2 67,7% · G3 18,3% · G4 51,1%. Valores preliminares: SINASC de 31/08/2026 e SIH com AIH de internação em 2025 recebidas até a competência 08/2026; serão revistos quando as fontes pendentes chegarem e o recorte de ano do SIH for confirmado.
 
 ## 7. Natureza dos parâmetros
 
