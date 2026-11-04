@@ -29,12 +29,19 @@ def pct(n, d, casas=1):
     return round(100.0 * n / d, casas) if d else 0.0
 
 
-def carregar_uf_json(pasta, chave):
-    """Junta os checkpoints por UF ({chave: {cnes: {...}}}) num único dicionário por CNES."""
+def carregar_uf_json(pasta, chave, somar=False):
+    """Junta os checkpoints por UF ({chave: {cnes: {...}}}) num único dicionário por CNES.
+    somar=True soma os contadores quando o mesmo CNES aparece em mais de um arquivo (UF dividida em períodos)."""
     out = {}
     for f in sorted(os.listdir(pasta)):
-        if f.endswith(".json"):
-            out.update(json.load(open(os.path.join(pasta, f), encoding="utf-8"))[chave])
+        if not f.endswith(".json"):
+            continue
+        for cnes, cont in json.load(open(os.path.join(pasta, f), encoding="utf-8"))[chave].items():
+            if somar and cnes in out:
+                for k, v in cont.items():
+                    out[cnes][k] = out[cnes].get(k, 0) + v
+            else:
+                out[cnes] = dict(cont)
     return out
 
 

@@ -46,22 +46,23 @@ def baixa(arq):
     destino = os.path.join(pasta, arq)
     if os.path.exists(destino) and os.path.getsize(destino) > 0:
         return destino
-    for tent in (1, 2, 3):
+    for tent in range(1, 11):                      # o FTP do DATASUS derruba conexões com frequência
         try:
             tmp = destino + ".part"
             with open(tmp, "wb") as fh:
-                ftp.retrbinary("RETR " + arq, fh.write)
+                ftp.retrbinary("RETR " + arq, fh.write, blocksize=1 << 20)
             os.replace(tmp, destino); return destino
         except Exception as e:
-            print(f"    {arq}: falha {tent} ({e}); reconectando", flush=True); time.sleep(10 * tent)
+            print(f"    {arq}: falha {tent} ({e}); reconectando", flush=True); time.sleep(min(20 * tent, 120))
             try: ftp.quit()
             except Exception: pass
             ftp = conectar()
     raise SystemExit(f"não baixou {arq}")
 
 
+SUFIXO = os.environ.get("SUFIXO_SAIDA", "")       # ex.: "_2501_2503" quando a UF é dividida em períodos (partes somadas na montagem)
 for uf in UFS:
-    destino = os.path.join(out, f"{uf}.json")
+    destino = os.path.join(out, f"{uf}{SUFIXO}.json")
     if os.path.exists(destino):
         print(f"{uf}: checkpoint existente, pulando", flush=True); continue
     cont = collections.defaultdict(collections.Counter); t0 = time.time(); n = 0; arquivos = []

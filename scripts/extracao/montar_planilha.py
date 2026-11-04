@@ -53,7 +53,7 @@ F = json.load(open(os.path.join(SAIDA, "cnes_fichas.json"), encoding="utf-8"))
 SP = CSP = None
 if a.sp:
     CSP = json.load(open(a.sp, encoding="utf-8")); SP = R.carregar_uf_json(os.path.join(SAIDA, "sih_sp"), "linhas")
-SIA = R.carregar_uf_json(a.sia, "estabelecimentos") if a.sia else None
+SIA = R.carregar_uf_json(a.sia, "estabelecimentos", somar=True) if a.sia else None
 VIOL_PROCS = ("0301040052", "0301040060")       # SIA/PA, quantidade aprovada (coordenação, 04/11/2026)
 SM = {}
 if a.smcon:
