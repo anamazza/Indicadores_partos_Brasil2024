@@ -19,7 +19,6 @@ on:
 
 jobs:
   tabular:
-    if: ${{ inputs.apenas == '' || contains(inputs.apenas, matrix.grupo) }}
     runs-on: ubuntu-latest
     timeout-minutes: 330
     strategy:
@@ -44,6 +43,7 @@ jobs:
           python-version: "3.12"
       - run: pip install datasus-dbc
       - name: Baixar e tabular
+        if: ${{ inputs.apenas == '' || contains(inputs.apenas, matrix.grupo) }}
         env:
           APAGAR_DBC: "1"
         run: |
@@ -53,6 +53,7 @@ jobs:
           echo "UFs: $UFS | competências $INI-$FIM | sufixo: ${SUFIXO_SAIDA:-}"
           python scripts/extracao/sia_violencia.py /tmp/pa "$INI" "$FIM" saida_sia $UFS
       - uses: actions/upload-artifact@v4
+        if: ${{ inputs.apenas == '' || contains(inputs.apenas, matrix.grupo) }}
         with:
           name: sia-${{ strategy.job-index }}
           path: saida_sia/*.json
