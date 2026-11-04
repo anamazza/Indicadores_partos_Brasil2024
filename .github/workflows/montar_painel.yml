@@ -41,6 +41,7 @@ jobs:
           ls extracao/saida/sia_pa_2025 | wc -l
       - name: Montar planilha 2025, preparar, auditar e remontar o painel
         run: |
+          set -eo pipefail
           python scripts/extracao/montar_planilha.py --ano 2025 --sinasc sinasc_2025.json --partos i2025 --amiu i2025 --cnes 2609 \
             --referencia planilhas/ESTABELECIMENTOS_ACIMA_DE_1000_PARTOS_2024__INDICADORES_01072026.xlsx \
             --sp extracao/saida/codigos_sp_2025.json --smcon extracao/smcon_2024.csv --sia extracao/saida/sia_pa_2025 \
