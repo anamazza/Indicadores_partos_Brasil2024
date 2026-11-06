@@ -30,6 +30,7 @@ ap.add_argument("--saida", required=True); ap.add_argument("--universo", type=in
 ap.add_argument("--referencia"); ap.add_argument("--smcon"); ap.add_argument("--sp"); ap.add_argument("--hgpar-comp", default="999999")
 ap.add_argument("--smcon-da-referencia", action="store_true", help="copia SMCON NEO/OBST da planilha de referência (só para recalcular o mesmo ano)")
 ap.add_argument("--sia", help="pasta com os JSON por UF de sia_violencia.py (atendimento a vítima de violência sexual)")
+ap.add_argument("--complexos", choices=("sim", "nao"), help="soma as DNV dos complexos hospitalares (HC FAMEMA); padrão: sim de 2025 em diante")
 ap.add_argument("--sia-atrib", default="c2025", help="atribuição de ano no SIA: c<ano> = competência de realização (PA_CMP), m<ano> = movimento (PA_MVM)")
 a = ap.parse_args()
 
@@ -131,7 +132,7 @@ for c in universo:
     rec["HGPAR"] = R.hgpar(F, c, a.hgpar_comp) or "0"
     rec.update(R.partos(P, c, a.partos))
     rec["% AMIU"], _, _ = R.amiu(P, c, a.amiu)
-    rec.update(R.sinasc(S, c, complexos=int(a.ano) >= 2025))   # 2025 em diante: soma as DNV dos complexos (HC FAMEMA)
+    rec.update(R.sinasc(S, c, complexos=(a.complexos == "sim") if a.complexos else int(a.ano) >= 2025))   # DNV dos complexos (HC FAMEMA)
     if rec["_nv"] == 0:
         avisos.append(f"{c}: sem nascidos vivos no SINASC ({a.sinasc})")
     rec["UNIDADE NEONATAL COMPLETA"] = R.neonatal(L, c, a.cnes)
