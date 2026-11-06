@@ -35,3 +35,4 @@ Comparação CNES a CNES; **a planilha da coordenação não é tratada como gab
 3. Asfixia: definir o denominador (todos os NV, como em 2024, ou NV ≥ 2.500 g sem anomalia, como em 2025) e aplicar o mesmo aos dois anos.
 4. Unidade neonatal: manter "não se aplica" (regra do painel) ou passar a SIM/NÃO.
 5. Fonte e códigos da violência sexual; lista SMCON 2025.
+6. HC FAMEMA (Marília/SP): as AIH de parto estão no CNES 2025507 e as DNV no 2025523 (Unidade Materno Infantil). Na planilha de 2024 a unidade (2025507) está com Robson, asfixia e parto por enfermeira zerados (asfixia 0% = "adequado"); no painel 2025 os nascimentos do 2025523 passaram a ser somados (1.359 NV). Corrigir 2024 na planilha institucional.

@@ -131,7 +131,7 @@ for c in universo:
     rec["HGPAR"] = R.hgpar(F, c, a.hgpar_comp) or "0"
     rec.update(R.partos(P, c, a.partos))
     rec["% AMIU"], _, _ = R.amiu(P, c, a.amiu)
-    rec.update(R.sinasc(S, c))
+    rec.update(R.sinasc(S, c, complexos=int(a.ano) >= 2025))   # 2025 em diante: soma as DNV dos complexos (HC FAMEMA)
     if rec["_nv"] == 0:
         avisos.append(f"{c}: sem nascidos vivos no SINASC ({a.sinasc})")
     rec["UNIDADE NEONATAL COMPLETA"] = R.neonatal(L, c, a.cnes)

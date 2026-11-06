@@ -159,13 +159,13 @@ Média do percentual de cesariana nos grupos (estabelecimentos com partos no gru
 |---|---|---|---|
 | % Cesariana adequada (≥2 grupos) | 55,0% (305/555) | % Oferta de LARC | 35,9% (199/555) |
 | % Adeq. Robson G1 | 39,6% (220/555) | % Atendimento de violência sexual | 25,0% (139/555) |
-| % Adeq. Robson G2 | 46,7% (259/555) | % SMCON Neonatal e/ou Obstétrico | 21,6% (120/555) |
+| % Adeq. Robson G2 | 46,8% (260/555) | % SMCON Neonatal e/ou Obstétrico | 21,6% (120/555) |
 | % Adeq. Robson G3 | 40,5% (225/555) | % Unidade Neonatal completa | 43,4% (241/555) |
 | % Adeq. Robson G4 | 45,9% (255/555) | % Uso de AMIU (média das unidades) | 14,3% |
 | % Parto vaginal assistido por enfermeira | 31,2% (173/555) | % Avançando (≥5 de 8) | 16,9% (94/555) |
-| % Asfixia Neonatal | 69,7% (387/555) | | |
+| % Asfixia Neonatal | 69,5% (386/555) | | |
 
-Média do percentual de cesariana nos grupos: G1 36,7% · G2 67,7% · G3 18,3% · G4 51,1%. Valores preliminares: SINASC de 31/08/2026 e SIH com AIH de internação em 2025 recebidas até a competência 08/2026; serão revistos a cada nova extração e quando o recorte de ano do SIH for confirmado pela coordenação. Violência sexual: SIA/SUS, competência de realização 2025 (31.981 atendimentos aprovados nas 555 unidades); SMCON: lista de adesão de 2024.
+Média do percentual de cesariana nos grupos: G1 36,7% · G2 67,8% · G3 18,4% · G4 51,1%. Valores preliminares: SINASC de 31/08/2026 e SIH com AIH de internação em 2025 recebidas até a competência 08/2026; serão revistos a cada nova extração e quando o recorte de ano do SIH for confirmado pela coordenação. Violência sexual: SIA/SUS, competência de realização 2025 (31.981 atendimentos aprovados nas 555 unidades); SMCON: lista de adesão de 2024. **HC FAMEMA (Marília/SP):** o complexo tem dois CNES — as AIH de parto saem pelo 2025507 (hospital) e as declarações de nascido vivo pelo 2025523 (Unidade Materno Infantil). Em 2025 os nascimentos do 2025523 são somados à unidade do painel (2025507): 1.359 nascidos vivos. Na planilha institucional de 2024 essa soma não foi feita e a unidade aparece com os indicadores do SINASC zerados (Robson sem nascidos vivos, asfixia 0% classificada como adequada, parto por enfermeira 0%); a correção de 2024 depende da coordenação.
 
 ## 7. Natureza dos parâmetros
 

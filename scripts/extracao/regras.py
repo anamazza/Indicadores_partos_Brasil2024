@@ -66,12 +66,16 @@ def amiu(proc, cnes, atrib):
 # ------------------------------------------------------------------ SINASC
 # estabelecimentos que trocaram de CNES: o SIH já usa o código novo, mas as DNV seguem no antigo
 ALIAS_SINASC = {"5878640": ["3511251"], "9131922": ["2679663"]}
+# complexos hospitalares: as AIH de parto saem por um CNES e as DNV por outro do mesmo complexo. Somados só a partir
+# de 2025 (complexos=True); a planilha institucional de 2024 não somou e ficou com os indicadores do SINASC zerados.
+# HC FAMEMA (Marília/SP): 2025507 = hospital (AIH); 2025523 = Unidade Materno Infantil (DNV), conforme o CNES.
+COMPLEXO_SINASC = {"2025507": ["2025523"]}
 
 
-def sinasc(est, cnes):
+def sinasc(est, cnes, complexos=False):
     """Robson (NV e cesáreas G1–G4), asfixia e parto vaginal por enfermeira a partir de sinasc_indicadores.py."""
     s = dict(est.get(cnes, {}))
-    for antigo in ALIAS_SINASC.get(cnes, []):
+    for antigo in ALIAS_SINASC.get(cnes, []) + (COMPLEXO_SINASC.get(cnes, []) if complexos else []):
         for k, v in est.get(antigo, {}).items():
             s[k] = s.get(k, 0) + v
     out = {}
