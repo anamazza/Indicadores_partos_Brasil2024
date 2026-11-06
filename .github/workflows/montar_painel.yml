@@ -20,7 +20,8 @@ permissions:
 
 jobs:
   montar:
-    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    # só monta sozinho quando o SIA tabulado é o de 2025 (o título da execução traz as competências); outros anos são extrações de conferência
+    if: ${{ github.event_name == 'workflow_dispatch' || (github.event.workflow_run.conclusion == 'success' && contains(github.event.workflow_run.display_title, '2501-2512')) }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

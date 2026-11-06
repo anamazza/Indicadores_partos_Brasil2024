@@ -1,4 +1,5 @@
 name: SIA - atendimento a vítima de violência sexual
+run-name: "SIA violência ${{ inputs.ini }}-${{ inputs.fim }}"
 
 # Baixa os arquivos PA do SIA/SUS (FTP do DATASUS) na nuvem, em grupos de UF em paralelo (São Paulo
 # dividido por trimestre), e tabula os procedimentos 0301040052 e 0301040060 por CNES
@@ -24,18 +25,20 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # "UFs|ini|fim" — ini/fim vazios usam os inputs do workflow
+        # "UFs|mês inicial|mês final" — meses vazios usam os inputs do workflow; com meses, o ano é o do input ini
         grupo:
-          - "SP|2501|2503"
-          - "SP|2504|2506"
-          - "SP|2507|2509"
-          - "SP|2510|2512"
+          - "SP|01|03"
+          - "SP|04|06"
+          - "SP|07|09"
+          - "SP|10|12"
           - "MG ES||"
           - "RJ DF||"
           - "PR SC MS||"
-          - "RS BA MT||"
+          - "RS||"
+          - "BA MT||"
           - "PE CE GO PB||"
-          - "MA PA AM PI RN RO SE AL TO AP RR AC||"
+          - "MA PA AM PI||"
+          - "RN RO SE AL TO AP RR AC||"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -47,8 +50,10 @@ jobs:
         env:
           APAGAR_DBC: "1"
         run: |
-          IFS='|' read -r UFS INI FIM <<< "${{ matrix.grupo }}"
-          INI="${INI:-${{ inputs.ini }}}"; FIM="${FIM:-${{ inputs.fim }}}"
+          IFS='|' read -r UFS M1 M2 <<< "${{ matrix.grupo }}"
+          AA="${{ inputs.ini }}"; AA="${AA:0:2}"
+          INI="${{ inputs.ini }}"; FIM="${{ inputs.fim }}"
+          if [ -n "$M1" ]; then INI="${AA}${M1}"; FIM="${AA}${M2}"; fi
           if [ "$INI$FIM" != "${{ inputs.ini }}${{ inputs.fim }}" ]; then export SUFIXO_SAIDA="_${INI}_${FIM}"; fi
           echo "UFs: $UFS | competências $INI-$FIM | sufixo: ${SUFIXO_SAIDA:-}"
           python scripts/extracao/sia_violencia.py /tmp/pa "$INI" "$FIM" saida_sia $UFS
