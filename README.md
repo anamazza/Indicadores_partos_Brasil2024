@@ -69,7 +69,9 @@ METODOLOGIA.md           Metodologia dos indicadores
 ATUALIZACAO_2025.md      Briefing da atualização 2025
 relatorios/
   reproducao_2024.md     Reprodução da planilha 2024 a partir dos microdados (regras efetivas, diferenças, questões)
+  comparacao_regional.md Protótipo: unidades do painel × conjunto da região (SINASC completo, ocorrência e residência, IC 95 %, Robson padronizado)
 planilhas/
+  COMPARACAO_REGIONAL_2024_2025.xlsx   tabelas da comparação regional (por região, por UF, Robson, cobertura)
   ESTABELECIMENTOS_ACIMA_DE_1000_PARTOS_2024__INDICADORES_01072026.xlsx   planilha institucional de 2024
   PLANILHA_2024_recalculada.xlsx    2024 recalculada dos microdados (rastreabilidade)
   PLANILHA_2025_prelim_internacao.xlsx   2025 preliminar (partos e AMIU pela data de internação 2025) — base do painel
