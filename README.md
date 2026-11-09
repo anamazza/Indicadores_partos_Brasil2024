@@ -67,7 +67,7 @@ O Dicionário de Dados do SMCON está em [dicionarios/DICIONARIO_SMCON_2026-11-0
 ```
 index.html               Painel publicado (GitHub Pages), em arquivo único com os dados embutidos
 painel_template.html     Código-fonte do painel, sem dados embutidos
-METODOLOGIA.md           Metodologia dos indicadores
+METODOLOGIA.md           Metodologia dos indicadores (fonte); Metodologia_Indicadores_Painel.docx é a versão Word, gerada por scripts/gera_metodologia_docx.js
 ATUALIZACAO_2025.md      Resumo da atualização de 2025
 relatorios/
   reproducao_2024.md           Reprodução da planilha de 2024 a partir dos microdados (regras aplicadas, diferenças e questões pendentes)
@@ -98,6 +98,7 @@ scripts/
   03_montar_painel.py    Modelo (painel_template.html) e dados de todos os anos → index.html
   04_auditoria.py        Confere os números do painel com a planilha do ano
   05_conferencia.py      Conferência final antes da publicação
+  gera_metodologia_docx.js   METODOLOGIA.md → Metodologia_Indicadores_Painel.docx
   extracao/              Recalcula a planilha a partir dos microdados (SINASC, SIH-RD/SP, SIA-PA, CNES) e faz a comparação regional (SINASC e SIM):
     sinasc_indicadores.py, sih_partos.py, sih_sp_atos.py, sia_violencia.py, cnes_leitos_neo.py, cnes_habilitacoes.py,
     regras.py (regras que reproduzem a planilha), montar_planilha.py (gera a planilha do ano),
