@@ -117,7 +117,7 @@ As metas por grupo são **institucionais**, adotadas pela Coordenação com base
 **Conceituação:** adesão do estabelecimento aos módulos Neonatal e Obstétrico do Sistema de Monitoramento do Cuidado Obstétrico e Neonatal (SMCON/IFF-Fiocruz, estratégia Qualineo), de alimentação voluntária.
 **Parâmetro:** adesão a pelo menos um dos módulos do SMCON.
 **Limitações:** o indicador expressa a incorporação do monitoramento à rotina da unidade, não o resultado assistencial.
-*Fonte:* IFF/Fiocruz — Instrutivo do SMCON.
+*Fonte:* lista de adesão fornecida pelo IFF/Fiocruz (2024). Os módulos do sistema chamam-se Parto e Nascimento, Abortamento e Cuidado Neonatal; suas variáveis estão descritas em `dicionarios/DICIONARIO_SMCON_2026-11-09.md`. Os instrutivos públicos do SMCON não definem o critério de adesão.
 
 ## 5. Estágios de desempenho
 
