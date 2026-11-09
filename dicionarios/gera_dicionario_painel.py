@@ -198,7 +198,8 @@ REG_SIM = [
     ("Mortalidade perinatal", "óbitos fetais elegíveis + óbitos de 0 a 6 dias", "NV + óbitos fetais elegíveis", "Referência: IDB C.2", "por 1.000 nascimentos", "perinatal / nasc_tot"),
     ("Razão de mortalidade materna (RMM)", "óbitos maternos (regra MS/OOBr)", "NV",
      "Mulher (SEXO = 2); CAUSABAS O00 a O95, O98 e O99 sempre; B20 a B24, D39.2 e E23.0 só com OBITOGRAV = 1 ou OBITOPUERP = 1; A34, F53 e M83.0 com OBITOPUERP = 1 ou ignorado. "
-     "OBITOGRAV vazio é tratado como 9; OBITOPUERP vazio, 0, 4 e 8 são tratados como 9. Óbitos maternos tardios (O96 e O97) são contados à parte, fora da RMM. Referências: IDB C.3; "
+     "OBITOGRAV vazio é tratado como 9; OBITOPUERP vazio, 0, 4 e 8 são tratados como 9. Óbitos maternos tardios (O96 e O97) são contados à parte, fora da RMM, sem restrição de idade "
+     "(o TabNet os restringe a 10 a 49 anos). Conferência: óbitos maternos por UF de residência idênticos ao TabNet/DATASUS (mat10uf) em 2024 e 2025. Referências: IDB C.3; "
      "Auditoria_regras_indicadores_mortalidade.md (10/09/2026)", "por 100.000 NV", "materno / nv; materno_tardio"),
     ("Óbitos de mulheres em idade fértil (MIF)", "óbitos de mulheres de 10 a 49 anos", "—", "SEXO = 2 e IDADE 4xx de 10 a 49. Só no JSON; não entra no relatório nem na planilha", "número", "mif"),
 ]
@@ -239,7 +240,8 @@ ARQS = [
     ("extracao/saida/codigos_sp.json; codigos_sp_2025.json; extracao/smcon_2024.csv; extracao/territorio/; extracao/cnes_referencia_2024.txt", "Contagens de DIU e implante por CNES (competência 2025; saída 2025); lista de adesão ao SMCON; base territorial; lista de CNES de referência de 2024.", "sih_sp_atos.py; IFF; DATASUS; planilha de 2024"),
     ("extracao/saida/regional_<ano>.json", "Contadores da Tabela 3 por UF, nos recortes ocorr, resid e painel (SINASC completo).", "scripts/extracao/regional.py"),
     ("extracao/saida/sim_regional_<ano>.json", "Contadores da Tabela 4 por UF, nos mesmos recortes (DO de todas as UFs e DOFET), com diagnóstico (registros fora do ano; idade recuperada pelo campo IDADE).", "scripts/extracao/sim_regional.py"),
-    ("relatorios/comparacao_regional.md; planilhas/COMPARACAO_REGIONAL_2024_2025.xlsx", "Relatório e tabelas (abas Cobertura, Por região, Por UF, Robson, Pesos Robson e Diagnóstico SIM).", "scripts/extracao/relatorio_regional.py"),
+    ("extracao/saida/tabnet_mat_2024_2025.json", "Tabulação do TabNet/DATASUS (mat10uf: óbitos maternos, tardios e de mulheres em idade fértil por UF e por faixa etária, 2024 e 2025) usada na conferência da mortalidade materna.", "consulta ao TabNet em 09/11/2026"),
+    ("relatorios/comparacao_regional.md; planilhas/COMPARACAO_REGIONAL_2024_2025.xlsx", "Relatório e tabelas (abas Cobertura, Por região, Por UF, Robson, Pesos Robson e Diagnóstico SIM), com a conferência da mortalidade materna contra o TabNet.", "scripts/extracao/relatorio_regional.py"),
     ("relatorios/reproducao_2024.md; relatorios/extracao_2024_x_planilha.md", "Reprodução da planilha de 2024 e extração de 2024 com as regras de 2025.", "reproducao_2024.py; comparar_2024.py"),
     ("relatorios/comparacao_2025_tatiana.md", "Comparação com a planilha de 2025 da Coordenação.", "redigido manualmente, sem script"),
     ("dicionarios/DICIONARIO_SMCON_2026-11-09.*", "Dicionário de dados do SMCON (módulos Parto e Nascimento, Abortamento e Cuidado Neonatal).", "gera_dicionario_smcon.py; gera_dicionario_docx.js"),

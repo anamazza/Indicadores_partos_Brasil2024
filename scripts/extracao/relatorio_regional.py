@@ -329,6 +329,27 @@ if TEM_SIM:
         b = dados[a]["reg"]["ocorr"]["Brasil"]
         L.append(f"| {a} | " + " | ".join(fmt(b.get(k, 0), 0) for k in ("neo", "neo_prec", "neo_tard", "inf", "fetal", "fetal_ign", "materno", "materno_tardio")) + " |")
     L.append("")
+    # conferência externa: TabNet/DATASUS (Mortalidade: óbitos de mulheres em idade fértil e óbitos maternos, mat10uf), por UF de residência
+    ptab = os.path.join(RAIZ, "extracao", "saida", "tabnet_mat_2024_2025.json")
+    if os.path.exists(ptab):
+        T = json.load(open(ptab, encoding="utf-8"))
+        L.append("Conferência com o TabNet/DATASUS (óbitos maternos e óbitos de mulheres em idade fértil, por UF de residência; arquivos matuf<aa>; consulta de 09/11/2026):\n")
+        L.append("| Ano | Indicador | Protótipo | TabNet | UFs iguais / comparadas |")
+        L.append("|---|---|---|---|---|")
+        for a in ANOS:
+            R_ = dados[a]["uf"]["resid"]
+            for chave, inc, rot in (("materno", "Óbitos_maternos", "Óbitos maternos (regra MS)"), ("mif", "Óbitos_mulheres_idade_fértil", "Óbitos de mulheres de 10 a 49 anos"),
+                                    ("materno_tardio", "Óbitos_maternos_tardios", "Óbitos maternos tardios (O96 e O97)")):
+                tb = T.get(f"{a}|{inc}|UF")
+                if not tb:
+                    continue
+                tuf = {k[:2]: int(v) for k, v in tb.items() if k[:2].isdigit()}
+                iguais = sum(1 for uf, v in tuf.items() if R_.get(uf, {}).get(chave, 0) == v)
+                meu = sum(c.get(chave, 0) for c in R_.values())
+                L.append(f"| {a} | {rot} | {fmt(meu, 0)} | {fmt(int(tb['Total']), 0)} | {iguais} / {len(tuf)} |")
+        L.append("")
+        L.append("Os óbitos maternos tardios diferem porque o TabNet os restringe a mulheres de 10 a 49 anos (só essas faixas aparecem na tabulação) e o protótipo conta todas as idades; "
+                 "eles não entram na razão de mortalidade materna. Nas UFs em que o TabNet não lista óbitos tardios, a comparação não é feita.\n")
 sec = 6 if TEM_SIM else 5
 L.append(f"## {sec}. Interpretação e limitações\n")
 L.append("- As unidades do painel são maternidades de maior porte (mais de 1.000 partos pelo SUS no ano) e, em grande parte, referência para alto risco; "

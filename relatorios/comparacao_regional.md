@@ -308,6 +308,19 @@ Número de óbitos (Brasil, por local de ocorrência):
 | 2024 | 20.113 | 14.933 | 5.180 | 29.984 | 21.824 | 522 | 1.326 | 258 |
 | 2025 | 20.391 | 15.005 | 5.386 | 29.881 | 22.168 | 529 | 1.238 | 223 |
 
+Conferência com o TabNet/DATASUS (óbitos maternos e óbitos de mulheres em idade fértil, por UF de residência; arquivos matuf<aa>; consulta de 09/11/2026):
+
+| Ano | Indicador | Protótipo | TabNet | UFs iguais / comparadas |
+|---|---|---|---|---|
+| 2024 | Óbitos maternos (regra MS) | 1.326 | 1.326 | 27 / 27 |
+| 2024 | Óbitos de mulheres de 10 a 49 anos | 71.237 | 71.237 | 27 / 27 |
+| 2024 | Óbitos maternos tardios (O96 e O97) | 258 | 254 | 21 / 24 |
+| 2025 | Óbitos maternos (regra MS) | 1.238 | 1.238 | 27 / 27 |
+| 2025 | Óbitos de mulheres de 10 a 49 anos | 69.138 | 69.138 | 27 / 27 |
+| 2025 | Óbitos maternos tardios (O96 e O97) | 223 | 215 | 18 / 24 |
+
+Os óbitos maternos tardios diferem porque o TabNet os restringe a mulheres de 10 a 49 anos (só essas faixas aparecem na tabulação) e o protótipo conta todas as idades; eles não entram na razão de mortalidade materna. Nas UFs em que o TabNet não lista óbitos tardios, a comparação não é feita.
+
 ## 6. Interpretação e limitações
 
 - As unidades do painel são maternidades de maior porte (mais de 1.000 partos pelo SUS no ano) e, em grande parte, referência para alto risco; concentram prematuridade, baixo peso, Apgar baixo, anomalias e, por consequência, óbitos neonatais da região. Nesses indicadores, razão > 1 reflete principalmente a seleção de casos e as transferências e não deve ser lida como medida de qualidade assistencial.

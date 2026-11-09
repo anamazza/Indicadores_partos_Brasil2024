@@ -5,7 +5,7 @@ Instituto Nacional de Saúde da Mulher, da Criança e do Adolescente Fernando Fi
 
 **Indicadores da Atenção Obstétrica e Neonatal em Estabelecimentos com mais de 1.000 partos no Brasil — 2024 e 2025 (preliminar)**
 2024: 543 unidades · 1.253.881 partos (extração de 01/07/2026) · 2025: 555 unidades · 1.272.466 partos (preliminar; recálculo de 04/11/2026)
-Fonte dos dados: SINASC, CNES, SIH-SUS e SMCON · Documento revisado em 03/11/2026
+Fonte dos dados: SINASC, CNES, SIH/SUS, SIA/SUS e SMCON · Documento revisado em 09/11/2026 · Dicionário de dados: `dicionarios/DICIONARIO_PAINEL_PARTOS_2026-11-09.md`
 
 ---
 
@@ -193,10 +193,20 @@ Média do percentual de cesariana nos grupos: G1 36,7% · G2 67,8% · G3 18,4% �
 - MINISTÉRIO DA SAÚDE / IFF-FIOCRUZ. **Nota Técnica de ampliação do acesso ao DIU** — número e ano a confirmar com a Coordenação.
 - ORGANIZAÇÃO MUNDIAL DA SAÚDE. **Robson Classification: Implementation Manual.** Genebra: OMS, 2017 (versão OPAS: *La clasificación de Robson: Manual de aplicación*).
 - BRASIL. **Lei nº 12.845, de 1º de agosto de 2013** — atendimento obrigatório a vítimas de violência sexual.
-- Dados-fonte do painel: **SINASC, CNES, SIH/SUS e SMCON** (extração de 01/07/2026).
+- RIPSA/DATASUS. **Indicadores e Dados Básicos (IDB)**, capítulo C (Mortalidade): fichas C.1 (mortalidade infantil), C.1.1 (neonatal precoce), C.1.2 (neonatal tardia), C.1.4 (neonatal), C.2 (perinatal) e C.3 (razão de mortalidade materna).
+- BRASIL. Ministério da Saúde. **Guia de Vigilância Epidemiológica do Óbito Materno** (2009) e Caderno de Diretrizes, Objetivos, Metas e Indicadores 2013–2015 (definição de óbito materno reproduzida na Nota Técnica nº 8 do CONASS).
+- Dados-fonte do painel: **SINASC, CNES, SIH/SUS, SIA/SUS e SMCON** (extração de 01/07/2026 para 2024; recálculo de 04/11/2026 para 2025). Comparação regional: SINASC e SIM completos (SIM: FTP do DATASUS, versão de 28/08/2026).
 
 ## 9. Auditoria
 
-O script `scripts/04_auditoria.py <planilha> <ano>` recalcula os números do painel diretamente da planilha do ano (incluindo a conferência do campo classificatório oficial e da consolidação do SMCON) e deve terminar com 0 falhas antes de qualquer publicação. **Resultado atual: 2024 — 41 verificações, 0 falhas; 2025 — 41 verificações, 0 falhas** (execução de 04/11/2026).
+O script `scripts/04_auditoria.py <planilha> <ano>` recalcula os números do painel diretamente da planilha do ano (incluindo a conferência do campo classificatório oficial e da consolidação do SMCON) e deve terminar com 0 falhas antes de qualquer publicação. **Resultado atual: 2024 — 41 verificações, 0 falhas; 2025 — 41 verificações, 0 falhas** (execução de 09/11/2026).
 
-A reprodução da planilha de 2024 a partir dos microdados (`scripts/extracao/reproducao_2024.py`) está documentada em `relatorios/reproducao_2024.md`, com as regras efetivas de cada coluna, as diferenças CNES a CNES e as questões em aberto para a Coordenação.
+A reprodução da planilha de 2024 a partir dos microdados (`scripts/extracao/reproducao_2024.py`) está documentada em `relatorios/reproducao_2024.md`, com as regras efetivas de cada coluna, as diferenças CNES a CNES e as questões em aberto para a Coordenação. A extração de 2024 com as regras de 2025 está em `relatorios/extracao_2024_x_planilha.md`.
+
+## 10. Comparação regional (protótipo de 09/11/2026)
+
+Complemento ao painel, ainda não exibido nele: compara as unidades do painel com os demais estabelecimentos e com o conjunto de cada região, a partir do SINASC completo e do SIM (DO de todas as UFs e DOFET), em quatro recortes por região: unidades do painel, demais estabelecimentos (região menos painel), região por ocorrência e residência da mãe. Os indicadores do SINASC são cesariana (bruta, por grupo de Robson e padronizada pela distribuição de Robson do Brasil), prematuridade, baixo e muito baixo peso, Apgar no 5º minuto < 7, asfixia com denominador restrito, anomalia congênita, parto vaginal por enfermeira ou obstetriz, idade materna, pré-natal com 7 ou mais consultas, gestação múltipla e local de nascimento. Os do SIM são mortalidade neonatal (total, precoce e tardia), infantil (só por residência), fetal, perinatal e razão de mortalidade materna, pelas definições das fichas IDB C.1.4, C.1.1, C.1.2, C.1, C.2 e C.3 e pela regra de óbito materno do Ministério da Saúde. Intervalos de confiança de 95 % de Wilson; razão painel/demais com IC na escala logarítmica.
+
+**Conferência externa.** Os óbitos maternos e os óbitos de mulheres em idade fértil de 2024 e de 2025, por UF de residência, são idênticos aos do TabNet/DATASUS (Mortalidade: óbitos de mulheres em idade fértil e óbitos maternos, arquivos matuf24 e matuf25; consulta de 09/11/2026): 1.326 e 71.237 em 2024; 1.238 e 69.138 em 2025. Os óbitos maternos tardios (O96 e O97) diferem em poucos registros (258 × 254 em 2024; 223 × 215 em 2025) porque o TabNet os restringe às mulheres de 10 a 49 anos e o protótipo não; eles não entram na razão de mortalidade materna. A razão de mortalidade materna do Brasil em 2024, por residência, resulta em 55,5 por 100 mil nascidos vivos (1.326 ÷ 2.389.325).
+
+**Limites.** Nos recortes por estabelecimento, o óbito é atribuído ao local do óbito, não ao do nascimento: maternidades de referência recebem recém-nascidos de outros serviços, e a razão painel/demais superestima a mortalidade das unidades do painel; a leitura populacional é a do recorte de residência. 2025 é preliminar nas duas fontes. Taxas por população (IBGE) não foram calculadas. Relatório: `relatorios/comparacao_regional.md`; tabelas: `planilhas/COMPARACAO_REGIONAL_2024_2025.xlsx`; definições: `dicionarios/DICIONARIO_PAINEL_PARTOS_2026-11-09.md` (tabelas 3 a 5).
