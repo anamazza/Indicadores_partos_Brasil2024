@@ -78,10 +78,10 @@ for i, r in df.iterrows():
         "smN": None if 'sm' in indisp else (1 if str(r['SMCON NEO']).strip()=='ok' else 0),
         "smO": None if 'sm' in indisp else (1 if str(r['SMCON OBST']).strip()=='ok' else 0),
         "contrOk": None if 'larc' in indisp else (1 if r['CLASSIFICAÇÃO CONTRACEPÇÃO']=='SIM' else 0),
-        # selo = classificação do painel (Avançando): >=5 dos 8 indicadores
-        # (SMCON conta uma vez); seloOf preserva o campo oficial da planilha
-        "selo": None if sem_estagios else (1 if n8 >= 5 else 0),
-        "seloOf": None if sem_estagios else (1 if r['CLASSIFICAÇÃO TOTAL ≥5 ROBSON 2 GRUPOS']=='ADEQUADO' else 0),
+        # avanc = classificação do painel (Avançando): >=5 dos 8 indicadores
+        # (SMCON conta uma vez); oficial preserva o campo oficial da planilha
+        "avanc": None if sem_estagios else (1 if n8 >= 5 else 0),
+        "oficial": None if sem_estagios else (1 if r['CLASSIFICAÇÃO TOTAL ≥5 ROBSON 2 GRUPOS']=='ADEQUADO' else 0),
         "nAdeq": None if sem_estagios else nA,
         "n8": None if sem_estagios else n8,
         "flags": ''.join('-' if flag_indisp.get(j) else str(mat.iloc[i, j]) for j in range(9)),

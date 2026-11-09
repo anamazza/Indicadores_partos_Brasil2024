@@ -62,7 +62,7 @@ chk("AMIU adequado", int((df['CLASSIFICAÇÃO AMIU']=='ADEQUADO').sum()), sum(1 
 # Estágios de desempenho: 8 indicadores (SMCON Neonatal e/ou Obstétrico conta uma vez)
 if not CFG.get('semEstagios'):
     chk("Campo oficial ≥5 de 9 (planilha)", int((df['CLASSIFICAÇÃO TOTAL ≥5 ROBSON 2 GRUPOS']=='ADEQUADO').sum()),
-        sum(d['seloOf'] for d in D))
+        sum(d['oficial'] for d in D))
     adeq = ((df['CLASSIFICAÇÃO ASFIXIA']=='ADEQUADO').astype(int)
         + (df['CLASSIFICAÇÃO PARTO ENF.']=='ADEQUADO').astype(int)
         + (df['CLASSIFICAÇÃO AMIU']=='ADEQUADO').astype(int)
@@ -78,15 +78,15 @@ if not CFG.get('semEstagios'):
     avanc = adeq8 >= 5
     chk("Soma nAdeq (9 flags)", int(adeq.sum()), sum(d['nAdeq'] for d in D))
     chk("Soma n8 (8 indicadores)", int(adeq8.sum()), sum(d['n8'] for d in D))
-    chk("Estágio Avançando (≥5 de 8)", int(avanc.sum()), sum(1 for d in D if d['selo']))
+    chk("Estágio Avançando (≥5 de 8)", int(avanc.sum()), sum(1 for d in D if d['avanc']))
     chk("Estágio Quase lá", int(((~avanc)&(adeq8>=4)).sum()),
-        sum(1 for d in D if not d['selo'] and d['n8']>=4))
+        sum(1 for d in D if not d['avanc'] and d['n8']>=4))
     chk("Estágio No caminho", int(((~avanc)&adeq8.isin([2,3])).sum()),
-        sum(1 for d in D if not d['selo'] and d['n8'] in (2,3)))
+        sum(1 for d in D if not d['avanc'] and d['n8'] in (2,3)))
     chk("Estágio Início", int(((~avanc)&(adeq8<=1)).sum()),
-        sum(1 for d in D if not d['selo'] and d['n8']<=1))
+        sum(1 for d in D if not d['avanc'] and d['n8']<=1))
 else:
-    chk("Sem estágios: selo nulo", len(df), sum(1 for d in D if d['selo'] is None and d['n8'] is None))
+    chk("Sem estágios: avanc nulo", len(df), sum(1 for d in D if d['avanc'] is None and d['n8'] is None))
 
 # Territorial e estrutura
 chk("Macros", df['CÓD MRS'].nunique(), len({d['mrs'] for d in D}))

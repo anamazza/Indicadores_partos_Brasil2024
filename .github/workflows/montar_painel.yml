@@ -63,7 +63,7 @@ jobs:
           for f in glob.glob("extracao/saida/sia_pa_2025/*.json"):
               sia.update(json.load(open(f, encoding="utf-8"))["estabelecimentos"])
           ufs = len({json.load(open(f, encoding="utf-8"))["uf"] for f in glob.glob("extracao/saida/sia_pa_2025/*.json")})  # SP vem em 4 partes
-          viol = sum(1 for d in d25 if d["viol"]); selo = sum(1 for d in d25 if d["selo"])
+          viol = sum(1 for d in d25 if d["viol"]); avanc = sum(1 for d in d25 if d["avanc"])
           erros = []
           if ufs != 27: erros.append(f"SIA: {ufs} UFs tabuladas (esperado 27)")
           if len(d24) != 543: erros.append(f"2024 com {len(d24)} unidades")
@@ -72,7 +72,7 @@ jobs:
           if cfg["2025"].get("indisponiveis"): erros.append(f"indisponíveis em 2025: {cfg['2025']['indisponiveis']}")
           if viol < 100: erros.append(f"só {viol} unidades com violência sexual adequada em 2025 (2024: 225)")  # 2024 usou outra fonte (ver METODOLOGIA 4.7); SIA conferido no TabNet dá ~139
           resumo = (f"2025: {len(d25)} unidades, {sum(d['tot'] for d in d25):,} partos; violência sexual adequada em {viol}; "
-                    f"Avançando {selo}; SIA tabulado em {ufs} UFs ({sum(d['violN'] for d in d25):,} atendimentos).")
+                    f"Avançando {avanc}; SIA tabulado em {ufs} UFs ({sum(d['violN'] for d in d25):,} atendimentos).")
           open("conferencia.txt", "w", encoding="utf-8").write(resumo + ("\nERROS: " + "; ".join(erros) if erros else "\nConferência OK"))
           print(resumo); print("ERROS:", erros) if erros else print("Conferência OK")
           sys.exit(1 if erros else 0)

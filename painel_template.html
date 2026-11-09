@@ -223,7 +223,7 @@ thead th{
 thead th[data-k="neoFlag"],thead th[data-k="rob2"]{max-width:96px}
 thead th[data-k="enf"]{max-width:118px}
 thead th[data-k="contrOk"],thead th[data-k="viol"]{max-width:104px}
-thead th[data-k="selo"]{max-width:96px}
+thead th[data-k="avanc"]{max-width:96px}
 thead th:hover{background:var(--verde-profundo)}
 tbody td{padding:8px 9px;border-bottom:1px solid var(--mint)}
 tbody tr:hover{background:var(--mint-card)}
@@ -231,7 +231,7 @@ td.num{text-align:right;font-variant-numeric:tabular-nums}
 .badge{display:inline-block;padding:2px 9px;border-radius:12px;font-size:10.5px;font-weight:700}
 .b-ok{background:#E3F4E8;color:var(--verde-profundo)}
 .b-ruim{background:#FBE9E7;color:var(--alerta)}
-.b-selo{background:#2166AC;color:#fff;white-space:nowrap}
+.b-avanc{background:#2166AC;color:#fff;white-space:nowrap}
 .contagem{font-size:12px;color:var(--texto-suave);margin:8px 2px}
 
 /* Mapa do Brasil */
@@ -339,9 +339,9 @@ body.sheet-aberta .sheet-scrim{opacity:1;pointer-events:auto}
 }
 
 /* Estágios de desempenho: rosca + barras */
-.selo-grid{display:grid;grid-template-columns:230px 1fr;gap:24px;align-items:center}
-@media(max-width:640px){.selo-grid{grid-template-columns:1fr}}
-.selo-donut{position:relative;height:210px}
+.avanc-grid{display:grid;grid-template-columns:230px 1fr;gap:24px;align-items:center}
+@media(max-width:640px){.avanc-grid{grid-template-columns:1fr}}
+.avanc-donut{position:relative;height:210px}
 .donut-centro{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none}
 .donut-centro .pct{font-family:'Archivo';font-weight:800;font-size:30px;color:var(--indigo);line-height:1}
 .donut-centro .leg{font-size:11px;color:var(--texto-suave);margin-top:3px;text-align:center}
@@ -612,17 +612,17 @@ body.metodologia{overflow:hidden}
   <div class="card">
     <div class="card-head"><div><h3>Estágios de desempenho das unidades (Avançando: &ge;5 de 8 itens adequados)</h3>
     <div class="sub">Onde a rede está na jornada até o estágio Avançando · toque em um estágio para filtrar o painel</div></div>
-    <button class="png-mini" data-c="chSeloDonut" data-n="estagios_desempenho">&#8681; PNG</button></div>
+    <button class="png-mini" data-c="chAvancDonut" data-n="estagios_desempenho">&#8681; PNG</button></div>
     <div class="ctx-linha"></div>
-    <div class="selo-grid">
-      <div class="selo-donut">
-        <canvas id="chSeloDonut"></canvas>
-        <div class="donut-centro"><span class="pct" id="seloPct"></span><span class="leg" id="seloLeg"></span></div>
+    <div class="avanc-grid">
+      <div class="avanc-donut">
+        <canvas id="chAvancDonut"></canvas>
+        <div class="donut-centro"><span class="pct" id="avancPct"></span><span class="leg" id="avancLeg"></span></div>
       </div>
-      <div id="seloEstagios"></div>
+      <div id="avancEstagios"></div>
     </div>
-    <div id="seloInsight" style="margin-top:14px;padding:12px 14px;background:var(--mint-card);border:1.5px solid var(--borda);border-radius:10px;font-size:12.5px;line-height:1.55"></div>
-    <div id="seloAvisoCes"></div>
+    <div id="avancInsight" style="margin-top:14px;padding:12px 14px;background:var(--mint-card);border:1.5px solid var(--borda);border-radius:10px;font-size:12.5px;line-height:1.55"></div>
+    <div id="avancAvisoCes"></div>
     <div style="margin-top:8px;font-size:11px;color:var(--texto-suave)">Avançando = 5 ou mais dos 8 indicadores classificatórios adequados: Unidade Neonatal completa, Cesariana (Robson &ge;2 grupos), Parto vaginal assistido por enfermeira, Uso de AMIU, Asfixia Neonatal, Oferta de LARC, Atendimento de violência sexual e SMCON Neonatal e/ou Obstétrico. Robson &ge;2 grupos é um dos 8 indicadores, não uma exigência à parte; o SMCON conta uma única vez, por qualquer um dos módulos; "unidade neonatal completa" conta como adequada quando é "sim" ou "não se aplica". Classificação derivada do campo classificatório da planilha, com o SMCON consolidado em um indicador. Limiares institucionais de adequação: asfixia neonatal &le;0,6% (&ge;2.500g, sem anomalias); parto vaginal assistido por enfermeira &ge;50%; uso de AMIU &ge;50%; oferta de LARC &ge;3 inserções de DIU/implante no ano; atendimento de violência sexual &ge;2 no ano; Robson por faixas de taxa por grupo, conforme planilha institucional.</div>
   </div>
 
@@ -633,7 +633,7 @@ body.metodologia{overflow:hidden}
     <button class="png-mini" onclick="exportarMapaUnidadesPNG()">&#8681; PNG</button></div>
     <div class="ctx-linha"></div>
     <div class="mapu-ctrl mapu-filtros"><label for="mapuUF">Estado:</label><select id="mapuUF" onchange="mapuSetUF(this.value)"><option value="">Todos</option></select><label for="mapuMacro">Macrorregi&atilde;o:</label><select id="mapuMacro" onchange="mapuSetMacro(this.value)"><option value="">Todas</option></select><button class="mapu-limpar" onclick="mapuLimparFiltros()">Limpar filtros</button></div>
-    <div class="mapu-ctrl"><label for="mapuMetrica">Colorir por:</label><select id="mapuMetrica" onchange="mudarMetricaMapa(this.value)"><option value="selo">Est&aacute;gio de desempenho</option><option value="neo">Unidade Neonatal completa</option><option value="rob">Robson &ge;2 grupos</option><option value="enf">Parto vaginal assistido por enfermeira</option><option value="amiu">Uso de AMIU</option><option value="asf">Asfixia Neonatal</option><option value="larc">Oferta de LARC</option><option value="viol">Atendimento de viol&ecirc;ncia sexual</option><option value="sm">SMCON Neonatal e/ou Obst&eacute;trico</option></select><span class="mapu-hint">Clique nos itens da legenda para mostrar/ocultar grupos</span></div>
+    <div class="mapu-ctrl"><label for="mapuMetrica">Colorir por:</label><select id="mapuMetrica" onchange="mudarMetricaMapa(this.value)"><option value="avanc">Est&aacute;gio de desempenho</option><option value="neo">Unidade Neonatal completa</option><option value="rob">Robson &ge;2 grupos</option><option value="enf">Parto vaginal assistido por enfermeira</option><option value="amiu">Uso de AMIU</option><option value="asf">Asfixia Neonatal</option><option value="larc">Oferta de LARC</option><option value="viol">Atendimento de viol&ecirc;ncia sexual</option><option value="sm">SMCON Neonatal e/ou Obst&eacute;trico</option></select><span class="mapu-hint">Clique nos itens da legenda para mostrar/ocultar grupos</span></div>
     <div class="mapu-legenda" id="mapuLegenda"></div>
     <div id="mapaUnidades" style="height:540px;border-radius:12px;border:1.5px solid var(--borda);overflow:hidden;margin-top:4px"></div>
     <div style="margin-top:8px;font-size:11px;color:var(--texto-suave)">Classifica&ccedil;&atilde;o derivada do campo oficial da planilha, com o SMCON consolidado em um indicador: Avan&ccedil;ando = &ge;5 dos 8 indicadores classificat&oacute;rios adequados ("n&atilde;o se aplica" em unidade neonatal conta como adequado). Coordenadas por CNES; duas unidades sem geo exata usam o centro do munic&iacute;pio.</div>
@@ -671,8 +671,8 @@ body.metodologia{overflow:hidden}
         <input id="tblBusca" type="text" placeholder="Nome, CNES ou município...">
       </div>
       <div class="campo" style="min-width:130px">
-        <label for="tblSelo">Desempenho</label>
-        <select id="tblSelo"><option value="">Todos</option><option value="1">Avançando</option><option value="0">Demais estágios</option></select>
+        <label for="tblAvanc">Desempenho</label>
+        <select id="tblAvanc"><option value="">Todos</option><option value="1">Avançando</option><option value="0">Demais estágios</option></select>
       </div>
     </div>
     <div class="contagem" id="contagem"></div>
@@ -689,7 +689,7 @@ body.metodologia{overflow:hidden}
           <th data-k="asf" class="num" title="Adequação de asfixia: SIM quando o % de RN ≥2.500g sem anomalias com Apgar <7 no 5º min é ≤0,6% · passe o mouse na célula para ver o % da unidade">Asfixia Neonatal</th>
           <th data-k="contrOk" title="Oferta de LARC (DIU + implante) adequada">Oferta de LARC</th>
           <th data-k="viol">Atendimento de violência sexual</th>
-          <th data-k="selo">Avan&ccedil;ando</th>
+          <th data-k="avanc">Avan&ccedil;ando</th>
         </tr>
       </thead>
       <tbody id="tbody"></tbody>
@@ -852,10 +852,10 @@ const ANOS = Object.keys(DADOS_ANOS).sort();
 let ANO = ANOS.filter(a=>!(ANO_CFG[a]||{}).preliminar).pop() || ANOS[ANOS.length-1];
 let DADOS = DADOS_ANOS[ANO];
 const cfgAno = ()=>ANO_CFG[ANO]||{};
-// indicador disponível no ano? chaves: neo, rob, enf, amiu, asf, larc, viol, sm, selo (estágios)
-const disp = k => !k || (!(cfgAno().indisponiveis||[]).includes(k) && !(k==='selo' && cfgAno().semEstagios));
+// indicador disponível no ano? chaves: neo, rob, enf, amiu, asf, larc, viol, sm, avanc (estágios)
+const disp = k => !k || (!(cfgAno().indisponiveis||[]).includes(k) && !(k==='avanc' && cfgAno().semEstagios));
 const rotAno = ()=>ANO+(cfgAno().preliminar?' (preliminar)':'');
-const IND_NOME = {larc:'Oferta de LARC', viol:'Atendimento de violência sexual', sm:'SMCON Neonatal e/ou Obstétrico', selo:'Estágios de desempenho'};
+const IND_NOME = {larc:'Oferta de LARC', viol:'Atendimento de violência sexual', sm:'SMCON Neonatal e/ou Obstétrico', avanc:'Estágios de desempenho'};
 Chart.register(ChartDataLabels);
 Chart.defaults.font.family = "'Inter',sans-serif";
 Chart.defaults.color = '#4E6A5C';
@@ -1067,7 +1067,7 @@ function renderAdeq(){
     {r:'Oferta de LARC', v:filtrado.filter(d=>d.contrOk).length, ind:'larc'},
     {r:'Atendimento de violência sexual', v:filtrado.filter(d=>d.viol).length, ind:'viol'},
     {r:'SMCON Neonatal e/ou Obstétrico', v:filtrado.filter(d=>d.smN||d.smO).length, ind:'sm'},
-    {r:'Avançando (&ge;5 de 8)', v:filtrado.filter(d=>d.selo).length, ind:'selo'}
+    {r:'Avançando (&ge;5 de 8)', v:filtrado.filter(d=>d.avanc).length, ind:'avanc'}
   ].filter(i=>disp(i.ind));   // indicadores sem fonte no ano ficam fora do gráfico
   const corAdeq=v=>v>=75?VERDES[4]:v>=50?VERDES[3]:v>=25?VERDES[2]:VERDES[1];
   charts.chAdeq=new Chart($('chAdeq'),{
@@ -1116,10 +1116,10 @@ function renderTop(){
 let tblLimite = 25;
 function linhasTabela(){
   const q = ($('tblBusca')?$('tblBusca').value:'').trim().toLowerCase();
-  const selo = $('tblSelo')?$('tblSelo').value:'';
+  const avanc = $('tblAvanc')?$('tblAvanc').value:'';
   return filtrado.filter(d=>
     (!q || d.est.toLowerCase().includes(q) || d.mun.toLowerCase().includes(q)) &&
-    (selo==='' || String(d.selo)===selo)
+    (avanc==='' || String(d.avanc)===avanc)
   );
 }
 function renderTabela(){
@@ -1149,14 +1149,14 @@ function renderTabela(){
       <td title="% de asfixia da unidade: ${d.asf.toFixed(1)}% (adequado: ≤0,6%)">${bd(d.asfC==='ADEQUADO', d.asfC==='ADEQUADO'?'SIM':'NÃO')}</td>
       <td>${disp('larc')? bd(!!d.contrOk, d.contrOk?'SIM':'NÃO') : nd}</td>
       <td>${disp('viol')? bd(!!d.viol, d.viol?'SIM':'NÃO') : nd}</td>
-      <td>${disp('selo')? (d.selo?'<span class="badge b-selo">AVANÇANDO</span>':'') : nd}</td>
+      <td>${disp('avanc')? (d.avanc?'<span class="badge b-avanc">AVANÇANDO</span>':'') : nd}</td>
     </tr>`).join('');
   const btn = $('btnMaisLinhas');
   if(btn){ btn.style.display = dados.length>tblLimite? 'inline-block':'none';
     btn.textContent = 'Mostrar mais '+Math.min(50, dados.length-tblLimite)+' (de '+dados.length+')'; }
 }
 if($('btnMaisLinhas')) $('btnMaisLinhas').addEventListener('click',()=>{ tblLimite+=50; renderTabela(); });
-['tblBusca','tblSelo'].forEach(id=>{
+['tblBusca','tblAvanc'].forEach(id=>{
   const el=$(id); if(!el) return;
   el.addEventListener(id==='tblBusca'?'input':'change',()=>{ tblLimite=25; renderTabela(); });
 });
@@ -1170,7 +1170,7 @@ if($('btnTabelaXlsx')) $('btnTabelaXlsx').addEventListener('click',()=>{
     '% Uso de AMIU':d.amiu,'% Asfixia Neonatal':d.asf,'Classif. asfixia':d.asfC,
     'Contracep\u00e7\u00e3o adequada':d.contrOk?'SIM':'N\u00c3O','Atendimento de viol\u00eancia sexual':d.viol?'SIM':'N\u00c3O',
     'Atendimentos de viol\u00eancia':d.violN,'% Cesariana G1':d.g1,'% Cesariana G2':d.g2,'% Cesariana G3':d.g3,'% Cesariana G4':d.g4,
-    'Indicadores adequados':d.n8,'Avan\u00e7ando (\u22655 de 8)':d.selo?'SIM':''
+    'Indicadores adequados':d.n8,'Avan\u00e7ando (\u22655 de 8)':d.avanc?'SIM':''
   }));
   const ws=XLSX.utils.json_to_sheet(linhas);
   const wb=XLSX.utils.book_new();
@@ -1204,7 +1204,7 @@ const VERDES = ['#DCEFE0','#A9D8B4','#6FBE87','#2E9A63','#0A5C42'];
 const DIVERG = ['#2166AC','#92C5DE','#FDDBC7','#EF8A62','#B2182B'];
 const ICO=p=>'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+p+'</svg>';
 const ICONES={
-  selo:  ICO('<circle cx="12" cy="8.5" r="5"/><path d="M8.5 12.5 7 21l5-2.8L17 21l-1.5-8.5"/>'),
+  avanc:  ICO('<circle cx="12" cy="8.5" r="5"/><path d="M8.5 12.5 7 21l5-2.8L17 21l-1.5-8.5"/>'),
   neoP:  ICO('<path d="M5 21V8l7-4 7 4v13"/><path d="M9.5 21v-4.5h5V21"/><path d="M12 8v3.5M10.25 9.75h3.5"/><path d="M4 21h16"/>'),
   rob2P: ICO('<circle cx="10.8" cy="4.4" r="2.1"/><path d="M8.9 21v-4.6c-1.5-.7-2.4-2.2-2.4-3.9 0-1.9 1.2-3.5 2.9-4.1"/><path d="M9.4 8.4c.9-.25 1.9-.2 2.8.15 2.2.85 3.6 2.9 3.4 5.2-.2 2-1.6 3.6-3.5 4.1V21"/>'),
   enf:   ICO('<path d="M12 20s-6.6-4.3-6.6-9.1A4.1 4.1 0 0 1 12 7.4a4.1 4.1 0 0 1 6.6 3.5C18.6 15.7 12 20 12 20z"/><path d="M9.2 11.7l1.9 1.9 3.6-3.8"/>'),
@@ -1224,7 +1224,7 @@ const PRINCIPAIS = [
   {id:'contrP',   rot:'Oferta de LARC'},
   {id:'violP',    rot:'Atendimento de viol\u00eancia sexual'},
   {id:'smAlgumP', rot:'SMCON Neonatal e/ou Obst\u00e9trico'},
-  {id:'selo',     rot:'Avan\u00e7ando'}
+  {id:'avanc',     rot:'Avan\u00e7ando'}
 ];
 const pctF = v=>v.toFixed(1)+'%';
 const pct0 = v=>v.toFixed(0)+'%';
@@ -1242,9 +1242,9 @@ const METRICAS = [
   {id:'contrP',  grp:'contrP',  ind:'larc', rot:'% Oferta de LARC', leg:'Estab. com oferta de LARC adequada – DIU+implante (%)', fmtV:pctF, abs:a=>[a.contrOkN,a.estab]},
   {id:'violP',   grp:'violP',   ind:'viol', rot:'% Atendimento de violência sexual', leg:'Estab. que atendem violência sexual (%)', fmtV:pctF, abs:a=>[a.violSim,a.estab]},
   {id:'smAlgumP',grp:'smAlgumP',ind:'sm', rot:'% SMCON Neonatal e/ou Obstétrico', leg:'Estab. com SMCON Neonatal ou Obstétrico (%)', fmtV:pctF, abs:a=>[a.smAlgum,a.estab]},
-  {id:'selo',    grp:'selo',    ind:'selo', rot:'% Avançando',        leg:'Estab. no estágio Avançando – ≥5 de 8 indicadores (%)', fmtV:pctF, abs:a=>[a.selo,a.estab]},
-  {id:'estab',   grp:'selo',    rot:'Estabelecimentos',   leg:'Estabelecimentos >1.000 partos',             fmtV:intF},
-  {id:'partos',  grp:'selo',    rot:'Partos',             leg:'Partos em 2024',                             fmtV:intF}
+  {id:'avanc',    grp:'avanc',    ind:'avanc', rot:'% Avançando',        leg:'Estab. no estágio Avançando – ≥5 de 8 indicadores (%)', fmtV:pctF, abs:a=>[a.avanc,a.estab]},
+  {id:'estab',   grp:'avanc',    rot:'Estabelecimentos',   leg:'Estabelecimentos >1.000 partos',             fmtV:intF},
+  {id:'partos',  grp:'avanc',    rot:'Partos',             leg:'Partos em 2024',                             fmtV:intF}
 ];
 const grpDe = id => (METRICAS.find(m=>m.id===id)||{}).grp || id;
 const indDe = id => (METRICAS.find(m=>m.id===id)||{}).ind;   // indicador classificatório de uma métrica
@@ -1273,11 +1273,11 @@ function calcRegUfs(){
 }
 calcRegUfs();
 
-function novoAcum(){return {tot:0,ces:0,estab:0,selo:0,enfOk:0,larc:0,diu:0,imp:0,cpn:0,
+function novoAcum(){return {tot:0,ces:0,estab:0,avanc:0,enfOk:0,larc:0,diu:0,imp:0,cpn:0,
   nv1:0,cs1:0,nv3:0,cs3:0,asfOk:0,neoSim:0,hgpar:0,smN:0,smO:0,cpnEst:0,violSim:0,violN:0,amiuV:[],asfV:[],g1ok:0,g2ok:0,g3ok:0,g4ok:0,rob2ok:0,neoAdq:0,contrOkN:0,smAlgum:0};}
 function acumular(a,d){
   a.tot+=d.tot; a.ces+=d.ces; a.estab++;
-  if(d.selo) a.selo++;
+  if(d.avanc) a.avanc++;
   if(d.enfC==='ADEQUADO') a.enfOk++;
   if(d.asfC==='ADEQUADO') a.asfOk++;
   if(d.neo==='SIM') a.neoSim++;
@@ -1311,7 +1311,7 @@ function derivar(a){
   a.rob2P=p(a.rob2ok,a.estab); a.neoAdqP=p(a.neoAdq,a.estab);
   a.contrP=p(a.contrOkN,a.estab);
   a.smAlgumP=p(a.smAlgum,a.estab);
-  a.seloP=p(a.selo,a.estab);
+  a.avancP=p(a.avanc,a.estab);
   return a;
 }
 function baseFiltrada(){
@@ -1338,7 +1338,7 @@ function resumoDe(pred){
 
 function valorMetrica(a, id){
   if(!a) return null;
-  if(id==='selo') return a.seloP;
+  if(id==='avanc') return a.avancP;
   return a[id];
 }
 
@@ -1748,26 +1748,26 @@ document.addEventListener('click', e=>{
 let estagioSel = null;
 // cores monot\u00f4nicas com o progresso: quanto mais perto do estágio Avançando, mais "positiva" a cor
 const ESTAGIOS = [
-  {id:'selo',     nome:'Avançando',       det:'5 ou mais indicadores', cor:'#2166AC',
-    pred:d=>d.selo===1},
+  {id:'avanc',     nome:'Avançando',       det:'5 ou mais indicadores', cor:'#2166AC',
+    pred:d=>d.avanc===1},
   {id:'quase',   nome:'Quase l\u00e1',   det:'4 indicadores adequados', cor:'#279261',
-    pred:d=>!d.selo && d.n8>=4},
+    pred:d=>!d.avanc && d.n8>=4},
   {id:'caminho', nome:'No caminho',      det:'2 a 3 indicadores', cor:'#D68910',
-    pred:d=>!d.selo && (d.n8===2||d.n8===3)},
+    pred:d=>!d.avanc && (d.n8===2||d.n8===3)},
   {id:'inicio',  nome:'In\u00edcio da jornada', det:'0 a 1 indicador', cor:'#C0392B',
-    pred:d=>!d.selo && d.n8<=1}
+    pred:d=>!d.avanc && d.n8<=1}
 ];
 function selecionarEstagio(id){
   estagioSel = (estagioSel===id)? null : id;
   aplicar();
 }
-function renderSelo(){
-  destruir('chSeloDonut');
-  if(!disp('selo')){   // ano sem todos os 8 indicadores: não há estágio de desempenho
+function renderAvanc(){
+  destruir('chAvancDonut');
+  if(!disp('avanc')){   // ano sem todos os 8 indicadores: não há estágio de desempenho
     const falt=(cfgAno().indisponiveis||[]).map(k=>IND_NOME[k]||k).join(', ');
-    $('seloPct').textContent='—'; $('seloLeg').innerHTML='sem estágios<br>em '+ANO;
-    $('seloEstagios').innerHTML=`<div class="aviso-ano" style="margin:0"><b>Estágios de desempenho não calculados para ${rotAno()}.</b> Ainda sem fonte neste ano: ${falt}. A classificação exige os 8 indicadores; será publicada quando as fontes forem recebidas.</div>`;
-    $('seloInsight').innerHTML=''; $('seloAvisoCes').innerHTML='';
+    $('avancPct').textContent='—'; $('avancLeg').innerHTML='sem estágios<br>em '+ANO;
+    $('avancEstagios').innerHTML=`<div class="aviso-ano" style="margin:0"><b>Estágios de desempenho não calculados para ${rotAno()}.</b> Ainda sem fonte neste ano: ${falt}. A classificação exige os 8 indicadores; será publicada quando as fontes forem recebidas.</div>`;
+    $('avancInsight').innerHTML=''; $('avancAvisoCes').innerHTML='';
     return;
   }
   // base: filtros vigentes exceto o próprio estágio
@@ -1783,7 +1783,7 @@ function renderSelo(){
   estagioSel = salvo;
   const total = base.length || 1;
   const contagens = ESTAGIOS.map(e=>base.filter(e.pred).length);
-  const comSelo = contagens[0];
+  const comAvanc = contagens[0];
 
   // rosca central
   // a rosca reage ao est\u00e1gio selecionado: mostra o est\u00e1gio em rela\u00e7\u00e3o ao total da sele\u00e7\u00e3o
@@ -1791,7 +1791,7 @@ function renderSelo(){
   const eSel = ESTAGIOS[iSel<0?0:iSel];
   const nSel = contagens[iSel<0?0:iSel];
   const rotResto = 'Demais est\u00e1gios';
-  charts.chSeloDonut = new Chart($('chSeloDonut'),{
+  charts.chAvancDonut = new Chart($('chAvancDonut'),{
     type:'doughnut',
     data:{labels:[eSel.nome, rotResto],
       datasets:[{data:[nSel, base.length-nSel],
@@ -1800,14 +1800,14 @@ function renderSelo(){
       plugins:{legend:{display:false},datalabels:{display:false},
         tooltip:{callbacks:{label:c=>c.label+': '+c.parsed+' unidades'}}}}
   });
-  $('seloPct').textContent = base.length? Math.round(nSel/total*100)+'%' : '\u2014';
-  $('seloPct').style.color = eSel.cor;
-  $('seloLeg').innerHTML = fmt(nSel)+' de '+fmt(base.length)+'<br>'+
-    (estagioSel && estagioSel!=='selo' ? eSel.nome.toLowerCase() : 'avançando');
+  $('avancPct').textContent = base.length? Math.round(nSel/total*100)+'%' : '\u2014';
+  $('avancPct').style.color = eSel.cor;
+  $('avancLeg').innerHTML = fmt(nSel)+' de '+fmt(base.length)+'<br>'+
+    (estagioSel && estagioSel!=='avanc' ? eSel.nome.toLowerCase() : 'avançando');
 
   // estágios em barras horizontais nomeadas
   const max = Math.max(...contagens,1);
-  $('seloEstagios').innerHTML = ESTAGIOS.map((e,i)=>{
+  $('avancEstagios').innerHTML = ESTAGIOS.map((e,i)=>{
     const n=contagens[i], pct=n/total*100;
     return `<div class="estagio-row ${estagioSel===e.id?'ativo':''}" data-e="${e.id}" role="button" tabindex="0">
       <div class="estagio-nome">${e.nome}<small>${e.det}</small></div>
@@ -1815,15 +1815,15 @@ function renderSelo(){
       <div class="estagio-num">${fmt(n)}<br><small>${pct.toFixed(0)}%</small></div>
     </div>`;
   }).join('');
-  $('seloEstagios').querySelectorAll('.estagio-row').forEach(r=>{
+  $('avancEstagios').querySelectorAll('.estagio-row').forEach(r=>{
     r.onclick=()=>selecionarEstagio(r.dataset.e);
     r.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();selecionarEstagio(r.dataset.e);}};
   });
 
-  $('seloAvisoCes').innerHTML = '';
+  $('avancAvisoCes').innerHTML = '';
 
   // insight: o que mais falta no estágio selecionado (padrão: "quase lá")
-  const alvo = (estagioSel && estagioSel!=='selo') ? ESTAGIOS.find(e=>e.id===estagioSel) : ESTAGIOS[1];
+  const alvo = (estagioSel && estagioSel!=='avanc') ? ESTAGIOS.find(e=>e.id===estagioSel) : ESTAGIOS[1];
   const grupo = base.filter(alvo.pred);
   if(grupo.length){
     // 8 indicadores: os módulos do SMCON (posições 6 e 7 das flags) contam como um item
@@ -1835,11 +1835,11 @@ function renderSelo(){
     const abertura = alvo.id==='quase'
       ? `<b>${fmt(grupo.length)} unidade${grupo.length>1?'s':''} a um indicador do estágio Avançando.</b>`
       : `<b>Est\u00e1gio "${alvo.nome}": ${fmt(grupo.length)} unidade${grupo.length>1?'s':''} (${alvo.det}).</b>`;
-    $('seloInsight').innerHTML = abertura+
+    $('avancInsight').innerHTML = abertura+
       ` O que mais falta entre elas: `+faltas.map(x=>`${x.n} (${x.f})`).join(', ')+'.'+
       (estagioSel!=null? ' <b>Filtro ativo.</b> Toque no est\u00e1gio novamente para desfazer.':'');
   } else {
-    $('seloInsight').innerHTML = `Nenhuma unidade no est\u00e1gio "${alvo.nome}" nesta sele\u00e7\u00e3o.`+
+    $('avancInsight').innerHTML = `Nenhuma unidade no est\u00e1gio "${alvo.nome}" nesta sele\u00e7\u00e3o.`+
       (estagioSel!=null? ' <b>Filtro ativo.</b>':'');
   }
 }
@@ -1854,10 +1854,10 @@ const COLS_MATRIZ_TODAS = [
   {k:'contrP',rot:'Oferta de LARC', ind:'larc'},
   {k:'violP', rot:'Atendimento de viol\u00eancia sexual', ind:'viol'},
   {k:'smAlgumP', rot:'SMCON Neonatal e/ou Obstétrico', ind:'sm'},
-  {k:'seloP', rot:'Avan\u00e7ando', ind:'selo'}
+  {k:'avancP', rot:'Avan\u00e7ando', ind:'avanc'}
 ];
 const matrizCols = ()=>COLS_MATRIZ_TODAS.filter(c=>disp(c.ind));   // colunas com fonte no ano
-let matrizOrd = {k:'seloP', asc:false};
+let matrizOrd = {k:'avancP', asc:false};
 // se a coluna de ordenação não tem fonte no ano, ordena pela primeira disponível
 function ajustarOrdemMatriz(){ if(!matrizCols().some(c=>c.k===matrizOrd.k) && matrizOrd.k!=='nome' && matrizOrd.k!=='n') matrizOrd={k:matrizCols()[0].k, asc:false}; }
 
@@ -1890,7 +1890,7 @@ function dadosMatriz(){
     const p=(n)=>a.estab? n/a.estab*100 : null;
     return {id:t.id, nome:nivelAtivo==='uf'?(NOME_UF[t.id]||t.nome):t.nome, n:a.estab,
       asfP:a.asfP, enf:a.enf, amiuA:p(e.amiuA), rob2P:a.rob2P, contrP:a.contrP,
-      violP:a.violP, smAlgumP:a.smAlgumP, neoAdqP:a.neoAdqP, seloP:a.seloP};
+      violP:a.violP, smAlgumP:a.smAlgumP, neoAdqP:a.neoAdqP, avancP:a.avancP};
   }).filter(Boolean);
 }
 
@@ -1953,7 +1953,7 @@ let _mapu=null, _mapuCluster=null, _mapuAberto=false;
 // verde × roxo: par distinguível por daltônicos (verde × vermelho não é)
 const _MV='#279261', _MR='#7B3294', _MA='#D68910', _ML='#E67E22';
 const MAPU_METRICAS=[
-  {id:'selo',ind:'selo',nome:'Estágio de desempenho',classe:function(d){
+  {id:'avanc',ind:'avanc',nome:'Estágio de desempenho',classe:function(d){
     for(var i=0;i<ESTAGIOS.length;i++){ var e=ESTAGIOS[i];
       if(e.pred(d)) return {k:(i+1)+'_'+e.id, rot:e.nome, cor:e.cor}; }
     return {k:'9_outros', rot:'Sem classificação', cor:'#9AA8A0'};
@@ -1967,7 +1967,7 @@ const MAPU_METRICAS=[
   {id:'viol',ind:'viol',nome:'Atendimento de violência sexual',classe:function(d){return d.viol?{k:'ad',rot:'Adequado',cor:_MV}:{k:'in',rot:'Não adequado',cor:_MR};}},
   {id:'sm',ind:'sm',nome:'SMCON Neonatal e/ou Obstétrico',classe:function(d){return (d.smN||d.smO)?{k:'ad',rot:'Adequado',cor:_MV}:{k:'in',rot:'Não adequado',cor:_MR};}}
 ];
-let _mapuMetrica='selo';
+let _mapuMetrica='avanc';
 // opções de "Colorir por" com fonte no ano; se a atual ficou sem fonte, volta para a unidade neonatal
 function popularMetricaMapa(){
   var sel=document.getElementById('mapuMetrica'); if(!sel) return;
@@ -2052,13 +2052,13 @@ function renderMapaUnidades(fit){
     plot++;
     var nome=d.est.replace(/^\d+\s*-\s*/,'');
     var dia=raioVol(d.tot);
-    var estagio=disp('selo')?ESTAGIOS.find(function(e){return e.pred(d);}):null;
-    var seloTxt=estagio?(estagio.nome+' &middot; '+d.n8+'/8 adequados'):('Sem estágio em '+ANO), seloCor=estagio?estagio.cor:'#9AA8A0';
+    var estagio=disp('avanc')?ESTAGIOS.find(function(e){return e.pred(d);}):null;
+    var avancTxt=estagio?(estagio.nome+' &middot; '+d.n8+'/8 adequados'):('Sem estágio em '+ANO), avancCor=estagio?estagio.cor:'#9AA8A0';
     var comp=comparativoLinhas(d).map(function(x){return '<div class="mapu-prow"><span>'+x.ano+'</span><b style="font-weight:600">'+x.txt+'</b></div>';}).join('');
     var pop='<div style="font-family:Inter,sans-serif;min-width:210px;max-width:260px">'+
       '<div style="font-weight:700;color:#1D3229;font-size:13px;margin-bottom:2px">'+nome+'</div>'+
       '<div style="font-size:11px;color:#4E6A5C;margin-bottom:6px">'+d.mun+' &middot; '+d.uf+'</div>'+
-      '<div style="display:inline-block;font-size:11px;font-weight:700;color:#fff;background:'+seloCor+';padding:2px 8px;border-radius:20px;margin-bottom:7px">'+seloTxt+'</div>'+
+      '<div style="display:inline-block;font-size:11px;font-weight:700;color:#fff;background:'+avancCor+';padding:2px 8px;border-radius:20px;margin-bottom:7px">'+avancTxt+'</div>'+
       '<div style="font-size:11.5px">'+
       '<div class="mapu-prow"><span>Partos '+ANO+'</span><b>'+d.tot.toLocaleString('pt-BR')+'</b></div>'+comp+
       '<div class="mapu-prow"><span>Natureza</span><b>'+d.nat+'</b></div>'+
@@ -2104,7 +2104,7 @@ document.addEventListener('keydown', e=>{
 
 function render(){
   renderKPIs(); renderCesReg(); renderRobson(); renderAdeq(); renderTop(); renderTabela(); renderMapa();
-  renderSelo(); renderMapaUnidades(); renderMatriz(); renderResumo(); atualizarContextos();
+  renderAvanc(); renderMapaUnidades(); renderMatriz(); renderResumo(); atualizarContextos();
 }
 
 /* ===== Exportações ===== */
@@ -2119,7 +2119,7 @@ function exportarExcel(){
     'Grupos Robson adequados':d.robAd,'Robson ≥2 grupos':d.rob2?'SIM':'NÃO',
     'DIU':d.diu,'Implante':d.imp,'LARC total':d.larc,'Oferta de LARC':d.contrOk?'SIM':'NÃO',
     'Atendimento de violência sexual':d.viol?'SIM':'','Atendimentos de violência':d.violN,
-    'Indicadores adequados':d.n8,'Avançando (≥5 de 8)':d.selo?'SIM':''
+    'Indicadores adequados':d.n8,'Avançando (≥5 de 8)':d.avanc?'SIM':''
   }));
   const ws=XLSX.utils.json_to_sheet(linhas);
   const wb=XLSX.utils.book_new();
@@ -2142,7 +2142,7 @@ function exportarPDF(){
       nome.length>48?nome.slice(0,46)+'…':nome, d.mun+' ('+(SIGLA[d.uf]||d.uf)+')', fmt(d.tot),
       d.neo==='SIM'?'SIM':(d.flags&&d.flags[8]==='1'?'N/A':'NÃO'), d.rob2?'SIM':'NÃO',
       d.enf.toFixed(1)+'%', d.amiu.toFixed(1)+'%', d.asf.toFixed(1)+'%',
-      d.contrOk?'SIM':'NÃO', d.viol?'SIM':'NÃO', d.selo?'SIM':''
+      d.contrOk?'SIM':'NÃO', d.viol?'SIM':'NÃO', d.avanc?'SIM':''
     ];
   });
   doc.autoTable({
@@ -2253,7 +2253,7 @@ function trocarAno(ano){
   derivarBase(); calcRegUfs();
   terrSel=null; estagioSel=null; natSel.clear(); atualizarNatSel();
   ['fReg','fUF','fMun'].forEach(id=>{ if($(id)) $(id).value=''; }); if($('fBusca')) $('fBusca').value='';
-  if($('tblSelo')) $('tblSelo').value='';
+  if($('tblAvanc')) $('tblAvanc').value='';
   initFiltrosValores();
   if(!disp(indDe(metricaAtiva))) metricaAtiva='neoP';
   ajustarOrdemMatriz();
@@ -2278,7 +2278,7 @@ function montarInicio(){
   const principais = PRINCIPAIS.filter(p=>disp(indDe(p.id)));   // só indicadores com fonte no ano
   $('inicioGrade').innerHTML = principais.map(p=>
     `<button class="ih-item" data-m="${p.id}"><span class="ih-circ">${ICONES[p.id]||''}</span><span>${p.rot}</span></button>`).join('')
-    + `<button class="ih-item ih-mapa" id="ihMapaU"><span class="ih-circ">${ICO_MAPAU}</span><span>Mapa de unidades<br>${disp('selo')?'est&aacute;gios de desempenho':'indicadores por unidade'}</span></button>`;
+    + `<button class="ih-item ih-mapa" id="ihMapaU"><span class="ih-circ">${ICO_MAPAU}</span><span>Mapa de unidades<br>${disp('avanc')?'est&aacute;gios de desempenho':'indicadores por unidade'}</span></button>`;
   $('inicioGrade').querySelectorAll('.ih-item[data-m]').forEach(b=>b.onclick=()=>entrarPainel(b.dataset.m));
   $('ihMapaU').onclick = irMapaUnidades;
   $('trilhoNav').innerHTML = `<button class="home" title="Voltar ao início" aria-label="Voltar ao início">${ICO_HOME}</button>`+
