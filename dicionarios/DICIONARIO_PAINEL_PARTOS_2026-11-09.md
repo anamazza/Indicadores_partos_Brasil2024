@@ -62,7 +62,7 @@ Siglas. AIH: autorização de internação hospitalar. AMIU: aspiração manual 
 | SMCON OBST | lista de adesão do IFF (2024) | 'ok' quando o estabelecimento aderiu ao módulo obstétrico (Parto e Nascimento; a inclusão do módulo Abortamento está em confirmação). | smO |
 | SMCON TOTAL | derivada | 0, 1 ou 2 módulos. | — |
 | **CLASSIFICAÇÃO GERAL** | | | |
-| CLASSIFICAÇÃO TOTAL ≥5 ROBSON 2 GRUPOS | derivada (campo oficial da planilha; no painel, 'seloOf') | ADEQUADO quando pelo menos 5 dos 9 marcadores da base são positivos: asfixia, enfermeira, AMIU, Robson ≥ 2, LARC, violência, SMCON NEO, SMCON OBST e unidade neonatal (SIM ou NÃO SE APLICA). No recálculo de 2025 fica em branco quando a unidade não está na lista do SMCON ou quando falta LARC ou violência. O painel recalcula a classificação com o SMCON consolidado em um único indicador (8 indicadores): campo 'selo' = 1 se n8 ≥ 5; o campo 'seloOf' guarda a classificação oficial. | seloOf; selo; nAdeq (0 a 9); n8 (0 a 8); flags (9 caracteres, na ordem acima) |
+| CLASSIFICAÇÃO TOTAL ≥5 ROBSON 2 GRUPOS | derivada (campo classificatório oficial da planilha) | ADEQUADO quando pelo menos 5 dos 9 marcadores da base são positivos: asfixia, enfermeira, AMIU, Robson ≥ 2, LARC, violência, SMCON NEO, SMCON OBST e unidade neonatal (SIM ou NÃO SE APLICA). No recálculo de 2025 fica em branco quando a unidade não está na lista do SMCON ou quando falta LARC ou violência. O painel não usa esse campo diretamente: recalcula o número de indicadores adequados com o SMCON consolidado em um único indicador (n8, de 0 a 8) e classifica o estabelecimento em estágios de desempenho (Tabela 2). O campo oficial é guardado só para auditoria. Os nomes 'selo' e 'seloOf' são identificadores internos do JSON, herdados da primeira versão; o painel não exibe o conceito de selo. | seloOf (campo oficial, 1/0); selo (identificador interno: 1 se n8 ≥ 5, isto é, estágio Avançando); nAdeq (0 a 9); n8 (0 a 8); flags (9 caracteres, na ordem acima) |
 
 ## Tabela 2. Indicadores classificatórios e estágios de desempenho
 
@@ -77,7 +77,7 @@ Siglas. AIH: autorização de internação hospitalar. AMIU: aspiração manual 
 | Atendimento de violência sexual | ≥ 2 atendimentos no ano | SIA/SUS, PA (0301040052, 0301040060), 2025; fonte de 2024 não confirmada | % de estabelecimentos adequados | violN, viol; posição 6 |
 | SMCON Neonatal e/ou Obstétrico | adesão a pelo menos um módulo | lista de adesão do IFF (2024) | % de estabelecimentos adequados (o SMCON conta uma única vez) | smN, smO; posições 7 e 8 |
 | **ESTÁGIOS DE DESEMPENHO (n8 = número de indicadores adequados entre os 8; o SMCON conta uma única vez)** | | | | |
-| Avançando | n8 ≥ 5 | derivado | número e % de estabelecimentos | selo = 1 |
+| Avançando | n8 ≥ 5 | derivado | número e % de estabelecimentos | n8; identificador interno selo = 1 |
 | Quase lá | n8 = 4 | derivado | número e % de estabelecimentos | n8 |
 | No caminho | n8 = 2 ou 3 | derivado | número e % de estabelecimentos | n8 |
 | Início da jornada | n8 = 0 ou 1 | derivado | número e % de estabelecimentos | n8 |

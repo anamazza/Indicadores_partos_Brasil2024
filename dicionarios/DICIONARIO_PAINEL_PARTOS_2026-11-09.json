@@ -652,13 +652,13 @@
      "CLASSIFICAÇÃO TOTAL ≥5 ROBSON 2 GRUPOS"
     ],
     [
-     "derivada (campo oficial da planilha; no painel, 'seloOf')"
+     "derivada (campo classificatório oficial da planilha)"
     ],
     [
-     "ADEQUADO quando pelo menos 5 dos 9 marcadores da base são positivos: asfixia, enfermeira, AMIU, Robson ≥ 2, LARC, violência, SMCON NEO, SMCON OBST e unidade neonatal (SIM ou NÃO SE APLICA). No recálculo de 2025 fica em branco quando a unidade não está na lista do SMCON ou quando falta LARC ou violência. O painel recalcula a classificação com o SMCON consolidado em um único indicador (8 indicadores): campo 'selo' = 1 se n8 ≥ 5; o campo 'seloOf' guarda a classificação oficial."
+     "ADEQUADO quando pelo menos 5 dos 9 marcadores da base são positivos: asfixia, enfermeira, AMIU, Robson ≥ 2, LARC, violência, SMCON NEO, SMCON OBST e unidade neonatal (SIM ou NÃO SE APLICA). No recálculo de 2025 fica em branco quando a unidade não está na lista do SMCON ou quando falta LARC ou violência. O painel não usa esse campo diretamente: recalcula o número de indicadores adequados com o SMCON consolidado em um único indicador (n8, de 0 a 8) e classifica o estabelecimento em estágios de desempenho (Tabela 2). O campo oficial é guardado só para auditoria. Os nomes 'selo' e 'seloOf' são identificadores internos do JSON, herdados da primeira versão; o painel não exibe o conceito de selo."
     ],
     [
-     "seloOf; selo; nAdeq (0 a 9); n8 (0 a 8); flags (9 caracteres, na ordem acima)"
+     "seloOf (campo oficial, 1/0); selo (identificador interno: 1 se n8 ≥ 5, isto é, estágio Avançando); nAdeq (0 a 9); n8 (0 a 8); flags (9 caracteres, na ordem acima)"
     ]
    ]
   ]
@@ -843,7 +843,7 @@
      "número e % de estabelecimentos"
     ],
     [
-     "selo = 1"
+     "n8; identificador interno selo = 1"
     ]
    ],
    [

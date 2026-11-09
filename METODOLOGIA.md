@@ -126,7 +126,7 @@ A classificação por estágios acompanha o número de **indicadores classificat
 - "Robson ≥2 grupos" é **um dos 8 indicadores contados**, não uma exigência à parte.
 - "Unidade Neonatal completa" conta como adequada quando é **"sim" ou "não se aplica"**.
 - O **SMCON conta uma única vez**, por adesão a qualquer um dos módulos.
-- A classificação deriva do campo classificatório oficial da planilha (ali denominado "selo de conformidade": ≥5 de 9 itens), **com os módulos do SMCON consolidados em um único indicador**.
+- A classificação deriva do campo classificatório oficial da planilha ("CLASSIFICAÇÃO TOTAL ≥5 ROBSON 2 GRUPOS": ≥5 de 9 itens), **com os módulos do SMCON consolidados em um único indicador**. O painel não adota o conceito de selo; a leitura é por estágios de desempenho.
 
 | Estágio | Critério | Brasil 2024 | Brasil 2025 (preliminar) |
 |---|---|---|---|

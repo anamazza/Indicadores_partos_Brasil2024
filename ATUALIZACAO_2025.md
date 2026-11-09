@@ -191,8 +191,9 @@ estágios de desempenho de 2025.
   vaginal assistido por enfermeira · Uso de AMIU · Asfixia Neonatal · Oferta de LARC · Atendimento de
   violência sexual · SMCON Neonatal e/ou Obstétrico (os dois módulos contam **uma vez**).
 - **Estágios de desempenho** pelo nº de indicadores adequados: **Avançando ≥5 de 8** · Quase lá = 4 ·
-  No caminho = 2–3 · Início da jornada = 0–1. O campo oficial da planilha (≥5 das 9 flags, "selo de
-  conformidade") é preservado em `seloOf` só para auditoria.
+  No caminho = 2–3 · Início da jornada = 0–1. O campo oficial da planilha (≥5 dos 9 marcadores,
+  "CLASSIFICAÇÃO TOTAL ≥5 ROBSON 2 GRUPOS") é preservado em `seloOf` só para auditoria; `selo` e `seloOf`
+  são identificadores internos e o painel não usa o conceito de selo.
 - Limiares (institucionais): asfixia ≤ 0,6% · parto por enfermeira ≥ 50% · AMIU ≥ 50% · LARC ≥ 3
   inserções de DIU/implante no ano · violência sexual ≥ 2 atendimentos · Robson por grupo G1 ≤10% ·
   G2 ≤35% · G3 ≤3% · G4 ≤15% (ref. Manual de Robson, OMS/OPAS 2017; G2 pelo limite superior da faixa
