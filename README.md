@@ -13,7 +13,7 @@ A ficha de cada unidade (mapa de unidades e lista) mostra a variação de partos
 
 **Metodologia completa:** [METODOLOGIA.md](METODOLOGIA.md)
 
-> **Base de dados por ano:** uma planilha no formato `ESTABELECIMENTOS_ACIMA_DE_1000_PARTOS_<ano>__INDICADORES` (derivada de SINASC, CNES, SIH-SUS e SMCON). 2024 é a planilha institucional de 01/07/2026; 2025 foi montada pelos scripts de `scripts/extracao/` com as regras que reproduzem a planilha de 2024 CNES a CNES (97,9% das 23.349 células; a coluna de violência sexual de 2024 não é reproduzida pelo SIA/SUS — ver [relatorios/reproducao_2024.md](relatorios/reproducao_2024.md)). Todo número exibido deriva da planilha do ano e é conferido contra ela pelo script de auditoria (2024: 41 verificações, 0 falhas; 2025: 41, 0 falhas).
+> **Base de dados por ano:** uma planilha no formato `ESTABELECIMENTOS_ACIMA_DE_1000_PARTOS_<ano>__INDICADORES` (derivada de SINASC, CNES, SIH/SUS e SMCON). 2024 é a planilha institucional de 01/07/2026; 2025 foi montada pelos scripts de `scripts/extracao/` com as regras que reproduzem a planilha de 2024 CNES a CNES (97,9% das 23.349 células; a coluna de violência sexual de 2024 não é reproduzida pelo SIA/SUS — ver [relatorios/reproducao_2024.md](relatorios/reproducao_2024.md)). Todo número exibido deriva da planilha do ano e é conferido com ela pelo script de auditoria (2024: 41 verificações, 0 falhas; 2025: 41, 0 falhas).
 
 ## Funcionalidades
 
@@ -44,11 +44,13 @@ Todos os dados são públicos e agregados por estabelecimento; não há informa�
 
 **Cobertura parcial (importante).** O painel inclui apenas estabelecimentos com mais de 1.000 partos no ano selecionado. Agregados territoriais refletem somente essas unidades, não a totalidade dos partos do território. Todo agregado exibe o número de estabelecimentos considerados.
 
-**2025 é preliminar.** O SINASC 2025 é a versão preliminar de 31/08/2026 e o SIH recebe reapresentações; os números mudam a cada extração. O atendimento de violência sexual de 2025 vem do **SIA/SUS** (produção ambulatorial: procedimentos 0301040052 e 0301040060, quantidade aprovada por estabelecimento executante, competência de realização 2025 — o atendimento é hospitalar, mas o faturamento é ambulatorial); com ele, os **estágios de desempenho de 2025 estão calculados**. Indicadores sem fonte em um ano apareceriam como "—" e suspenderiam os estágios. **Atenção:** a coluna de violência sexual da planilha 2024 não é reproduzida por esses dois procedimentos (em 11 UFs ela supera o total do SIA do estado), portanto a evolução 2024 → 2025 desse indicador e dos estágios deve ser lida com cautela até a coordenação confirmar a fonte usada em 2024 (ver METODOLOGIA 4.7). Os partos e o AMIU de 2025 são as AIH com **data de internação em 2025** (regra do dicionário da coordenação; a planilha de 2024 usou a competência 2025 — ver o relatório de reprodução). No HC FAMEMA (Marília/SP), as AIH de parto saem pelo CNES 2025507 e os nascimentos pelo 2025523 (Unidade Materno Infantil): em 2025 os dois são somados; em 2024 a planilha institucional não somou e a unidade tem os indicadores do SINASC zerados. O Dicionário de Dados do SMCON (variáveis dos módulos Parto e Nascimento, Abortamento e Cuidado Neonatal, compilado dos instrutivos e fichas públicos do IFF, com a correspondência às fontes deste painel) está em [dicionarios/DICIONARIO_SMCON_2026-11-09.md](dicionarios/DICIONARIO_SMCON_2026-11-09.md) (versão Word: [DICIONARIO_SMCON_2026-11-09.docx](dicionarios/DICIONARIO_SMCON_2026-11-09.docx)). A comparação com a planilha 2025 enviada pela coordenação está em [relatorios/comparacao_2025_tatiana.md](relatorios/comparacao_2025_tatiana.md).
+**2025 é preliminar.** O SINASC de 2025 corresponde à versão preliminar de 31/08/2026, e o SIH ainda recebe reapresentações de AIH; os números podem mudar a cada extração. O atendimento de violência sexual de 2025 foi obtido do SIA/SUS (produção ambulatorial: procedimentos 0301040052 e 0301040060, quantidade aprovada por estabelecimento executante, competência de realização 2025). Embora o atendimento seja hospitalar, o faturamento é ambulatorial. Com esse indicador, os estágios de desempenho de 2025 puderam ser calculados. Quando um indicador não tem fonte em determinado ano, ele aparece como "—" e os estágios desse ano não são calculados. A coluna de violência sexual da planilha de 2024 não é reproduzida por esses dois procedimentos (em 11 UFs, o valor da planilha supera o total do SIA no estado). Por isso, a evolução de 2024 para 2025 desse indicador e dos estágios deve ser interpretada com cautela até que a Coordenação confirme a fonte usada em 2024 (ver METODOLOGIA.md, seção 4.7). Os partos e o AMIU de 2025 correspondem às AIH com data de internação em 2025 (regra do dicionário da Coordenação). A planilha de 2024 usou a competência de processamento de 2025 para os partos e a data de saída em 2024 para o AMIU (ver [relatorios/reproducao_2024.md](relatorios/reproducao_2024.md)). No HC FAMEMA (Marília/SP), as AIH de parto são registradas no CNES 2025507 e os nascimentos no CNES 2025523 (Unidade Materno Infantil). Em 2025, os dois códigos são somados; na planilha institucional de 2024, não foram somados, e os indicadores do SINASC da unidade aparecem zerados.
+
+O Dicionário de Dados do SMCON está em [dicionarios/DICIONARIO_SMCON_2026-11-09.md](dicionarios/DICIONARIO_SMCON_2026-11-09.md) (versão Word: [DICIONARIO_SMCON_2026-11-09.docx](dicionarios/DICIONARIO_SMCON_2026-11-09.docx)). Ele reúne as variáveis dos módulos Parto e Nascimento, Abortamento e Cuidado Neonatal, compiladas dos instrutivos e das fichas públicas do IFF, com a correspondência às fontes deste painel. O Dicionário de Dados do painel está em [dicionarios/DICIONARIO_PAINEL_PARTOS_2026-11-09.md](dicionarios/DICIONARIO_PAINEL_PARTOS_2026-11-09.md) (versão Word: [DICIONARIO_PAINEL_PARTOS_2026-11-09.docx](dicionarios/DICIONARIO_PAINEL_PARTOS_2026-11-09.docx)). Ele descreve as colunas da base por estabelecimento, as regras dos 8 indicadores e dos estágios e os indicadores da comparação regional (SINASC e SIM). A comparação com a planilha de 2025 enviada pela Coordenação está em [relatorios/comparacao_2025_tatiana.md](relatorios/comparacao_2025_tatiana.md).
 
 **Estatística de agregação.** Percentuais de adequação = proporção de estabelecimentos adequados, sempre com o número absoluto (adequados/total) — inclusive a asfixia neonatal (% de estabelecimentos com taxa ≤0,6%). % Uso de AMIU e a cesariana nos grupos de Robson usam a **média** das unidades da seleção (excluídas, no caso de Robson, as sem partos no grupo). O painel **não usa mediana**.
 
-**Cesariana.** A leitura é pelos **grupos de Robson (G1 a G4)** — cada grupo tem a sua própria faixa de adequação; estabelecimento adequado = **≥2 grupos** dentro da faixa. A reprodução da planilha de 2024 mostrou que a classificação por grupo usa **intervalos** (G1 1–30% · G2 até 67% · G3 1–12% · G4 até 47%; 0% nunca é adequado), e não as metas 10/35/3/15 citadas anteriormente — os limites estão em confirmação com a coordenação. Não há meta de taxa geral de cesariana no painel.
+**Cesariana.** A leitura é pelos **grupos de Robson (G1 a G4)** — cada grupo tem a sua própria faixa de adequação; estabelecimento adequado = **≥2 grupos** dentro da faixa. A reprodução da planilha de 2024 mostrou que a classificação por grupo usa **intervalos** (G1 1–30% · G2 até 67% · G3 1–12% · G4 até 47%; 0% nunca é adequado), e não as metas 10/35/3/15 citadas anteriormente; os limites estão em confirmação com a Coordenação. Não há meta de taxa geral de cesariana no painel.
 
 **Classes do mapa.** Todos os indicadores mapeados são percentuais de adequação ("mais é melhor"). Quintis sobre os territórios visíveis no nível selecionado; escala sequencial de verdes, segura para daltonismo; faixas repetidas são colapsadas na legenda. Territórios sem estabelecimento elegível aparecem em cinza.
 
@@ -63,43 +65,51 @@ Todos os dados são públicos e agregados por estabelecimento; não há informa�
 ## Estrutura do repositório
 
 ```
-index.html               Painel final autossuficiente (publicado no GitHub Pages)
+index.html               Painel publicado (GitHub Pages), em arquivo único com os dados embutidos
 painel_template.html     Código-fonte do painel, sem dados embutidos
 METODOLOGIA.md           Metodologia dos indicadores
-ATUALIZACAO_2025.md      Briefing da atualização 2025
+ATUALIZACAO_2025.md      Resumo da atualização de 2025
 relatorios/
-  reproducao_2024.md     Reprodução da planilha 2024 a partir dos microdados (regras efetivas, diferenças, questões)
-  comparacao_regional.md Protótipo: unidades do painel × conjunto da região (SINASC completo, ocorrência e residência, IC 95 %, Robson padronizado)
+  reproducao_2024.md           Reprodução da planilha de 2024 a partir dos microdados (regras aplicadas, diferenças e questões pendentes)
+  extracao_2024_x_planilha.md  Extração de 2024 com as regras de 2025, comparada à planilha institucional
+  comparacao_2025_tatiana.md   Comparação com a planilha de 2025 enviada pela Coordenação
+  comparacao_regional.md       Protótipo de comparação entre as unidades do painel, os demais estabelecimentos e a região (SINASC e SIM; ocorrência e residência; IC 95 %; cesariana padronizada por Robson)
 planilhas/
-  COMPARACAO_REGIONAL_2024_2025.xlsx   tabelas da comparação regional (por região, por UF, Robson, cobertura)
-  ESTABELECIMENTOS_ACIMA_DE_1000_PARTOS_2024__INDICADORES_01072026.xlsx   planilha institucional de 2024
-  PLANILHA_2024_recalculada.xlsx    2024 recalculada dos microdados (rastreabilidade)
-  PLANILHA_2025_prelim_internacao.xlsx   2025 preliminar (partos e AMIU pela data de internação 2025) — base do painel
-  PLANILHA_2025_prelim_saida.xlsx        variante pela data de saída 2025
-  reproducao_2024.md / comparacao_2025_tatiana.md (em relatorios/)
+  ESTABELECIMENTOS_ACIMA_DE_1000_PARTOS_2024__INDICADORES_01072026.xlsx   Planilha institucional de 2024
+  PLANILHA_2024_recalculada.xlsx         Planilha de 2024 recalculada a partir dos microdados (rastreabilidade)
+  PLANILHA_2025_prelim_internacao.xlsx   Planilha preliminar de 2025 (partos e AMIU pela data de internação em 2025); base do painel
+  PLANILHA_2025_prelim_saida.xlsx        Variante de 2025 pela data de saída
+  EXTRACAO_2024_regras_2025.xlsx; COMPARACAO_2024_extracao_x_planilha.xlsx   Extração de 2024 com as regras de 2025 e comparação com a planilha
+  COMPARACAO_REGIONAL_2024_2025.xlsx     Tabelas da comparação regional (Cobertura, Por região, Por UF, Robson, Pesos Robson, Diagnóstico SIM)
+dicionarios/
+  DICIONARIO_PAINEL_PARTOS_<data>.md/.json/.docx   Dicionário de dados do painel (colunas da base, 8 indicadores, estágios) e da comparação regional
+  DICIONARIO_SMCON_<data>.md/.json/.docx           Dicionário de dados do SMCON (IFF/Fiocruz)
+  gera_dicionario_painel.py / gera_dicionario_smcon.py / gera_dicionario_docx.js   Geradores dos dicionários (JSON e Markdown; versão Word)
 img/
-  logos_institucionais_branco_semgov.png   Faixa IFF · Fiocruz · SUS
+  logos_institucionais_branco_semgov.png   Faixa de logotipos (IFF, Fiocruz, SUS)
 dados/
-  dados_<ano>.json       Estabelecimentos do ano com todos os campos usados
-  ano_<ano>.json         Configuração do ano: universo, extração, preliminar, indicadores sem fonte
-  geo_multi.json         Geometria dos 3 níveis territoriais (paths SVG)
-  flags_nomes.json       Nomes das 9 flags da base (o painel consolida o SMCON em 1 — 8 indicadores)
+  dados_<ano>.json       Estabelecimentos do ano, com todos os campos usados pelo painel
+  ano_<ano>.json         Configuração do ano: universo, data de extração, situação preliminar e indicadores sem fonte
+  geo_multi.json         Geometria dos três níveis territoriais (elementos path do SVG)
+  flags_nomes.json       Nomes dos 9 marcadores da base (o painel consolida o SMCON em um indicador, totalizando 8)
 scripts/
-  01_preparar_dados.py   Planilha .xlsx + ano → dados/dados_<ano>.json e dados/ano_<ano>.json
+  01_preparar_dados.py   Planilha .xlsx e ano → dados/dados_<ano>.json e dados/ano_<ano>.json
   02_gerar_geometria.py  Shapefiles/GeoJSON → dados/geo_multi.json
-  03_montar_painel.py    Template + todos os anos → index.html
-  04_auditoria.py        Confere os números do painel contra a planilha do ano
-  extracao/              Recalcula a planilha a partir dos microdados (SINASC, SIH-RD/SP, CNES):
-    sinasc_indicadores.py, sih_partos.py, sih_sp_atos.py, cnes_leitos_neo.py, cnes_habilitacoes.py,
+  03_montar_painel.py    Modelo (painel_template.html) e dados de todos os anos → index.html
+  04_auditoria.py        Confere os números do painel com a planilha do ano
+  05_conferencia.py      Conferência final antes da publicação
+  extracao/              Recalcula a planilha a partir dos microdados (SINASC, SIH-RD/SP, SIA-PA, CNES) e faz a comparação regional (SINASC e SIM):
+    sinasc_indicadores.py, sih_partos.py, sih_sp_atos.py, sia_violencia.py, cnes_leitos_neo.py, cnes_habilitacoes.py,
     regras.py (regras que reproduzem a planilha), montar_planilha.py (gera a planilha do ano),
-    reproducao_2024.py (relatório de reprodução)
-extracao/                Listas de CNES e agregados intermediários (saida/); cache/ e varreduras grandes ficam fora do git
+    reproducao_2024.py e comparar_2024.py (relatórios de reprodução e de extração de 2024),
+    regional.py, sim_regional.py e relatorio_regional.py (comparação regional)
+extracao/                Listas de CNES e agregados intermediários (saida/); a pasta cache/ e as varreduras extensas não são versionadas
 publicar_no_github.sh    Publica as alterações locais neste repositório
 ```
 
 ## Como atualizar
 
-**Com uma planilha recebida da coordenação** (mesmo formato de 57 colunas):
+**Com uma planilha recebida da Coordenação** (mesmo formato de 57 colunas):
 
 ```bash
 pip install pandas openpyxl pyshp shapely

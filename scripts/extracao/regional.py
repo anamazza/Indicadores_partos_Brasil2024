@@ -31,9 +31,12 @@ if a.lista.lower().endswith(".xlsx"):
     cnes_painel = {str(c).strip().zfill(7) for c in pd.read_excel(a.lista, engine="openpyxl")["CNES"].dropna()}
 else:
     cnes_painel = {l.strip().zfill(7) for l in open(a.lista, encoding="utf-8") if l.strip()}
+# códigos antigos/novos e complexos: se qualquer um dos códigos está na lista, todos entram
+# (a planilha 2024 traz os códigos antigos 2679663 e 3511251; a de 2025, os novos)
 for principal, antigos in list(R.ALIAS_SINASC.items()) + list(R.COMPLEXO_SINASC.items()):
-    if principal in cnes_painel:
-        cnes_painel.update(antigos)
+    grupo = {principal, *antigos}
+    if grupo & cnes_painel:
+        cnes_painel.update(grupo)
 print(f"{len(cnes_painel)} CNES do painel (com apelidos/complexos)", flush=True)
 
 CAMPOS = ["CODESTAB", "CODMUNNASC", "CODMUNRES", "LOCNASC", "PARTO", "TPROBSON", "APGAR5", "PESO",

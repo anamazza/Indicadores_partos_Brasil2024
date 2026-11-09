@@ -42,7 +42,7 @@ Os dados são públicos e agregados por estabelecimento; não há informação i
 
 **Conceituação:** disponibilidade das três tipologias de leitos para o cuidado neonatal progressivo — UTIN, UCINCo e UCINCa — conforme habilitações registradas no CNES (Portaria GM/MS nº 930/2012).
 **Parâmetro:** "sim" quando a unidade neonatal possui os três tipos de leitos; "não" quando falta pelo menos um deles; "não se aplica" quando a maternidade não possui unidade neonatal. Conta como adequada quando a resposta é **"sim" ou "não se aplica"** — condição das maternidades de risco habitual, que não constituem porta de entrada do recém-nascido grave; nesses casos, a retaguarda depende da regulação e do transporte neonatal.
-*Fonte:* CNES (leitos existentes de UTIN, UCINCo e UCINCa). Referências: Portaria GM/MS nº 930/2012; Portaria SAES/MS nº 2.902/2025.
+*Fonte:* CNES (leitos existentes de UTIN tipos II e III, códigos 81 e 82; UCINCo, 92; UCINCa, 93). Referências: Portaria GM/MS nº 930/2012; Portaria SAES/MS nº 2.902/2025.
 
 ### 4.2 Cesariana — grupos de Robson
 
@@ -181,16 +181,16 @@ Média do percentual de cesariana nos grupos: G1 36,7% · G2 67,8% · G3 18,4% �
 
 ## 8. Referências
 
-- BRASIL. Ministério da Saúde. **Portaria GM/MS nº 5.350, de 12 de setembro de 2024** — institui a Rede de Atenção Materna e Infantil no SUS.
-- BRASIL. Ministério da Saúde. **Portaria GM/MS nº 5.349, de 12 de setembro de 2024** — financiamento da Rede.
+- BRASIL. Ministério da Saúde. **Portaria GM/MS nº 5.350, de 12 de setembro de 2024** — altera a Portaria de Consolidação GM/MS nº 3/2017 para dispor sobre a Rede Alyne (Rede de Atenção Materna e Infantil), que sucede a Rede Cegonha; cria a habilitação 14.20, Hospital de Referência à Gestação e ao Puerpério de Alto Risco (HGPAR).
+- BRASIL. Ministério da Saúde. **Portaria GM/MS nº 5.349, de 12 de setembro de 2024** — altera a Portaria de Consolidação GM/MS nº 6/2017 para dispor sobre o financiamento da Rede Alyne.
 - BRASIL. Ministério da Saúde. **Portaria GM/MS nº 930, de 10 de maio de 2012** — define a organização da atenção ao recém-nascido grave ou potencialmente grave (UTIN, UCINCo e UCINCa).
-- BRASIL. Ministério da Saúde/SAES. **Portaria SAES/MS nº 2.902, de 26 de junho de 2025** — leitos e habilitações neonatais no CNES.
+- BRASIL. Ministério da Saúde/SAES. **Portaria SAES/MS nº 2.902, de 26 de junho de 2025** — atualiza as informações da atenção materna e infantil no CNES para identificação da Rede Alyne e atualiza procedimentos do SIGTAP; exclui o leito de UTI neonatal tipo I (código 80), mantendo os tipos II e III (81 e 82), UCINCo (92) e UCINCa (93).
 - BRASIL. Ministério da Saúde. **Diretrizes Nacionais de Assistência ao Parto Normal.**
 - BRASIL. Ministério da Saúde. **Atenção Humanizada ao Abortamento — norma técnica.**
 - ORGANIZAÇÃO MUNDIAL DA SAÚDE. **WHO recommendations: intrapartum care for a positive childbirth experience.** Genebra: OMS, 2018.
-- BRASIL. Ministério da Saúde. **Nota Técnica Conjunta nº 220**.
-- IFF/FIOCRUZ. **Instrutivo do SMCON** — Estratégia Qualineo.
-- MINISTÉRIO DA SAÚDE / IFF-FIOCRUZ. **Nota Técnica de ampliação do acesso ao DIU**.
+- BRASIL. Ministério da Saúde. **Nota Técnica Conjunta nº 220** — referência citada pela Coordenação; número, ano e órgãos emissores não localizados em fonte pública na conferência de 09/11/2026 (a confirmar). Sobre o tema existem a Nota Técnica Conjunta nº 31/2026 (DAHUD/SAES e DGCI/SAPS: DIU e implante no pós-evento obstétrico) e a Nota Técnica Conjunta nº 198/2026 (implantes nas maternidades).
+- IFF/FIOCRUZ. **Instrutivos do SMCON** (módulos Parto e Nascimento e Abortamento; módulo Cuidado Neonatal, abril de 2024) — Estratégia QualiNEO.
+- MINISTÉRIO DA SAÚDE / IFF-FIOCRUZ. **Nota Técnica de ampliação do acesso ao DIU** — número e ano a confirmar com a Coordenação.
 - ORGANIZAÇÃO MUNDIAL DA SAÚDE. **Robson Classification: Implementation Manual.** Genebra: OMS, 2017 (versão OPAS: *La clasificación de Robson: Manual de aplicación*).
 - BRASIL. **Lei nº 12.845, de 1º de agosto de 2013** — atendimento obrigatório a vítimas de violência sexual.
 - Dados-fonte do painel: **SINASC, CNES, SIH/SUS e SMCON** (extração de 01/07/2026).
