@@ -89,7 +89,7 @@ flush();
 const pequeno = { size: 16, color: "7F7F7F" };
 const doc = new Document({
   creator: "Painel de partos — Indicadores_partos_Brasil2024",
-  title: "Nota metodológica — Indicadores da Atenção Obstétrica e Neonatal",
+  title: "Nota metodológica — Estabelecimentos com mais de 1.000 Partos no Brasil - Atenção Obstétrica e Neonatal",
   numbering: { config: [{ reference: "marcadores", levels: [{ level: 0, format: LevelFormat.BULLET, text: "•", alignment: AlignmentType.LEFT,
     style: { paragraph: { indent: { left: 567, hanging: 283 } } } }] }] },
   styles: {

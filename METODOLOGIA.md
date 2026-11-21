@@ -3,7 +3,7 @@
 **Coordenação de Ações Nacionais e de Cooperação em Saúde da Mulher, da Criança e do Adolescente**
 Instituto Nacional de Saúde da Mulher, da Criança e do Adolescente Fernando Figueira (IFF/Fiocruz) · SUS
 
-**Indicadores da Atenção Obstétrica e Neonatal em Estabelecimentos com mais de 1.000 partos no Brasil — 2024 e 2025 (preliminar)**
+**Estabelecimentos com mais de 1.000 Partos no Brasil - Atenção Obstétrica e Neonatal — 2024 e 2025 (preliminar)**
 2024: 543 unidades · 1.253.881 partos (extração de 01/07/2026) · 2025: 555 unidades · 1.272.466 partos (preliminar; recálculo de 04/11/2026)
 Fonte dos dados: SINASC, CNES, SIH/SUS, SIA/SUS e SMCON · Documento revisado em 09/11/2026 · Dicionário de dados: `dicionarios/DICIONARIO_PAINEL_PARTOS_2026-11-09.md`
 

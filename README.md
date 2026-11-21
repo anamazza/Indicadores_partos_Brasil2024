@@ -1,4 +1,4 @@
-# Indicadores da Atenção Obstétrica e Neonatal em Estabelecimentos com mais de 1.000 partos no Brasil — 2024
+# Estabelecimentos com mais de 1.000 Partos no Brasil - Atenção Obstétrica e Neonatal
 
 Painel interativo dos estabelecimentos de saúde com **mais de 1.000 partos no ano** no Brasil e os indicadores da atenção obstétrica e neonatal, com **seletor de ano de referência**:
 
