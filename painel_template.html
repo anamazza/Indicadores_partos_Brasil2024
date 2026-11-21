@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Indicadores da Atenção Obstétrica e Neonatal · Estabelecimentos com mais de 1.000 partos</title>
+<title>Estabelecimentos com mais de 1.000 Partos no Brasil - Atenção Obstétrica e Neonatal</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -453,7 +453,7 @@ body.metodologia{overflow:hidden}
       <div style="font-size:13.5px;font-weight:600;letter-spacing:.4px;color:rgba(255,255,255,.92);text-transform:uppercase;line-height:1.5">Coordenação de Ações Nacionais e de Cooperação em Saúde<br>da Mulher, da Criança e do Adolescente</div>
       <img src="img/logos_institucionais_branco_semgov.png" alt="IFF · Fiocruz · SUS" style="width:min(400px,100%);height:auto">
     </div>
-    <h1>Indicadores da Aten&ccedil;&atilde;o Obst&eacute;trica e Neonatal em Estabelecimentos com mais de 1.000 partos no Brasil</h1>
+    <h1>Estabelecimentos com mais de 1.000 Partos no Brasil - Aten&ccedil;&atilde;o Obst&eacute;trica e Neonatal</h1>
     <p class="ih-par">Os indicadores foram selecionados considerando sua relev&acirc;ncia para o monitoramento da aten&ccedil;&atilde;o, a disponibilidade e qualidade dos dados nos sistemas de informa&ccedil;&atilde;o em sa&uacute;de, a facilidade e reprodutibilidade do c&aacute;lculo e a possibilidade de atualiza&ccedil;&atilde;o peri&oacute;dica e compara&ccedil;&atilde;o dos resultados.</p>
     <div class="ih-stats">
       <div class="ih-stat"><b id="ihEstab">&ndash;</b><span>estabelecimentos</span></div>
@@ -484,7 +484,7 @@ body.metodologia{overflow:hidden}
       <div style="font-size:11.5px;font-weight:600;letter-spacing:.4px;color:rgba(255,255,255,.92);text-transform:uppercase;line-height:1.45">Coordenação de Ações Nacionais e de Cooperação em Saúde da Mulher, da Criança e do Adolescente</div>
       <img src="img/logos_institucionais_branco_semgov.png" alt="IFF · Fiocruz · SUS" style="width:min(320px,100%);height:auto">
     </div>
-    <h1>Indicadores da Atenção Obstétrica e Neonatal <span>em Estabelecimentos com mais de 1.000 partos no Brasil</span></h1>
+    <h1>Estabelecimentos com mais de 1.000 Partos no Brasil <span>- Atenção Obstétrica e Neonatal</span></h1>
     <div class="header-sub"><span id="headerSub">543 estabelecimentos · 1,25 milhão de partos</span> · indicadores sobre leitos da Unidade Neonatal, grupos de Robson, parto por enfermeira, uso de AMIU, asfixia neonatal, oferta de LARC, atendimento de violência sexual e monitoramento pelo SMCON</div>
   </div>
 </header>
@@ -821,7 +821,7 @@ body.metodologia{overflow:hidden}
 
 <footer>
   <div class="footer-inner">
-    <div class="marca">Indicadores da Atenção Obstétrica e Neonatal <span>·</span> Painel <span class="ano-rot">2024</span></div>
+    <div class="marca">Estabelecimentos com mais de 1.000 Partos no Brasil - Atenção Obstétrica e Neonatal <span>·</span> Painel <span class="ano-rot">2024</span></div>
     <div>Fonte: SINASC / CNES / SIH-SUS / SMCON · Estabelecimentos com &gt;1.000 partos em <span class="ano-ref">2024</span> · Extração <span class="ano-extracao">01/07/2026</span></div>
     <div style="width:100%;font-size:11px;opacity:.85;margin-top:6px;line-height:1.5">Os critérios de <b>adequação</b> de cada indicador são <b>institucionais</b> (derivados de SINASC/CNES/SIH-SUS e alinhados às variáveis do SMCON/IFF-Fiocruz). A adequação de cesariana é avaliada pelos <b>grupos de Robson (G1 a G4)</b>: estabelecimento adequado quando pelo menos <b>2 grupos</b> estão dentro da referência do grupo.</div>
   </div>
@@ -2132,7 +2132,7 @@ function exportarPDF(){
   const doc=new jsPDF({orientation:'landscape',unit:'mm',format:'a4'});
   doc.setFillColor(14,122,86); doc.rect(0,0,297,22,'F');
   doc.setTextColor(255,255,255); doc.setFontSize(13); doc.setFont('helvetica','bold');
-  doc.text('Indicadores da Atenção Obstétrica e Neonatal · Estabelecimentos >1.000 partos · '+rotAno(),10,10);
+  doc.text('Estabelecimentos com mais de 1.000 Partos no Brasil - Atenção Obstétrica e Neonatal · '+rotAno(),10,10);
   doc.setFontSize(9); doc.setFont('helvetica','normal');
   const reg=$('fReg').value||'Todas', uf=$('fUF').value||'Todas', mun=$('fMun').value||'Todos';
   doc.text(`Seleção: Região ${reg} · UF ${uf} · Município ${mun} · ${filtrado.length} estabelecimentos`,10,17);
@@ -2232,7 +2232,7 @@ function aplicarTextosAno(){
   document.querySelectorAll('.ano-ref').forEach(e=>e.textContent=ANO);
   document.querySelectorAll('.ano-rot').forEach(e=>e.textContent=rotAno());
   document.querySelectorAll('.ano-extracao').forEach(e=>e.textContent=c.extracao||'—');
-  document.title='Indicadores da Atenção Obstétrica e Neonatal · Estabelecimentos com mais de 1.000 partos · '+ANO;
+  document.title='Estabelecimentos com mais de 1.000 Partos no Brasil - Atenção Obstétrica e Neonatal · '+ANO;
   if($('headerSub')) $('headerSub').textContent=fmt(n)+' estabelecimentos · '+fmt(partos)+' partos em '+rotAno();
   if($('metUniverso')) $('metUniverso').textContent='Universo: estabelecimentos com mais de 1.000 partos em '+ANO+' ('+fmt(n)+' unidades; '+fmt(partos)+' partos). Extração de '+(c.extracao||'—')+'.'+(c.preliminar?' Dados preliminares.':'');
   const met=METRICAS.find(m=>m.id==='partos'); if(met) met.leg='Partos em '+ANO;
