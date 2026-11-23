@@ -968,7 +968,7 @@ function renderKPIs(){
   ];
   $('kpis').innerHTML = kpis.map(k=>
     `<div class="kpi ${k.c}"><div class="valor">${k.v}</div><div class="rotulo">${k.r}</div></div>`).join('')
-    + `<button class="kpi" onclick="abrirMetodologia()" title="Como cada indicador é calculado"><div class="valor" style="color:var(--indigo)">&#9432; Metodologia</div><div class="rotulo">Fichas de qualificação dos indicadores · toque para abrir</div></button>`;
+    + (!METODOLOGIA_ATIVA ? '' : `<button class="kpi" onclick="abrirMetodologia()" title="Como cada indicador é calculado"><div class="valor" style="color:var(--indigo)">&#9432; Metodologia</div><div class="rotulo">Fichas de qualificação dos indicadores · toque para abrir</div></button>`);
 }
 
 function destruir(id){ if(charts[id]){charts[id].destroy(); delete charts[id];} }
@@ -2092,7 +2092,10 @@ function toggleMapaUnidades(){
 function exportarMapaUnidadesPNG(){ alert('Para exportar o mapa, use a captura de tela do navegador.'); }
 
 /* ===== visão de metodologia ===== */
+/* 23/11/2026 (coordenação): metodologia desabilitada até a revisão dos textos; para reabilitar, trocar para true */
+const METODOLOGIA_ATIVA = false;
 function abrirMetodologia(){
+  if(!METODOLOGIA_ATIVA) return;
   document.body.classList.add('metodologia');
   const v = document.getElementById('metodologiaView');
   if(v) v.scrollTop = 0;
